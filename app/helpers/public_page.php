@@ -7,41 +7,33 @@ class Public_Page {
             <!DOCTYPE html>
             <html lang="es">
             <head>
-                <!--Se establece la codificación de caracteres para el documento-->
                 <meta charset="utf-8">
-                <!--Se importa la fuente de iconos de Google-->
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                <!--Se importan los archivos CSS-->
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                 <link type="text/css" rel="stylesheet" href="../../resources/css/public_styles.css" />
-                <!--Se informa al navegador que el sitio web está optimizado para dispositivos móviles-->
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <!--Título del documento-->
                 <title>'.$title.'</title>
             </head>
             
             <body>
-                <!--Encabezado del documento-->
-                <header>
-                    <!--Barra de navegación fija-->
-                    <div class="navbar-fixed">
-                        <nav class="blue">
-                            <div class="nav-wrapper">
-                                <a href="index.php" class="brand-logo"><img src="../../resources/img/logo.png" height="65"></a>
-                                <a href="#" data-target="mobile-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                                <ul class="right hide-on-med-and-down">
-                                    <li><a href="https://materializecss.com/cards.html">Cards</a></li>
-                                    <li><a href="https://materializecss.com/icons.html">Icons</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <!--Navegación lateral para dispositivos móviles-->
-                    <ul class="sidenav" id="mobile-sidenav">
-                        <li><a href="https://materializecss.com/cards.html">Cards</a></li>
-                        <li><a href="https://materializecss.com/icons.html">Icons</a></li>
-                    </ul>
-                </header>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a href="#" class="navbar-brand">Brand</a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav">
+            <a href="#" class="nav-item nav-link active">Home</a>
+            <a href="#" class="nav-item nav-link">Profile</a>
+            <a href="#" class="nav-item nav-link">Messages</a>
+            <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a href="#" class="nav-item nav-link">Login</a>
+        </div>
+    </div>
+        </nav>
                 <!--Contenido principal del documento-->
                 <main>
         ');
@@ -52,34 +44,15 @@ class Public_Page {
         print('
                 </main>
                 <!--Pie del documento-->
-                <footer class="page-footer blue">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col l6 s12">
-                                <h5 class="white-text">Footer Content</h5>
-                                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
-                                    content.</p>
-                            </div>
-                            <div class="col l4 offset-l2 s12">
-                                <h5 class="white-text">Links</h5>
-                                <ul>
-                                    <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                                    <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                                    <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                                    <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer-copyright">
-                        <div class="container">
-                            © 2014 Copyright Text
-                            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-                        </div>
+                <footer>
+                    <div class="container-fluid">
+                        <h1>Pie de pagina</h1>
                     </div>
                 </footer>
                 <!--Importación de archivos JavaScript al final del cuerpo para una carga optimizada-->
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
                 <script src="../../app/controllers/public/'.$controller.'"></script>
             </body>
             </html>
