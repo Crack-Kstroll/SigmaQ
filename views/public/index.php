@@ -5,9 +5,11 @@ include('../../app/helpers/public_page.php');
 Public_Page::headerTemplate('Bienvenido');
 ?>
 
+<center><h1>PRUEBA PARA REPOSITORIO ACTUALIZACION DE CAMBIOS</h1></center><br><br>
+
 <!--Componente slider con una altura de 400 píxeles e imágenes de 1600x400 píxeles-->
 <div class="slider">
-    <ul class="slides">
+    <ul class="slides"> 
         <li>
             <img src="../../resources/img/slider/image01.png">
             <div class="caption center-align">
