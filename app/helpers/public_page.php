@@ -16,26 +16,25 @@ class Public_Page {
             </head>
             
             <body>
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <a href="#" class="navbar-brand">Brand</a>
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+                <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                    <a href="#" class="navbar-brand">Brand</a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav">
-            <a href="#" class="nav-item nav-link active">Home</a>
-            <a href="#" class="nav-item nav-link">Profile</a>
-            <a href="#" class="nav-item nav-link">Messages</a>
-            <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
-        </div>
-        <div class="navbar-nav ml-auto">
-            <a href="#" class="nav-item nav-link">Login</a>
-        </div>
-    </div>
-        </nav>
-                <!--Contenido principal del documento-->
-                <main>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav">
+                            <a href="../dashboard/index.php" class="nav-item nav-link active">Sitio Privado</a>
+                            <a href="#" class="nav-item nav-link">Profile</a>
+                            <a href="#" class="nav-item nav-link">Messages</a>
+                            <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
+                        </div>
+                    <div class="navbar-nav ml-auto">
+                        <a href="#" class="nav-item nav-link">Login</a>
+                    </div>
+                </div>
+            </nav>
+            <main>
         ');
     }
 
@@ -44,10 +43,8 @@ class Public_Page {
         print('
                 </main>
                 <!--Pie del documento-->
-                <footer>
-                    <div class="container-fluid">
-                        <h1>Pie de pagina</h1>
-                    </div>
+                <footer class="bg-dark">
+                  <h1>Pie de pagina</h1>
                 </footer>
                 <!--Importación de archivos JavaScript al final del cuerpo para una carga optimizada-->
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

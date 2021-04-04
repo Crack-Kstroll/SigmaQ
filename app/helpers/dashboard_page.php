@@ -16,45 +16,26 @@ class Dashboard_Page {
             </head>
             
             <body>
-                <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a href="#" class="navbar-brand">Brand</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="../public/index.php" class="nav-item nav-link active">Sitio Publico</a>
+                    <a href="#" class="nav-item nav-link">Profile</a>
+                    <a href="#" class="nav-item nav-link">Messages</a>
+                    <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
                 </div>
-              </nav>
-                </header>
-                <!--Contenido principal del documento-->
-                <main>
+            <div class="navbar-nav ml-auto">
+                <a href="#" class="nav-item nav-link">Login</a>
+            </div>
+        </div>
+    </nav>
+                
+            <main>
         ');
     }
 
@@ -62,10 +43,8 @@ class Dashboard_Page {
     public static function footerTemplate($controller) {
         print('
                 </main>
-                <footer>
-                    <div class="container-fluid">
-                        <h1>Pie de pagina</h1>
-                    </div>
+                <footer class="bg-dark">
+                  <h1>Pie de pagina</h1>
                 </footer>
 
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
