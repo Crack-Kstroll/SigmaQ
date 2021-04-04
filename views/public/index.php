@@ -6,7 +6,7 @@ Public_Page::headerTemplate('SigmaQ');
 ?>
 
 <center><h1>PRUEBA PARA REPOSITORIO ACTUALIZACION DE CAMBIOS</h1></center><br><br>
-
+<p>TEXTO DE PRUEBA AGREGANDO CODIGO DESDE EL REPOSITORIO EN GITHUB</p>
 <!--Componente slider con una altura de 400 píxeles e imágenes de 1600x400 píxeles-->
 <div class="slider">
     <ul class="slides"> 
