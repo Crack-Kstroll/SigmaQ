@@ -2,7 +2,7 @@
 //Se incluye la clase con las plantillas del documento
 include('../../app/helpers/public_page.php');
 //Se imprime la plantilla del encabezado y se envía el titulo para la página web
-Public_Page::headerTemplate('Bienvenido');
+Public_Page::headerTemplate('SigmaQ');
 ?>
 
 <center><h1>PRUEBA PARA REPOSITORIO ACTUALIZACION DE CAMBIOS</h1></center><br><br>
@@ -31,14 +31,11 @@ Public_Page::headerTemplate('Bienvenido');
                 <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
             </div>
         </li>
-        <li>
-            <img src="../../resources/img/slider/image04.png">
-            <div class="caption center-align">
-                <h3>This is our big Tagline! a</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-            </div>
-        </li>
     </ul>
+</div>
+
+<div class="container red">
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum nostrum, laborum possimus, ullam, molestiae amet porro facilis dolorem reiciendis nisi saepe ab aut similique voluptate. Eaque modi totam assumenda animi!</p>
 </div>
 
 <!--Disparador del modal-->

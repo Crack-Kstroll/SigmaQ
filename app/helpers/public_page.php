@@ -17,7 +17,7 @@ class Public_Page {
                 <!--Se informa al navegador que el sitio web está optimizado para dispositivos móviles-->
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <!--Título del documento-->
-                <title>Tienda - '.$title.'</title>
+                <title>'.$title.'</title>
             </head>
             
             <body>
