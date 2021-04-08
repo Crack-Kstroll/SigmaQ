@@ -16,7 +16,7 @@ class Public_Page {
             </head>
             
             <body>
-                <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
                     <a href="#" class="navbar-brand">Brand</a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>

@@ -7,3 +7,11 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+#jumbo_estado {
+    background-image: url(https://www.mascontainer.com/wp-content/uploads/2020/07/Bayer-Espa%C3%B1a.jpg);
+    background-color: #4D7499;
+    background-blend-mode: soft-light;
+    text-align: center;
+    color: #ffffff;
+}
