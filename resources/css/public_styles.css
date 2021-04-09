@@ -8,10 +8,70 @@ main {
     flex: 1 0 auto;
 }
 
-#jumbo_estado {
-    background-image: url(https://www.mascontainer.com/wp-content/uploads/2020/07/Bayer-Espa%C3%B1a.jpg);
-    background-color: #4D7499;
-    background-blend-mode: soft-light;
+/***********NAVBAR****************************************************/
+
+#navbar--header {
+    padding: 5px 16px !important;
+    display: flex;
+    justify-content: space-between;
+    background: black !important;
+}
+
+.nav--logo {
+    margin: 0px 25px !important;
+    width: 120px;
+    height: 75px;
+}
+
+.nav--user__icon {
+    margin: 0px 25px !important;
+    width: 40px;
+    height: 40px;
+}
+
+#navbar--options {
+    padding: 10px 16px !important;
+}
+
+/***********FOOTER****************************************************/
+.footer {
+    background: black;
+    color: white;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+.redes-sociales {
+    margin-left: 15px;
+}
+
+.redes-sociales__text {
+    margin-right: 5px;
+}
+
+.redes-sociales__icon {
+    width: 35px;
+    margin: 0px 10px;
+}
+
+.copyright {
     text-align: center;
-    color: #ffffff;
+    font-size: 12px;
+    margin: 10px 0px;
+}
+
+@media only screen and (max-width: 660px) {
+    .info {
+        flex-direction: column;
+    }
+
+    .redes-sociales__icon {
+        width: 30px;
+    }
 }
