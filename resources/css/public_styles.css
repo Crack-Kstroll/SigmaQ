@@ -75,3 +75,43 @@ main {
         width: 30px;
     }
 }
+
+
+/************JUMBOTRON***************/
+#jumbo_estado {
+    background-image: url(https://www.mascontainer.com/wp-content/uploads/2020/07/Bayer-Espa%C3%B1a.jpg);
+    background-color: #4D7499;
+    background-blend-mode: soft-light;
+    text-align: center;
+    color: #ffffff;
+}
+
+/**************BOTÓN PARA CONFIGURAR TABLA************/
+#conf_tabla_estado {
+    float: right;
+    margin-bottom: 1%;
+}
+
+/***************TABLA****************/
+#tabla {
+    font-size: small;
+    text-align: center;
+}
+
+#cabecera_tabla {
+    background-color: #343a40;
+    color: white;
+}
+
+/*********ÍNDICE DE ENTREGA*********/
+#container_total {
+    margin-top: 1%;
+}
+
+#imagen_indice {
+    width: 50%;
+    height: 50%;
+    display: block;
+    margin: auto;
+    margin-bottom: 3%;
+}
