@@ -1,14 +1,80 @@
-body {
-    display: flex;
+.fondoNegro{
+    background-color:black;
+}
+
+#informacion img{
+    max-width:70px;
+    max-height:70px;
+    padding-top:0px;
+    padding-left:0px;
+}
+
+#informacion h6{
+    padding-top:5px;
+    padding-right:0px;
+    font-size:12px;
+}
+
+.espacioInformacion{
+    padding-top:8px;
+}
+
+#logoSidebar{
+
+    justify-content: center;
+    padding-top:20px;
+    padding-bottom:15px;
+}
+
+#logoSidebar img{
+    width:240px;
+    height:130px;
+}
+
+.textoGris{
+    color: #D3D3D3; 
+    font-size:16px;
+}
+
+.textoBlanco{
+    color:white; 
+    font-size:16px;
+}
+
+.fondoAcordeon{
+    background-color:#2B2929;
+}
+
+.fondoOpciones{
+    background-color:#7D7D7D;
+    border: white 3px solid;
+}
+
+.sinBorde{
+    border:0;
+}
+
+#informacion{
+    padding-bottom:10px;
+    background-color:black;
+}
+
+#sidebar-wrapper{
     min-height: 100vh;
-    flex-direction: column;
 }
 
-main {
-    flex: 1 0 auto;
+.a{
+    position: absolute;
+    bottom: 0;
+    width:33.50vh;
 }
 
-#wrapper {
-    overflow-x: hidden;
- }
+.espacioOpciones{
+    padding-top:20px;
+}
 
+.tamañoIconos{
+    height:30px;
+    width:40px;
+    padding-right:10px;
+}
