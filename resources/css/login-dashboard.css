@@ -140,7 +140,7 @@ form h2 {
     font-size: 1.2rem;
     outline: none;
     border: none;
-    background-image: linear-gradient(to right, #720600, #7a0600, #802924);
+    background-image: linear-gradient(to right, #000, #000, rgb(44, 44, 44));
     cursor: pointer;
     color: #fff;
     text-transform: uppercase;
