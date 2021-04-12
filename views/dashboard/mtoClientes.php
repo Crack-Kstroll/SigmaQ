@@ -260,7 +260,7 @@ table.table .avatar {
     left: 10px;
 }
 
-.letraBlanca{
+.fontWhite{
     color:white;
 }
 
@@ -282,9 +282,14 @@ table.table .avatar {
     padding-left:5px;
 }
 
+.tamañoTabla{
+	max-height: 95%;
+}
+
 .espacioSuperior{
 	padding-top:50px;
 }
+
 </style>
 
 <script>
@@ -313,63 +318,60 @@ $(document).ready(function(){
 	});
 });
 
-</script>  
-    <div class="container-fluid espacioSuperior">
-        <h5 class="tituloMto">Gestion de clientes</h5>
+</script>
+<div id="contenido" class="container-fluid fondo"> <!-- Contenedor de todo el contenido de la pagina-->
+    <div id="tituloPagina" class="container-fluid espacioSuperior"> <!-- Seccion de titulo de pagina-->
+		<h5 class="tituloMto">Gestion de clientes</h5>
         <img src="../../resources/img/division.png" class="separador" alt="">
-    </div>
-    <br><br>
-
-    <div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-5">
+    </div> 	<!-- Cierra seccion de titulo de pagina -->
+    <div id="filtros" class="container-fluid"> <!-- Seccion de filtros de busqueda -->
+		<div class="row"> <!-- Fila seccion de filtros de busqueda -->
+			<div class="col-sm-5"> <!-- Seccion de filtros de opciones -->
                 <div class="row">
-
-                    <div class="col-5">
+                    <div class="col-5"> <!-- Seccion tipo busqueda -->
                         <h6 class="textoMostrar">Mostrar por estado</h6>
-                    </div>
-                    <div class="col-7">
-                    <div class="dropdown">
-				<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Seleccione el estado
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				  <a class="dropdown-item" href="#">Activo</a>
-				  <a class="dropdown-item" href="#">Bloqueado</a>
-				  <a class="dropdown-item" href="#">Inactivo</a>
-				</div>
-			</div>
-			        </div>
-				</div>
-            </div>
-			<div class="col-sm-7">
+                    </div> <!-- Cierra seccion tipo de busqueda -->
+                    <div class="col-7"> <!-- Seccion de filtros -->
+                    	<div class="dropdown">
+							<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Seleccione el estado
+							</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				  			<a class="dropdown-item" href="#">Activo</a>
+				  			<a class="dropdown-item" href="#">Bloqueado</a>
+				  			<a class="dropdown-item" href="#">Inactivo</a>
+						</div>
+					</div> <!-- Cierra seccion de filtros -->
+			    </div>
+			</div> <!-- Cierra seccion de filtros de opciones -->
+        	</div>
+			<div class="col-sm-7"> <!-- Seccion de busqueda filtrada -->
 				<div class="search-box">
 					<i class="material-icons">&#xE8B6;</i>
 					<input type="text" class="form-control" placeholder="Busqueda filtrada&hellip;">
 				</div>
-			</div>
-		</div>
-	</div>
-
-    <div id="tablaClientes" class="container-fluid">
-		<div class="table-responsive borde">
+			</div> <!-- Cierra seccion de busqueda filtrada -->
+		</div> <!-- Cierra fila de seccion de filtros de busqueda -->
+	</div>	<!-- Cierra seccion de filtros de busqueda -->
+    <div id="tablaClientes" class="container-fluid"> <!-- Seccion de tabla de clientes -->
+		<div class="table-responsive borde"> <!-- Tabla de clientes -->
 			<div class="table-wrapper">
-				<div class="table-title">
+				<div class="table-title"> <!-- Cabecera de la tabla -->
 					<div class="row">
 						<div class="col-sm-6">
-							<h2 class="letraBlanca">Mantenimiento de <b>clientes</b></h2>
+							<h2 class="fontWhite">Mantenimiento de <b>clientes</b></h2>
 						</div>
 						<div class="col-sm-6">
 							<a href="#modalMantenimientoContactos" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Registrar contactos</span></a>			
 							<a href="#modalIngresarCliente" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Agregar nuevo cliente</span></a>					
 						</div>
 					</div>
-				</div>
-				<table class="table table-striped table-hover">
+				</div> <!-- Cierra cabecera de la tabla -->
+				<table class="table table-striped table-hover"> <!-- Seccion de contenido de la tabla -->
 					<thead>
 						<tr>
 							<th>
-								<span class="custom-checkbox">
+								<span class="custom-checkbox"> <!-- Checkbox para marcar registros -->
 									<input type="checkbox" id="selectAll">
 									<label for="selectAll"></label>
 								</span>
@@ -439,8 +441,8 @@ $(document).ready(function(){
 							</td>
 						</tr>						
 					</tbody>
-				</table>
-				<div class="clearfix">
+				</table> <!-- Cierra seccion de contenido de la tabla -->
+				<div class="clearfix"> <!-- Seccion inferior de la tabla controles-->
 					<div class="hint-text">Mostrando <b>3</b> de <b>9</b> registros</div>
 					<ul class="pagination">
 						<li class="page-item"><a href="#" class="page-link">Anterior</a></li>
@@ -449,21 +451,19 @@ $(document).ready(function(){
 						<li class="page-item"><a href="#" class="page-link">3</a></li>
 						<li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
 					</ul>
-				</div>
+				</div> <!-- Cierra seccion inferior de la tabla controles-->
 			</div>
-		</div>        
-	</div><br><br><br><br>
-	
-	<!-- Edit Agregar HTML -->
-	<div id="modalMantenimientoContactos" class="modal fade">
+		</div><!-- Cierra la tabla de clientes -->        
+	</div> <!-- Cierra seccion de tabla de clientes -->
+	<div id="modalMantenimientoContactos" class="modal fade"> <!-- Modal de mantenimiento de contactos -->
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content"> <!-- Seccion de contenido del modal -->
 				<form>
-					<div class="modal-header">						
+					<div class="modal-header">	<!-- Seccion de cabecera del modal -->					
 						<h4 class="modal-title">Mantenimiento de contactos</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
+					</div> <!-- Cierra cabecera del modal -->
+					<div class="modal-body"> <!-- Seccion cuerpo del modal -->		
 						<div class="container">
 							<div class="row">
 	
@@ -563,15 +563,14 @@ $(document).ready(function(){
 						</div>
 
 
-					</div>
-					<div class="modal-footer">
+					</div> <!-- Cierra seccion del cuerpo del modal -->
+					<div class="modal-footer"> <!-- Seccion de pie de modal-->
 						<input type="button" class="btn btn-info" data-dismiss="modal" value="Salir">
-					</div>
+					</div> <!-- Cierra el pie del modal -->
 				</form>
-			</div>
+			</div> <!-- Cierra seccion de contenido del modal -->
 		</div>
-	</div>
-
+	</div><!-- Cierra el modal de mantenimiento de contactos -->
 	<!-- Edit Agregar HTML -->
 	<div id="modalIngresarCliente" class="modal fade">
 		<div class="modal-dialog">
@@ -711,7 +710,6 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-
 <?php
 Dashboard_Page::footerTemplate('../../resources/js/dashboard.js');
 ?>

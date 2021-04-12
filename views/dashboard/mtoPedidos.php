@@ -318,7 +318,7 @@ $(document).ready(function(){
 });
 
 </script>
-
+<div id="contenido" class="container-fluid fondo">
     <div class="container-fluid espacioSuperior">
         <h5 class="tituloMto">Gestion de pedidos</h5>
         <img src="../../resources/img/division.png" class="separador" alt="">

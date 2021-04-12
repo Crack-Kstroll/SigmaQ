@@ -19,17 +19,15 @@ class Dashboard_Page
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
         </head>
         <body>
-
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="fondoNegro border-right" id="sidebar-wrapper">     
-            <div id="logoSidebar" class="container-fluid fondoNegro">
+    <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
+        <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
+            <div id="logoSidebar" class="container-fluid fondoNegro"> <!-- Seccion del logo de SigmaQ -->
                 <a href="index.php">
                     <img src="../../resources/img/dashboardLogo.png" alt="">
                 </a>
                 <hr style="border-color: white;">
-            </div>    
-            <div class="container-fluid">
+            </div>   <!-- Cierra seccion logo --> 
+            <div class="container-fluid"> <!-- Seccion de infomacion de usuario -->
                 <div id="informacion" class="row">
                     <div class="col-4 fondoNegro">
                         <img src="../../resources/img/profileCastro.png" alt="fotoPerfil">
@@ -39,17 +37,13 @@ class Dashboard_Page
                         <h6 class="textoBlanco">Diego Castro</h6>  
                     </div>
                 </div>
-            </div>
-    
-            <div class="list-group list-group-flush fondoNegro espacioOpciones">
-          
-                <div class="card-header fondoAcordeon" id="headingOne">  
+            </div>   <!-- Cierra seccion informacion de usuario -->
+            <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
+                <div class="card-header fondoAcordeon" id="headingOne"> 
                     <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
                         Mantenimientos
                     </button>            
-                </div>
-        
-       
+                </div>      
                 <a href="mtoUsuarios.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
                     <img class="tamañoIconos" src="../../resources/img/iconUsuario.png" alt=""> 
                         Usuarios
@@ -70,14 +64,13 @@ class Dashboard_Page
                     <img class="tamañoIconos" src="../../resources/img/iconPedidos.png" alt=""> 
                     Estatus de pedidos
                 </a>                              
-            </div>
-         
-            <div class="container-fluid a fondoAcordeon">
+            </div>  <!-- Cierra seccion de opciones del sidebar -->  
+            <div class="container-fluid a fondoAcordeon"> <!-- Seccion de la opcion cerrar sesion-->
                 <a href="LogIn.php" class="list-group-item fondoAcordeon textoBlanco sinBorde">
                     <img class="tamañoIconos" src="../../resources/img/iconCerrarSesion.png" alt=""> 
                     Cerrar Sesion
                 </a>
-            </div>  
+            </div>  <!-- Cierra seccion cerrar sesion -->
         </div>
 
     <style>
@@ -162,25 +155,96 @@ class Dashboard_Page
             padding-right:10px;
         }
     
-        .fondo{background-color:white; }
+        .fondo{
+            background-color:white; 
+        }
+        .fondoVerde{
+            background-color:green;
+        }
+        
+        .fondoAzul{
+            background-color:blue;
+        }
+        
+        .fondoAnaranjado{
+            background-color:orange;
+        }
+        
+        .fondoRojo{
+            background-color:red;
+        }
+        
+        .iconosEstadisticas{
+            width:50px;
+            height:50px;
+        }
+        
+        #cartaIndex h5,p{
+            color:white;
+        }
+        
+        .alinearDerecha{
+            text-align:right;
+        }
+        
+        .pieCarta{
+            height:35px;
+        }
+        
+        .letraBlancaEspacio{
+            
+            padding-top:105px;
+            -webkit-text-stroke: 1px black;
+            color:white;
+        }
+        
+        .letraBlancaIndex{
+            -webkit-text-stroke: 1px black;
+            color:white;
+        }
+        
+        #fondo{
+            background-image: url(../../resources/img/fondoIndex.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 310px;
+            color: white;
+            text-align:center;
+            opacity: 0.75;
+        }
+        
+        #cartas{
+            padding-top:30px;
+        }
+        
+        .espacioCartas{
+            padding-bottom:20px;
+        }
+        
+        .centrar{
+            text-align:center;
+        }
+        
+        .tamaño-grafica{
+            width:90%;
+            height:200px;
+        }
+        
     
     </style>
 
-    <div id="contenido" class="container-fluid fondo">
         ');
     }
 
     //Método para imprimir el pie y establecer el controlador del documento
     public static function footerTemplate($controller) {
         print('
-            </div>
-        </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="'.$controller.'"></script>
+        <script type="text/javascript" src="'.$controller.'"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
         </body>
         </html>
         ');
