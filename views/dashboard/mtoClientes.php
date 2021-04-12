@@ -290,6 +290,11 @@ table.table .avatar {
 	padding-top:50px;
 }
 
+.espacioBotones{
+	padding-bottom:10px;
+	width:250px;
+}
+
 </style>
 
 <script>
@@ -324,14 +329,14 @@ $(document).ready(function(){
 		<h5 class="tituloMto">Gestion de clientes</h5>
         <img src="../../resources/img/division.png" class="separador" alt="">
     </div> 	<!-- Cierra seccion de titulo de pagina -->
-    <div id="filtros" class="container-fluid"> <!-- Seccion de filtros de busqueda -->
+    <div id="filtros" class="container-fluid espacioSuperior"> <!-- Seccion de filtros de busqueda -->
 		<div class="row"> <!-- Fila seccion de filtros de busqueda -->
 			<div class="col-sm-5"> <!-- Seccion de filtros de opciones -->
                 <div class="row">
-                    <div class="col-5"> <!-- Seccion tipo busqueda -->
+                    <div class="col-md-12 col-lg-5"> <!-- Seccion tipo busqueda -->
                         <h6 class="textoMostrar">Mostrar por estado</h6>
                     </div> <!-- Cierra seccion tipo de busqueda -->
-                    <div class="col-7"> <!-- Seccion de filtros -->
+                    <div class="col-md-12 col-lg-7"> <!-- Seccion de filtros -->
                     	<div class="dropdown">
 							<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Seleccione el estado
@@ -345,7 +350,7 @@ $(document).ready(function(){
 			    </div>
 			</div> <!-- Cierra seccion de filtros de opciones -->
         	</div>
-			<div class="col-sm-7"> <!-- Seccion de busqueda filtrada -->
+			<div class="col-7"> <!-- Seccion de busqueda filtrada -->
 				<div class="search-box">
 					<i class="material-icons">&#xE8B6;</i>
 					<input type="text" class="form-control" placeholder="Busqueda filtrada&hellip;">
@@ -358,12 +363,18 @@ $(document).ready(function(){
 			<div class="table-wrapper">
 				<div class="table-title"> <!-- Cabecera de la tabla -->
 					<div class="row">
-						<div class="col-sm-6">
+						<div class="col-sm-7 col-md-8 col-xl-6">
 							<h2 class="fontWhite">Mantenimiento de <b>clientes</b></h2>
 						</div>
-						<div class="col-sm-6">
-							<a href="#modalMantenimientoContactos" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Registrar contactos</span></a>			
-							<a href="#modalIngresarCliente" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Agregar nuevo cliente</span></a>					
+						<div class="col-sm-5 col-md-4 col-xl-6">
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-6">
+									<a href="#modalMantenimientoContactos" class="btn btn-info espacioBotones" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Registrar contactos</span></a>
+								</div>
+								<div class="col-sm-12 col-md-12 col-lg-6">				
+									<a href="#modalIngresarCliente" class="btn btn-success espacioBotones" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Agregar cliente</span></a>
+								</div>
+							</div>					
 						</div>
 					</div>
 				</div> <!-- Cierra cabecera de la tabla -->
@@ -571,18 +582,16 @@ $(document).ready(function(){
 			</div> <!-- Cierra seccion de contenido del modal -->
 		</div>
 	</div><!-- Cierra el modal de mantenimiento de contactos -->
-	<!-- Edit Agregar HTML -->
-	<div id="modalIngresarCliente" class="modal fade">
+	<div id="modalIngresarCliente" class="modal fade"><!-- Modal de ingreso de clientes -->
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
-					<div class="modal-header">						
+					<div class="modal-header">	<!-- Seccion cabecera del modal -->					
 						<h4 class="modal-title">Agregar nuevo cliente</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
+					</div> <!-- Cierra cabecera del modal -->
+					<div class="modal-body">  <!-- Seccion cuerpo del modal -->					
 						<div class="row">
-	
 							<div class="col-6">
 								<div class="form-group">
 									<label>Empresa</label>
@@ -596,7 +605,7 @@ $(document).ready(function(){
 									<label>Correo</label>
 									<input type="text" class="form-control" required>
 								</div>						
-							</div>
+							</div> 
 							
 							<div class="col-6">
 	
@@ -620,28 +629,25 @@ $(document).ready(function(){
 									
 							</div>
 						</div>
-					</div>
-					<div class="modal-footer">
+					</div> <!-- Cierra cuerpo del modal -->
+					<div class="modal-footer"> <!-- Pie del modal -->
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-success" value="Agregar Usuario">
-					</div>
+					</div> <!-- Cierra pie del modal -->
 				</form>
 			</div>
 		</div>
-	</div>
-
-	<!-- Edit Modal HTML -->
-	<div id="modalModificarCliente" class="modal fade">
+	</div><!-- Cierra el modal de ingreso de clientes -->
+	<div id="modalModificarCliente" class="modal fade"> <!-- Modal de modificacion de clientes -->
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
-					<div class="modal-header">						
+					<div class="modal-header">	<!-- Seccion de cabecera del modal -->					
 						<h4 class="modal-title">Editar usuario</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
+					</div>	<!-- Cierra cabecera del modal -->
+					<div class="modal-body">  <!-- Seccion del cuerpo del modal -->		
 						<div class="row">
-	
 							<div class="col-6">
 								<div class="form-group">
 									<label>Empresa</label>
@@ -655,10 +661,8 @@ $(document).ready(function(){
 									<label>Correo</label>
 									<input type="text" class="form-control" value="Bayer@gmail.com" required>
 								</div>						
-							</div>
-							
+							</div>		
 							<div class="col-6">
-	
 								<div class="form-group">
 									<label>Estado</label>
 									<select id="inputState" class="form-control">
@@ -675,41 +679,39 @@ $(document).ready(function(){
 									<div class="form-group">
 										<input type="text" class="form-control" value="Diego" required>
 									</div>
-								</div>
-									
+								</div>								
 							</div>
 						</div>
-					</div>
-					<div class="modal-footer">
+					</div>	<!-- Cierra cuerpo del modal -->
+					<div class="modal-footer">	<!-- Seccion del pie del modal -->
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-info" value="Actualizar">
-					</div>
+					</div>	<!-- Cierra pie del modal -->
 				</form>
 			</div>
 		</div>
-	</div>
-
-	<!-- Delete Modal HTML -->
-	<div id="modalEliminarCliente" class="modal fade">
+	</div>	<!-- Cierra modal de modificacion de cliente -->
+	<div id="modalEliminarCliente" class="modal fade">	<!-- Modal de eliminacion de cliente -->
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form>
-					<div class="modal-header">						
+					<div class="modal-header">	<!-- Seccion cabecera del modal -->					
 						<h4 class="modal-title">Eliminar Cliente</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
+					</div>	<!-- Cierra cabecera del modal -->
+					<div class="modal-body">	<!-- Seccion cuerpo del modal -->		
 						<p>¿Estas seguro que deseas eliminar al cliente?</p>
 						<p class="text-warning"><small>Confirme si desea realizar la accion.</small></p>
-					</div>
-					<div class="modal-footer">
+					</div>	<!-- Cierra cuerpo del modal -->
+					<div class="modal-footer">	<!-- Seccion del pie del modal -->
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-danger" value="Eliminar">
-					</div>
+					</div>	<!-- Cierra pie del modal -->
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> 	<!-- Cierra modal de eliminacion de cliente -->
+</div><!-- Cierra seccion de contenido de la pagina -->
 <?php
 Dashboard_Page::footerTemplate('../../resources/js/dashboard.js');
 ?>

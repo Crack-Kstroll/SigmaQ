@@ -294,6 +294,24 @@ table.table .avatar {
 	padding-top:50px;
 }
 
+.espacioBotones{
+	width:250px;
+}
+
+.tamañoBotones{
+	width:280px;
+}
+
+.tamañoBotonesCRUD{
+	width:150px;
+}
+
+.tamañoTituloTabla{width:100%;}
+
+.espacioCRUDModal{
+	padding-top:30px;
+	padding-bottom:30px;
+}
 </style>
 
 <script>
@@ -323,78 +341,82 @@ $(document).ready(function(){
 });
 
 </script>
-<div id="contenido" class="container-fluid fondo">
-    <div class="container-fluid espacioSuperior">
-        <h5 class="tituloMto">Gestion de estados de cuenta</h5>
-        <img src="../../resources/img/division.png" class="separador" alt="">
-    </div>
-    <br><br>
 
-    <div class="container-fluid">
+<div id="contenido" class="container-fluid fondo"> <!-- Seccion de contenido (contiene todo el contenido de la pagina) -->
+    <div class="container-fluid espacioSuperior"> <!-- Seccion titulo de pagina -->
+        <h5 class="tituloMto">Gestion de estados de cuenta</h5>
+        <img src="../../resources/img/division.png" class="separador" alt="division1">
+    </div>	<!-- Cierra seccion titulo pagina -->
+    <div id="filtrosBusqueda" class="container-fluid espacioSuperior"> <!-- Cierra seccion de filtros de busqueda -->
 		<div class="row">
-            <div class="col-4">
-                <div class="row">
-                    <div class="col-5">
-                    <h6 class="textoMostrar">Mostrar por cliente</h6>
+            <div class="col-sm-12 col-lg-12 col-xl-4">
+                <div class="row"> <!-- Filtro 1 por clientes -->
+                    <div class="col-5"> 
+                    	<h6 class="textoMostrar">Mostrar por cliente</h6>
                     </div>
-                    <div class="col-6">
-                    <div class="dropdown">
-				        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				        Seleccione el cliente
-				        </button>
-				        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				            <a class="dropdown-item" href="#">Activo</a>
-				            <a class="dropdown-item" href="#">Bloqueado</a>
-				            <a class="dropdown-item" href="#">Inactivo</a>
-				        </div>
-			        </div>
-                    </div>
-                </div>
+                    <div class="col-6"> <!-- Seccion dropdown list (combobox) -->
+                   	 	<div class="dropdown">
+				        	<button class="btn btn-info dropdown-toggle espacioBotones" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				        		Seleccione el cliente
+				        	</button>
+				        	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				            	<a class="dropdown-item" href="#">Activo</a>
+				            	<a class="dropdown-item" href="#">Bloqueado</a>
+				            	<a class="dropdown-item" href="#">Inactivo</a>
+				        	</div>
+			        	</div>
+                    </div> <!-- Cierra seccion dropdown -->
+                </div> <!-- Cierra filtro 1 -->
             </div>
-            <div class="col-4">
-                <div class="row">
+            <div class="col-sm-12 col-lg-12 col-xl-4">
+                <div class="row"> <!-- Filtro 2 por sociedad -->
                     <div class="col-5">
-                    <h6 class="textoMostrar">Mostrar por sociedad</h6>
+                    	<h6 class="textoMostrar">Mostrar por sociedad</h6>
                     </div>
-                    <div class="col-6">
-                    <div class="dropdown">
-				        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				        Seleccione la sociedad
-				        </button>
-				        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				            <a class="dropdown-item" href="#">Activo</a>
-				            <a class="dropdown-item" href="#">Bloqueado</a>
-				            <a class="dropdown-item" href="#">Inactivo</a>
-				        </div>
-			        </div>
-                    </div>
-                </div>
+                    <div class="col-6"> <!-- Seccion dropdown list (combobox) -->
+                    	<div class="dropdown">
+				        	<button class="btn btn-info dropdown-toggle espacioBotones" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				        	Seleccione la sociedad
+				        	</button>
+				        	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				            	<a class="dropdown-item" href="#">Activo</a>
+				            	<a class="dropdown-item" href="#">Bloqueado</a>
+				            	<a class="dropdown-item" href="#">Inactivo</a>
+				        	</div>
+			        	</div>
+                    </div> <!-- Cierra seccion dropdown -->
+                </div> <!-- Cierra filtro 2 -->
             </div>
-            <div class="col-4">
+            <div class="col-4"> <!-- Seccion busqueda filtrada -->
                 <div class="search-box">
 					<i class="material-icons">&#xE8B6;</i>
 					<input type="text" class="form-control" placeholder="Busqueda filtrada&hellip;">
 				</div>
-            </div>
+            </div> <!-- Cierra seccion busqueda filtrada -->
         </div>
-	</div>
-
-    <div id="tablaEstadoCuenta" class="container-fluid">
-		<div class="table-responsive borde">
+	</div> <!-- Cierra seccion de filtros de busqueda -->
+    <div id="tablaEstadoCuenta" class="container-fluid"> <!-- Seccion de tabla de estado de cuenta -->
+		<div class="table-responsive borde"><!-- tabla estado cuenta-->
 			<div class="table-wrapper">
-				<div class="table-title">
+				<div class="table-title tamañoTituloTabla"> <!-- Titulo tabla -->
 					<div class="row">
-						<div class="col-sm-6">
-							<h2 class="textoMto">Mantenimiento de <b>estados de cuenta</b></h2>
+						<div class="col-sm-7 col-md-8 col-xl-6">
+							<h2 class="letraBlanca">Mantenimiento de <b>estados de cuenta</b></h2>
 						</div>
-						<div class="col-sm-6">
-							<a href="#modalMantenimientoSociedad" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Mantenimiento Sociedad</span></a>
-							<a href="#modalIngresarEstadoCuenta" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Agregar nuevo estado de cuenta</span></a>					
-						</div>
+						<div class="col-sm-5 col-md-4 col-xl-6">
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
+								<a href="#modalMantenimientoSociedad" class="btn btn-info tamañoBotones" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Mantenimiento Sociedad</span></a>
+							</div>
+								<div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">				
+								<a href="#modalIngresarEstadoCuenta" class="btn btn-success tamañoBotones" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Agregar estado de cuenta</span></a>					
+							</div>
+						</div>					
 					</div>
-				</div>
+					</div>
+				</div> <!-- Cierra titulo tabla -->
 				<div class="row">
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover"> <!-- Contenido tabla -->
 					<thead>
 						<tr>
 							<th>
@@ -492,9 +514,9 @@ $(document).ready(function(){
 							</td>
 						</tr>						
 					</tbody>
-				</table>
+				</table>  <!-- Cierra contenido de tabla -->
 				</div>
-				<div class="clearfix">
+				<div class="clearfix"> <!-- Pie tabla -->
 					<div class="hint-text">Mostrando <b>3</b> de <b>9</b> registros</div>
 					<ul class="pagination">
 						<li class="page-item"><a href="#" class="page-link">Anterior</a></li>
@@ -503,65 +525,52 @@ $(document).ready(function(){
 						<li class="page-item"><a href="#" class="page-link">3</a></li>
 						<li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
 					</ul>
-				</div>
-			</div>
-		</div>        
-	</div>
-	
-	<div id="modalMantenimientoSociedad" class="modal fade">
+				</div> <!-- Cierra pie de tabla -->
+			</div>  <!-- Cierra table wrapper -->
+		</div>   <!-- Cierra tabla estado cuenta -->     
+	</div> <!-- Cierra seccion estado cuenta -->
+	<div id="modalMantenimientoSociedad" class="modal fade"> <!-- Modal mantenimientos sociedad -->
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content"> <!-- Contenido del modal -->
 				<form>
-					<div class="modal-header">						
+					<div class="modal-header">	<!-- Cabecera del modal -->					
 						<h4 class="modal-title">Mantenimiento de sociedades</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<div class="container">
+					</div> <!-- Cierra cabera del modal -->
+					<div class="modal-body"> <!-- Cuerpo del modal -->					
+						<div class="container"> <!-- Seccion de campos modal -->
 							<div class="row">
-	
 								<div class="col-6">
 									<div class="form-group">
 										<label>Cliente</label>
 										<select id="inputState" class="form-control">
 											<option selected>SigmaQ</option>
 										</select>
-									</div>	
-									
-								</div>
-								
+									</div>					
+								</div>			
 								<div class="col-6">
-		
 									<div class="form-group">
 										<label>Sociedad</label>
 										<input type="text" class="form-control" required>
-									</div>
-										
+									</div>				
 								</div>
 							</div>					
-						</div>
-
-						<div class="row">
-							
+						</div> <!-- Cierra seccion de campos del modal -->
+						<div class="row espacioCRUDModal"> <!-- Fila de botones de mantenimientos -->
 							<div class="col-sm-3">
-								<button type="button" class="btn btn-info">Ingresar</button>
+								<button type="button" class="btn btn-info tamañoBotonesCRUD">Ingresar</button>
 							</div>
 							<div class="col-sm-3">
-								<button type="button" class="btn btn-info">Modificar</button>
+								<button type="button" class="btn btn-info tamañoBotonesCRUD">Modificar</button>
 							</div>
 							<div class="col-sm-3">
-								<button type="button" class="btn btn-info">Eliminar</button>
+								<button type="button" class="btn btn-info tamañoBotonesCRUD">Eliminar</button>
 							</div>
-							<div class="col-sm-3">
-								
-								<button type="button" class="btn btn-info">Busqueda</button>
+							<div class="col-sm-3">	
+								<button type="button" class="btn btn-info tamañoBotonesCRUD">Busqueda</button>
 							</div>									
-						</div>
-
-
-						<div class="container">
-
-
+						</div> <!-- Cierra fila de botones -->
+						<div class="container"> <!-- Seccion de tabla sociedades -->
 							<table class="table table-sm">
 								<thead>
 								  <tr>
@@ -592,218 +601,204 @@ $(document).ready(function(){
 								  </tr>
 								</tbody>
 							  </table>
-						</div>
-
-
-					</div>
-					<div class="modal-footer">
+						</div><!-- Cierra tabla de sociedades -->
+					</div>	<!-- Cierra cuerpo del modal -->
+					<div class="modal-footer">	<!-- Pie del modal -->
 						<input type="button" class="btn btn-info" data-dismiss="modal" value="Salir">
-					</div>
+					</div> <!-- Cierra pie del modal -->
 				</form>
-			</div>
+			</div>	<!-- Cierra contenido del modal -->
+		</div>
+	</div> <!-- Cierra modal mantenimiento sociedad -->
+	<div id="modalIngresarEstadoCuenta" class="modal fade"> <!-- Modal de ingreso de estado de cuenta -->
+		<div class="modal-dialog">
+			<div class="modal-content"> <!-- Contenido del modal -->
+				<form>
+					<div class="modal-header">	<!-- Cabecera del modal -->				
+						<h4 class="modal-title">Agregar nuevo estado de cuenta</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>	<!-- Cierra cabecera del modal -->
+					<div class="modal-body"><!-- Cuerpo del modal -->			
+						<div class="row"> <!-- Fila de campos del modal -->
+							<div class="col-6">
+								<div class="form-group">
+									<label>Cliente</label>
+									<select id="inputState" class="form-control">
+										<option selected>ROTOFLEX</option>
+										<option>ZADICK</option>
+									</select>
+								</div>	
+								<div class="form-group">
+									<label>Codigo</label>
+									<input type="text" class="form-control" required>
+								</div>	
+								<div class="form-group">
+									<label>Asignacion</label>
+									<input type="text" class="form-control" required>
+								</div>	
+								<div class="form-group">
+									<label>Clase</label>
+									<input type="text" class="form-control" required>
+								</div>	
+								<div class="form-group">
+									<label>Vencimiento</label>
+									<input type="text" class="form-control" required>
+								</div>		
+								<div class="form-group">
+									<label>Divisa
+									</label>
+									<select id="inputState" class="form-control">
+										<option selected>USD</option>
+										<option>GTQ</option>
+									</select>
+								</div>			
+							</div>
+								
+							<div class="col-6">
+								<div class="form-group">
+									<label>Sociedad</label>
+									<select id="inputState" class="form-control">
+										<option selected>ROTOFLEX</option>
+										<option>ZADICK</option>
+									</select>
+								</div>
+									
+								<div class="form-group">
+									<label>Factura</label>
+									<input type="text" class="form-control" required>
+								</div>
+	
+								<div class="form-group">
+									<label>Fecha</label>
+									<input type="text" class="form-control" required>
+								</div>
+										
+								<div class="form-group">
+									<label>Credito</label>
+									<input type="text" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label>Dias vencidos</label>
+									<input type="text" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label>Total</label>
+									<input type="text" class="form-control" required>
+								</div>
+							</div>
+						</div>	<!-- Cierra fila de campos del modal -->
+					</div>	<!-- Cierra cuerpo del modal -->
+					<div class="modal-footer">	<!-- Pie del modal -->
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" class="btn btn-success" value="Agregar Usuario">
+					</div>	<!-- Cierra pie del modal -->
+				</form>
+				</div>							
+			</div> <!-- Cierra contenido del modal -->
+	</div><!-- Cierra modal ingreso de estado de cuenta -->
+	<div id="modalModificarEstadoCuenta" class="modal fade"> <!-- Modal modificar estado de cuenta -->
+		<div class="modal-dialog">
+			<div class="modal-content"> <!-- Contenido del modal -->
+				<form>
+					<div class="modal-header">	<!-- Cabecera del modal -->					
+						<h4 class="modal-title">Editar estado de cuenta</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div> <!-- Cierra cabecera del modal -->
+					<div class="modal-body"> <!-- Cuerpo del modal -->					
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label>Cliente</label>
+									<select id="inputState" class="form-control">
+										<option>ROTOFLEX</option>
+										<option selected>ZADICK</option>
+									</select>
+								</div>	
+								<div class="form-group">
+									<label>Codigo</label>
+									<input type="text" class="form-control" value="18" required>
+								</div>	
+								<div class="form-group">
+									<label>Asignacion</label>
+									<input type="text" class="form-control"  value="1025498765" required>
+								</div>	
+								<div class="form-group">
+									<label>Clase</label>
+									<input type="text" class="form-control" value="ZF" required>
+								</div>	
+								<div class="form-group">
+									<label>Vencimiento</label>
+									<input type="text" class="form-control" value="04/03/2021" required>
+								</div>		
+								<div class="form-group">
+									<label>Divisa
+									</label>
+									<select id="inputState" class="form-control">
+										<option>USD</option>
+										<option  selected>GTQ</option>
+									</select>
+								</div>			
+							</div>				
+							<div class="col-6">
+								<div class="form-group">
+									<label>Sociedad</label>
+									<select id="inputState" class="form-control">
+										<option selected>ROTOFLEX</option>
+										<option>ZADICK</option>
+									</select>
+								</div>	
+								<div class="form-group">
+									<label>Factura</label>
+									<input type="text" class="form-control" value="3675128430" required>
+								</div>
+								<div class="form-group">
+									<label>Fecha</label>
+									<input type="text" class="form-control" value="03/01/2021" required>
+								</div>		
+								<div class="form-group">
+									<label>Credito</label>
+									<input type="text" class="form-control" value="60" required>
+								</div>
+								<div class="form-group">
+									<label>Dias vencidos</label>
+									<input type="text" class="form-control" value="-11" required>
+								</div>
+								<div class="form-group">
+									<label>Total</label>
+									<input type="text" class="form-control" value="10,200.00" required>
+								</div>
+							</div>
+						</div>
+					</div>	<!-- Cierra cabecera del modal -->
+					<div class="modal-footer"> <!-- Pie del modal -->
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" class="btn btn-info" value="Actualizar">
+					</div> <!-- Cerrar pie del modal -->
+				</form>
+			</div> <!-- Cierra contenido del modal -->
 		</div>
 	</div>
-	
-		<!-- Edit Agregar HTML -->
-		<div id="modalIngresarEstadoCuenta" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form>
-						<div class="modal-header">						
-							<h4 class="modal-title">Agregar nuevo estado de cuenta</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">				
-							<div class="row">
-		
-								<div class="col-6">
-									<div class="form-group">
-										<label>Cliente</label>
-										<select id="inputState" class="form-control">
-											<option selected>ROTOFLEX</option>
-											<option>ZADICK</option>
-										</select>
-									</div>	
-									<div class="form-group">
-										<label>Codigo</label>
-										<input type="text" class="form-control" required>
-									</div>	
-									<div class="form-group">
-										<label>Asignacion</label>
-										<input type="text" class="form-control" required>
-									</div>	
-									<div class="form-group">
-										<label>Clase</label>
-										<input type="text" class="form-control" required>
-									</div>	
-									<div class="form-group">
-										<label>Vencimiento</label>
-										<input type="text" class="form-control" required>
-									</div>		
-									<div class="form-group">
-										<label>Divisa
-										</label>
-										<select id="inputState" class="form-control">
-											<option selected>USD</option>
-											<option>GTQ</option>
-										</select>
-									</div>			
-								</div>
-								
-								<div class="col-6">
-									<div class="form-group">
-										<label>Sociedad</label>
-										<select id="inputState" class="form-control">
-											<option selected>ROTOFLEX</option>
-											<option>ZADICK</option>
-										</select>
-									</div>
-									
-									<div class="form-group">
-										<label>Factura</label>
-										<input type="text" class="form-control" required>
-									</div>
-	
-									<div class="form-group">
-										<label>Fecha</label>
-										<input type="text" class="form-control" required>
-									</div>
-										
-									<div class="form-group">
-										<label>Credito</label>
-										<input type="text" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label>Dias vencidos</label>
-										<input type="text" class="form-control" required>
-									</div>
-									<div class="form-group">
-										<label>Total</label>
-										<input type="text" class="form-control" required>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-							<input type="submit" class="btn btn-success" value="Agregar Usuario">
-						</div>
-					</form>
-				</div>
-			</div>
+	<div id="modalEliminarEstadoCuenta" class="modal fade"> <!-- Modal eliminar estado de cuenta  -->
+		<div class="modal-dialog">
+			<div class="modal-content"> <!-- Contenido del modal -->
+				<form>
+					<div class="modal-header">	<!-- Cabecera modal -->				
+						<h4 class="modal-title">Eliminar Estado de Cuenta</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>	<!-- Cierra cabecera modal -->
+					<div class="modal-body"> <!-- Cuerpo del modal -->					
+						<p>¿Estas seguro que deseas eliminar estado de cuenta?</p>
+						<p class="text-warning"><small>Confirme si desea realizar la accion.</small></p>
+					</div> <!-- Cierra cuerpo del modal -->
+					<div class="modal-footer"> <!-- Pie del modal -->
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" class="btn btn-danger" value="Eliminar">
+					</div> <!-- Cierra pie del modal -->
+				</form>
+			</div> <!-- Cierra contenido del modal -->
 		</div>
-	
-		<!-- Edit Modal HTML -->
-		<div id="modalModificarEstadoCuenta" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form>
-						<div class="modal-header">						
-							<h4 class="modal-title">Editar estado de cuenta</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">					
-							<div class="row">
-		
-								<div class="col-6">
-									<div class="form-group">
-										<label>Cliente</label>
-										<select id="inputState" class="form-control">
-											<option>ROTOFLEX</option>
-											<option selected>ZADICK</option>
-										</select>
-									</div>	
-									<div class="form-group">
-										<label>Codigo</label>
-										<input type="text" class="form-control" value="18" required>
-									</div>	
-									<div class="form-group">
-										<label>Asignacion</label>
-										<input type="text" class="form-control"  value="1025498765" required>
-									</div>	
-									<div class="form-group">
-										<label>Clase</label>
-										<input type="text" class="form-control" value="ZF" required>
-									</div>	
-									<div class="form-group">
-										<label>Vencimiento</label>
-										<input type="text" class="form-control" value="04/03/2021" required>
-									</div>		
-									<div class="form-group">
-										<label>Divisa
-										</label>
-										<select id="inputState" class="form-control">
-											<option>USD</option>
-											<option  selected>GTQ</option>
-										</select>
-									</div>			
-								</div>
-								
-								<div class="col-6">
-									<div class="form-group">
-										<label>Sociedad</label>
-										<select id="inputState" class="form-control">
-											<option selected>ROTOFLEX</option>
-											<option>ZADICK</option>
-										</select>
-									</div>
-									
-									<div class="form-group">
-										<label>Factura</label>
-										<input type="text" class="form-control" value="3675128430" required>
-									</div>
-	
-									<div class="form-group">
-										<label>Fecha</label>
-										<input type="text" class="form-control" value="03/01/2021" required>
-									</div>
-										
-									<div class="form-group">
-										<label>Credito</label>
-										<input type="text" class="form-control" value="60" required>
-									</div>
-									<div class="form-group">
-										<label>Dias vencidos</label>
-										<input type="text" class="form-control" value="-11" required>
-									</div>
-									<div class="form-group">
-										<label>Total</label>
-										<input type="text" class="form-control" value="10,200.00" required>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-							<input type="submit" class="btn btn-info" value="Actualizar">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	
-		<!-- Delete Modal HTML -->
-		<div id="modalEliminarEstadoCuenta" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form>
-						<div class="modal-header">						
-							<h4 class="modal-title">Eliminar Estado de Cuenta</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">					
-							<p>¿Estas seguro que deseas eliminar estado de cuenta?</p>
-							<p class="text-warning"><small>Confirme si desea realizar la accion.</small></p>
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-							<input type="submit" class="btn btn-danger" value="Eliminar">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
+	</div> <!-- Cierra modal estado de cuenta -->
+</div> <!-- Cierra seccion contenido -->
 <?php
 Dashboard_Page::footerTemplate('../../resources/js/dashboard.js');
 ?>

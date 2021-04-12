@@ -318,32 +318,29 @@ $(document).ready(function(){
 });
 
 </script>
-<div id="contenido" class="container-fluid fondo">
-    <div class="container-fluid espacioSuperior">
+<div id="contenido" class="container-fluid fondo"> <!-- Seccion de contenido -->
+    <div class="container-fluid espacioSuperior"> <!-- Seccion de titulo de pagina -->
         <h5 class="tituloMto">Gestion de pedidos</h5>
         <img src="../../resources/img/division.png" class="separador" alt="">
-    </div>
-    <br><br>
-
-    <div class="container-fluid">
-		<div class="row">
+    </div> <!-- Cierra seccion de titulo de pagina -->
+    <div class="container-fluid espacioSuperior"> <!-- Seccion de busqueda filtrada -->
+		<div class="row"> <!-- Fila opciones recuperacion -->
 			<div class="col-sm-5">
                 <div class="row">
-
                     <div class="col-5">
                         <h6 class="textoMostrar">Mostrar por cliente</h6>
                     </div>
                     <div class="col-7">
-                    <div class="dropdown">
-				<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Seleccione el cliente
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				  <a class="dropdown-item" href="#">Activo</a>
-				  <a class="dropdown-item" href="#">Bloqueado</a>
-				  <a class="dropdown-item" href="#">Inactivo</a>
-				</div>
-			</div>
+                    	<div class="dropdown">
+						<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Seleccione el cliente
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				  			<a class="dropdown-item" href="#">Activo</a>
+				  			<a class="dropdown-item" href="#">Bloqueado</a>
+				  			<a class="dropdown-item" href="#">Inactivo</a>
+						</div>
+					</div>
 			        </div>
 				</div>
             </div>
@@ -353,12 +350,11 @@ $(document).ready(function(){
 					<input type="text" class="form-control" placeholder="Busqueda filtrada&hellip;">
 				</div>
 			</div>
-		</div>
-	</div>
-
-    <div id="tablaPedidos" class="container-fluid">
+		</div> <!-- Cerrar opciones de busqueda filtrada -->
+	</div> <!-- Cierra seccion de busqueda filtrada -->
+    <div id="tablaPedidos" class="container-fluid"> <!-- Seccion de tabla de pedidos -->
 		<div class="table-responsive borde">
-			<div class="table-wrapper">
+			<div class="table-wrapper"> 
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
@@ -369,7 +365,7 @@ $(document).ready(function(){
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover"> <!-- tabla de pedidos -->
 					<thead>
 						<tr>
 							<th>
@@ -481,8 +477,8 @@ $(document).ready(function(){
 							</td>
 						</tr>								
 					</tbody>
-				</table>
-				<div class="clearfix">
+				</table> <!-- Cierra tabla de pedidos -->
+				<div class="clearfix"> <!-- Seccion controladores de tabla -->
 					<div class="hint-text">Mostrando <b>5</b> de <b>25</b> registros</div>
 					<ul class="pagination">
 						<li class="page-item disabled"><a href="#">Anterior</a></li>
@@ -493,24 +489,20 @@ $(document).ready(function(){
 						<li class="page-item"><a href="#" class="page-link">5</a></li>
 						<li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
 					</ul>
-				</div>
-			</div>
+				</div> <!-- Cierra controladores de tabla -->
+			</div> <!-- Cierra el wrapper de la tabla  -->
 		</div>        
-	</div>
-
-	<!-- Edit Agregar HTML -->
-	<div id="modalIngresarPedido" class="modal fade">
+	</div> <!-- Cierra seccion de tabla de pedidos -->
+	<div id="modalIngresarPedido" class="modal fade"> <!-- Modal ingresar pedido -->
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content"> <!-- Contenido del modal -->
 				<form>
 					<div class="modal-header">						
 						<h4 class="modal-title">Agregar nuevo pedido</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">				
-
+					<div class="modal-body"> <!-- Cuerpo del modal -->				
 						<div class="row">
-	
 							<div class="col-6">
 								<div class="form-group">
 									<label>Cliente</label>
@@ -531,15 +523,12 @@ $(document).ready(function(){
 									<label>Fecha compra</label>
 									<input type="text" class="form-control" required>
 								</div>				
-							</div>
-							
-							<div class="col-6">
-								
+							</div>			
+							<div class="col-6">			
 								<div class="form-group">
 									<label>Pos</label>
 									<input type="text" class="form-control" required>
 								</div>
-
 								<div class="form-group">
 									<label>Cantidad solicitada</label>
 									<input type="text" class="form-control" required>
@@ -554,48 +543,35 @@ $(document).ready(function(){
 									<input type="text" class="form-control" required>
 								</div>
 							</div>										
-						</div>	
-							
+						</div>		
 						<div class="row">
-	
 							<div class="col-12">
-								
 								<div class="form-group">
 									<label>Descripcion</label>
 									<textarea class="form-control" aria-label="With textarea"></textarea>
-								</div>	
-
-							</div>
-							
-						</div>	
-
+								</div>
+							</div>	
+						</div>
 						<div class="row">
-	
 							<div class="col-12">
-								
 								<div class="form-group">
 									<label>Comentarios</label>
 									<input type="text" class="form-control" required>
-								</div>	
-
-							</div>
-							
+								</div>
+							</div>	
 						</div>	
-			
-					</div>
-					<div class="modal-footer">
+					</div> <!-- Cierra cuerpo del modal -->
+					<div class="modal-footer"> <!-- Pie del modal -->
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-success" value="Agregar Usuario">
-					</div>
+					</div> <!-- Cierra pie del modal -->
 				</form>
-			</div>
+			</div> <!-- Cierra contenido del modal -->
 		</div>
-	</div>
-
-	<!-- Edit Modal HTML -->
-	<div id="modalModificarPedido" class="modal fade">
+	</div><!-- Cierra modal ingresar pedido -->
+	<div id="modalModificarPedido" class="modal fade"> <!-- Modal modificar pedido -->
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content"> <!-- Contenido del modal -->
 				<form>
 					<div class="modal-header">						
 						<h4 class="modal-title">Editar pedido</h4>
@@ -670,14 +646,12 @@ $(document).ready(function(){
 						<input type="submit" class="btn btn-info" value="Actualizar">
 					</div>
 				</form>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal para confirmar la eliminacion de un pedido -->
-	<div id="modalEliminarPedido" class="modal fade">
+			</div> <!-- Cierra contenido del modal -->
+		</div> 
+	</div> <!-- Cierra modal modificar pedido -->
+	<div id="modalEliminarPedido" class="modal fade"> <!-- Modal eliminar pedido -->
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content"> <!-- Contenido del modal -->
 				<form>
 					<div class="modal-header">						
 						<h4 class="modal-title">Eliminar pedido</h4>
@@ -692,10 +666,10 @@ $(document).ready(function(){
 						<input type="submit" class="btn btn-danger" value="Eliminar">
 					</div>
 				</form>
-			</div>
+			</div> <!-- Cierra contenido del modal -->
 		</div>
-	</div>
-
+	</div> <!-- Cierra modal eliminar pedido -->
+</div> <!-- Cierra seccion de contenido -->
 <?php
 Dashboard_Page::footerTemplate('../../resources/js/dashboard.js');
 ?>
