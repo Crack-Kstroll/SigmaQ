@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="../../resources/css/login-dashboard.css">
     </head>
     <body>
-        <img class="fondo" src="../../resources/static/svgs/Fondo SigmaQ Login-Clientes2.png" alt="">
+        <img class="fondo" src="../../resources/static/svgs/Login-Dashboard-Negro.png" alt="">
         <div class="container">
         <!-- IMAGEN DE FONDO -->
             <div class="img">
@@ -15,7 +15,7 @@
             <!-- AQUÍ VA EL LOGIN -->
             <div class="login-container">
                 <form action="login_clientes.php">
-                    <img class="Avatar" src="../../resources/static/svgs/undraw_profile_pic_ic5t.svg" alt="">
+                    <img class="Avatar" src="../../resources/static/svgs/undraw_user_black-theme.svg" alt="">
                     <h2>Bienvenido</h2>
                     <!-- INPUTS -->
                     <div class="input-div one">
@@ -30,8 +30,8 @@
                             <input type="password" class="input">
                         </div>
                     </div>
-           g         <div style="display: flex; justify-content-center">
-                        <a href="Index.php" class="btn">
+                    <div style="display: flex; justify-content-center">
+                        <a href="index.php" class="btn">
                             INGRESAR
                             <!-- <input type="submit" class="btn" value="Login"> -->
                         </a>
