@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Inicio de Sesión</title>
+        <title>Login | Usuarios</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../resources/css/login-dashboard.css">
+        <link rel="shortcut icon" href="../../resources/static/icons/Q-sigma-rojo.png" type="image/x-icon">
     </head>
     <body>
         <img class="fondo" src="../../resources/static/svgs/Login-Dashboard-Negro.png" alt="dashboard01">
