@@ -2,7 +2,7 @@
 include('../../app/helpers/dashboard_page.php');
 Dashboard_Page::headerTemplate('Portal Clientes');
 ?>
-<div id="contenido" class="container-fluid"> <!-- Seccion incluye todo el contenido del cuerpo la pagina -->
+<div id="contenido" class="container-fluid fondoBlanco"> <!-- Seccion incluye todo el contenido del cuerpo la pagina -->
 	<div id="fondo" class="container-fluid"> <!-- Seccion de cabecera con imagen de fondo-->
       	<div class="container">
 	  		<h1 class="letraBlancaEspacio">Bienvenido al sistema de administradores</h1>

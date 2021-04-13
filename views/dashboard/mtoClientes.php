@@ -159,7 +159,7 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 									<div class="form-group">
 										<label>Cliente</label>
 										<select id="inputState" class="form-control">
-											<option selected>SigmaQ</option>
+											<option selected>BAYER S.A.</option>
 										</select>
 									</div>		
 								</div>		
@@ -181,7 +181,7 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 								</div>
 							</div>					
 						</div>
-						<div class="row">					
+						<div class="row espacioCRUD2">					
 							<div class="col-sm-3">
 								<button type="button" class="btn btn-info">Ingresar</button>
 							</div>
@@ -220,18 +220,9 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 											<input type="checkbox" id="selectAll">
 											<label for="selectAll"></label>
 										</span></th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-								  	</tr>
-								  	<tr>
-									<th scope="row">
-										<span class="custom-checkbox">
-											<input type="checkbox" id="selectAll">
-											<label for="selectAll"></label>										
-											<td colspan="2">Larry the Bird</td>
-											<td>@twitter</td>
-										</span></th>
+										<td>BAYER S.A.</td>
+										<td>Telefono</td>
+										<td>1234-1234</td>
 								  	</tr>
 								</tbody>
 							</table>
@@ -264,8 +255,10 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 									<input type="text" class="form-control" required>
 								</div>	
 								<div class="form-group">
-									<label>Correo</label>
-									<input type="text" class="form-control" required>
+									<label>Telefono</label>
+									<div class="form-group">
+										<input type="text" class="form-control" required>
+									</div>
 								</div>						
 							</div> 				
 							<div class="col-6">
@@ -281,11 +274,15 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 									<input type="password" class="form-control" id="inputPassword" placeholder="">
 								</div>
 								<div class="form-group">
-									<label>Telefono</label>
-									<div class="form-group">
-										<input type="text" class="form-control" required>
-									</div>
-								</div>							
+									<label>Confirmar Contraseña</label>
+									<input type="password" class="form-control" id="inputPassword" placeholder="">
+								</div>						
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label>Correo</label>
+									<input type="text" class="form-control" required>
+								</div>	
 							</div>
 						</div>
 					</div> <!-- Cierra cuerpo del modal -->
@@ -317,10 +314,12 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 									<input type="text" class="form-control" value="Bayer02" required>
 								</div>	
 								<div class="form-group">
-									<label>Correo</label>
-									<input type="text" class="form-control" value="Bayer@gmail.com" required>
+									<label>Telefono</label>
+									<div class="form-group">
+										<input type="text" class="form-control" value="1234-1234" required>
+									</div>
 								</div>						
-							</div>		
+							</div> 				
 							<div class="col-6">
 								<div class="form-group">
 									<label>Estado</label>
@@ -331,14 +330,18 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 								</div>
 								<div class="form-group">
 									<label>Contraseña</label>
-									<input type="password" class="form-control" id="inputPassword" value="12345">
+									<input type="password" class="form-control" id="inputPassword" value="1234" placeholder="">
 								</div>
 								<div class="form-group">
-									<label>Telefono</label>
-									<div class="form-group">
-										<input type="text" class="form-control" value="Diego" required>
-									</div>
-								</div>								
+									<label>Confirmar Contraseña</label>
+									<input type="password" class="form-control" id="inputPassword" value="1234" placeholder="">
+								</div>						
+							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label>Correo</label>
+									<input type="text" class="form-control" value="Bayer@gmail.com" required>
+								</div>	
 							</div>
 						</div>
 					</div>	<!-- Cierra cuerpo del modal -->
@@ -411,6 +414,7 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 					<div class="modal-footer">	<!-- Seccion del pie del modal -->
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-danger" value="Eliminar">
+						<style>.espacioCRUD2{padding-top:20px; padding-bottom:20px;} </style>
 					</div>	<!-- Cierra pie del modal -->
 				</form>
 			</div>

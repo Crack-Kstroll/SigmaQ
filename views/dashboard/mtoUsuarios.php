@@ -156,7 +156,7 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 						<h4 class="modal-title">Agregar nuevo usuario</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body">	<!-- Cuerpo del modal -->				
+					<div class="modal-body"><!-- Cuerpo del modal -->				
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
@@ -176,8 +176,10 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 									</select>
 								</div>				
 								<div class="form-group">
-									<label>Correo</label>
-									<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="correo@example.com">
+								<label>Telefono</label>
+									<div class="form-group">
+										<input type="text" class="form-control" required>
+									</div>			
 								</div>			
 							</div>		
 							<div class="col-6">
@@ -190,10 +192,8 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 									<input type="password" class="form-control" id="inputPassword" placeholder="">
 								</div>
 								<div class="form-group">
-									<label>Telefono</label>
-									<div class="form-group">
-										<input type="text" class="form-control" required>
-									</div>
+									<label>Confirmar contraseña</label>
+									<input type="password" class="form-control" id="inputPassword" placeholder="">
 								</div>
 								<div class="form-group">
 									<label>DUI</label>
@@ -201,6 +201,10 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 										<input type="text" class="form-control" required>
 									</div> 
 								</div>		
+							</div>
+							<div class="col-12">
+								<label>Correo</label>
+								<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="correo@example.com">				
 							</div>
 						</div>
 					</div> <!-- Cierra el cuerpo del modal -->
@@ -222,50 +226,53 @@ Dashboard_Page::headerTemplate('Portal Clientes');
 					</div>
 					<div class="modal-body">					
 						<div class="row">
-	
 							<div class="col-6">
 								<div class="form-group">
 									<label>Nombre</label>
-									<input type="text" class="form-control" value="Diego" required>
+									<input type="text" class="form-control" required>
 								</div>	
 								<div class="form-group">
 									<label>Usuario</label>
-									<input type="text" class="form-control" value="Castroll" required>
+									<input type="text" class="form-control" required>
 								</div>	
 								<div class="form-group">
 									<label>Tipo Usuario</label>
 									<select id="inputState" class="form-control">
-										<option ></option>
-										<option selected>Root</option>
+										<option selected></option>
+										<option>Root</option>
 										<option>Administrador</option>
 									</select>
 								</div>				
 								<div class="form-group">
-									<label>Correo</label>
-									<input type="email" class="form-control" id="exampleFormControlInput1" value="Diego@gmail.com">
+								<label>Telefono</label>
+									<div class="form-group">
+										<input type="text" class="form-control" required>
+									</div>			
 								</div>			
-							</div>						
+							</div>		
 							<div class="col-6">
 								<div class="form-group">
 									<label>Apellido</label>
-									<input type="text" class="form-control" value="Castro" required>
+									<input type="text" class="form-control" required>
 								</div>
 								<div class="form-group">
 									<label>Contraseña</label>
-									<input type="password" class="form-control" id="inputPassword" value="123456" placeholder="">
+									<input type="password" class="form-control" id="inputPassword" placeholder="">
 								</div>
 								<div class="form-group">
-									<label>Telefono</label>
-									<div class="form-group">
-										<input type="text" class="form-control" value="1234-1234" required>
-									</div>
+									<label>Confirmar contraseña</label>
+									<input type="password" class="form-control" id="inputPassword" placeholder="">
 								</div>
 								<div class="form-group">
 									<label>DUI</label>
 									<div class="form-group">
-										<input type="text" class="form-control" value="12345678-9" required>
+										<input type="text" class="form-control" required>
 									</div> 
-								</div>			
+								</div>		
+							</div>
+							<div class="col-12">
+								<label>Correo</label>
+								<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="correo@example.com">				
 							</div>
 						</div>
 					</div>
