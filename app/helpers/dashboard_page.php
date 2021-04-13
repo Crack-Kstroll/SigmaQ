@@ -8,16 +8,16 @@ class Dashboard_Page
         print('
         <!DOCTYPE html>
         <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>'.$title.'</title>
-            <link rel="stylesheet" href="../../resources/css/dashboard_styles.css">
-            <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
-        </head>
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>'.$title.'</title>
+                <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+                <link rel="stylesheet" href="../../resources/css/dashboard_styles.css">
+                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
+                <link rel="shortcut icon" href="../../resources/static/icons/Q-sigma-rojo.png" type="image/x-icon">
+            </head>
         <body>
     <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
         <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
@@ -66,176 +66,14 @@ class Dashboard_Page
                 </a>                              
             </div>  <!-- Cierra seccion de opciones del sidebar -->  
             <div class="container-fluid a fondoAcordeon"> <!-- Seccion de la opcion cerrar sesion-->
-                <a href="LogIn.php" class="list-group-item fondoAcordeon textoBlanco sinBorde">
+                <a href="login_dashboard.php" class="list-group-item fondoAcordeon textoBlanco sinBorde">
                     <img class="tamañoIconos" src="../../resources/img/iconCerrarSesion.png" alt=""> 
                     Cerrar Sesion
                 </a>
             </div>  <!-- Cierra seccion cerrar sesion -->
         </div>
-
-    <style>
-        .fondoNegro{
-            background-color:black;
-        }
-    
-        #informacion img{
-            max-width:70px;
-            max-height:70px;
-            padding-top:0px;
-            padding-left:0px;
-        }
-        
-        #informacion h6{
-            padding-top:5px;
-            padding-right:0px;
-            font-size:12px;
-        }
-    
-        .espacioInformacion{
-            padding-top:8px;
-        }
-    
-        #logoSidebar{
-    
-            justify-content: center;
-            padding-top:20px;
-            padding-bottom:15px;
-        }
-    
-        #logoSidebar img{
-            width:240px;
-            height:130px;
-        }
-        
-        .textoGris{
-            color: #D3D3D3; 
-            font-size:16px;
-        }
-    
-        .textoBlanco{
-            color:white; 
-            font-size:16px;
-        }
-    
-        .fondoAcordeon{
-            background-color:#2B2929;
-        }
-    
-        .fondoOpciones{
-            background-color:#7D7D7D;
-            border: white 3px solid;
-        }
-    
-        .sinBorde{
-            border:0;
-        }
-    
-        #informacion{
-            padding-bottom:10px;
-            background-color:black;
-        }
-    
-        #sidebar-wrapper{
-            min-height: 100vh;
-        }
-    
-        .a{
-            position: absolute;
-            bottom: 0;
-            width:33.50vh;
-        }
-    
-        .espacioOpciones{
-            padding-top:20px;
-        }
-    
-        .tamañoIconos{
-            height:30px;
-            width:40px;
-            padding-right:10px;
-        }
-    
-        .fondo{
-            background-color:white; 
-        }
-        .fondoVerde{
-            background-color:green;
-        }
-        
-        .fondoAzul{
-            background-color:blue;
-        }
-        
-        .fondoAnaranjado{
-            background-color:orange;
-        }
-        
-        .fondoRojo{
-            background-color:red;
-        }
-        
-        .iconosEstadisticas{
-            width:50px;
-            height:50px;
-        }
-        
-        #cartaIndex h5,p{
-            color:white;
-        }
-        
-        .alinearDerecha{
-            text-align:right;
-        }
-        
-        .pieCarta{
-            height:35px;
-        }
-        
-        .letraBlancaEspacio{
-            
-            padding-top:105px;
-            -webkit-text-stroke: 1px black;
-            color:white;
-        }
-        
-        .letraBlancaIndex{
-            -webkit-text-stroke: 1px black;
-            color:white;
-        }
-        
-        #fondo{
-            background-image: url(../../resources/img/fondoIndex.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-            height: 310px;
-            color: white;
-            text-align:center;
-            opacity: 0.75;
-        }
-        
-        #cartas{
-            padding-top:30px;
-        }
-        
-        .espacioCartas{
-            padding-bottom:20px;
-        }
-        
-        .centrar{
-            text-align:center;
-        }
-        
-        .tamaño-grafica{
-            width:90%;
-            height:200px;
-        }
-        
-    
-    </style>
-
         ');
     }
-
     //Método para imprimir el pie y establecer el controlador del documento
     public static function footerTemplate($controller) {
         print('
