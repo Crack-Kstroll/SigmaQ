@@ -16,7 +16,7 @@ class Database
     {
         // Credenciales para establecer la conexión con la base de datos.
         $server = 'localhost';
-        $database = 'GameBridge';
+        $database = 'SigmaQ';
         $username = 'postgres';
         $password = '2002';
 
