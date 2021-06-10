@@ -67,30 +67,6 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 						<td>12/04/2021 12:12p.m.</td>
 						<td>Inicio sesion</td>
 						<td>BAYER</td>
-						<script>
-							$(document).ready(function(){
-								// Activate tooltip
-								$('[data-toggle="tooltip"]').tooltip();	
-								// Select/Deselect checkboxes
-								var checkbox = $('table tbody input[type="checkbox"]');
-								$("#selectAll").click(function(){
-									if(this.checked){
-										checkbox.each(function(){
-											this.checked = true;                        
-										});
-									} else{
-										checkbox.each(function(){
-											this.checked = false;                        
-										});
-									} 
-								});
-								checkbox.click(function(){
-									if(!this.checked){
-										$("#selectAll").prop("checked", false);
-									}
-								});
-							});
-						</script> 
 					</tr>			
 				</tbody>
 			</table>
@@ -98,5 +74,5 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 	</div> <!-- Cierra secion estadisticas -->
 </div>	<!-- Cierra la seccion de contenido -->
 <?php
-Dashboard_Page::footerTemplate('../../resources/js/dashboard.js');
+Dashboard_Page::footerTemplate('index');
 ?>

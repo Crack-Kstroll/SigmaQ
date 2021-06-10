@@ -7,7 +7,7 @@ class Dashboard_Page
     {
         print('
         <!DOCTYPE html>
-        <html lang="en">
+        <html lang="es">
             <head>
                 <meta charset="UTF-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,14 +23,14 @@ class Dashboard_Page
         <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
             <div id="logoSidebar" class="container-fluid fondoNegro"> <!-- Seccion del logo de SigmaQ -->
                 <a href="index.php">
-                    <img src="../../resources/img/dashboardLogo.png" alt="">
+                    <img src="../../resources/img/brand/dashboardLogo.png" alt="">
                 </a>
                 <hr style="border-color: white;">
             </div>   <!-- Cierra seccion logo --> 
             <div class="container-fluid"> <!-- Seccion de infomacion de usuario -->
                 <div id="informacion" class="row">
                     <div class="col-4 fondoNegro">
-                        <img src="../../resources/img/profileCastro.png" alt="fotoPerfil">
+                        <img src="../../resources/img/profile/profileCastro.png" alt="fotoPerfil">
                     </div>
                     <div class="col-8 fondoNegro espacioInformacion">
                         <h6 class="textoGris">Bienvenido</h6>
@@ -45,43 +45,43 @@ class Dashboard_Page
                     </button>            
                 </div>      
                 <a href="usuarios.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/iconUsuario.png" alt=""> 
+                    <img class="tamañoIconos" src="../../resources/img/icons/iconUsuario.png" alt=""> 
                         Usuarios
                 </a>
                 <a href="clientes.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/iconClientes.png" alt=""> 
+                    <img class="tamañoIconos" src="../../resources/img/icons/clientes.png" alt=""> 
                     Clientes
                 </a>
                 <a href="indice.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/iconSeguimiento.png" alt=""> 
+                    <img class="tamañoIconos" src="../../resources/img/icons/seguimiento.png" alt=""> 
                     Indice de entrega
                 </a>
                 <a href="estado.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/iconEstadoCuenta.png" alt=""> 
+                    <img class="tamañoIconos" src="../../resources/img/icons/estadoCuenta.png" alt=""> 
                     Estados de cuenta
                 </a>
                 <a href="pedidos.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/iconPedidos.png" alt=""> 
+                    <img class="tamañoIconos" src="../../resources/img/icons/pedidos.png" alt=""> 
                     Estatus de pedidos
                 </a>                              
             </div>  <!-- Cierra seccion de opciones del sidebar -->  
             <div class="container-fluid a fondoAcordeon"> <!-- Seccion de la opcion cerrar sesion-->
                 <a href="login.php" class="list-group-item fondoAcordeon textoBlanco sinBorde">
-                    <img class="tamañoIconos" src="../../resources/img/iconCerrarSesion.png" alt=""> 
+                    <img class="tamañoIconos" src="../../resources/img/icons/cerrarSesion.png" alt=""> 
                     Cerrar Sesion
                 </a>
             </div>  <!-- Cierra seccion cerrar sesion -->
-        </div>
+        </div> <!-- Cierra el contenedor sidebar -->
         ');
     }
     //Método para imprimir el pie y establecer el controlador del documento
     public static function footerTemplate($controller) {
         print('
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../../app/controllers/dashboard/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
+            <script type="text/javascript" src="../../app/controllers/initialization.js"></script>
+            <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+            <script type="text/javascript" src="../../app/helpers/components.js"></script>
+            <script type="text/javascript" src="../../app/controllers/dashboard/account.js"></script>
+            <script type="text/javascript" src="../../app/controllers/dashboard/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
         </body>
         </html>
         ');

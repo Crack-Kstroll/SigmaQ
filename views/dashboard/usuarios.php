@@ -5,7 +5,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 <div id="contenido" class="container-fluid fondo"> <!-- Seccion de contenido -->
     <div class="container-fluid espacioSuperior"> <!-- Seccion de titulo de pagina -->
         <h5 class="tituloMto">Gestion de usuarios</h5>
-        <img src="../../resources/img/division.png" class="separador" alt="">
+        <img src="../../resources/img/utilities/division.png" class="separador" alt="">
     </div> <!-- Cierra seccion de titulo de pagina -->
     <div class="container-fluid espacioSuperior"> <!-- Seccion de busqueda filtrada -->
 		<div class="row"> <!-- Fila seccion de filtros de busqueda -->
@@ -23,8 +23,8 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 				  			<a class="dropdown-item" href="#">Root</a>
 				  			<a class="dropdown-item" href="#">Admin</a>
 						</div>
-					</div> <!-- Cierra seccion de filtros -->
-			    </div>
+					</div> 
+			   	</div> <!-- Cierra seccion de filtros -->
 			</div> <!-- Cierra seccion de filtros de opciones -->
         	</div>
 			<div class="col-7"> <!-- Seccion de busqueda filtrada -->
@@ -35,7 +35,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 			</div> <!-- Cierra seccion de busqueda filtrada -->
 		</div> <!-- Cierra fila de seccion de filtros de busqueda -->
 	</div> <!-- Cierra seccion de busqueda filtrada -->
-    <div id="tablaUsuarios" class="container-fluid "> <!-- Seccion de tabla de usuarios -->
+    <div class="container-fluid"> <!-- Seccion de tabla de usuarios -->
 		<br><br>
 		<table class="table borde">
 			<thead class="thead-dark">
@@ -69,8 +69,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					</td>
 				</tr>		
 			</tbody>
-		</table>
-			  
+		</table>	  
 	</div>
 	<div id="modalAgregarUsuario" class="modal fade"> <!-- Modal ingresar usuario -->
 		<div class="modal-dialog">
@@ -140,95 +139,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 			</div> <!-- Cierra contenido modal -->
 		</div>
 	</div> <!-- Cierra modal ingresar usuario -->
-	<div id="modalEditarUsuario" class="modal fade"> <!-- Modal editar usuario -->
-		<div class="modal-dialog">
-			<div class="modal-content"> <!-- Contenido modal -->
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Editar usuario</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group">
-									<label>Nombre</label>
-									<input type="text" class="form-control" required>
-								</div>	
-								<div class="form-group">
-									<label>Usuario</label>
-									<input type="text" class="form-control" required>
-								</div>	
-								<div class="form-group">
-									<label>Tipo Usuario</label>
-									<select id="inputState" class="form-control">
-										<option selected></option>
-										<option>Root</option>
-										<option>Administrador</option>
-									</select>
-								</div>				
-								<div class="form-group">
-								<label>Telefono</label>
-									<div class="form-group">
-										<input type="text" class="form-control" required>
-									</div>			
-								</div>			
-							</div>		
-							<div class="col-6">
-								<div class="form-group">
-									<label>Apellido</label>
-									<input type="text" class="form-control" required>
-								</div>
-								<div class="form-group">
-									<label>Contraseña</label>
-									<input type="password" class="form-control" id="inputPassword" placeholder="">
-								</div>
-								<div class="form-group">
-									<label>Confirmar contraseña</label>
-									<input type="password" class="form-control" id="inputPassword" placeholder="">
-								</div>
-								<div class="form-group">
-									<label>DUI</label>
-									<div class="form-group">
-										<input type="text" class="form-control" required>
-									</div> 
-								</div>		
-							</div>
-							<div class="col-12">
-								<label>Correo</label>
-								<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="correo@example.com">				
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-info" value="Actualizar">
-					</div>
-				</form>
-			</div> <!-- Cierra contenido modal -->
-		</div>
-	</div>
-	<div id="modalEliminarUsuario" class="modal fade"> <!-- Modal eliminar usuario -->
-		<div class="modal-dialog">
-			<div class="modal-content"> <!-- Contenido del modal -->
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Eliminar Usuario</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<p>¿Estas seguro que deseas eliminar al usuario?</p>
-						<p class="text-warning"><small>Confirme si desea realizar la accion.</small></p>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-danger" value="Eliminar">
-					</div>
-				</form>
-			</div> <!-- Cierra contenido del modal -->
-		</div>
-	</div> <!-- Cierra modal eliminar usuario -->
 </div> <!-- Cierra seccion de contenido -->
 <?php
-Dashboard_Page::footerTemplate('../../resources/js/dashboard.js'); 
+Dashboard_Page::footerTemplate('usuarios'); 
 ?> <!-- Agregamos el metodo que ingresa los scripts y mandamos el controlador correspondiente  -->

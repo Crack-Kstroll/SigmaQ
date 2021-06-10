@@ -5,7 +5,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 <div id="contenido" class="container-fluid fondo"> <!-- Contenedor de todo el contenido de la pagina-->
     <div id="tituloPagina" class="container-fluid espacioSuperior"> <!-- Seccion de titulo de pagina-->
 		<h5 class="tituloMto">Gestion de clientes</h5>
-        <img src="../../resources/img/division.png" class="separador" alt="">
+        <img src="../../resources/img/utilities/division.png" class="separador" alt="">
     </div> 	<!-- Cierra seccion de titulo de pagina -->
     <div id="filtros" class="container-fluid espacioSuperior"> <!-- Seccion de filtros de busqueda -->
 		<div class="row"> <!-- Fila seccion de filtros de busqueda -->
@@ -36,114 +36,67 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 			</div> <!-- Cierra seccion de busqueda filtrada -->
 		</div> <!-- Cierra fila de seccion de filtros de busqueda -->
 	</div>	<!-- Cierra seccion de filtros de busqueda -->
-    <div id="tablaClientes" class="container-fluid"> <!-- Seccion de tabla de clientes -->
-		<div class="table-responsive borde"> <!-- Tabla de clientes -->
-			<div class="table-wrapper">
-				<div class="table-title"> <!-- Cabecera de la tabla -->
-					<div class="row">
-						<div class="col-sm-7 col-md-8 col-xl-6">
-							<h2 class="fontWhite">Mantenimiento de <b>clientes</b></h2>
-						</div>
-						<div class="col-sm-5 col-md-4 col-xl-6">
-							<div class="row">
-								<div class="col-sm-12 col-md-12 col-lg-6">
-									<a href="#modalMantenimientoContactos" class="btn btn-info espacioBotones" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Registrar contactos</span></a>
-								</div>
-								<div class="col-sm-12 col-md-12 col-lg-6">				
-									<a href="#modalIngresarCliente" class="btn btn-success espacioBotones" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Agregar cliente</span></a>
-								</div>
-							</div>					
-						</div>
-					</div>
-				</div> <!-- Cierra cabecera de la tabla -->
-				<table class="table table-striped table-hover"> <!-- Seccion de contenido de la tabla -->
-					<thead>
-						<tr>
-							<th>
-								<span class="custom-checkbox"> <!-- Checkbox para marcar registros -->
-									<input type="checkbox" id="selectAll">
-									<label for="selectAll"></label>
-								</span>
-							</th>
-							<th>Estado</th>
-							<th>Empresa</th>
-							<th>Telefono</th>
-							<th>Correo</th>
-							<th>Usuario</th>
-							<th>Intentos</th>
-							<th>Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox1" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>Activo</td>
-							<td>BAYER S.A.</td>
-							<td>5421-6545</td>
-							<td>Bayer@gmail.com</td>
-							<td>Bayer02</td>
-							<td>1</td>
-							<td>
-								<a href="#modalModificarCliente" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-								<a href="#modalEliminarCliente" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							</td>
-						</tr>	
-						<tr>
-							<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox1" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>Activo</td>
-							<td>ATESA, S.A. de C.V</td>
-							<td>7895-6545</td>
-							<td>Atesa@gmail.com</td>
-							<td>Atesa03</td>
-							<td>0</td>
-							<td>
-								<a href="#modalModificarCliente" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-								<a href="#modalEliminarCliente" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							</td>
-						</tr>		
-						<tr>
-							<td>
-								<span class="custom-checkbox">
-									<input type="checkbox" id="checkbox1" name="options[]" value="1">
-									<label for="checkbox1"></label>
-								</span>
-							</td>
-							<td>Activo</td>
-							<td>CORSES S.A.</td>
-							<td>7895-6545</td>
-							<td>Corses@gmail.com</td>
-							<td>Corses03</td>
-							<td>3</td>
-							<td>
-								<a href="#modalModificarCliente" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-								<a href="#modalEliminarCliente" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-							</td>
-						</tr>						
-					</tbody>
-				</table> <!-- Cierra seccion de contenido de la tabla -->
-				<div class="clearfix"> <!-- Seccion inferior de la tabla controles-->
-					<div class="hint-text">Mostrando <b>3</b> de <b>9</b> registros</div>
-					<ul class="pagination">
-						<li class="page-item"><a href="#" class="page-link">Anterior</a></li>
-						<li class="page-item active"><a href="#" class="page-link">1</a></li>
-						<li class="page-item"><a href="#" class="page-link">2</a></li>
-						<li class="page-item"><a href="#" class="page-link">3</a></li>
-						<li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-					</ul>
-				</div> <!-- Cierra seccion inferior de la tabla controles-->
-			</div>
-		</div><!-- Cierra la tabla de clientes -->        
-	</div> <!-- Cierra seccion de tabla de clientes -->
+    
+	
+	<div class="container-fluid"> <!-- Seccion de tabla de usuarios -->
+		<br><br>
+		<table class="table borde">
+			<thead class="thead-dark">
+				<tr>
+					<th>Estado</th>
+					<th>Empresa</th>
+					<th>Telefono</th>
+					<th>Correo</th>
+					<th>Usuario</th>
+					<th>Intentos</th>
+					<th>Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Activo</td>
+					<td>BAYER S.A.</td>
+					<td>5421-6545</td>
+					<td>Bayer@gmail.com</td>
+					<td>Bayer02</td>
+					<td>1</td>
+					<td>
+						<a href="#modalModificarCliente" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+						<a href="#modalEliminarCliente" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+					</td>
+				</tr>	
+				<tr>
+					<td>Activo</td>
+					<td>ATESA, S.A. de C.V</td>
+					<td>7895-6545</td>
+					<td>Atesa@gmail.com</td>
+					<td>Atesa03</td>
+					<td>0</td>
+					<td>
+						<a href="#modalModificarCliente" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+						<a href="#modalEliminarCliente" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+					</td>
+				</tr>	
+				<tr>
+					<td>Activo</td>
+					<td>CORSES S.A.</td>
+					<td>7895-6545</td>
+					<td>Corses@gmail.com</td>
+					<td>Corses03</td>
+					<td>3</td>
+					<td>
+						<a href="#modalModificarCliente" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+						<a href="#modalEliminarCliente" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+			  
+	</div>
+
+	
+	
+
 	<div id="modalMantenimientoContactos" class="modal fade"> <!-- Modal de mantenimiento de contactos -->
 		<div class="modal-dialog">
 			<div class="modal-content"> <!-- Seccion de contenido del modal -->
@@ -422,5 +375,5 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 	</div> 	<!-- Cierra modal de eliminacion de cliente -->
 </div><!-- Cierra seccion de contenido de la pagina -->
 <?php
-Dashboard_Page::footerTemplate('../../resources/js/dashboard.js');
+Dashboard_Page::footerTemplate('clientes');
 ?>
