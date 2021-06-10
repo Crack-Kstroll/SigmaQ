@@ -1,5 +1,5 @@
 <?php
-include('../../app/helpers/public_page.php');
+include('../../app/helpers/public.php');
 Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
 ?>
 <!-- Jumbotron para el título -->
@@ -252,5 +252,5 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
 </div>
 
 <?php
-Public_Page::footerTemplate();
+Public_Page::footerTemplate('estado');
 ?>

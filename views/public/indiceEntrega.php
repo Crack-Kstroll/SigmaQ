@@ -1,5 +1,5 @@
 <?php
-include('../../app/helpers/public_page.php');
+include('../../app/helpers/public.php');
 Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 ?>
 <!-- Jumbotron para el título -->
@@ -139,10 +139,10 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
         </div>
     </div>
     <div class="row">
-        <img id="imagen_indice" src="../../resources/static/svgs/undraw_setup_analytics_8qkl.svg" alt="">
+        <img id="imagen_indice" src="../../resources/img/svgs/undraw_setup_analytics_8qkl.svg" alt="">
     </div>
 </div>
 
 <?php
-Public_Page::footerTemplate();
+Public_Page::footerTemplate('indice');
 ?>

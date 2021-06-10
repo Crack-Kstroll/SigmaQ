@@ -1,5 +1,5 @@
 <?php
-include('../../app/helpers/public_page.php');
+include('../../app/helpers/public.php');
 Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 ?>
 <!-- Jumbotron para el título -->
@@ -221,5 +221,5 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 </div>
 
 <?php
-Public_Page::footerTemplate();
+Public_Page::footerTemplate('status');
 ?>

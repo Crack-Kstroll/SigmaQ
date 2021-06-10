@@ -4,19 +4,19 @@
         <title>Login | Clientes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../resources/css/login.css">
-        <link rel="shortcut icon" href="../../resources/static/icons/Q-sigma-rojo.png" type="image/x-icon">
+        <link rel="shortcut icon" href="../../resources/img/brand/logoRojo.png" type="image/x-icon">
     </head>
     <body>
-        <img class="fondo" src="../../resources/static/svgs/Fondo SigmaQ Login-Clientes2.png" alt="">
+        <img class="fondo" src="../../resources/img/background/fondoPublic.png" alt="">
         <div class="container">
         <!-- IMAGEN DE FONDO -->
             <div class="img">
-                <img src="../../resources/static/svgs/Logo SigmaQ sin fondo-01.png" alt="">
+                <img src="../../resources/img/svgs/Logo SigmaQ sin fondo-01.png" alt="">
             </div>
             <!-- AQUÍ VA EL LOGIN -->
             <div class="login-container">
                 <form action="login_clientes.php">
-                    <img class="Avatar" src="../../resources/static/svgs/undraw_profile_pic_ic5t.svg" alt="">
+                    <img class="Avatar" src="../../resources/img/svgs/undraw_profile_pic_ic5t.svg" alt="">
                     <h2>Bienvenido</h2>
                     <!-- INPUTS -->
                     <div class="input-div one">
@@ -41,6 +41,6 @@
                 </form>
             </div>
         </div>
-        <script type="text/javascript" src="../../app/js/public_page.js"></script>
+        <script type="text/javascript" src="../../app/controllers/public/login.js"></script>
     </body>
 </html>
