@@ -1,6 +1,6 @@
 <?php
-include('../../app/helpers/dashboard_page.php');
-Dashboard_Page::headerTemplate('Portal Clientes');
+include('../../app/helpers/dashboard.php');
+Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 ?>
 <div id="contenido" class="container-fluid fondoBlanco"> <!-- Seccion incluye todo el contenido del cuerpo la pagina -->
 	<div id="fondo" class="container-fluid"> <!-- Seccion de cabecera con imagen de fondo-->
