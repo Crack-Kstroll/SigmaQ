@@ -2,42 +2,43 @@
 include('../../app/helpers/dashboard.php');
 Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 ?>
-<div id="contenido" class="container-fluid fondo"> <!-- Seccion de contenido -->
-    <div class="container-fluid espacioSuperior"> <!-- Seccion de titulo de pagina -->
+<!-- Seccion de contenido -->
+<div id="contenido" class="container-fluid fondo"> 
+	<!-- Seccion de titulo de pagina -->
+	<div class="container-fluid espacioSuperior"> 
         <h5 class="tituloMto">Gestion de usuarios</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
-    </div> <!-- Cierra seccion de titulo de pagina -->
-    <div class="container-fluid espacioSuperior"> <!-- Seccion de busqueda filtrada -->
-		<div class="row"> <!-- Fila seccion de filtros de busqueda -->
-			<div class="col-5"> <!-- Seccion de filtros de opciones -->
-                <div class="row">
-                    <div class="col-md-12 col-lg-5"> <!-- Seccion tipo busqueda -->
-                        <h6 class="textoMostrar">Mostrar por tipo de usuario</h6>
-                    </div> <!-- Cierra seccion tipo de busqueda -->
-                    <div class="col-md-12 col-lg-7"> <!-- Seccion de filtros -->
-                    	<div class="dropdown">
-							<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Seleccione el tipo de usuario
-							</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				  			<a class="dropdown-item" href="#">Root</a>
-				  			<a class="dropdown-item" href="#">Admin</a>
-						</div>
-					</div> 
-			   	</div> <!-- Cierra seccion de filtros -->
-			</div> <!-- Cierra seccion de filtros de opciones -->
-        	</div>
-			<div class="col-7"> <!-- Seccion de busqueda filtrada -->
-				<div class="search-box">
-					<i class="material-icons">&#xE8B6;</i>
-					<input type="text" class="form-control" placeholder="Busqueda filtrada&hellip;">
+	<!-- Cierra seccion de titulo de pagina -->
+    </div>
+	<!-- Seccion de busqueda filtrada --> 
+    <div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				<div class="row">
+					<div class="col-sm-5">
+						<!-- Campo de busqueda filtrada --> 
+						<input class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por DUI" aria-label="Search">
+					</div>
+					<div class="col-sm-2">
+						<!-- Boton para busqueda filtrada --> 
+						<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
+							<i class="material-icons">search</i></button>
+						</button>
+					</div>
 				</div>
-			</div> <!-- Cierra seccion de busqueda filtrada -->
-		</div> <!-- Cierra fila de seccion de filtros de busqueda -->
-	</div> <!-- Cierra seccion de busqueda filtrada -->
-    <div class="container-fluid"> <!-- Seccion de tabla de usuarios -->
-		<br><br>
+			</div>
+			<div class="col-sm-3">
+				<!-- Boton para ingresar nuevos registros --> 
+				<a href="#" class="btn btn-info btn-md " role="button" aria-disabled="true">Registrar usuario</button></a>							
+			</div>
+		</div>
+	<!-- Cierra seccion de busqueda filtrada -->		
+	</div>
+	
+	<!-- Seccion de tabla -->
+	<div class="container-fluid espacioSuperior"> 
 		<table class="table borde">
+			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
 				<tr>
 					<th>Estado</th>
@@ -52,6 +53,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<th>Opciones</th>
 				</tr>
 			</thead>
+			<!-- Contenido de la tabla -->
 			<tbody>
 				<tr>
 					<td>Activo</td>
@@ -70,16 +72,21 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 				</tr>		
 			</tbody>
 		</table>	  
+	<!-- Cierra seccion de tabla -->
 	</div>
-	<div id="modalAgregarUsuario" class="modal fade"> <!-- Modal ingresar usuario -->
+	
+	<!-- Modal ingresar usuario -->
+	<div id="modalAgregarUsuario" class="modal fade"> 
 		<div class="modal-dialog">
-			<div class="modal-content"> <!-- Contenido modal -->
+			<!-- Contenido modal -->
+			<div class="modal-content"> 
 				<form>
 					<div class="modal-header">						
 						<h4 class="modal-title">Agregar nuevo usuario</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body"><!-- Cuerpo del modal -->				
+					<!-- Cuerpo del modal -->
+					<div class="modal-body">				
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
@@ -101,45 +108,49 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 								<div class="form-group">
 								<label>Telefono</label>
 									<div class="form-group">
-										<input type="text" class="form-control" required>
+										<input type="text" class="form-control" placeholder="0000-0000" required>
 									</div>			
 								</div>			
 							</div>		
 							<div class="col-6">
 								<div class="form-group">
 									<label>Apellido</label>
-									<input type="text" class="form-control" required>
+									<input type="text" class="form-control" id="txtApellido" required>
 								</div>
 								<div class="form-group">
 									<label>Contraseña</label>
-									<input type="password" class="form-control" id="inputPassword" placeholder="">
+									<input type="password" class="form-control" id="txtClave" placeholder="" required>
 								</div>
 								<div class="form-group">
 									<label>Confirmar contraseña</label>
-									<input type="password" class="form-control" id="inputPassword" placeholder="">
+									<input type="password" class="form-control" id="txtConfirmar" placeholder="" required>
 								</div>
 								<div class="form-group">
 									<label>DUI</label>
 									<div class="form-group">
-										<input type="text" class="form-control" required>
+										<input type="text" class="form-control" id="txtDui" placeholder="01234567-8" required>
 									</div> 
 								</div>		
 							</div>
 							<div class="col-12">
 								<label>Correo</label>
-								<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="correo@example.com">				
+								<input type="email" class="form-control" id="txtCorreo" placeholder="correo@example.com" required>				
 							</div>
 						</div>
-					</div> <!-- Cierra el cuerpo del modal -->
+					<!-- Cierra el cuerpo del modal -->
+					</div> 
+					<!-- Seccion del pie del modal -->
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-success" value="Agregar Usuario">
 					</div>
 				</form>
-			</div> <!-- Cierra contenido modal -->
+			<!-- Cierra contenido modal -->
+			</div>
+		<!-- Cierra modal ingresar usuario --> 
 		</div>
-	</div> <!-- Cierra modal ingresar usuario -->
-</div> <!-- Cierra seccion de contenido -->
+	<!-- Cierra seccion de contenido -->
+	</div> 
 <?php
 Dashboard_Page::footerTemplate('usuarios'); 
 ?> <!-- Agregamos el metodo que ingresa los scripts y mandamos el controlador correspondiente  -->

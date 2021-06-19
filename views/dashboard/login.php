@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Login | Usuarios</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../../resources/css/loginDashboard.css">
-        <link rel="shortcut icon" href="../../resources/img/brand/qRoja.png" type="image/x-icon">
-    </head>
-    <body>
+<?php
+include('../../app/helpers/login.php');
+Login_Page::headerTemplate('Login | Administradores');
+?>
         <img class="fondo" src="../../resources/img/background/fondoDashboard.png" alt="dashboard01">
         <div class="container">
         <!-- IMAGEN DE FONDO -->
@@ -32,15 +27,14 @@
                         </div>
                     </div>
                     <div style="display: flex; justify-content-center">
-                        <a href="index.php" class="btn">
+                        <a href="index.php" class="btnDashboard">
                             INGRESAR
-                            <!-- <input type="submit" class="btn" value="Login"> -->
                         </a>
                     </div>
 
                 </form>
             </div>
         </div>
-        <script type="text/javascript" src="../../app/controllers/dashboard/login.js"></script>
-    </body>
-</html>
+<?php
+    Login_Page::footerTemplate('public/login.js');
+?>

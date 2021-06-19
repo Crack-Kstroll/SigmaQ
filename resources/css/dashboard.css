@@ -109,7 +109,15 @@ body {
 }
 
 .espacioSuperior{
-	padding-top:50px;
+	padding-top:35px;
+	padding-bottom:30px;
+
+}
+
+.centrarBoton{
+	padding-bottom:0px;
+	padding-top:7px;
+
 }
 /**** CIERRA SECCION DE CONTENIDO DE FORMULARIOS****/
 

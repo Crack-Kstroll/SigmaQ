@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Login | Clientes</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../../resources/css/login.css">
-        <link rel="shortcut icon" href="../../resources/img/brand/logoRojo.png" type="image/x-icon">
-    </head>
-    <body>
+<?php
+include('../../app/helpers/login.php');
+Login_Page::headerTemplate('Login | Clientes');
+?>
         <img class="fondo" src="../../resources/img/background/fondoPublic.png" alt="">
         <div class="container">
         <!-- IMAGEN DE FONDO -->
             <div class="img">
-                <img src="../../resources/img/svgs/Logo SigmaQ sin fondo-01.png" alt="">
+                <img src="../../resources/img/brand/logoSinFondo.png" alt="dashboard02">
             </div>
             <!-- AQUÍ VA EL LOGIN -->
             <div class="login-container">
@@ -41,6 +36,6 @@
                 </form>
             </div>
         </div>
-        <script type="text/javascript" src="../../app/controllers/public/login.js"></script>
-    </body>
-</html>
+<?php
+    Login_Page::footerTemplate('dashboard/login.js');
+?>
