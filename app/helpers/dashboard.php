@@ -5,6 +5,9 @@ class Dashboard_Page
     //Método para imprimir el encabezado y establecer el titulo del documento
     public static function headerTemplate($title,$css) 
     {
+        // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en las páginas web.
+        session_start();
+        // Se imprime el código HTML de la cabecera del documento.
         print('
         <!DOCTYPE html>
         <html lang="es">
@@ -19,60 +22,81 @@ class Dashboard_Page
                 <link rel="shortcut icon" href="../../resources/img/brand/qRoja.png" type="image/x-icon">
             </head>
         <body>
-    <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
-        <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
-            <div id="logoSidebar" class="container-fluid fondoNegro"> <!-- Seccion del logo de SigmaQ -->
-                <a href="index.php">
-                    <img src="../../resources/img/brand/dashboardLogo.png" alt="">
-                </a>
-                <hr style="border-color: white;">
-            </div>   <!-- Cierra seccion logo --> 
-            <div class="container-fluid"> <!-- Seccion de infomacion de usuario -->
-                <div id="informacion" class="row">
-                    <div class="col-4 fondoNegro">
-                        <img src="../../resources/img/profile/profileCastro.png" alt="fotoPerfil">
-                    </div>
-                    <div class="col-8 fondoNegro espacioInformacion">
-                        <h6 class="textoGris">Bienvenido</h6>
-                        <h6 class="textoBlanco">Diego Castro</h6>  
-                    </div>
-                </div>
-            </div>   <!-- Cierra seccion informacion de usuario -->
-            <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
-                <div class="card-header fondoAcordeon" id="headingOne"> 
-                    <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
-                        Mantenimientos
-                    </button>            
-                </div>      
-                <a href="usuarios.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/icons/iconUsuario.png" alt=""> 
-                        Usuarios
-                </a>
-                <a href="clientes.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/icons/clientes.png" alt=""> 
-                    Clientes
-                </a>
-                <a href="indice.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/icons/seguimiento.png" alt=""> 
-                    Indice de entrega
-                </a>
-                <a href="estado.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/icons/estadoCuenta.png" alt=""> 
-                    Estados de cuenta
-                </a>
-                <a href="pedidos.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                    <img class="tamañoIconos" src="../../resources/img/icons/pedidos.png" alt=""> 
-                    Estatus de pedidos
-                </a>                              
-            </div>  <!-- Cierra seccion de opciones del sidebar -->  
-            <div class="container-fluid a fondoAcordeon"> <!-- Seccion de la opcion cerrar sesion-->
-                <a href="login.php" class="list-group-item fondoAcordeon textoBlanco sinBorde">
-                    <img class="tamañoIconos" src="../../resources/img/icons/cerrarSesion.png" alt=""> 
-                    Cerrar Sesion
-                </a>
-            </div>  <!-- Cierra seccion cerrar sesion -->
-        </div> <!-- Cierra el contenedor sidebar -->
         ');
+        $filename = basename($_SERVER['PHP_SELF']);
+        if (isset($_SESSION['idadmin'])) {
+            if ($filename != 'index.php' && $filename != 'register.php') {
+                print('
+                <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
+                <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
+                    <div id="logoSidebar" class="container-fluid fondoNegro"> <!-- Seccion del logo de SigmaQ -->
+                        <a href="index.php">
+                            <img src="../../resources/img/brand/dashboardLogo.png" alt="">
+                        </a>
+                        <hr style="border-color: white;">
+                    </div>   <!-- Cierra seccion logo --> 
+                    <div class="container-fluid"> <!-- Seccion de infomacion de usuario -->
+                        <div class="container espacioInfo">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <h6 class="letraBlanca espacioInformacion">Bienvenido</h6>
+                                </div>
+                                <div class="col-sm-7">
+                                    <a href="http://www.lostejos.com"><img class="config" src="../../resources/img/icons/config.png" alt=""> </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container espacioInfo">
+                            <h6 class="letraBlanca">' . $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] . '</h6>
+                        </div>
+                    </div>   <!-- Cierra seccion informacion de usuario -->
+                    <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
+                        <div class="card-header fondoAcordeon" id="headingOne"> 
+                            <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+                                Mantenimientos
+                            </button>            
+                        </div>      
+                        <a href="usuarios.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
+                            <img class="tamañoIconos" src="../../resources/img/icons/iconUsuario.png" alt=""> 
+                                Usuarios
+                        </a>
+                        <a href="clientes.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
+                            <img class="tamañoIconos" src="../../resources/img/icons/clientes.png" alt=""> 
+                            Clientes
+                        </a>
+                        <a href="indice.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
+                            <img class="tamañoIconos" src="../../resources/img/icons/seguimiento.png" alt=""> 
+                            Indice de entrega
+                        </a>
+                        <a href="estado.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
+                            <img class="tamañoIconos" src="../../resources/img/icons/estadoCuenta.png" alt=""> 
+                            Estados de cuenta
+                        </a>
+                        <a href="pedidos.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
+                            <img class="tamañoIconos" src="../../resources/img/icons/pedidos.png" alt=""> 
+                            Estatus de pedidos
+                        </a>                              
+                    </div>  <!-- Cierra seccion de opciones del sidebar -->  
+                    <div class="container-fluid a fondoAcordeon"> <!-- Seccion de la opcion cerrar sesion-->
+                        <a onclick="logOut()" class="list-group-item fondoAcordeon textoBlanco sinBorde">
+                            <img class="tamañoIconos" src="../../resources/img/icons/cerrarSesion.png" alt=""> 
+                            Cerrar Sesion
+                        </a>
+                    </div>  <!-- Cierra seccion cerrar sesion -->
+                </div> <!-- Cierra el contenedor sidebar -->
+                ');
+            } else {
+                header('location: main.php');
+            }
+        } else {
+            if ($filename != 'index.php' && $filename != 'register.php') {
+                header('location: index.php');
+            } else {
+                print('
+                    <h1>Menu vacio</h1>
+                ');
+            }
+        }
     }
     //Método para imprimir el pie y establecer el controlador del documento
     public static function footerTemplate($controller) {

@@ -21,6 +21,9 @@ class Login_Page
     //Método para imprimir el pie y establecer el controlador del documento
     public static function footerTemplate($controller) {
         print('
+                <script type="text/javascript" src="../../app/controllers/initialization.js"></script>
+                <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+                <script type="text/javascript" src="../../app/helpers/components.js"></script>
                 <script type="text/javascript" src="../../app/controllers/'.$controller.'"></script>
             </body>
         </html>
