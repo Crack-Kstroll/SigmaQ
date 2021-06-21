@@ -24,13 +24,13 @@ class Dashboard_Page
         <body>
         ');
         $filename = basename($_SERVER['PHP_SELF']);
-        if (isset($_SESSION['idadmin'])) {
+        if (isset($_SESSION['codigoadmin'])) {
             if ($filename != 'index.php' && $filename != 'register.php') {
                 print('
                 <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
                 <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
                     <div id="logoSidebar" class="container-fluid fondoNegro"> <!-- Seccion del logo de SigmaQ -->
-                        <a href="index.php">
+                        <a href="main.php">
                             <img src="../../resources/img/brand/dashboardLogo.png" alt="">
                         </a>
                         <hr style="border-color: white;">
@@ -42,12 +42,12 @@ class Dashboard_Page
                                     <h6 class="letraBlanca espacioInformacion">Bienvenido</h6>
                                 </div>
                                 <div class="col-sm-7">
-                                    <a href="http://www.lostejos.com"><img class="config" src="../../resources/img/icons/config.png" alt=""> </a>
+                                    <a href="profile.php"><img class="config" src="../../resources/img/icons/config.png" alt=""> </a>
                                 </div>
                             </div>
                         </div>
                         <div class="container espacioInfo">
-                            <h6 class="letraBlanca">' . $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] . '</h6>
+                            <h6 id="datosAdmin" class="letraBlanca">' . $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] . '</h6>
                         </div>
                     </div>   <!-- Cierra seccion informacion de usuario -->
                     <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->

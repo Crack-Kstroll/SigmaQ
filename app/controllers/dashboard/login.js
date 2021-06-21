@@ -43,7 +43,7 @@ function cargarDatos() {
                         if (response.status) {
                             sweetAlert(1, response.message, 'main.php');
                         } else {
-                            sweetAlert(2, response.exception, null);
+                            sweetAlert(3, response.exception, null);
                         }
                     });
                 } else {

@@ -12,9 +12,10 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como cliente para realizar las acciones correspondientes.
-    if (isset($_SESSION['idadmin'])) {
+    if (isset($_SESSION['codigoadmin'])) {
         // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
         switch ($_GET['action']) {
+           
             case 'logOut'://metodo para cerrar sesion
                 if (session_destroy()) {
                     $result['status'] = 1;
@@ -23,17 +24,18 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
-                case 'readProfile'://metodo para leer el perfil del cliente que ha iniciado sesion
-                    if ($result['dataset'] = $cliente->readProfile($_SESSION['idcliente'])) {
+                
+            case 'readProfile'://metodo para leer el perfil del cliente que ha iniciado sesion
+                if ($result['dataset'] = $cliente->readProfile($_SESSION['codigoadmin'])) {
                         $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
                     } else {
-                        if (Database::getException()) {
-                            $result['exception'] = Database::getException();
-                        } else {
-                            $result['exception'] = 'Cliente inexistente';
-                        }
+                        $result['exception'] = 'Cliente inexistente';
                     }
-                    break;
+                }
+            break;
                                 
                         case 'register':
                             $_POST = $cliente->validateForm($_POST);
@@ -80,22 +82,22 @@ if (isset($_GET['action'])) {
                     case 'editProfile':
                             $_POST = $cliente->validateForm($_POST);
                                     if ($cliente->setNombre($_POST['txtNombre'])) {
-                                        if ($cliente->setApellidos($_POST['txtApellidos'])) {
+                                        if ($cliente->setApellido($_POST['txtApellido'])) {
                                             if ($cliente->setCorreo($_POST['txtCorreo'])) {
                                                 if ($cliente->setTelefono($_POST['txtTelefono'])) {
-                                                    if ($cliente->setNickname($_POST['txtUsuario'])) {    
-                                                        if ($cliente->setDui($_POST['txtDui'])) {     
-                                                            if ($cliente->editProfile($_SESSION['idcliente'])) {
+                                                    if ($cliente->setDui($_POST['txtDui'])) {    
+                                                        if ($cliente->setUsuario($_POST['txtUsuario'])) {     
+                                                            if ($cliente->editProfile($_SESSION['codigoadmin'])) {
                                                                 $result['status'] = 1;
                                                                 $result['message'] = 'Perfil actualizado correctamente';
                                                             } else {
                                                                 $result['exception'] = Database::getException();
                                                             }   
                                                         } else {
-                                                            $result['exception'] = 'Nacimiento incorrecto';
+                                                            $result['exception'] = 'Usuario incorrecto';
                                                         } 
                                                     } else {
-                                                        $result['exception'] = 'Usuario incorrecto';
+                                                        $result['exception'] = 'Dui incorrecto';
                                                     }
                                                 } else {
                                                     $result['exception'] = 'Teléfono incorrecto';
@@ -187,7 +189,7 @@ if (isset($_GET['action'])) {
                     if ($cliente->checkUser($_POST['usuario'])) {
                             if ($cliente->checkPassword($_POST['clave'])) {
                                 if ($cliente->checkState($_POST['usuario'])) {
-                                    $_SESSION['idadmin'] = $cliente->getId();
+                                    $_SESSION['codigoadmin'] = $cliente->getId();
                                     $_SESSION['usuario'] = $cliente->getUsuario();
                                     $_SESSION['nombre'] = $cliente->getNombre();
                                     $_SESSION['apellido'] = $cliente->getApellido();
