@@ -30,7 +30,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 				</div>
 				<div class="col-sm-3">
 					<!-- Boton para ingresar nuevos registros --> 
-					<a href="#" class="btn btn-info btn-md " role="button" aria-disabled="true">Registrar usuario</button></a>							
+					<a href="#" onclick="modalTitle()" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar usuario</button></a>						
 				</div>
 			</div>
 		</form>
@@ -43,14 +43,15 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
 				<tr>
-					<th>Estado</th>
+					<th>Codigo</th>
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>DUI</th>
 					<th>Correo</th>
 					<th>Telefono</th>
-					<th>Intentos</th>
 					<th>Usuario</th>
+					<th>Intentos</th>
+					<th>Estado</th>
 					<th>Opciones</th>
 				</tr>
 			</thead>
@@ -60,83 +61,74 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 		</table>	  
 	<!-- Cierra seccion de tabla -->
 	</div>
-	
-	<!-- Modal ingresar usuario -->
-	<div id="modalAgregarUsuario" class="modal fade"> 
-		<div class="modal-dialog">
-			<!-- Contenido modal -->
-			<div class="modal-content"> 
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Agregar nuevo usuario</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<!-- Cuerpo del modal -->
-					<div class="modal-body">				
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group">
-									<label>Nombre</label>
-									<input type="text" class="form-control" required>
-								</div>	
-								<div class="form-group">
-									<label>Usuario</label>
-									<input type="text" class="form-control" required>
-								</div>	
-								<div class="form-group">
-									<label>Tipo Usuario</label>
-									<select id="inputState" class="form-control">
-										<option selected></option>
-										<option>Root</option>
-										<option>Administrador</option>
-									</select>
-								</div>				
-								<div class="form-group">
-								<label>Telefono</label>
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="0000-0000" required>
-									</div>			
-								</div>			
-							</div>		
-							<div class="col-6">
-								<div class="form-group">
-									<label>Apellido</label>
-									<input type="text" class="form-control" id="txtApellido" required>
-								</div>
-								<div class="form-group">
-									<label>Contraseña</label>
-									<input type="password" class="form-control" id="txtClave" placeholder="" required>
-								</div>
-								<div class="form-group">
-									<label>Confirmar contraseña</label>
-									<input type="password" class="form-control" id="txtConfirmar" placeholder="" required>
-								</div>
-								<div class="form-group">
-									<label>DUI</label>
-									<div class="form-group">
-										<input type="text" class="form-control" id="txtDui" placeholder="01234567-8" required>
-									</div> 
-								</div>		
-							</div>
-							<div class="col-12">
-								<label>Correo</label>
-								<input type="email" class="form-control" id="txtCorreo" placeholder="correo@example.com" required>				
-							</div>
-						</div>
-					<!-- Cierra el cuerpo del modal -->
-					</div> 
-					<!-- Seccion del pie del modal -->
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-success" value="Agregar Usuario">
-					</div>
-				</form>
-			<!-- Cierra contenido modal -->
-			</div>
-		<!-- Cierra modal ingresar usuario --> 
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 id="modal-title" class="modal-title" id="staticBackdropLabel">Modal title</h5>
 		</div>
-	<!-- Cierra seccion de contenido -->
-	</div> 
+		<div class="modal-body">
+			<form method="post" id="save-form" enctype="multipart/form-data">
+			<input type="number" id="txtId" name="txtId" />
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group">
+							<label>Codigo</label>
+							<input type="number" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Nombre</label>
+							<input type="text" class="form-control" required>
+						</div>	
+						<div class="form-group">
+							<label>Apellido</label>
+							<input type="text" class="form-control" id="txtApellido" required>
+						</div>								
+						<div class="form-group">
+							<label>Telefono</label>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="0000-0000" required>
+							</div>			
+						</div>			
+					</div>		
+					<div class="col-6">
+						<div class="form-group">
+							<label>Usuario</label>
+							<input type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Contraseña</label>
+							<input type="password" class="form-control" id="txtClave" placeholder="" required>
+						</div>
+						<div class="form-group">
+							<label>Confirmar contraseña</label>
+							<input type="password" class="form-control" id="txtConfirmar" placeholder="" required>
+						</div>
+						<div class="form-group">
+							<label>DUI</label>
+							<div class="form-group">
+								<input type="text" class="form-control" id="txtDui" placeholder="01234567-8" required>
+							</div> 
+						</div>		
+					</div>
+					<div class="col-12">
+						<label>Correo</label>
+						<input type="email" class="form-control" id="txtCorreo" placeholder="correo@example.com" required>				
+					</div>		
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Understood</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
 <?php
 Dashboard_Page::footerTemplate('usuarios'); 
 ?> <!-- Agregamos el metodo que ingresa los scripts y mandamos el controlador correspondiente  -->

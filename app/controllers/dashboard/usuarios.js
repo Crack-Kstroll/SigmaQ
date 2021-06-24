@@ -9,9 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function fillTable(dataset) {
     let content = '';
     dataset.map(function (row) {
+        (row.estado_producto) ? icon = 'lock' : icon = 'lock_open';
         content += `
             <tr>
-                <td>${row.estado}</td>
+                <td>${row.codigoadmin}</td>
                 <td>${row.nombre}</td>
                 <td>${row.apellido}</td>
                 <td>${row.dui}</td>
@@ -19,6 +20,7 @@ function fillTable(dataset) {
                 <td>${row.telefono}</td>
                 <td>${row.usuario}</td>
                 <td>${row.intentos}</td>
+                <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="openDeleteDialog(${row.codigoadmin})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -35,13 +37,17 @@ document.getElementById('search-form').addEventListener('submit', function (even
     searchRows(API_USUARIOS, 'search-form');
 });
 
-// Función para preparar el formulario al momento de insertar un registro.
-function openCreateDialog() {
-    document.getElementById('save-form').reset();
-    let instance = M.Modal.getInstance(document.getElementById('save-modal'));
-    instance.open();
-    document.getElementById('modal-title').textContent = 'Registrar cliente';    
-    fillSelect(ENDPOINT_CATEGORIAS, 'cmbEstado', null);
+// Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
+function modalTitle() {
+    document.getElementById('txtId').style.display = 'none';
+    let titulo = '';
+    if(document.getElementById("txtId").value == ''){
+        titulo = 'Registrar usuario';    
+    }
+    else{
+        titulo = 'Actualizar usuario';    
+    }
+    document.getElementById('modal-title').textContent = titulo;    
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
