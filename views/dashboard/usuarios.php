@@ -12,26 +12,28 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
     </div>
 	<!-- Seccion de busqueda filtrada --> 
     <div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-9">
-				<div class="row">
-					<div class="col-sm-5">
-						<!-- Campo de busqueda filtrada --> 
-						<input class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por DUI" aria-label="Search">
-					</div>
-					<div class="col-sm-2">
-						<!-- Boton para busqueda filtrada --> 
-						<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
-							<i class="material-icons">search</i></button>
-						</button>
+		<form method="post" id="search-form">
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-5">
+							<!-- Campo de busqueda filtrada --> 
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por DUI" aria-label="search">
+						</div>
+						<div class="col-sm-2">
+							<!-- Boton para busqueda filtrada --> 
+							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
+								<i class="material-icons">search</i></button>
+							</button>
+						</div>
 					</div>
 				</div>
+				<div class="col-sm-3">
+					<!-- Boton para ingresar nuevos registros --> 
+					<a href="#" class="btn btn-info btn-md " role="button" aria-disabled="true">Registrar usuario</button></a>							
+				</div>
 			</div>
-			<div class="col-sm-3">
-				<!-- Boton para ingresar nuevos registros --> 
-				<a href="#" class="btn btn-info btn-md " role="button" aria-disabled="true">Registrar usuario</button></a>							
-			</div>
-		</div>
+		</form>
 	<!-- Cierra seccion de busqueda filtrada -->		
 	</div>
 	

@@ -150,9 +150,9 @@ if (isset($_GET['action'])) {
                                 }
                                 break;
                             case 'search':
-                                $_POST = $producto->validateForm($_POST);
+                                $_POST = $cliente->validateForm($_POST);
                                 if ($_POST['search'] != '') {
-                                    if ($result['dataset'] = $producto->busquedaFiltrada($_POST['search'])) {
+                                    if ($result['dataset'] = $cliente->searchRows($_POST['search'])) {
                                         $result['status'] = 1;
                                         $rows = count($result['dataset']);
                                         if ($rows > 1) {

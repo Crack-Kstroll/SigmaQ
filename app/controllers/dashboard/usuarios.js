@@ -27,15 +27,13 @@ function fillTable(dataset) {
         `;          
     });
     document.getElementById('tbody-rows').innerHTML = content;
-    M.Materialbox.init(document.querySelectorAll('.materialboxed'));
-    M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 }
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
-/*document.getElementById('search-form').addEventListener('submit', function (event) {
+document.getElementById('search-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    searchRows(API_PRODUCTOS, 'search-form');
-});*/
+    searchRows(API_USUARIOS, 'search-form');
+});
 
 // Función para preparar el formulario al momento de insertar un registro.
 function openCreateDialog() {

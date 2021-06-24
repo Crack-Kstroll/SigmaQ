@@ -192,11 +192,11 @@ class Cliente extends Validator
 
     public function searchRows($value)
     {
-        $sql = 'SELECT id, nombre , apellido, e.estado as estado 
-        FROM persona p INNER JOIN estado e ON e.idEstado = p.estado
-        WHERE nombre ILIKE ? OR apellido ILIKE ?
-        ORDER BY nombre';
-        $params = array("%$value%", "%$value%");
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
+        from administradores
+        WHERE dui ILIKE ? 
+        order by estado';
+        $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
 
