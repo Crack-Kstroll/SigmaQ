@@ -42,7 +42,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 			<thead class="thead-dark">
 				<tr>
 					<th>Estado</th>
-					<th>Tipo</th>
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>DUI</th>
@@ -54,22 +53,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 				</tr>
 			</thead>
 			<!-- Contenido de la tabla -->
-			<tbody>
-				<tr>
-					<td>Activo</td>
-					<td>Root</td>
-					<td>Diego</td>
-					<td>Castro</td>
-					<td>12345678-9</td>
-					<td>Diego@gmail.com</td>
-					<td>1234-1234</td>
-					<td>0</td>
-					<td>Castroll</td>
-					<td>
-						<a href="#modalEditarUsuario" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-						<a href="#modalEliminarUsuario" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-					</td>
-				</tr>		
+			<tbody id="tbody-rows">	
 			</tbody>
 		</table>	  
 	<!-- Cierra seccion de tabla -->

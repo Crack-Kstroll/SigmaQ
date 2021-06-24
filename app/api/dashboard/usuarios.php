@@ -1,7 +1,7 @@
 <?php
 require_once('../../helpers/database.php');
 require_once('../../helpers/validator.php');
-require_once('../../models/clientes.php');
+require_once('../../models/usuarios.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -11,9 +11,9 @@ if (isset($_GET['action'])) {
     $cliente = new Cliente;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
-    // Se verifica si existe una sesión iniciada como cliente para realizar las acciones correspondientes.
+    // Se verifica si existe una sesión iniciada como usuario para realizar las acciones correspondientes.
     if (isset($_SESSION['codigoadmin'])) {
-        // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
+        // Se compara la acción a realizar cuando un usuario ha iniciado sesión.
         switch ($_GET['action']) {
            
             case 'logOut'://metodo para cerrar sesion
@@ -137,6 +137,131 @@ if (isset($_GET['action'])) {
                                 $result['exception'] = 'Usuario incorrecto';
                             }
                             break;
+
+                            case 'readAll': 
+                                if ($result['dataset'] = $cliente->readAll()) {
+                                    $result['status'] = 1;
+                                } else {
+                                    if (Database::getException()) {
+                                        $result['exception'] = Database::getException();
+                                    } else {
+                                        $result['exception'] = 'No hay productos registrados';
+                                    }
+                                }
+                                break;
+                            case 'search':
+                                $_POST = $producto->validateForm($_POST);
+                                if ($_POST['search'] != '') {
+                                    if ($result['dataset'] = $producto->busquedaFiltrada($_POST['search'])) {
+                                        $result['status'] = 1;
+                                        $rows = count($result['dataset']);
+                                        if ($rows > 1) {
+                                            $result['message'] = 'Se encontraron ' . $rows . ' coincidencias';
+                                        } else {
+                                            $result['message'] = 'Solo existe una coincidencia';
+                                        }
+                                    } else {
+                                        if (Database::getException()) {
+                                            $result['exception'] = Database::getException();
+                                        } else {
+                                            $result['exception'] = 'No hay coincidencias';
+                                        }
+                                    }
+                                } else {
+                                    $result['exception'] = 'Ingrese un valor para buscar';
+                                }
+                                break;
+                            case 'create': 
+                                $_POST = $producto->validateForm($_POST);
+                                if ($producto->setNombre($_POST['txtNombre'])) {
+                                    if ($producto->setApellido($_POST['txtApellido'])) {
+                                        if (isset($_POST['cmbEstado'])) {
+                                            if ($producto->setEstado($_POST['cmbEstado'])) {               
+                                                if ($producto->ingresarDatos()) {
+                                                    $result['status'] = 1;
+                                                } else {
+                                                    $result['exception'] = Database::getException();;
+                                                }
+                                            } else {
+                                                $result['exception'] = 'Estado incorrecto';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Seleccione un estado';
+                                        }                                                                                     
+                                    } else {
+                                        $result['exception'] = 'Apellido incorrecto';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Nombre incorrecto';
+                                }
+                                break;
+                            case 'readOne': // METODO PARA CARGAR LOS DATOS DE UN REGISTRO (SE OCUPA EN MODAL MODIFICAR Y ELIMINAR)
+                                if ($producto->setId($_POST['id'])) {
+                                    if ($result['dataset'] = $producto->cargarFila()) {
+                                        $result['status'] = 1;
+                                    } else {
+                                        if (Database::getException()) {
+                                            $result['exception'] = Database::getException();
+                                        } else {
+                                            $result['exception'] = 'Producto inexistente';
+                                        }
+                                    }
+                                } else {
+                                    $result['exception'] = 'Producto incorrecto';
+                                }
+                                break;
+                            case 'update': // METODO PARA MODIFICAR DATOS 
+                                $_POST = $producto->validateForm($_POST);
+                                if ($producto->setId($_POST['txtId'])) {
+                                    if ($data = $producto->cargarFila()) {
+                                        if ($producto->setNombre($_POST['txtNombre'])) {
+                                            if ($producto->setApellido($_POST['txtApellido'])) {
+                                                if (isset($_POST['cmbEstado'])) {
+                                                    if ($producto->setEstado($_POST['cmbEstado'])) {
+                                                        if ($producto->actualizarDatos()) {
+                                                            $result['status'] = 1;
+                                                            $result['message'] = 'Producto modificado correctamente';
+                                                        } else {
+                                                            $result['exception'] = Database::getException();
+                                                        }
+                                                    } else {
+                                                        $result['exception'] = 'Estado incorrecto';
+                                                    }
+                                                } else {
+                                                    $result['exception'] = 'Seleccione un estado';
+                                                }                
+                                            } else {
+                                                $result['exception'] = 'Apellido incorrecto';
+                                            }
+                                        } else {
+                                            $result['exception'] = 'Nombre incorrecto';
+                                        }
+                                    } else {
+                                        $result['exception'] = 'Producto inexistente';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Producto incorrecto';
+                                }
+                                break;
+                            case 'delete': // METODO PARA ELIMINAR UN REGISTRO 
+                                if ($producto->setId($_POST['id'])) {
+                                    if ($data = $producto->cargarFila()) {
+                                        if ($producto->eliminarDatos()) {
+                                            $result['status'] = 1;
+                                        } else {
+                                            $result['exception'] = Database::getException();
+                                        }
+                                    } else {
+                                        $result['exception'] = 'Producto inexistente';
+                                    }
+                                } else {
+                                    $result['exception'] = 'Producto incorrecto';
+                                }
+                                break;
+
+
+
+
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

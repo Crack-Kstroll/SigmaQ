@@ -19,7 +19,7 @@ inputs.forEach(input => {
 })
 
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_CLIENT = '../../app/api/dashboard/clientes.php?action=';
+const API_CLIENT = '../../app/api/dashboard/usuarios.php?action=';
 
 // Metodo para cargar todos los datos de la categoria seleccionada al presionar el boton
 function cargarDatos() {
