@@ -190,4 +190,23 @@ class Cliente extends Validator
         return Database::getRow($sql, $params);
     }
 
+    public function searchRows($value)
+    {
+        $sql = 'SELECT id, nombre , apellido, e.estado as estado 
+        FROM persona p INNER JOIN estado e ON e.idEstado = p.estado
+        WHERE nombre ILIKE ? OR apellido ILIKE ?
+        ORDER BY nombre';
+        $params = array("%$value%", "%$value%");
+        return Database::getRows($sql, $params);
+    }
+
+    public function readAll()
+    {
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
+        from administradores
+        order by estado';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
 }
