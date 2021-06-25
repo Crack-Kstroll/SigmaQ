@@ -63,70 +63,75 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 	</div>
 
 
-	<!-- Modal -->
+	<!-- Modal  -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-		<div class="modal-header">
-			<h5 id="modal-title" class="modal-title" id="staticBackdropLabel">Modal title</h5>
-		</div>
-		<div class="modal-body">
-			<form method="post" id="save-form" enctype="multipart/form-data">
-			<input type="number" id="txtId" name="txtId" />
-				<div class="row">
-					<div class="col-6">
-						<div class="form-group">
-							<label>Codigo</label>
-							<input type="number" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Nombre</label>
-							<input type="text" class="form-control" required>
-						</div>	
-						<div class="form-group">
-							<label>Apellido</label>
-							<input type="text" class="form-control" id="txtApellido" required>
-						</div>								
-						<div class="form-group">
-							<label>Telefono</label>
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="modal-title" class="modal-title" id="staticBackdropLabel">Modal title</h5>
+			</div>
+			<div class="modal-body">
+				<form method="post" id="save-form" enctype="multipart/form-data">
+				<input type="number" id="txtIdx" name="txtIdx" />
+					<div class="row">
+						<div class="col-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="0000-0000" required>
+								<label>Codigo</label>
+								<input id="txtId" name="txtId" type="number" min="1" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label>Nombre</label>
+								<input id="txtNombre" name="txtNombre" type="text" class="form-control" required>
+							</div>	
+							<div class="form-group">
+								<label>Apellido</label>
+								<input id="txtApellido" name="txtApellido" type="text" class="form-control" required>
+							</div>								
+							<div class="form-group">
+								<label>Telefono</label>
+								<div class="form-group">
+									<input id="txtTelefono" name="txtTelefono" type="text" class="form-control" placeholder="0000-0000" required>
+								</div>			
 							</div>			
-						</div>			
-					</div>		
-					<div class="col-6">
-						<div class="form-group">
-							<label>Usuario</label>
-							<input type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Contraseña</label>
-							<input type="password" class="form-control" id="txtClave" placeholder="" required>
-						</div>
-						<div class="form-group">
-							<label>Confirmar contraseña</label>
-							<input type="password" class="form-control" id="txtConfirmar" placeholder="" required>
-						</div>
-						<div class="form-group">
-							<label>DUI</label>
+						</div>		
+						<div class="col-6">
 							<div class="form-group">
-								<input type="text" class="form-control" id="txtDui" placeholder="01234567-8" required>
-							</div> 
+								<label>Usuario</label>
+								<input id="txtUsuario" name="txtUsuario" type="text" class="form-control" required>
+							</div>
+							<div class="form-group">
+								<label>Contraseña</label>
+								<input id="txtClave" name="txtClave" type="password" class="form-control" placeholder="" required>
+							</div>
+							<div class="form-group">
+								<label>Confirmar contraseña</label>
+								<input id="txtClave2" name="txtClave2" type="password" class="form-control" placeholder="" required>
+							</div>
+							<div class="form-group">
+								<label>DUI</label>
+								<div class="form-group">
+									<input id="txtDui" name="txtDui" type="text" class="form-control" placeholder="01234567-8" required>
+								</div> 
+							</div>		
+						</div>
+						<div class="col-6">
+							<label>Correo</label>
+							<input id="txtCorreo" name="txtCorreo" type="email" class="form-control" placeholder="correo@example.com" required>				
+						</div>
+						<div class="col-6">
+							<label>Direccion</label>
+							<input id="txtDireccion" name="txtDireccion" type="text" class="form-control"  required>				
 						</div>		
 					</div>
-					<div class="col-12">
-						<label>Correo</label>
-						<input type="email" class="form-control" id="txtCorreo" placeholder="correo@example.com" required>				
-					</div>		
-				</div>
-			</form>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+				<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
+			</div>
 		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Understood</button>
-		</div>
-	  </div>
 	</div>
+
 </div>
 
 <?php

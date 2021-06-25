@@ -2,42 +2,41 @@
 
 class Cliente extends Validator
 {
-  private $id = null;
-  private $nombre = null;
-  private $apellido = null;
-  private $estado = null;
-  private $dui = null;
-  private $telefono = null;  
-  private $clave = null;  
-  private $correo = null;  
-  private $usuario = null;
-  private $nacimiento = null;
+    private $id = null;
+    private $estado = null;
+    private $nombre = null;
+    private $apellido = null;
+    private $dui = null;
+    private $correo = null;  
+    private $telefono = null;
+    private $direccion = null;
+    private $usuario = null;  
+    private $clave = null;  
 
-  public function setId($value)
-  {
-     if($this->validateNaturalNumber($value)){
-         $this->id = $value;
-         return true;
-     }else{
-         return false;
-     }
-
-  }
-
-  public function setNombre($value)
+    public function setId($value)
     {
-        if ($this->validateAlphabetic($value, 1, 50)) {
-            $this->nombre = $value;
+        if($this->validateNaturalNumber($value)){
+            $this->id = $value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function setEstado($value)
+    {
+        if ($this->validateBoolean($value)) {
+            $this->estado = $value;
             return true;
         } else {
             return false;
         }
     }
 
-    public function setDui($value)
+    public function setNombre($value)
     {
-        if ($this->validateDUI($value)) {
-            $this->dui = $value;
+        if ($this->validateAlphabetic($value, 1, 50)) {
+            $this->nombre = $value;
             return true;
         } else {
             return false;
@@ -54,20 +53,20 @@ class Cliente extends Validator
         }
     }
 
-    public function setCorreo($value)
+    public function setDui($value)
     {
-        if ($this->validateEmail($value)) {
-            $this->correo = $value;
+        if ($this->validateDUI($value)) {
+            $this->dui = $value;
             return true;
         } else {
             return false;
         }
     }
 
-    public function setClave($value)
+    public function setCorreo($value)
     {
-        if ($this->validatePassword($value)) {
-            $this->clave = $value;
+        if ($this->validateEmail($value)) {
+            $this->correo = $value;
             return true;
         } else {
             return false;
@@ -84,10 +83,10 @@ class Cliente extends Validator
         }
     }
 
-    public function setEstado($value)
+    public function setDireccion($value)
     {
-        if ($this->validateBoolean($value)) {
-            $this->estado = $value;
+        if ($this->validateString($value,1,250)) {
+            $this->direccion = $value;
             return true;
         } else {
             return false;
@@ -104,38 +103,66 @@ class Cliente extends Validator
         }
     }
 
-    public function getId(){
+    public function setClave($value)
+    {
+        if ($this->validatePassword($value)) {
+            $this->clave = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getNombre(){
-        return $this->nombre;
-    }
-    public function getDui(){
-        return $this->dui;
-    }
-    public function getApellido(){
-        return $this->apellido;
-    }
-    public function getCorreo()
-    {
-        return $this->correo;
-    }
-    public function getClave()
-    {
-        return $this->clave;
-    }
     public function getEstado()
     {
         return $this->estado;
     }
-    public function getTelefono(){
+
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
+    public function getDui()
+    {
+        return $this->dui;
+    }
+    
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    public function getTelefono()
+    {
         return $this->telefono;
     }
-    public function getUsuario(){
+
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    public function getUsuario()
+    {
         return $this->usuario;
     }
 
+    public function getClave()
+    {
+        return $this->clave;
+    }
+    
     public function checkState($usuario)
     {
         $sql = 'SELECT estado FROM administradores where usuario = ? and estado = true';
@@ -195,7 +222,7 @@ class Cliente extends Validator
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
         from administradores
         WHERE dui ILIKE ? 
-        order by estado';
+        order by codigoadmin';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
@@ -204,9 +231,35 @@ class Cliente extends Validator
     {
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
         from administradores
-        order by estado';
+        order by codigoadmin';
         $params = null;
         return Database::getRows($sql, $params);
+    }
+
+    public function createRow()
+    {
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'INSERT INTO administradores(codigoadmin, estado, nombre, apellido, dui, correo, telefono, 
+        direccion, usuario, clave, intentos) VALUES (?, default, ?, ?, ?, ?, ?, ?, ?, ?, default);';
+        $params = array($this->id, $this->nombre,$this->apellido, $this->dui,$this->correo, $this->telefono,$this->direccion,$this->usuario, $hash);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function readRow()
+    {
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,clave,intentos
+        from administradores where codigoadmin = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+
+    public function desactivateUser()
+    {
+        $sql = 'UPDATE administradores
+        SET estado = false
+        WHERE codigoadmin = ?;';
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
     }
 
 }

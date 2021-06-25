@@ -16,7 +16,7 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un usuario ha iniciado sesión.
         switch ($_GET['action']) {
            
-            case 'logOut'://metodo para cerrar sesion
+            case 'logOut':
                 if (session_destroy()) {
                     $result['status'] = 1;
                     $result['message'] = 'Sesión eliminada correctamente';
@@ -148,7 +148,8 @@ if (isset($_GET['action'])) {
                                         $result['exception'] = 'No hay productos registrados';
                                     }
                                 }
-                                break;
+                            break;
+
                             case 'search':
                                 $_POST = $cliente->validateForm($_POST);
                                 if ($_POST['search'] != '') {
@@ -171,43 +172,72 @@ if (isset($_GET['action'])) {
                                     $result['exception'] = 'Ingrese un valor para buscar';
                                 }
                                 break;
+                                
+                                  
+
                             case 'create': 
-                                $_POST = $producto->validateForm($_POST);
-                                if ($producto->setNombre($_POST['txtNombre'])) {
-                                    if ($producto->setApellido($_POST['txtApellido'])) {
-                                        if (isset($_POST['cmbEstado'])) {
-                                            if ($producto->setEstado($_POST['cmbEstado'])) {               
-                                                if ($producto->ingresarDatos()) {
-                                                    $result['status'] = 1;
+                                $_POST = $cliente->validateForm($_POST);
+                                if ($cliente->setId($_POST['txtId'])) {
+                                    if ($cliente->setNombre($_POST['txtNombre'])) {
+                                        if ($cliente->setApellido($_POST['txtApellido'])) {
+                                            if ($cliente->setTelefono($_POST['txtTelefono'])) {
+                                                if ($cliente->setUsuario($_POST['txtUsuario'])) {
+                                                    if ($cliente->setDui($_POST['txtDui'])) {
+                                                        if ($cliente->setCorreo($_POST['txtCorreo'])) {                       
+                                                            if ($_POST['txtClave'] == $_POST['txtClave2']) {
+                                                                if ($cliente->setClave($_POST['txtClave'])) {
+                                                                    if ($cliente->setDireccion($_POST['txtDireccion'])) {
+                                                                        if ($cliente->createRow()) {
+                                                                            $result['status'] = 1;
+                                                                            $result['message'] = 'Usuario registrado correctamente';
+                                                                        } else {
+                                                                            $result['exception'] = Database::getException();;
+                                                                        }  
+                                                                    } else {
+                                                                        $result['exception'] = 'Direccion incorrecta';
+                                                                    }
+                                                                } else {
+                                                                    $result['exception'] = $cliente->getPasswordError();
+                                                                }
+                                                            } else {
+                                                                $result['exception'] = 'Claves nuevas diferentes';
+                                                            }
+                                                        } else {
+                                                            $result['exception'] = 'Correo incorrecto';
+                                                        }                                                                         
+                                                    } else {
+                                                        $result['exception'] = 'Dui incorrecto';
+                                                    }                                                                            
                                                 } else {
-                                                    $result['exception'] = Database::getException();;
+                                                    $result['exception'] = 'Usuario incorrecto';
                                                 }
                                             } else {
-                                                $result['exception'] = 'Estado incorrecto';
-                                            }
+                                                $result['exception'] = 'Telefono incorrecto';
+                                            }                                                                       
                                         } else {
-                                            $result['exception'] = 'Seleccione un estado';
-                                        }                                                                                     
+                                            $result['exception'] = 'Apellido incorrecto';
+                                        }
                                     } else {
-                                        $result['exception'] = 'Apellido incorrecto';
-                                    }
+                                        $result['exception'] = 'Nombre incorrecto';
+                                    }                                                                                 
                                 } else {
-                                    $result['exception'] = 'Nombre incorrecto';
+                                    $result['exception'] = 'Codigo incorrecto';
                                 }
+                                    
                                 break;
-                            case 'readOne': // METODO PARA CARGAR LOS DATOS DE UN REGISTRO (SE OCUPA EN MODAL MODIFICAR Y ELIMINAR)
-                                if ($producto->setId($_POST['id'])) {
-                                    if ($result['dataset'] = $producto->cargarFila()) {
+                            case 'readOne': 
+                                if ($cliente->setId($_POST['id'])) {
+                                    if ($result['dataset'] = $cliente->readRow()) {
                                         $result['status'] = 1;
                                     } else {
                                         if (Database::getException()) {
                                             $result['exception'] = Database::getException();
                                         } else {
-                                            $result['exception'] = 'Producto inexistente';
+                                            $result['exception'] = 'Usuario inexistente';
                                         }
                                     }
                                 } else {
-                                    $result['exception'] = 'Producto incorrecto';
+                                    $result['exception'] = 'Usuario incorrecto';
                                 }
                                 break;
                             case 'update': // METODO PARA MODIFICAR DATOS 
@@ -243,21 +273,27 @@ if (isset($_GET['action'])) {
                                     $result['exception'] = 'Producto incorrecto';
                                 }
                                 break;
-                            case 'delete': // METODO PARA ELIMINAR UN REGISTRO 
-                                if ($producto->setId($_POST['id'])) {
-                                    if ($data = $producto->cargarFila()) {
-                                        if ($producto->eliminarDatos()) {
-                                            $result['status'] = 1;
+                            case 'delete': // METODO PARA ELIMINAR UN REGISTRO
+                                $_POST = $cliente->validateForm($_POST); 
+                                if ($_POST['id'] != $_SESSION['codigoadmin']) {
+                                    if ($cliente->setId($_POST['id'])) {
+                                        if ($data = $cliente->readRow()) {
+                                            if ($cliente->desactivateUser()) {
+                                                $result['status'] = 1;
+                                                $result['message'] = 'Usuario eliminado correctamente';
+                                            } else {
+                                                $result['exception'] = Database::getException();
+                                            }
                                         } else {
-                                            $result['exception'] = Database::getException();
+                                            $result['exception'] = 'Usuario inexistente';
                                         }
                                     } else {
-                                        $result['exception'] = 'Producto inexistente';
+                                        $result['exception'] = 'Codigo incorrecto';
                                     }
                                 } else {
-                                    $result['exception'] = 'Producto incorrecto';
+                                    $result['exception'] = 'No se puede eliminar a sí mismo';
                                 }
-                                break;
+                            break;
 
 
 

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function fillTable(dataset) {
     let content = '';
     dataset.map(function (row) {
-        (row.estado_producto) ? icon = 'lock' : icon = 'lock_open';
+        (row.estado) ? icon = 'lock_open' : icon = 'lock';
         content += `
             <tr>
                 <td>${row.codigoadmin}</td>
@@ -22,8 +22,8 @@ function fillTable(dataset) {
                 <td>${row.intentos}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="openDeleteDialog(${row.codigoadmin})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="#" onclick="openDeleteDialog(${row.codigoadmin})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                 </td>
             </tr>
         `;          
@@ -39,9 +39,9 @@ document.getElementById('search-form').addEventListener('submit', function (even
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
 function modalTitle() {
-    document.getElementById('txtId').style.display = 'none';
+    document.getElementById('txtIdx').style.display = 'none';
     let titulo = '';
-    if(document.getElementById("txtId").value == ''){
+    if(document.getElementById("txtIdx").value == ''){
         titulo = 'Registrar usuario';    
     }
     else{
@@ -53,24 +53,28 @@ function modalTitle() {
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdateDialog(id) {
     document.getElementById('save-form').reset();
-    let instance = M.Modal.getInstance(document.getElementById('save-modal'));
-    instance.open();
-    document.getElementById('modal-title').textContent = 'Actualizar cliente';
+    document.getElementById('txtIdx').value = id;
+    modalTitle();
     const data = new FormData();
     data.append('id', id);
 
-    fetch(API_PRODUCTOS + 'readOne', {
+    fetch(API_USUARIOS + 'readOne', {
         method: 'post',
         body: data
     }).then(function (request) {
         if (request.ok) {
             request.json().then(function (response) {
                 if (response.status) {
-                    document.getElementById('txtId').value = response.dataset.id;
+                    document.getElementById('txtId').value = response.dataset.codigoadmin;
                     document.getElementById('txtNombre').value = response.dataset.nombre;
                     document.getElementById('txtApellido').value = response.dataset.apellido;
-                    fillSelect(ENDPOINT_CATEGORIAS, 'cmbEstado', response.dataset.estado);
-                    M.updateTextFields();
+                    document.getElementById('txtDui').value = response.dataset.dui;
+                    document.getElementById('txtCorreo').value = response.dataset.correo;
+                    document.getElementById('txtTelefono').value = response.dataset.telefono;
+                    document.getElementById('txtDireccion').value = response.dataset.direccion;
+                    document.getElementById('txtUsuario').value = response.dataset.usuario;
+
+
                 } else {
                     sweetAlert(2, response.exception, null);
                 }
@@ -83,21 +87,19 @@ function openUpdateDialog(id) {
     });
 }
 
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-/*document.getElementById('save-form').addEventListener('submit', function (event) {
-    event.preventDefault();
+function saveData(){
     let action = '';
-    if (document.getElementById('txtId').value) {
+    if (document.getElementById('txtIdx').value) {
         action = 'update';
     } else {
         action = 'create';
     }
-    saveRow(API_PRODUCTOS, action, 'save-form', 'save-modal');
-});*/
+    saveRow(API_USUARIOS, action, 'save-form', 'save-modal');
+}
 
 // Función para establecer el registro a eliminar y abrir una caja de dialogo de confirmación.
 function openDeleteDialog(id) {
     const data = new FormData();
     data.append('id', id);
-    confirmDelete(API_PRODUCTOS, data);
+    confirmDelete(API_USUARIOS, data);
 }
