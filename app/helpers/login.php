@@ -12,6 +12,7 @@ class Login_Page
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <title>'.$title.'</title>
+                <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
                 <link rel="stylesheet" href="../../resources/css/login.css">
                 <link rel="shortcut icon" href="../../resources/img/brand/qRoja.png" type="image/x-icon">
             </head>

@@ -201,6 +201,14 @@ class Cliente extends Validator
         }
     }
 
+    public function changePassword($value)
+    {
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE administradores SET clave = ? WHERE codigoadmin = ?';
+        $params = array($hash, $value);
+        return Database::executeRow($sql, $params);
+    }
+
     public function editProfile($value)
     {
         $sql = 'UPDATE administradores set nombre = ?, apellido = ?,dui = ?,correo = ?,telefono = ?,usuario = ?
@@ -242,6 +250,16 @@ class Cliente extends Validator
         $sql = 'INSERT INTO administradores(codigoadmin, estado, nombre, apellido, dui, correo, telefono, 
         direccion, usuario, clave, intentos) VALUES (?, default, ?, ?, ?, ?, ?, ?, ?, ?, default);';
         $params = array($this->id, $this->nombre,$this->apellido, $this->dui,$this->correo, $this->telefono,$this->direccion,$this->usuario, $hash);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function updateRow()
+    {
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE administradores
+        SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? , clave = ?
+        WHERE codigoadmin = ?';
+        $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$hash,$this->id);
         return Database::executeRow($sql, $params);
     }
 

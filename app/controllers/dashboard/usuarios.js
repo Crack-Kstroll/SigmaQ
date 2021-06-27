@@ -73,8 +73,6 @@ function openUpdateDialog(id) {
                     document.getElementById('txtTelefono').value = response.dataset.telefono;
                     document.getElementById('txtDireccion').value = response.dataset.direccion;
                     document.getElementById('txtUsuario').value = response.dataset.usuario;
-
-
                 } else {
                     sweetAlert(2, response.exception, null);
                 }

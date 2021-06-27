@@ -27,7 +27,7 @@ Login_Page::headerTemplate('Login | Administradores');
                         </div>
                     </div>
                     <div style="display: flex; justify-content-center">
-                        <a onclick="cargarDatos()" class="btnDashboard">
+                        <a onclick="iniciarSesion()" class="btnDashboard">
                             INGRESAR
                         </a>
                     </div>  
