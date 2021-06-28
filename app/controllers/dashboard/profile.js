@@ -1,5 +1,5 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=';
+const API_USUARIOS = '../../app/api/dashboard/usuarios.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Función para obtener y mostrar las categorías existentes en la base.
 function readProfile() {
-    fetch(API_CLIENTES + 'readProfile', {
+    fetch(API_USUARIOS + 'readProfile', {
         method: 'get'
     }).then(function (request) {
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
@@ -36,7 +36,7 @@ function readProfile() {
 
 // Función para obtener y mostrar las categorías existentes en la base.
 function modificarDatos() {
-    fetch(API_CLIENTES + 'editProfile', {
+    fetch(API_USUARIOS + 'editProfile', {
         method: 'post',
         body: new FormData(document.getElementById('save-form'))
     }).then(function (request) {
@@ -63,3 +63,31 @@ function modificarDatos() {
     });
 }
 
+// Función para obtener y mostrar las categorías existentes en la base.
+function actualizarContraseña() {
+    fetch(API_USUARIOS + 'changePassword', {
+        method: 'post',
+        body: new FormData(document.getElementById('password-form'))
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    sweetAlert(1, response.message, 'main.php');
+                } else {
+                    // Se verifica si el token falló (ya sea por tiempo o por uso).
+                    if (response.recaptcha) {
+                        sweetAlert(2, response.exception, 'main.php');
+                    } else {
+                        sweetAlert(2, response.exception, null);
+                    }
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}

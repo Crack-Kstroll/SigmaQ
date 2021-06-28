@@ -4,7 +4,7 @@
 */
 
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API = '../../app/api/dashboard/clientes.php?action=';
+const API = '../../app/api/dashboard/usuarios.php?action=';
 
 // Función para mostrar un mensaje de confirmación al momento de cerrar sesión.
 function logOut() {

@@ -4,13 +4,13 @@ Dashboard_Page::headerTemplate('Edicion de perfil','dashboard');
 ?>
 
 <style>
-.fondoProfile{
-    background: #D3D3D3;
-}
+    .fondoProfile{
+        background: #D3D3D3;
+    }
 
-.botonesProfile{
-   width:100%;
-}
+    .botonesProfile{
+    width:100%;
+    }
 </style>
 
 <div class="container-fluid fondoProfile">
@@ -60,10 +60,8 @@ Dashboard_Page::headerTemplate('Edicion de perfil','dashboard');
         <br>
         <center><h3>Cambiar contraseña</h3></center>    
         <br>
-        <form method="post" id="password-form" enctype="multipart/form-data">
-            
+        <form method="post" id="password-form" enctype="multipart/form-data">   
             <div class="row">
-
                 <div class="d-grid gap-2 col-4 mx-auto">
                     <label for="txtClaveActual" class="form-label">Clave actual</label>
                     <input type="password" id="txtClaveActual" name="txtClaveActual" class="form-control" aria-describedby="claveActual">
@@ -71,7 +69,6 @@ Dashboard_Page::headerTemplate('Edicion de perfil','dashboard');
                     Tu contraseña debe tener una longitud minima de 6 caracteres y un maximo de 30, puede contener letras numeros y espacios
                     </div>
                 </div>
-
                 <div class="d-grid gap-2 col-4 mx-auto">
                     <label for="txtClaveNueva" class="form-label">Nueva clave</label>
                     <input type="password" id="txtClaveNueva" name="txtClaveNueva" class="form-control" aria-describedby="claveNueva">
@@ -79,23 +76,19 @@ Dashboard_Page::headerTemplate('Edicion de perfil','dashboard');
                     Tu contraseña debe tener una longitud minima de 6 caracteres y un maximo de 30, puede contener letras numeros y espacios
                     </div>
                 </div>
-
                 <div class="d-grid gap-2 col-4 mx-auto">
-                    <label for="txtClaveConfirmar" class="form-label">Clave actual</label>
+                    <label for="txtClaveConfirmar" class="form-label">Confirmar clave</label>
                     <input type="password" id="txtClaveConfirmar" name="txtClaveConfirmar" class="form-control" aria-describedby="claveConfirmar">
                     <div id="claveConfirmar" class="form-text">
                     Tu contraseña debe tener una longitud minima de 6 caracteres y un maximo de 30, puede contener letras numeros y espacios
                     </div>
                 </div>
-
             </div>
-
         </form>
-        
         <br><br>
         <div class="row">
             <div class="d-grid gap-2 col-12 mx-auto">
-                <center><button class="btn btn-primary botonesProfile" type="button">Modificar contraseña</button></center>
+                <center><button onclick="actualizarContraseña()" class="btn btn-primary botonesProfile" type="button">Modificar contraseña</button></center>
             </div>
         </div>
 
