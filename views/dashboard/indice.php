@@ -7,37 +7,34 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
         <h5 class="tituloMto">Gestion de indice de entrega</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
     </div>
-    <div class="container-fluid espacioSuperior">
-		<div class="row">
-			<div class="col-sm-5">
-				<div class="row">
-                    <div class="col-md-12 col-lg-5"> <!-- Seccion tipo busqueda -->
-                        <h6 class="textoMostrar">Mostrar por estado</h6>
-                    </div> <!-- Cierra seccion tipo de busqueda -->
-                    <div class="col-md-12 col-lg-7"> <!-- Seccion de filtros -->
-                    	<div class="dropdown">
-							<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Seleccione sociedad
-							</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				  			<a class="dropdown-item" href="#">ROTOFLEX</a>
-				  			<a class="dropdown-item" href="#">ZADICK</a>
+    <!-- Seccion de busqueda filtrada --> 
+    <div class="container-fluid">
+		<form method="post" id="search-form">
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-5">
+							<!-- Campo de busqueda filtrada --> 
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="search">
 						</div>
-					</div> <!-- Cierra seccion de filtros -->
-			    </div> <!-- Cierra la fila -->
-			</div> <!-- Cierra la columna -->
-            </div>
-			<div class="col-sm-7"> <!-- Seccion de busqueda filtrada -->
-				<div class="search-box">
-					<i class="material-icons">&#xE8B6;</i>
-					<input type="text" class="form-control" placeholder="Busqueda filtrada&hellip;">
+						<div class="col-sm-2">
+							<!-- Boton para busqueda filtrada --> 
+							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
+								<i class="material-icons">search</i></button>
+							</button>
+						</div>
+					</div>
 				</div>
-			</div> <!-- Cierra seccion de busqueda filtrada -->
-		</div>
+				<div class="col-sm-3">
+					<!-- Boton para ingresar nuevos registros --> 
+					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+				</div>
+			</div>
+		</form>
+	<!-- Cierra seccion de busqueda filtrada -->		
 	</div>
 
-	<div class="container-fluid"> <!-- Seccion de tabla de usuarios -->
-		<br><br>
+	<div class="container-fluid espacioSuperior"> <!-- Seccion de tabla de usuarios -->
 		<table class="table borde">
 			<thead class="thead-dark">
 				<tr>
@@ -55,127 +52,88 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 					<th>Opciones</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>Bayer</td>
-					<td>Zadik</td>
-					<td>0</td>
-					<td>6</td>
-					<td>0</td>
-					<td>6</td>
-					<td>0</td>
-					<td>16.67</td>
-					<td>0</td>
-					<td>50</td>
-					<td>0</td>
-					<td>
-						<a href="#modalModificarIndiceEntrega" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-						<a href="#modalEliminarIndiceEntrega" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-					</td>
-				</tr>
-				<tr>
-					<td>Bayer</td>
-					<td>Total Sel</td>
-					<td>0</td>
-					<td>6</td>
-					<td>0</td>
-					<td>6</td>
-					<td>0</td>
-					<td>16.67</td>
-					<td>0</td>
-					<td>50</td>
-					<td>0</td>
-					<td>
-						<a href="#modalModificarIndiceEntrega" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-						<a href="#modalEliminarIndiceEntrega" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-					</td>
-				</tr>		
+			<!-- Contenido de la tabla -->
+			<tbody id="tbody-rows">	
 			</tbody>
 		</table>
 			  
 	</div>
 
-	<div id="modalMantenimientoSociedad" class="modal fade"> <!-- Modal mantenimientos sociedad -->
+	<!-- Modal ingresar usuario -->
+	<div id="modal-form" class="modal fade"> 
 		<div class="modal-dialog">
-			<div class="modal-content"> <!-- Contenido del modal -->
-				<form>
-					<div class="modal-header">	<!-- Cabecera del modal -->					
-						<h4 class="modal-title">Mantenimiento de sociedades</h4>
+			<!-- Contenido modal -->
+			<div class="modal-content">
+				<form id="save-form">
+					<div class="modal-header">						
+						<h4 id="modal-title">Agregar Índice de Entrega</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div> <!-- Cierra cabera del modal -->
-					<div class="modal-body"> <!-- Cuerpo del modal -->					
-						<div class="container"> <!-- Seccion de campos modal -->
-							<div class="row">
-								<div class="col-6">
+					</div>
+					<!-- Cuerpo del modal -->
+					<div class="modal-body">				
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label>Responsable</label>
+									<input type="text" id="responsable" name="responsable" class="form-control" required>
+								</div>	
+								<div class="form-group">
+									<label>Cliente</label>
+									<select id="cliente" name="cliente" class="form-control">
+										<option selected></option>
+										<option>Root</option>
+										<option>Administrador</option>
+									</select>
+								</div>				
+								<div class="form-group">
+									<label>Organización</label>
+									<input id="organizacion" name="organizacion" type="text" class="form-control" required>
+								</div>	
+								<div class="form-group">
+									<label>Telefono</label>
 									<div class="form-group">
-										<label>Cliente</label>
-										<select id="inputState" class="form-control">
-											<option selected>SigmaQ</option>
-										</select>
-									</div>					
+										<input type="text" class="form-control" placeholder="0000-0000" required>
+									</div>			
 								</div>			
-								<div class="col-6">
-									<div class="form-group">
-										<label>Sociedad</label>
-										<input type="text" class="form-control" required>
-									</div>				
+							</div>		
+							<div class="col-6">
+								<div class="form-group">
+									<label>Apellido</label>
+									<input type="text" class="form-control" id="txtApellido" required>
 								</div>
-							</div>					
-						</div> <!-- Cierra seccion de campos del modal -->
-						<div class="row espacioCRUDModal"> <!-- Fila de botones de mantenimientos -->
-							<div class="col-sm-3">
-								<button type="button" class="btn btn-info tamañoBotonesCRUD">Ingresar</button>
+								<div class="form-group">
+									<label>Contraseña</label>
+									<input type="password" class="form-control" id="txtClave" placeholder="" required>
+								</div>
+								<div class="form-group">
+									<label>Confirmar contraseña</label>
+									<input type="password" class="form-control" id="txtConfirmar" placeholder="" required>
+								</div>
+								<div class="form-group">
+									<label>DUI</label>
+									<div class="form-group">
+										<input type="text" class="form-control" id="txtDui" placeholder="01234567-8" required>
+									</div> 
+								</div>		
 							</div>
-							<div class="col-sm-3">
-								<button type="button" class="btn btn-info tamañoBotonesCRUD">Modificar</button>
+							<div class="col-12">
+								<label>Correo</label>
+								<input type="email" class="form-control" id="txtCorreo" placeholder="correo@example.com" required>				
 							</div>
-							<div class="col-sm-3">
-								<button type="button" class="btn btn-info tamañoBotonesCRUD">Eliminar</button>
-							</div>
-							<div class="col-sm-3">	
-								<button type="button" class="btn btn-info tamañoBotonesCRUD">Busqueda</button>
-							</div>									
-						</div> <!-- Cierra fila de botones -->
-						<div class="container"> <!-- Seccion de tabla sociedades -->
-							<table class="table table-sm">
-								<thead>
-								  <tr>
-									<th scope="col">#</th>
-									<th scope="col">ID</th>
-									<th scope="col">Cliente</th>
-									<th scope="col">Sociedad</th>
-								  </tr>
-								</thead>
-								<tbody>
-								  <tr>
-									<th scope="row"><span class="custom-checkbox">
-										<input type="checkbox" id="selectAll">
-										<label for="selectAll"></label>
-									</span></th>
-									<td>1</td>
-									<td>BAYER S.A.</td>
-									<td>ROTOFLEX</td>
-								  </tr>
-								  <tr>
-									<th scope="row"><span class="custom-checkbox">
-										<input type="checkbox" id="selectAll">
-										<label for="selectAll"></label>
-									</span></th>
-									<td>2</td>
-									<td>BAYER S.A.</td>
-									<td>ZADIK</td>
-								  </tr>
-								</tbody>
-							  </table>
-						</div><!-- Cierra tabla de sociedades -->
-					</div>	<!-- Cierra cuerpo del modal -->
-					<div class="modal-footer">	<!-- Pie del modal -->
-						<input type="button" class="btn btn-info" data-dismiss="modal" value="Salir">
-					</div> <!-- Cierra pie del modal -->
+						</div>
+					<!-- Cierra el cuerpo del modal -->
+					</div> 
+					<!-- Seccion del pie del modal -->
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" class="btn btn-success" value="Agregar Usuario">
+					</div>
 				</form>
-			</div>	<!-- Cierra contenido del modal -->
+			</div>
 		</div>
-	</div> <!-- Cierra modal mantenimiento sociedad -->
+	</div>
+
+
 </div> <!-- Cierra la seccion de contenido -->
 <?php
 Dashboard_Page::footerTemplate('indice');

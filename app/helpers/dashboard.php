@@ -108,6 +108,7 @@ class Dashboard_Page
             <script type="text/javascript" src="../../app/helpers/components.js"></script>
             <script type="text/javascript" src="../../app/controllers/dashboard/account.js"></script>
             <script type="text/javascript" src="../../app/controllers/dashboard/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         </body>
         </html>
         ');
