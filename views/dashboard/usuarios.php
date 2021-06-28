@@ -61,14 +61,12 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 		</table>	  
 	<!-- Cierra seccion de tabla -->
 	</div>
-
-
 	<!-- Modal  -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header">
-				<h5 id="modal-title" class="modal-title" id="staticBackdropLabel">Modal title</h5>
+				<h5 id="modal-title" name="modal-title" class="modal-title" id="staticBackdropLabel">Modal title</h5>
 			</div>
 			<div class="modal-body">
 				<form method="post" id="save-form" enctype="multipart/form-data">
@@ -131,9 +129,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 			</div>
 		</div>
 	</div>
-
 </div>
-
 <?php
 Dashboard_Page::footerTemplate('usuarios'); 
 ?> <!-- Agregamos el metodo que ingresa los scripts y mandamos el controlador correspondiente  -->

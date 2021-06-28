@@ -11,12 +11,23 @@ class Cliente extends Validator
     private $telefono = null;
     private $direccion = null;
     private $usuario = null;  
-    private $clave = null;  
+    private $clave = null;
+    private $codigo = null;    
 
     public function setId($value)
     {
         if($this->validateNaturalNumber($value)){
             $this->id = $value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function setCodigo($value)
+    {
+        if($this->validateNaturalNumber($value)){
+            $this->codigo = $value;
             return true;
         }else{
             return false;
@@ -162,6 +173,11 @@ class Cliente extends Validator
     {
         return $this->clave;
     }
+
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
     
     public function checkState($usuario)
     {
@@ -259,7 +275,7 @@ class Cliente extends Validator
         $sql = 'UPDATE administradores
         SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? , clave = ?
         WHERE codigoadmin = ?';
-        $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$hash,$this->id);
+        $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$hash,$this->codigo);
         return Database::executeRow($sql, $params);
     }
 
