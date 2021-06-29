@@ -181,6 +181,29 @@ if (isset($_GET['action'])) {
             } else {
                 $result['exception'] = 'Codigo incorrecto';
             }
+        break;
+        case 'activate': // Caso para eliminar un registro 
+            // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+            $_POST = $cliente->validateForm($_POST); 
+            // Obtenemos el valor de los input mediante los metodos set del modelo 
+            if ($cliente->setId($_POST['id'])) {
+                // Cargamos los datos del registro que se desea eliminar
+                if ($data = $cliente->readRow()) {
+                    // Ejecutamos funcion para activar un usuario
+                    if ($cliente->activateUser()) {
+                        $result['status'] = 1;
+                        // Mostramos mensaje de exito
+                        $result['message'] = 'Usuario activado correctamente'; 
+                    // En caso de que alguna validacion falle se muestra el mensaje con el error 
+                    } else {
+                        $result['exception'] = Database::getException();
+                    }
+                } else {
+                    $result['exception'] = 'Usuario inexistente';
+                }
+            } else {
+                $result['exception'] = 'Codigo incorrecto';
+            }
         break;   
         default:
             // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 

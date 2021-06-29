@@ -150,6 +150,15 @@ class Cliente extends Validator
         return Database::getRows($sql, $params);
     }
 
+    public function activateUser()
+    {
+        $sql = 'UPDATE clientes
+        SET estado = true
+        WHERE codigocliente = ?;';
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+
     public function createRow()
     {
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
