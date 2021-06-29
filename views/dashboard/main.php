@@ -32,47 +32,12 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 						<th scope="col">Empresa</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Castroll</td>	
-						<td>12/04/2021 4:39p.m.</td>
-						<td>Consulto su estado de cuenta</td>
-						<td>BAYER</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td>Moys</td>	
-						<td>12/04/2021 3:32p.m.</td>
-						<td>Inicio sesion</td>
-						<td>SIGMAQ</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td>Pacheco</td>	
-						<td>12/04/2021 2:43p.m.</td>
-						<td>Consulto su estado de cuenta</td>
-						<td>ROTOFLEX</td>
-					</tr>
-					<tr>
-						<th scope="row">4</th>
-						<td>Diego02</td>	
-						<td>12/04/2021 1:12p.m.</td>
-						<td>Inicio sesion</td>
-						<td>BAYER</td>
-					</tr>	
-					<tr>
-						<th scope="row">5</th>
-						<td>Castroll</td>	
-						<td>12/04/2021 12:12p.m.</td>
-						<td>Inicio sesion</td>
-						<td>BAYER</td>
-					</tr>			
+				<tbody id="tbody-rows">	
 				</tbody>
 			</table>
 		</div>	
 	</div> <!-- Cierra secion estadisticas -->
 </div>	<!-- Cierra la seccion de contenido -->
 <?php
-Dashboard_Page::footerTemplate('index');
+Dashboard_Page::footerTemplate('main');
 ?>

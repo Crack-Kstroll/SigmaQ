@@ -309,6 +309,98 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'No se puede eliminar a si mismo';
                 }
             break;
+            case 'activate': // Caso para eliminar un registro 
+                // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+                $_POST = $cliente->validateForm($_POST); 
+                // Se valida que el id del usuario que inicio sesion no sea el mismo que se desea eliminar 
+                if ($_POST['id'] != $_SESSION['codigoadmin']) {
+                    // Obtenemos el valor de los input mediante los metodos set del modelo 
+                    if ($cliente->setId($_POST['id'])) {
+                        // Cargamos los datos del registro que se desea eliminar
+                        if ($data = $cliente->readRow()) {
+                            // Ejecutamos funcion para activar un usuario
+                            if ($cliente->activateUser()) {
+                                $result['status'] = 1;
+                                // Mostramos mensaje de exito
+                                $result['message'] = 'Usuario activado correctamente'; 
+                            // En caso de que alguna validacion falle se muestra el mensaje con el error 
+                            } else {
+                                $result['exception'] = Database::getException();
+                            }
+                        } else {
+                            $result['exception'] = 'Usuario inexistente';
+                        }
+                    } else {
+                        $result['exception'] = 'Codigo incorrecto';
+                    }
+                } else {
+                    $result['exception'] = 'No se puede eliminar a si mismo';
+                }
+            break;
+            case 'logIn': // Caso para el inicio de sesion del usuario
+                // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+                $_POST = $cliente->validateForm($_POST);
+                // Creamos una variable de sesion para guardar los intentos del usuario
+                $_SESSION['intentos'] = $_SESSION['intentos']+1 ;
+                // Ejecutamos la funcion que verifica si existe el usuario en la base de datos
+                if ($cliente->checkUser($_POST['usuario'])) {
+                    if ($_SESSION['intentos'] != 5) {
+                        // Ejecutamos la funcion que verifica si la clave es correcta
+                        if ($cliente->checkPassword($_POST['clave'])) {
+                            // Ejecutamos la funcion que verifica si el usuario esta activo
+                            if ($cliente->checkState($_POST['usuario'])) {
+                                // Asignamos los valores a las variables de sesion de los datos obtenidos de las consultas
+                                $_SESSION['codigoadmin'] = $cliente->getId();
+                                $_SESSION['usuario'] = $cliente->getUsuario();
+                                $_SESSION['nombre'] = $cliente->getNombre();
+                                $_SESSION['apellido'] = $cliente->getApellido();
+                                $result['status'] = 1;
+                                // Mostramos mensaje de bienvenido al usuario
+                                $result['message'] = 'Autenticación correcta, bienvenido';
+                            // En caso exista un error de validacion se mostrara su respectivo mensaje
+                            } else {
+                                if (Database::getException()) {
+                                    $result['exception'] = Database::getException();
+                                } else {
+                                    // Mensaje de usuario inactivo
+                                    $result['exception'] = 'El usuario se encuentra inactivo';
+                                }
+                            }             
+                        } else {
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                // Mensaje de clave incorrecta
+                                $result['exception'] = 'Clave incorrecta';
+                            }
+                        }
+                    }
+                    else{
+                        // Ejecutamos la funcion que verifica si la clave es correcta
+                        if ($cliente->desactivateAdmin($_POST['usuario'])) {
+                            $result['status'] = 2;
+                            // Mostramos mensaje de alerta
+                            $result['message'] = 'Limite de intentos alcanzado usuario desactivado';
+                            // En caso exista un error de validacion se mostrara su respectivo mensaje
+                            $_SESSION['intentos'] = 0;
+                        } else {
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                // Mensaje de usuario inactivo
+                                $result['exception'] = 'Error al desactivar usuario';
+                            }
+                        }          
+                    }       
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        // Mensaje de usuario incorrecto
+                        $result['exception'] = 'Usuario incorrecto';
+                    }
+                }
+            break;
             default:
                 // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
@@ -319,37 +411,58 @@ if (isset($_GET['action'])) {
             case 'logIn': // Caso para el inicio de sesion del usuario
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $cliente->validateForm($_POST);
+                // Creamos una variable de sesion para guardar los intentos del usuario
+                $_SESSION['intentos'] = $_SESSION['intentos']+1 ;
                 // Ejecutamos la funcion que verifica si existe el usuario en la base de datos
                 if ($cliente->checkUser($_POST['usuario'])) {
-                    // Ejecutamos la funcion que verifica si la clave es correcta
-                    if ($cliente->checkPassword($_POST['clave'])) {
-                        // Ejecutamos la funcion que verifica si el usuario esta activo
-                        if ($cliente->checkState($_POST['usuario'])) {
-                            // Asignamos los valores a las variables de sesion de los datos obtenidos de las consultas
-                             $_SESSION['codigoadmin'] = $cliente->getId();
-                             $_SESSION['usuario'] = $cliente->getUsuario();
-                            $_SESSION['nombre'] = $cliente->getNombre();
-                            $_SESSION['apellido'] = $cliente->getApellido();
-                            $result['status'] = 1;
-                            // Mostramos mensaje de bienvenido al usuario
-                            $result['message'] = 'Autenticación correcta, bienvenido';
-                        // En caso exista un error de validacion se mostrara su respectivo mensaje
+                    if ($_SESSION['intentos'] != 5) {
+                        // Ejecutamos la funcion que verifica si la clave es correcta
+                        if ($cliente->checkPassword($_POST['clave'])) {
+                            // Ejecutamos la funcion que verifica si el usuario esta activo
+                            if ($cliente->checkState($_POST['usuario'])) {
+                                // Asignamos los valores a las variables de sesion de los datos obtenidos de las consultas
+                                $_SESSION['codigoadmin'] = $cliente->getId();
+                                $_SESSION['usuario'] = $cliente->getUsuario();
+                                $_SESSION['nombre'] = $cliente->getNombre();
+                                $_SESSION['apellido'] = $cliente->getApellido();
+                                $result['status'] = 1;
+                                // Mostramos mensaje de bienvenido al usuario
+                                $result['message'] = 'Autenticación correcta, bienvenido';
+                            // En caso exista un error de validacion se mostrara su respectivo mensaje
+                            } else {
+                                if (Database::getException()) {
+                                    $result['exception'] = Database::getException();
+                                } else {
+                                    // Mensaje de usuario inactivo
+                                    $result['exception'] = 'El usuario se encuentra inactivo';
+                                }
+                            }             
+                        } else {
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                // Mensaje de clave incorrecta
+                                $result['exception'] = 'Clave incorrecta';
+                            }
+                        }
+                    }
+                    else{
+                        // Ejecutamos la funcion que verifica si la clave es correcta
+                        if ($cliente->desactivateAdmin($_POST['usuario'])) {
+                            $result['status'] = 2;
+                            // Mostramos mensaje de alerta
+                            $result['message'] = 'Limite de intentos alcanzado usuario desactivado';
+                            // En caso exista un error de validacion se mostrara su respectivo mensaje
+                            $_SESSION['intentos'] = 0;
                         } else {
                             if (Database::getException()) {
                                 $result['exception'] = Database::getException();
                             } else {
                                 // Mensaje de usuario inactivo
-                                $result['exception'] = 'El usuario se encuentra inactivo';
+                                $result['exception'] = 'Error al desactivar usuario';
                             }
-                        }             
-                    } else {
-                        if (Database::getException()) {
-                            $result['exception'] = Database::getException();
-                        } else {
-                            // Mensaje de clave incorrecta
-                            $result['exception'] = 'Clave incorrecta';
-                        }
-                    }
+                        }          
+                    }       
                 } else {
                     if (Database::getException()) {
                         $result['exception'] = Database::getException();

@@ -190,6 +190,15 @@ class Cliente extends Validator
         }
     }
 
+    public function desactivateAdmin($user)
+    {
+        $sql = 'UPDATE administradores
+        SET estado = false
+        WHERE usuario = ?;';
+        $params = array($user);
+        return Database::executeRow($sql, $params);
+    }
+
     public function checkUser($usuario)
     {
         $sql = 'SELECT codigoadmin,estado,nombre,apellido FROM administradores WHERE usuario = ?';
@@ -241,12 +250,21 @@ class Cliente extends Validator
         return Database::getRow($sql, $params);
     }
 
+    public function activateUser()
+    {
+        $sql = 'UPDATE administradores
+        SET estado = true
+        WHERE codigoadmin = ?;';
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+
     public function searchRows($value)
     {
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
         from administradores
         WHERE dui ILIKE ? 
-        order by codigoadmin';
+        order by estado desc';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
@@ -255,7 +273,7 @@ class Cliente extends Validator
     {
         $sql = 'SELECT codigoadmin,usuario,estado,nombre,apellido,dui,correo,telefono,direccion,intentos
         from administradores
-        order by codigoadmin';
+        order by estado desc';
         $params = null;
         return Database::getRows($sql, $params);
     }
