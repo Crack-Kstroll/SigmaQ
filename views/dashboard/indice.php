@@ -35,100 +35,100 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 	</div>
 
 	<div class="container-fluid espacioSuperior"> <!-- Seccion de tabla de usuarios -->
-		<table class="table borde">
-			<thead class="thead-dark">
-				<tr>
-					<th>Cliente</th>
-					<th>Organizacion</th>
-					<th>Indice</th>
-					<th>Compromisos</th>
-					<th>Cumplidos</th>
-					<th>No Cumplidos</th>
-					<th>No Considerados</th>
-					<th>% incum no entregados</th>
-					<th>% incum por fecha</th>
-					<th>% incum por calidad</th>
-					<th>% incum por cantidad</th>
-					<th>Opciones</th>
-				</tr>
-			</thead>
+		<table class="table borde" id="tbody-rows">
+			<h4 id="warning-message" style="text-align:center"></h4>
 			<!-- Contenido de la tabla -->
-			<tbody id="tbody-rows">	
+			<tbody>	
 			</tbody>
 		</table>
-			  
 	</div>
 
-	<!-- Modal ingresar usuario -->
-	<div id="modal-form" class="modal fade"> 
+	<!-- Modal  -->
+	<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<!-- Contenido modal -->
 			<div class="modal-content">
-				<form id="save-form">
-					<div class="modal-header">						
-						<h4 id="modal-title">Agregar Índice de Entrega</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<!-- Cuerpo del modal -->
-					<div class="modal-body">				
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group">
-									<label>Responsable</label>
-									<input type="text" id="responsable" name="responsable" class="form-control" required>
-								</div>	
-								<div class="form-group">
-									<label>Cliente</label>
-									<select id="cliente" name="cliente" class="form-control">
-										<option selected></option>
-										<option>Root</option>
-										<option>Administrador</option>
-									</select>
-								</div>				
-								<div class="form-group">
-									<label>Organización</label>
-									<input id="organizacion" name="organizacion" type="text" class="form-control" required>
-								</div>	
-								<div class="form-group">
-									<label>Telefono</label>
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="0000-0000" required>
-									</div>			
-								</div>			
-							</div>		
-							<div class="col-6">
-								<div class="form-group">
-									<label>Apellido</label>
-									<input type="text" class="form-control" id="txtApellido" required>
-								</div>
-								<div class="form-group">
-									<label>Contraseña</label>
-									<input type="password" class="form-control" id="txtClave" placeholder="" required>
-								</div>
-								<div class="form-group">
-									<label>Confirmar contraseña</label>
-									<input type="password" class="form-control" id="txtConfirmar" placeholder="" required>
-								</div>
-								<div class="form-group">
-									<label>DUI</label>
-									<div class="form-group">
-										<input type="text" class="form-control" id="txtDui" placeholder="01234567-8" required>
-									</div> 
-								</div>		
-							</div>
-							<div class="col-12">
-								<label>Correo</label>
-								<input type="email" class="form-control" id="txtCorreo" placeholder="correo@example.com" required>				
+			<div class="modal-header">
+				<h5 id="modal-title" name="modal-title" class="modal-title">Modal title</h5>
+			</div>
+			<div class="modal-body">
+				<form method="post" id="save-form" enctype="multipart/form-data">
+					<div class="row">
+						<!-- Campo invicible del ID -->
+						<input class="d-none" type="number" id="idindice" name="idindice">
+						<div class="col-6 form-group">
+							<label>Responsable</label>
+							<select id="responsable" name="responsable" class="form-control">
+							</select>
+						</div>	
+						<div class="col-6 form-group">
+							<label>Cliente</label>
+							<select id="cliente" name="cliente" class="form-control">
+							</select>
+						</div>
+						<div class="col-6 form-group">
+							<label>Organización</label>
+							<input id="organizacion" name="organizacion" type="text" class="form-control" required>
+						</div>
+						<div class="col-6 form-group">
+							<label>Índice</label>
+							<div class="form-group">
+								<input id="indice" name="indice" type="number" class="form-control" min="1" required>
+							</div>			
+						</div>
+						<div class="col-6 form-group">
+							<label>Compromiso total</label>
+							<div class="form-group">
+								<input id="totalcompromiso" name="totalcompromiso" type="number" min="0" class="form-control" required>
 							</div>
 						</div>
-					<!-- Cierra el cuerpo del modal -->
-					</div> 
-					<!-- Seccion del pie del modal -->
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-success" value="Agregar Usuario">
+						<div class="col-6 form-group">
+							<label>Cumplidos</label>
+							<div class="form-group">
+								<input id="cumplidos" name="cumplidos" type="number" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>No cumplidos</label>
+							<div class="form-group">
+								<input id="nocumplidos" name="nocumplidos" type="number" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>No considerados</label>
+							<div class="form-group">
+								<input id="noconsiderados" name="noconsiderados" type="number" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Incumplidos no entregados</label>
+							<div class="form-group">
+								<input id="incumnoentregados" name="incumnoentregados" type="text" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Incumplidos por calidad</label>
+							<div class="form-group">
+								<input id="incumporcalidad" name="incumporcalidad" type="text" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Incumplidos por fecha</label>
+							<div class="form-group">
+								<input id="incumporfecha" name="incumporfecha" type="text" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Incumplidos por cantidad</label>
+							<div class="form-group">
+								<input id="incumporcantidad" name="incumporcantidad" type="text" class="form-control" required>
+							</div>
+						</div>
 					</div>
 				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+				<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
 			</div>
 		</div>
 	</div>

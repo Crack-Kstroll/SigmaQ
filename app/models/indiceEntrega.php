@@ -148,11 +148,11 @@ class Indice extends Validator {
         return $this->idindice;
     }
 
-    public function getIdIndice() {
+    public function getResponsable() {
         return $this->responsable;
     }
 
-    public function getIdIndice() {
+    public function getCliente() {
         return $this->cliente;
     }
 
@@ -167,14 +167,28 @@ class Indice extends Validator {
 
     //Función para mostrar los índices
     public function selectIndice() {
-        $query="SELECT *, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario
+        $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
                 FROM indiceentregas ie
                 INNER JOIN administradores a
                     ON ie.responsable = a.codigoadmin
                 INNER JOIN clientes cl
-                    ON ie.cliente = cl.codigocliente";
+                    ON ie.cliente = cl.codigocliente
+                ORDER BY ie.estado DESC";
         $params = null;
-        return Database::getRow($query, $params);
+        return Database::getRows($query, $params);
+    }
+
+    public function readOneIndice() {
+        $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
+                FROM indiceentregas ie
+                INNER JOIN administradores a
+                    ON ie.responsable = a.codigoadmin
+                INNER JOIN clientes cl
+                    ON ie.cliente = cl.codigocliente
+                WHERE ie.idindice=?
+                ORDER BY ie.estado DESC";
+        $params = array($this->idindice);
+        return Database::getRows($query, $params);
     }
 
     //Función para actualizar un registros
@@ -187,8 +201,8 @@ class Indice extends Validator {
     }
 
     //Función para eliminar un registro
-    public function deleteIndice() {
-        $query="DELETE FROM indiceentregas WHERE idindice = ?";
+    public function desableIndice() {
+        $query="UPDATE indiceentregas SET estado=false WHERE idindice = ?";
         $params=array($this->idindice);
         return Database::executeRow($query, $params);
     }
