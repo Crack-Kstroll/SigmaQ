@@ -37,7 +37,26 @@ const fillTable = dataset => {
                 </tr>
             </thead>
         `
+
+
         dataset.map( row => {
+
+            let toggleEnabledIcon = '';
+            let iconToolTip = '';
+            let metodo = '';
+
+            if(row.estado) {
+                //Cuando el registro esté habilitado
+                iconToolTip = 'Deshabilitar'
+                toggleEnabledIcon = 'block'
+                metodo = 'openDeleteDialog';
+
+            } else {
+                iconToolTip = 'Habilitar'
+                toggleEnabledIcon = 'check_circle_outline'
+                metodo = 'openActivateDialog';
+            }
+
             content+= `
                 <tr>
                     <td>${row.usuario}</th>
@@ -52,8 +71,8 @@ const fillTable = dataset => {
                     <td>${row.incumporcalidad}</th>
                     <td>${row.incumporcantidad}</th>
                     <td>
-                        <a href="#" onclick="openUpdateDialog(${row.idindice})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#" onclick="openDeleteDialog(${row.idindice}, ${row.estado})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="#" onclick="openUpdateDialog(${row.idindice})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#" onclick="${metodo}(${row.idindice})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                     </td>
                 </tr>
             `
@@ -73,11 +92,42 @@ const saveData = () => {
         action = 'create'; // En caso que no se crea 
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
-    saveRow(API_INDICES, action, 'save-form', 'form-modal');
+    saveRow(API_INDICES, action, 'save-form', 'modal-form');
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_INDICES);
 }
 
+
+function openDeleteDialog(id) {
+    const data = new FormData();
+    // Asignamos el valor de la data que se enviara a la API
+    data.append('id', id);
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmDesactivate(API_INDICES, data);
+    // Se manda a llamar la funcion para llenar la tabla con la API de parametro
+    readRows(API_INDICES);
+}
+
+// Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
+function openActivateDialog(id) {
+    const data = new FormData();
+    // Asignamos el valor de la data que se enviara a la API
+    data.append('id', id);
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmActivate(API_INDICES, data);
+    // Se manda a llamar la funcion para llenar la tabla con la API de parametro
+    readRows(API_INDICES);
+}
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('search-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Se ejecuta la funcion search rows de components y se envia como parametro la api y el form que contiene el input buscar
+    searchRows(API_INDICES, 'search-form');
+});
+
+// Función para abrir el Form al momento de crear un registro
 const openCreateDialog = () => {
     //Se restauran los elementos del form
     document.getElementById('save-form').reset();
@@ -90,13 +140,55 @@ const openCreateDialog = () => {
     fillSelect(API_CLIENTES, 'cliente', null);
 }
 
-function openDeleteDialog(id,estado) {
-    console.log(estado)
+// Función para preparar el formulario al momento de modificar un registro.
+function openUpdateDialog(id) {
+    // Reseteamos el valor de los campos del modal
+    document.getElementById('save-form').reset();
+    //Se abre el form
+    $('#modal-form').modal('show');
+    //Asignamos el titulo al modal
+    document.getElementById('modal-title').textContent = 'Registrar Indice de Entrega'
+    // Asignamos el valor del parametro id al campo del id del modal
+    document.getElementById('idindice').value = id;
+
     const data = new FormData();
-    // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
-    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
-    confirmDelete(API_INDICES, data);
-    // Se manda a llamar la funcion para llenar la tabla con la API de parametro
-    readRows(API_INDICES);
+    // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
+    fetch(API_INDICES + 'readOne', {
+        method: 'post',
+        body: data 
+    }).then( request => { 
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) { 
+            // console.log(request.text())
+           return request.json()
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    // En ocurrir un error se muestra en la consola 
+    }).then( response => {
+        // En caso de encontrarse registros se imprimen los resultados en los inputs del modal
+        if (response.status) {
+            // Colocamos el nombre de los inpus y los igualamos al valor de los campos del dataset 
+            document.getElementById('idindice').value = response.dataset[0].idindice;
+            fillSelect(API_ADMINS, 'responsable', response.dataset[0].codigoadmin);
+            fillSelect(API_CLIENTES, 'cliente', response.dataset[0].codigocliente);
+            document.getElementById('organizacion').value = response.dataset[0].organizacion
+            document.getElementById('indice').value = response.dataset[0].indice;
+            document.getElementById('totalcompromiso').value = response.dataset[0].totalcompromiso;
+            document.getElementById('cumplidos').value = response.dataset[0].cumplidos;
+            document.getElementById('nocumplidos').value = response.dataset[0].nocumplidos;
+            document.getElementById('noconsiderados').value = response.dataset[0].noconsiderados;
+            document.getElementById('incumnoentregados').value = response.dataset[0].incumnoentregados;
+            document.getElementById('incumporcalidad').value = response.dataset[0].incumporcalidad;
+            document.getElementById('incumporfecha').value = response.dataset[0].incumporfecha;
+            document.getElementById('incumporcantidad').value = response.dataset[0].incumporcantidad;
+            } else { 
+            // En caso de fallar se muestra el mensaje de error 
+            sweetAlert(2, response.exception, null);
+        }
+    }
+    ).catch(function (error) {
+        console.log(error);
+    });
 }

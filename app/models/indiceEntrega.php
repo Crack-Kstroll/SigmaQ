@@ -179,7 +179,7 @@ class Indice extends Validator {
     }
 
     public function readOneIndice() {
-        $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
+        $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, a.codigoadmin, cl.usuario, cl.codigocliente, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
                 FROM indiceentregas ie
                 INNER JOIN administradores a
                     ON ie.responsable = a.codigoadmin
@@ -206,6 +206,28 @@ class Indice extends Validator {
         $params=array($this->idindice);
         return Database::executeRow($query, $params);
     }
+
+    //Función para activar un registro
+    public function enableIndice() {
+        $query="UPDATE indiceentregas SET estado=true WHERE idindice = ?";
+        $params=array($this->idindice);
+        return Database::executeRow($query, $params);
+    }
+
+    //Función para realizar una búsqueda en los registros
+    public function searchRows($value) {
+        $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
+                FROM indiceentregas ie
+                INNER JOIN administradores a
+                    ON ie.responsable = a.codigoadmin
+                INNER JOIN clientes cl
+                    ON ie.cliente = cl.codigocliente
+                WHERE CONCAT(a.nombre, ' ', a.apellido) ILIKE ? OR cl.usuario ILIKE ? OR ie.organizacion ILIKE ?
+                ORDER BY ie.estado DESC";
+        $params = array("%$value%","%$value%","%$value%");
+        return Database::getRows($query, $params);
+    }
+
 
     //Función para mostrar los empleados
     public function getAdministradores() {

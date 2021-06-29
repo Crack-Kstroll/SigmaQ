@@ -122,6 +122,10 @@ body {
 /**** CIERRA SECCION DE CONTENIDO DE FORMULARIOS****/
 
 /****   SECCION DEL SIDEBAR   ****/
+.logOut-bottom {
+	bottom: 0px;
+}
+
 .fondoNegro{
     background-color:black;
 }
@@ -202,7 +206,7 @@ body {
 .a{
     position: absolute;
     bottom: 0;
-    width:33.50vh;
+    width:100%;
 }
 
 .espacioOpciones{

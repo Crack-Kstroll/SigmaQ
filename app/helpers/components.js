@@ -180,7 +180,7 @@ function confirmDesactivate(api, data) {
 function confirmActivate(api, data) {
     swal({
         title: 'Advertencia',
-        text: '¿Desea activar el usuario?',
+        text: '¿Desea activar el registro?',
         icon: 'info',
         buttons: ['No', 'Sí'],
         closeOnClickOutside: false,
