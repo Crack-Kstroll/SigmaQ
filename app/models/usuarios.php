@@ -190,6 +190,15 @@ class Cliente extends Validator
         }
     }
 
+    public function desactivateAdmin($user)
+    {
+        $sql = 'UPDATE administradores
+        SET estado = false
+        WHERE usuario = ?;';
+        $params = array($user);
+        return Database::executeRow($sql, $params);
+    }
+
     public function checkUser($usuario)
     {
         $sql = 'SELECT codigoadmin,estado,nombre,apellido FROM administradores WHERE usuario = ?';
