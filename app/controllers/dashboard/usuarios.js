@@ -11,9 +11,17 @@ document.addEventListener('DOMContentLoaded', function () {
 function fillTable(dataset) {
     // Atributo para guardar las filas retornadas en el dataset 
     let content = '';
+    let metodo = '';
     dataset.map(function (row) {
         // Definimos el icono a mostrar en la tabla segun el estado del registro
-        (row.estado) ? icon = 'lock_open' : icon = 'lock'; 
+        if (row.estado) {
+            icon = 'lock_open'
+            metodo = 'openDeleteDialog';
+        }
+        else{
+            icon = 'lock';
+            metodo = 'openActivateDialog'; 
+        }
         // Definimos la estructura de las filas con los campos del dataset 
         content += `
             <tr>
@@ -28,7 +36,7 @@ function fillTable(dataset) {
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a href="#" onclick="openDeleteDialog(${row.codigoadmin})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a href="#" onclick="${metodo}(${row.codigoadmin})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                 </td>
             </tr>
         `;          
@@ -128,5 +136,14 @@ function openDeleteDialog(id) {
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
     // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
-    confirmDelete(API_USUARIOS, data);
+    confirmDesactivate(API_USUARIOS, data);
+}
+
+// Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
+function openActivateDialog(id) {
+    const data = new FormData();
+    // Asignamos el valor de la data que se enviara a la API
+    data.append('id', id);
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmActivate(API_USUARIOS, data);
 }
