@@ -180,7 +180,7 @@ function confirmDesactivate(api, data) {
 function confirmActivate(api, data) {
     swal({
         title: 'Advertencia',
-        text: '¿Desea activar el usuario?',
+        text: '¿Desea activar el registro?',
         icon: 'info',
         buttons: ['No', 'Sí'],
         closeOnClickOutside: false,
@@ -325,8 +325,6 @@ function fillSelect(endpoint, select, selected) {
                 }
                 // Se agregan las opciones a la etiqueta select mediante su id.
                 document.getElementById(select).innerHTML = content;
-                // Se inicializa el componente Select del formulario para que muestre las opciones.
-                M.FormSelect.init(document.querySelectorAll('select'));
             });
         } else {
             console.log(request.status + ' ' + request.statusText);

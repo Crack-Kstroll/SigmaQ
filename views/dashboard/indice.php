@@ -7,175 +7,133 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
         <h5 class="tituloMto">Gestion de indice de entrega</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
     </div>
-    <div class="container-fluid espacioSuperior">
-		<div class="row">
-			<div class="col-sm-5">
-				<div class="row">
-                    <div class="col-md-12 col-lg-5"> <!-- Seccion tipo busqueda -->
-                        <h6 class="textoMostrar">Mostrar por estado</h6>
-                    </div> <!-- Cierra seccion tipo de busqueda -->
-                    <div class="col-md-12 col-lg-7"> <!-- Seccion de filtros -->
-                    	<div class="dropdown">
-							<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Seleccione sociedad
-							</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				  			<a class="dropdown-item" href="#">ROTOFLEX</a>
-				  			<a class="dropdown-item" href="#">ZADICK</a>
+    <!-- Seccion de busqueda filtrada --> 
+    <div class="container-fluid">
+		<form method="post" id="search-form">
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-5">
+							<!-- Campo de busqueda filtrada --> 
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="search">
 						</div>
-					</div> <!-- Cierra seccion de filtros -->
-			    </div> <!-- Cierra la fila -->
-			</div> <!-- Cierra la columna -->
-            </div>
-			<div class="col-sm-7"> <!-- Seccion de busqueda filtrada -->
-				<div class="search-box">
-					<i class="material-icons">&#xE8B6;</i>
-					<input type="text" class="form-control" placeholder="Busqueda filtrada&hellip;">
+						<div class="col-sm-2">
+							<!-- Boton para busqueda filtrada --> 
+							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
+								<i class="material-icons">search</i></button>
+							</button>
+						</div>
+					</div>
 				</div>
-			</div> <!-- Cierra seccion de busqueda filtrada -->
-		</div>
+				<div class="col-sm-3">
+					<!-- Boton para ingresar nuevos registros --> 
+					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+				</div>
+			</div>
+		</form>
+	<!-- Cierra seccion de busqueda filtrada -->		
 	</div>
 
-	<div class="container-fluid"> <!-- Seccion de tabla de usuarios -->
-		<br><br>
-		<table class="table borde">
-			<thead class="thead-dark">
-				<tr>
-					<th>Cliente</th>
-					<th>Organizacion</th>
-					<th>Indice</th>
-					<th>Compromisos</th>
-					<th>Cumplidos</th>
-					<th>No Cumplidos</th>
-					<th>No Considerados</th>
-					<th>% incum no entregados</th>
-					<th>% incum por fecha</th>
-					<th>% incum por calidad</th>
-					<th>% incum por cantidad</th>
-					<th>Opciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Bayer</td>
-					<td>Zadik</td>
-					<td>0</td>
-					<td>6</td>
-					<td>0</td>
-					<td>6</td>
-					<td>0</td>
-					<td>16.67</td>
-					<td>0</td>
-					<td>50</td>
-					<td>0</td>
-					<td>
-						<a href="#modalModificarIndiceEntrega" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-						<a href="#modalEliminarIndiceEntrega" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-					</td>
-				</tr>
-				<tr>
-					<td>Bayer</td>
-					<td>Total Sel</td>
-					<td>0</td>
-					<td>6</td>
-					<td>0</td>
-					<td>6</td>
-					<td>0</td>
-					<td>16.67</td>
-					<td>0</td>
-					<td>50</td>
-					<td>0</td>
-					<td>
-						<a href="#modalModificarIndiceEntrega" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-						<a href="#modalEliminarIndiceEntrega" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-					</td>
-				</tr>		
+	<div class="container-fluid espacioSuperior"> <!-- Seccion de tabla de usuarios -->
+		<table class="table borde" id="tbody-rows">
+			<h4 id="warning-message" style="text-align:center"></h4>
+			<!-- Contenido de la tabla -->
+			<tbody>	
 			</tbody>
 		</table>
-			  
 	</div>
 
-	<div id="modalMantenimientoSociedad" class="modal fade"> <!-- Modal mantenimientos sociedad -->
+	<!-- Modal  -->
+	<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content"> <!-- Contenido del modal -->
-				<form>
-					<div class="modal-header">	<!-- Cabecera del modal -->					
-						<h4 class="modal-title">Mantenimiento de sociedades</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div> <!-- Cierra cabera del modal -->
-					<div class="modal-body"> <!-- Cuerpo del modal -->					
-						<div class="container"> <!-- Seccion de campos modal -->
-							<div class="row">
-								<div class="col-6">
-									<div class="form-group">
-										<label>Cliente</label>
-										<select id="inputState" class="form-control">
-											<option selected>SigmaQ</option>
-										</select>
-									</div>					
-								</div>			
-								<div class="col-6">
-									<div class="form-group">
-										<label>Sociedad</label>
-										<input type="text" class="form-control" required>
-									</div>				
-								</div>
-							</div>					
-						</div> <!-- Cierra seccion de campos del modal -->
-						<div class="row espacioCRUDModal"> <!-- Fila de botones de mantenimientos -->
-							<div class="col-sm-3">
-								<button type="button" class="btn btn-info tamañoBotonesCRUD">Ingresar</button>
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="modal-title" name="modal-title" class="modal-title">Modal title</h5>
+			</div>
+			<div class="modal-body">
+				<form method="post" id="save-form" enctype="multipart/form-data">
+					<div class="row">
+						<!-- Campo invicible del ID -->
+						<input class="d-none" type="number" id="idindice" name="idindice">
+						<div class="col-6 form-group">
+							<label>Responsable</label>
+							<select id="responsable" name="responsable" class="form-control">
+							</select>
+						</div>	
+						<div class="col-6 form-group">
+							<label>Cliente</label>
+							<select id="cliente" name="cliente" class="form-control">
+							</select>
+						</div>
+						<div class="col-6 form-group">
+							<label>Organización</label>
+							<input id="organizacion" name="organizacion" type="text" class="form-control" required>
+						</div>
+						<div class="col-6 form-group">
+							<label>Índice</label>
+							<div class="form-group">
+								<input id="indice" name="indice" type="number" class="form-control" min="1" required>
+							</div>			
+						</div>
+						<div class="col-6 form-group">
+							<label>Compromiso total</label>
+							<div class="form-group">
+								<input id="totalcompromiso" name="totalcompromiso" type="number" min="0" class="form-control" required>
 							</div>
-							<div class="col-sm-3">
-								<button type="button" class="btn btn-info tamañoBotonesCRUD">Modificar</button>
+						</div>
+						<div class="col-6 form-group">
+							<label>Cumplidos</label>
+							<div class="form-group">
+								<input id="cumplidos" name="cumplidos" type="number" min="0" class="form-control" required>
 							</div>
-							<div class="col-sm-3">
-								<button type="button" class="btn btn-info tamañoBotonesCRUD">Eliminar</button>
+						</div>
+						<div class="col-6 form-group">
+							<label>No cumplidos</label>
+							<div class="form-group">
+								<input id="nocumplidos" name="nocumplidos" type="number" min="0" class="form-control" required>
 							</div>
-							<div class="col-sm-3">	
-								<button type="button" class="btn btn-info tamañoBotonesCRUD">Busqueda</button>
-							</div>									
-						</div> <!-- Cierra fila de botones -->
-						<div class="container"> <!-- Seccion de tabla sociedades -->
-							<table class="table table-sm">
-								<thead>
-								  <tr>
-									<th scope="col">#</th>
-									<th scope="col">ID</th>
-									<th scope="col">Cliente</th>
-									<th scope="col">Sociedad</th>
-								  </tr>
-								</thead>
-								<tbody>
-								  <tr>
-									<th scope="row"><span class="custom-checkbox">
-										<input type="checkbox" id="selectAll">
-										<label for="selectAll"></label>
-									</span></th>
-									<td>1</td>
-									<td>BAYER S.A.</td>
-									<td>ROTOFLEX</td>
-								  </tr>
-								  <tr>
-									<th scope="row"><span class="custom-checkbox">
-										<input type="checkbox" id="selectAll">
-										<label for="selectAll"></label>
-									</span></th>
-									<td>2</td>
-									<td>BAYER S.A.</td>
-									<td>ZADIK</td>
-								  </tr>
-								</tbody>
-							  </table>
-						</div><!-- Cierra tabla de sociedades -->
-					</div>	<!-- Cierra cuerpo del modal -->
-					<div class="modal-footer">	<!-- Pie del modal -->
-						<input type="button" class="btn btn-info" data-dismiss="modal" value="Salir">
-					</div> <!-- Cierra pie del modal -->
+						</div>
+						<div class="col-6 form-group">
+							<label>No considerados</label>
+							<div class="form-group">
+								<input id="noconsiderados" name="noconsiderados" type="number" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Incumplidos no entregados</label>
+							<div class="form-group">
+								<input id="incumnoentregados" name="incumnoentregados" type="text" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Incumplidos por calidad</label>
+							<div class="form-group">
+								<input id="incumporcalidad" name="incumporcalidad" type="text" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Incumplidos por fecha</label>
+							<div class="form-group">
+								<input id="incumporfecha" name="incumporfecha" type="text" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Incumplidos por cantidad</label>
+							<div class="form-group">
+								<input id="incumporcantidad" name="incumporcantidad" type="text" class="form-control" required>
+							</div>
+						</div>
+					</div>
 				</form>
-			</div>	<!-- Cierra contenido del modal -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+				<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
+			</div>
 		</div>
-	</div> <!-- Cierra modal mantenimiento sociedad -->
+	</div>
+
+
 </div> <!-- Cierra la seccion de contenido -->
 <?php
 Dashboard_Page::footerTemplate('indice');

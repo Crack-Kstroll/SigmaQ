@@ -50,7 +50,7 @@ class Dashboard_Page
                             <h6 id="datosAdmin" class="letraBlanca">' . $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] . '</h6>
                         </div>
                     </div>   <!-- Cierra seccion informacion de usuario -->
-                    <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
+                    <div class="list-group list-group-flush fondoNegro espacioOpciones h-100"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
                         <div class="card-header fondoAcordeon" id="headingOne"> 
                             <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
                                 Mantenimientos
@@ -77,12 +77,12 @@ class Dashboard_Page
                             Estatus de pedidos
                         </a>                              
                     </div>  <!-- Cierra seccion de opciones del sidebar -->  
-                    <div class="container-fluid a fondoAcordeon"> <!-- Seccion de la opcion cerrar sesion-->
-                        <a onclick="logOut()" class="list-group-item fondoAcordeon textoBlanco sinBorde">
+                    <div class=" position-relative ">
+                        <a onclick="logOut()" class="list-group-item fondoAcordeon textoBlanco sinBorde position-absolute w-100 logOut-bottom">
                             <img class="tamañoIconos" src="../../resources/img/icons/cerrarSesion.png" alt=""> 
                             Cerrar Sesion
                         </a>
-                    </div>  <!-- Cierra seccion cerrar sesion -->
+                    </div>
                 </div> <!-- Cierra el contenedor sidebar -->
                 ');
             } else {

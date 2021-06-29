@@ -143,7 +143,7 @@ class Cliente extends Validator
 
     public function readAll()
     {
-        $sql = 'SELECT codigocliente,estado,empresa,telefono,correo,usuario,clave,intentos 
+        $sql = 'SELECT codigocliente,usuario,estado,empresa,telefono,correo,clave,intentos 
         from clientes 
         order by codigocliente';
         $params = null;
