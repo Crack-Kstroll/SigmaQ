@@ -9,18 +9,19 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 		<h5 class="tituloMto">Gestion de estados de cuenta</h5>
 		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	</div> <!-- Cierra seccion titulo pagina -->
-		<!-- Seccion de busqueda filtrada --> 
+
+	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
 		<form method="post" id="search-form">
 			<div class="row">
 				<div class="col-sm-9">
 					<div class="row">
 						<div class="col-sm-5">
-							<!-- Campo de busqueda filtrada --> 
-							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="search">
+							<!-- Campo de busqueda filtrada -->
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por sociedad o responsable" aria-label="search">
 						</div>
 						<div class="col-sm-2">
-							<!-- Boton para busqueda filtrada --> 
+							<!-- Boton para busqueda filtrada -->
 							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 								<i class="material-icons">search</i></button>
 							</button>
@@ -28,92 +29,108 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 					</div>
 				</div>
 				<div class="col-sm-3">
-					<!-- Boton para ingresar nuevos registros --> 
-					<a href="#" onclick="modalTitle()" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ingresar registro</button></a>						
+					<!-- Boton para ingresar nuevos registros -->
+					<a href="#" onclick="modalTitle()" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ingresar registro</button></a>
 				</div>
 			</div>
 		</form>
-	<!-- Cierra seccion de busqueda filtrada -->		
+		<!-- Cierra seccion de busqueda filtrada -->
 	</div>
-	<!-- Seccion de tabla -->
-	<div class="container-fluid espacioSuperior"> 
-		<table class="table borde">
-			<!-- Cabecera de la tabla -->
-			<thead class="thead-dark">
-				<tr>
-					<th>Codigo</th>
-					<th>Empresa</th>
-					<th>Telefono</th>
-					<th>Correo</th>
-					<th>Usuario</th>
-					<th>Intentos</th>
-					<th>Estado</th>
-					<th>Opciones</th>
-				</tr>
-			</thead>
+
+	<!-- Seccion de tabla de usuarios -->
+	<div class="container-fluid espacioSuperior">
+		<table class="table borde" id="tbody-rows">
+			<h4 id="warning-message" style="text-align:center"></h4>
 			<!-- Contenido de la tabla -->
-			<tbody id="tbody-rows">	
+			<tbody>
 			</tbody>
-		</table>	  
-	<!-- Cierra seccion de tabla -->
+		</table>
 	</div>
+
 	<!-- Modal  -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-			<div class="modal-header">
-				<h5 id="modal-title" name="modal-title" class="modal-title" id="staticBackdropLabel">Modal title</h5>
-			</div>
-			<div class="modal-body">
-				<form method="post" id="save-form" name="save-form" enctype="multipart/form-data">
-				<input type="number" id="txtIdx" name="txtIdx" />
-					<div class="row">
-						<div class="col-6">
-							<div class="form-group">
-								<label>Codigo</label>
-								<input id="txtId" name="txtId" type="number" min="1" class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>Empresa</label>
-								<input id="txtEmpresa" name="txtEmpresa" type="text" class="form-control" required>
-							</div>									
-							<div class="form-group">
-								<label>Telefono</label>
+				<div class="modal-header">
+					<h5 id="modal-title" name="modal-title" class="modal-title" id="staticBackdropLabel">Modal title</h5>
+				</div>
+				<div class="modal-body">
+					<form method="post" id="save-form" name="save-form" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-6">
+								<!-- Campo invicible del ID -->
+								<input class="d-none" type="number" id="idestado" name="idestado">
 								<div class="form-group">
-									<input id="txtTelefono" name="txtTelefono" type="text" class="form-control" placeholder="0000-0000" required>
-								</div>			
-							</div>			
-						</div>		
-						<div class="col-6">
-							<div class="form-group">
-								<label>Usuario</label>
-								<input id="txtUsuario" name="txtUsuario" type="text" class="form-control" required>
+									<label>Responsable</label>
+									<select id="responsable" name="responsable" class="form-control">
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Sociedad</label>
+									<select id="sociedad" name="sociedad" class="form-control">
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Cliente</label>
+									<div class="form-group">
+										<select id="cliente" name="cliente" class="form-control">
+										</select>
+									</div>
+								</div>
 							</div>
-							<div class="form-group">
-								<label>Contraseña</label>
-								<input id="txtClave" name="txtClave" type="password" class="form-control" placeholder="" required>
+							<div class="col-6">
+								<div class="form-group">
+									<label>Codigo</label>
+									<input id="codigo" name="codigo" type="number" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label>Factura</label>
+									<input id="factura" name="factura" type="number" class="form-control" placeholder="" required>
+								</div>
+								<div class="form-group">
+									<label>Asignación</label>
+									<input id="asignacion" name="asignacion" type="number" class="form-control" placeholder="" required>
+								</div>
 							</div>
-							<div class="form-group">
-								<label>Confirmar contraseña</label>
-								<input id="txtClave2" name="txtClave2" type="password" class="form-control" placeholder="" required>
-							</div>	
+							<div class="col-6">
+								<div class="form-group">
+									<label>Fecha Contable</label>
+									<input id="fechacontable" name="fechacontable" type="date" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label>Fecha Vencimiento</label>
+									<input id="vencimiento" name="vencimiento" type="date" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label>Clase</label>
+									<input id="clase" name="clase" type="text" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label>Divisa</label>
+									<div class="form-group">
+										<select id="divisa" name="divisa" class="form-control">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<label>Total General</label>
+								<input id="total" name="total" type="number" class="form-control" required>
+							</div>
 						</div>
-						<div class="col-12">
-							<label>Correo</label>
-							<input id="txtCorreo" name="txtCorreo" type="email" class="form-control" placeholder="correo@example.com" required>				
-						</div>		
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-				<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+					<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
+				</div>
 			</div>
 		</div>
-	</div>
 
 
-</div> <!-- Cierra seccion contenido -->
-<?php
-Dashboard_Page::footerTemplate('estado');
-?>
+	</div> <!-- Cierra seccion contenido -->
+	<?php
+	Dashboard_Page::footerTemplate('estado');
+	?>
