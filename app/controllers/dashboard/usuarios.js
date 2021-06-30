@@ -55,12 +55,10 @@ document.getElementById('search-form').addEventListener('submit', function (even
 
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdateDialog(id) {
-    // Reseteamos el valor de los campos del modal
-    document.getElementById('save-form').reset();
+    //Mandamos a llamar la funcion para colocar el titulo al formulario
+    modalTitle(id);
     // Asignamos el valor del parametro id al campo del id del modal
     document.getElementById('txtIdx').value = id;
-    //Mandamos a llamar la funcion para colocar el titulo al formulario
-    modalTitle();
     const data = new FormData();
     data.append('id', id);
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
@@ -112,21 +110,47 @@ function saveData(){
 }
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
-function modalTitle() {
+function modalTitle(id) {
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Ocultamos el input que contiene el ID del registro
     document.getElementById('txtIdx').style.display = 'none';
     // Atributo para almacenar el titulo del modal
     let titulo = '';
+    // Atributo para almacenar el input de clave
+    let clave = '';
+    // Atributo para almacenar el input confirmar clave
+    let confirmar = '';
     // Compramos si el contenido el input esta vacio
-    if(document.getElementById("txtIdx").value == ''){
+    if(id == 0){
         titulo = 'Registrar usuario'; // En caso que no exista valor se registra
+        clave = `<label  id="lblClave">Contraseña*</label>
+        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+        <div id="passwordHelpBlock" class="form-text">
+            La contraseña del usuario debe tener una longitud minima de 6 caracteres y un maximo de 35
+        </div>`;
+        confirmar = `<label id="lblConfirmarClave">Confirmar clave*</label>
+        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+        <div id="passwordHelpBlock" class="form-text">
+            La contraseña del usuario debe tener una longitud minima de 6 caracteres y un maximo de 35
+        </div>`;     
     }
     else{
         titulo = 'Actualizar usuario';  // En caso que exista se actualiza 
+        clave = `<label  id="lblClave">Contraseña</label>
+        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
+        <div id="passwordHelpBlock" class="form-text">
+            La contraseña del usuario debe tener una longitud minima de 6 caracteres y un maximo de 35
+        </div>`;
+        confirmar = `<label id="lblConfirmarClave">Confirmar clave</label>
+        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
+        <div id="passwordHelpBlock" class="form-text">
+            La contraseña del usuario debe tener una longitud minima de 6 caracteres y un maximo de 35
+        </div>`;
     }
     // Colocamos el titulo al elemento con el id modal-title
+    document.getElementById('boxClave').innerHTML = clave;
+    document.getElementById('boxConfirmar').innerHTML = confirmar;
     document.getElementById('modal-title').textContent = titulo;    
 }
 

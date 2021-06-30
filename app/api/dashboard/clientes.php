@@ -144,7 +144,7 @@ if (isset($_GET['action'])) {
                                     $result['exception'] = 'Correo incorrecto';
                                 }                                                                                                                                                   
                             } else {
-                                    $result['exception'] = 'Usuario incorrecto';
+                                $result['exception'] = 'Usuario incorrecto';
                             }
                         } else {
                             $result['exception'] = 'Telefono incorrecto';
