@@ -46,6 +46,8 @@ class EstadoCuenta extends Validator
         } else {
             return false;
         }
+        // $this->sociedad = $value;
+        // return true;
     }
 
     public function setCliente($value)
@@ -110,7 +112,7 @@ class EstadoCuenta extends Validator
 
     public function setVencimiento($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
+        if ($this->validateDate($value)) {
             $this->vencimiento = $value;
             return true;
         } else {
@@ -214,7 +216,7 @@ class EstadoCuenta extends Validator
 
     public function searchEstado($value)
     {
-        $sql = "SELECT CONCAT(a.nombre,' ',a.apellido) AS Responsable, s.sociedad, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS DiasRestantes, d.divisa, ec.totalgeneral
+        $sql = "SELECT s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral
                 FROM estadocuentas ec
                 INNER JOIN administradores a
                 ON ec.responsable = a.codigoadmin
@@ -232,7 +234,7 @@ class EstadoCuenta extends Validator
 
     public function SelectEstadoCuenta()
     {
-        $sql = "SELECT CONCAT(a.nombre,' ',a.apellido) AS Responsable, s.sociedad, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS DiasRestantes, d.divisa, ec.totalgeneral
+        $sql = "SELECT CONCAT(a.nombre,' ',a.apellido) AS responsable, s.sociedad, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral
                 FROM estadocuentas ec
                 INNER JOIN administradores a
                 ON ec.responsable = a.codigoadmin
@@ -259,7 +261,7 @@ class EstadoCuenta extends Validator
 
     public function insertEstado() {
         $query="INSERT INTO public.estadocuentas(responsable, sociedad, cliente, codigo, factura, asignacion, fechacontable, clase, vencimiento, divisa, totalgeneral)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $params = array($this->responsable, $this->sociedad, $this->cliente, $this->codigo, $this->factura, $this->asignacion, $this->fechaContable, $this->clase, $this->vencimiento, $this->divisa, $this->total);
         return Database::executeRow($query, $params);
     }
@@ -271,4 +273,5 @@ class EstadoCuenta extends Validator
         $params = array($this->responsable, $this->sociedad, $this->cliente, $this->codigo, $this->factura, $this->asignacion, $this->fechaContable, $this->clase, $this->vencimiento, $this->divisa, $this->total);
         return Database::executeRow($query, $params);
     }
+
 }

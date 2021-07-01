@@ -14,7 +14,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 	<div class="container-fluid">
 		<form method="post" id="search-form">
 			<div class="row">
-				<div class="col-sm-9">
+				<div class="col-sm-6">
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada -->
@@ -28,16 +28,24 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-2">
 					<!-- Boton para ingresar nuevos registros -->
-					<a href="#" onclick="modalTitle()" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ingresar registro</button></a>
+					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar registro</button></a>
+				</div>
+				<div class="col-sm-2">
+					<!-- Boton para ingresar nuevos registros -->
+					<a class="btn btn-success btn-md " onclick="openCreateDialogDivisas()" role="button" aria-disabled="true">Admin. Divisas</button></a>
+				</div>
+				<div class="col-sm-2">
+					<!-- Boton para ingresar nuevos registros -->
+					<a class="btn btn-warning btn-md " onclick="openCreateDialogSociedades()" role="button" aria-disabled="true">Admin. Sociedades</button></a>
 				</div>
 			</div>
 		</form>
 		<!-- Cierra seccion de busqueda filtrada -->
 	</div>
 
-	<!-- Seccion de tabla de usuarios -->
+	<!-- Seccion de tabla de registros -->
 	<div class="container-fluid espacioSuperior">
 		<table class="table borde" id="tbody-rows">
 			<h4 id="warning-message" style="text-align:center"></h4>
@@ -47,7 +55,17 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 		</table>
 	</div>
 
-	<!-- Modal  -->
+	<!-- Seccion de tabla de sociedades -->
+	<div class="container-fluid espacioSuperior">
+		<table class="table borde" id="tbody-sociedades">
+			<h4 id="warning-message" style="text-align:center"></h4>
+			<!-- Contenido de la tabla -->
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Modal  Estados-->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -66,16 +84,15 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 									</select>
 								</div>
 								<div class="form-group">
-									<label>Sociedad</label>
-									<select id="sociedad" name="sociedad" class="form-control">
-									</select>
-								</div>
-								<div class="form-group">
 									<label>Cliente</label>
 									<div class="form-group">
 										<select id="cliente" name="cliente" class="form-control">
 										</select>
 									</div>
+								</div>
+								<div class="form-group">
+									<label>Fecha Contable</label>
+									<input id="fechacontable" name="fechacontable" type="date" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-6">
@@ -93,10 +110,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 								</div>
 							</div>
 							<div class="col-6">
-								<div class="form-group">
-									<label>Fecha Contable</label>
-									<input id="fechacontable" name="fechacontable" type="date" class="form-control" required>
-								</div>
+
 								<div class="form-group">
 									<label>Fecha Vencimiento</label>
 									<input id="vencimiento" name="vencimiento" type="date" class="form-control" required>
@@ -107,14 +121,25 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 									<label>Clase</label>
 									<input id="clase" name="clase" type="text" class="form-control" required>
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
 								<div class="form-group">
-									<label>Divisa</label>
-									<div class="form-group">
-										<select id="divisa" name="divisa" class="form-control">
-										</select>
-									</div>
+									<label>Sociedad</label>
+									<select id="sociedad" name="sociedad" class="form-control">
+									</select>
 								</div>
 							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label>Divisas</label>
+									<select id="divisa" name="divisa" class="form-control">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-12">
 								<label>Total General</label>
 								<input id="total" name="total" type="number" class="form-control" required>
@@ -131,6 +156,38 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 
 
 	</div> <!-- Cierra seccion contenido -->
-	<?php
-	Dashboard_Page::footerTemplate('estado');
-	?>
+
+	<!-- Modal Sociedades -->
+	<div class="modal fade" id="modal-sociedades" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 id="modal-title" name="modal-title" class="modal-title">Modal title</h5>
+				</div>
+				<div class="modal-body">
+					<form method="post" id="save-form" enctype="multipart/form-data">
+						<div class="row">
+							<!-- Campo invicible del ID -->
+							<input class="d-none" type="number" id="idsociedad" name="idsociedad">
+							<div class="col-6 form-group">
+								<label>Cliente</label>
+								<select id="cliente" name="cliente" class="form-control">
+								</select>
+							</div>
+							<div class="col-6 form-group">
+								<label>Sociedad</label>
+								<input id="sociedad" name="sociedad" type="text" class="form-control" required>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+					<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
+				</div>
+			</div>
+		</div>
+
+<?php
+	Dashboard_Page::footerTemplate('estadoCuenta');
+?>
