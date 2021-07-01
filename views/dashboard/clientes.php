@@ -30,7 +30,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 				</div>
 				<div class="col-sm-3">
 					<!-- Boton para ingresar nuevos registros --> 
-					<a href="#" onclick="modalTitle()" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar usuario</button></a>						
+					<a href="#" onclick="modalTitle(0)" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar usuario</button></a>						
 				</div>
 			</div>
 		</form>
@@ -72,38 +72,44 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
-								<label>Codigo</label>
-								<input id="txtId" name="txtId" type="number" min="1" class="form-control" required>
+								<label>Codigo*</label>
+								<input id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="000001" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
-								<label>Empresa</label>
-								<input id="txtEmpresa" name="txtEmpresa" type="text" class="form-control" required>
-							</div>									
-							<div class="form-group">
-								<label>Telefono</label>
-								<div class="form-group">
-									<input id="txtTelefono" name="txtTelefono" type="text" class="form-control" placeholder="0000-0000" required>
-								</div>			
-							</div>			
-						</div>		
+								<label>Empresa*</label>
+								<input id="txtEmpresa" name="txtEmpresa" maxlength="40" type="text" class="form-control" placeholder="SigmaQ" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+							</div>															
+						</div>	
 						<div class="col-6">
 							<div class="form-group">
-								<label>Usuario</label>
-								<input id="txtUsuario" name="txtUsuario" type="text" class="form-control" required>
+								<label>Usuario*</label>
+								<input id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
-								<label>Contraseña</label>
-								<input id="txtClave" name="txtClave" type="password" class="form-control" placeholder="" required>
-							</div>
+								<label>Telefono*</label>
+								<div class="form-group">
+									<input id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								</div>			
+							</div>				
+						</div>				
+					</div>
+					<div class="row">
+						<div class="col-12">
 							<div class="form-group">
-								<label>Confirmar contraseña</label>
-								<input id="txtClave2" name="txtClave2" type="password" class="form-control" placeholder="" required>
+								<label>Correo*</label>
+								<input id="txtCorreo" name="txtCorreo" type="email"  maxlength="60" class="form-control" placeholder="correo@example.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>				
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div id="boxClave" class="form-group">			
+							</div>
+						</div>
+						<div class="col-6">
+							<div id="boxConfirmar" class="form-group">			
 							</div>	
 						</div>
-						<div class="col-12">
-							<label>Correo</label>
-							<input id="txtCorreo" name="txtCorreo" type="email" class="form-control" placeholder="correo@example.com" required>				
-						</div>		
 					</div>
 				</form>
 			</div>

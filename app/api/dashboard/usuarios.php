@@ -156,8 +156,9 @@ if (isset($_GET['action'])) {
             case 'create':  // Caso para crear un registro
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $cliente->validateForm($_POST);
-                // Obtenemos el valor de los input mediante los metodos set del modelo             
+                // Verificamos si el contenido de los inputs no es nulo        
                 if ($cliente->validateNull($_POST['txtId'])) {
+                    // Obtenemos el valor de los input mediante los metodos set del modelo             
                     if ($cliente->setId($_POST['txtId'])) {
                         if ($cliente->validateNull($_POST['txtNombre'])) {
                             if ($cliente->setNombre($_POST['txtNombre'])) {
@@ -295,8 +296,7 @@ if (isset($_GET['action'])) {
                                                                                                 }                                             
                                                                                             } else {
                                                                                                 $result['exception'] = $cliente->getPasswordError();
-                                                                                            }
-                                                                                                                                                                 
+                                                                                            }                                                                                                                            
                                                                                         } else {
                                                                                             $result['exception'] = 'Claves nuevas diferentes';
                                                                                         }
@@ -363,10 +363,6 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Codigo incorrecto';
                 }           
             break;
-
-            
-
-
             case 'delete': // Caso para eliminar un registro 
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $cliente->validateForm($_POST); 
@@ -628,6 +624,7 @@ if (isset($_GET['action'])) {
             default:
                 // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
+            break; 
         }
     }
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.

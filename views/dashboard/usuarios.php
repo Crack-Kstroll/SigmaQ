@@ -96,7 +96,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 								</div>			
 							</div>
 							<div id="boxClave" class="form-group">
-								
 							</div>			
 						</div>		
 						<div class="col-6">
@@ -117,8 +116,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 								<label>Direccion*</label>
 								<input id="txtDireccion" name="txtDireccion" type="text" maxlength="150"  class="form-control" placeholder="Avenida Aguilares 218 San Salvador CP, 1101" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>		
-							<div id="boxConfirmar" class="form-group">
-								
+							<div id="boxConfirmar" class="form-group">				
 							</div>	
 						</div>	
 					</div>
