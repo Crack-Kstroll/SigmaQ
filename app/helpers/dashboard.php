@@ -3,7 +3,7 @@
 class Dashboard_Page 
 {
     //Método para imprimir el encabezado y establecer el titulo del documento
-    public static function headerTemplate($title,$css) 
+    public static function headerTemplate($title,$css)
     {
         // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en las páginas web.
         session_start();
@@ -24,7 +24,7 @@ class Dashboard_Page
         <body>
         ');
         $filename = basename($_SERVER['PHP_SELF']);
-        if (isset($_SESSION['codigoadmin'])) {
+        if (isset($_SESSION['nombre'])) {
             if ($filename != 'index.php' && $filename != 'register.php') {
                 print('
                 <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
@@ -89,15 +89,10 @@ class Dashboard_Page
                 header('location: main.php');
             }
         } else {
-            if ($filename != 'index.php' && $filename != 'register.php') {
-                header('location: index.php');
-            } else {
-                print('
-                    <h1>Menu vacio</h1>
-                ');
-            }
+            header('location: index.php');
         }
     }
+
     //Método para imprimir el pie y establecer el controlador del documento
     public static function footerTemplate($controller) {
         print('

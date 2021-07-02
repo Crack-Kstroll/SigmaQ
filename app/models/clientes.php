@@ -243,6 +243,17 @@ class Cliente extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Funcion verificar si existen usuarios activos en la base de daots
+    public function readIndex()
+    {
+        // Declaracion de la sentencia SQL 
+        $sql = 'SELECT codigocliente,estado,empresa,telefono,correo,usuario,clave,intentos 
+        from clientes
+        where estado = true';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+    
     // Funcion para cargar todos los registros en la tabla 
     public function readAll()
     {

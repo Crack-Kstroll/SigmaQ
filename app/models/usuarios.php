@@ -340,7 +340,7 @@ class Usuario extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
         from administradores
-        WHERE dui ILIKE ? 
+        WHERE codigoadmin = ? 
         order by estado desc';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
@@ -353,6 +353,17 @@ class Usuario extends Validator
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
         from administradores
         order by estado desc';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion verificar si existen usuarios activos en la base de daots
+    public function readIndex()
+    {
+        // Declaracion de la sentencia SQL 
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
+        from administradores
+        where estado = true';
         $params = null;
         return Database::getRows($sql, $params);
     }

@@ -1,10 +1,15 @@
 <?php
 //Clase para definir las plantillas de las páginas web del sitio público
 class Public_Page {
+    
     //Método para imprimir el encabezado y establecer el titulo del documento
-    public static function headerTemplate($title) {
+    public static function headerTemplate($title)
+    {
+        // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en las páginas web.
+        session_start();
+        // Se imprime el código HTML de la cabecera del documento.
         print('
-            <!DOCTYPE html>
+        <!DOCTYPE html>
             <html lang="es">
             <head>
                 <meta charset="UTF-8">
@@ -15,19 +20,23 @@ class Public_Page {
                 <link rel="stylesheet" href="../../resources/css/public.css">
                 <link rel="shortcut icon" href="../../resources/img/brand/qRoja.png" type="image/x-icon">
             </head>
-            <body>
+            <body> 
+        ');
+        $filename = basename($_SERVER['PHP_SELF']);
+        if (isset($_SESSION['empresa'])) {
+            if ($filename != 'index.php' ) {
+                print('
                 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
-                    <a class="navbar-brand" href="index.php">
+                    <a class="navbar-brand" href="main.php">
                         <img class="nav--logo" src="../../resources/img/brand/logoBlanco.png" alt="">
                     </a>
                     <div class="usuario--contenedor">
                         <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
                         <div class="usuario--opciones">
-                            <a onclick="logOut()" class="usuario--contenedor__enlace">Cerrar Sesión</a>
+                            <a href="index.php" class="usuario--contenedor__enlace">Cerrar Sesión</a>
                         </div>
                     </div>
-                </nav>
-                
+                </nav>  
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navbar--options">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -36,7 +45,7 @@ class Public_Page {
                     <div class="collapse navbar-collapse" id="navbarColor02">
                         <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.php">Inicio
+                            <a class="nav-link" href="main.php">Inicio
                             <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -51,25 +60,31 @@ class Public_Page {
                         </li>
                     </div>
                 </nav>
-        ');
+                ');
+            } else {
+                header('location: main.php');
+            }
+        } else {
+            header('location: index.php');
+        }
     }
 
     //Método para imprimir el pie y establecer el controlador del documento
     public static function footerTemplate($controller) {
         print('
-                    <footer class="footer">
-                        <div class="info">
-                            <p class="redes-sociales__text">Síguenos en nuestras redes sociales</p>
-                            <div class="redes-sociales">
-                                <a href=""><img class="redes-sociales__icon" src="../../resources/img/icons/facebook.png" alt=""></a>
-                                <a href=""><img class="redes-sociales__icon" src="../../resources/img/icons/linkedin.png" alt=""></a>
-                                <a href=""><img class="redes-sociales__icon" src="../../resources/img/icons/twitter.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="copyright">
-                            <p>®2021 - SigmaQ todos los derechos reservados</p>
-                        </div>
-                    </footer>
+            <footer class="footer">
+                <div class="info">
+                    <p class="redes-sociales__text">Síguenos en nuestras redes sociales</p>
+                    <div class="redes-sociales">
+                        <a href=""><img class="redes-sociales__icon" src="../../resources/img/icons/facebook.png" alt=""></a>
+                        <a href=""><img class="redes-sociales__icon" src="../../resources/img/icons/linkedin.png" alt=""></a>
+                        <a href=""><img class="redes-sociales__icon" src="../../resources/img/icons/twitter.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>®2021 - SigmaQ todos los derechos reservados</p>
+                </div>
+                </footer>
                     <!-- LINKS PARA LOS CONTROLADORES DE LAS PAGINAS -->
                     <script type="text/javascript" src="../../app/controllers/initialization.js"></script>
                     <script type="text/javascript" src="../../app/helpers/components.js"></script>
@@ -84,12 +99,12 @@ class Public_Page {
                     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
                     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.24/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.2/fc-3.3.2/fh-3.1.8/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sc-2.0.3/sb-1.0.1/sp-1.2.2/sl-1.3.2/datatables.min.js"></script>
                     <script>
-                        $(".mydatatable").DataTable();
+                    $(".mydatatable").DataTable();
                     </script>
                     <!-- LINK PARA EL LIVE SEARCH -->
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-                </body>
-            </html>
+            </body>
+        </html>
         ');
     }
 

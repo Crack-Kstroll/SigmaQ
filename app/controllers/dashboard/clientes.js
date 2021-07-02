@@ -30,7 +30,6 @@ function fillTable(dataset) {
                 <td>${row.telefono}</td>
                 <td>${row.correo}</td>
                 <td>${row.usuario}</td>
-                <td>${row.intentos}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.codigocliente})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
