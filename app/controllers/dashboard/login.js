@@ -1,23 +1,3 @@
-const inputs = document.querySelectorAll('.input');
-
-function focusFunc(){
-    let parent = this.parentNode.parentNode;
-    parent.classList.add('focus');
-}
-
-function blurFunc(){
-    let parent = this.parentNode.parentNode;
-    if(this.value== "") {
-        parent.classList.remove('focus');
-    }
-
-}
-
-inputs.forEach(input => {
-    input.addEventListener('focus', focusFunc);
-    input.addEventListener('blur', blurFunc);
-})
-
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_CLIENT = '../../app/api/dashboard/usuarios.php?action=';
 
@@ -83,6 +63,4 @@ function iniciarSesion() {
             });
         }
     }   
-    
-    
 }

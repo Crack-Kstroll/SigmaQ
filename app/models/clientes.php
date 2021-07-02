@@ -177,6 +177,60 @@ class Cliente extends Validator
         return $this->codigo;
     }
 
+    // Funcion para verificar si el usuario esta activo requiere del parametro del nombre de usuario
+    public function checkState($usuario)
+    {
+        // Declaracion de la sentencia SQL 
+        $sql = 'SELECT estado FROM clientes where usuario = ? and estado = true';
+        $params = array($usuario);
+        if ($data = Database::getRow($sql, $params)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Funcion para desactivar un cliente por superar el limite de intentos permitidos
+    public function desactivateClient($usuario)
+    {
+        // Declaracion de la sentencia SQL 
+        $sql = 'UPDATE clientes
+        SET estado = false
+        WHERE usuario = ?;';
+        $params = array($usuario);
+        return Database::executeRow($sql, $params);
+    }
+
+    // Funcion para validar si existe un usuario en la base de datos requiere el nombre del usuario como parametro
+    public function checkUser($usuario)
+    {
+        // Declaracion de la sentencia SQL 
+        $sql = 'SELECT codigocliente,estado,empresa FROM clientes WHERE usuario = ?';
+        $params = array($usuario);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->id = $data['codigocliente'];
+            $this->empresa = $data['empresa'];
+            $this->usuario = $usuario;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Funcion para validar si la clave corresponde al usuario ingresado requiere la clave ingresada de parametro
+    public function checkPassword($password)
+    {
+        // Declaracion de la sentencia SQL 
+        $sql = 'SELECT clave FROM clientes WHERE codigocliente = ?';
+        $params = array($this->id);
+        $data = Database::getRow($sql, $params);
+        if (password_verify($password, $data['clave'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // Funcion para busqueda filtrada requiere el valor que se desea buscar 
     public function searchRows($value)
     {

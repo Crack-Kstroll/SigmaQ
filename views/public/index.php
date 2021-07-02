@@ -10,32 +10,30 @@ Login_Page::headerTemplate('Login | Clientes');
             </div>
             <!-- AQUÍ VA EL LOGIN -->
             <div class="login-container">
-                <form action="login_clientes.php">
+                <form method="post" id="session-form">
                     <img class="Avatar" src="../../resources/img/svgs/undraw_profile_pic_ic5t.svg" alt="">
                     <h2>Bienvenido</h2>
                     <!-- INPUTS -->
                     <div class="input-div one">
                         <div>
                             <h5>Usuario</h5>
-                            <input type="text" class="input">
+                            <input type="text" id="usuario" name="usuario" class="input">
                         </div>
                     </div>
                     <div class="input-div two">
                         <div>
                             <h5>Contraseña</h5>
-                            <input type="password" class="input">
+                            <input type="password" id="clave" name="clave" class="input">
                         </div>
                     </div>
                     <div style="display: flex; justify-content-center">
-                        <a href="main.php" class="btn">
+                        <a onclick="iniciarSesion()" class="btn">
                             INGRESAR
-                            <!-- <input type="submit" class="btn" value="Login"> -->
                         </a>
-                    </div>
-
+                    </div> 
                 </form>
             </div>
         </div>
 <?php
-    Login_Page::footerTemplate('dashboard/login.js');
+    Login_Page::footerTemplate('public/login.js');
 ?>

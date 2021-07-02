@@ -23,7 +23,7 @@ class Public_Page {
                     <div class="usuario--contenedor">
                         <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
                         <div class="usuario--opciones">
-                            <a href="login.php" class="usuario--contenedor__enlace">Cerrar Sesión</a>
+                            <a onclick="logOut()" class="usuario--contenedor__enlace">Cerrar Sesión</a>
                         </div>
                     </div>
                 </nav>
@@ -74,6 +74,7 @@ class Public_Page {
                     <script type="text/javascript" src="../../app/controllers/initialization.js"></script>
                     <script type="text/javascript" src="../../app/helpers/components.js"></script>
                     <script type="text/javascript" src="../../app/controllers/public/account.js"></script>
+                    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
                     <script type="text/javascript" src="../../app/controllers/public/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
                     <!-- LINKS PARA LA LIBRERÍA DE LA TABLA -->
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
