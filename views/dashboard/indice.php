@@ -31,8 +31,8 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 				</div>
 			</div>
 		</form>
-	<!-- Cierra seccion de busqueda filtrada -->		
 	</div>
+	<!-- Cierra seccion de busqueda filtrada -->		
 
 	<div class="container-fluid espacioSuperior"> <!-- Seccion de tabla de usuarios -->
 		<table class="table borde" id="tbody-rows">

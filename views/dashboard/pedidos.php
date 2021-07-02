@@ -2,160 +2,144 @@
 include('../../app/helpers/dashboard.php');
 Dashboard_Page::headerTemplate('Mantenimiento de pedidos','dashboard');
 ?>
-<div id="contenido" class="container-fluid fondo"> <!-- Seccion de contenido -->
+
+<!-- Seccion de contenido -->
+<div id="contenido" class="container-fluid fondo"> 
     
-	<div class="container-fluid espacioSuperior"> <!-- Seccion de titulo de pagina -->
+	<!-- Seccion de titulo de pagina -->
+	<div class="container-fluid espacioSuperior"> 
         <h5 class="tituloMto">Gestion de pedidos</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
-    </div> <!-- Cierra seccion de titulo de pagina -->
+    </div> 
+	<!-- Cierra seccion de titulo de pagina -->
     
-	<div class="container-fluid espacioSuperior"> <!-- Seccion de busqueda filtrada -->
-		<div class="row"> <!-- Fila opciones recuperacion -->
-			<div class="col-sm-5">
-                <div class="row">
-                    <div class="col-5">
-                        <h6 class="textoMostrar">Mostrar por cliente</h6>
-                    </div>
-                    <div class="col-7">
-                    	<div class="dropdown">
-						<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Seleccione el cliente
-						</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				  			<a class="dropdown-item" href="#">Activo</a>
-				  			<a class="dropdown-item" href="#">Bloqueado</a>
-				  			<a class="dropdown-item" href="#">Inactivo</a>
+	<!-- Seccion de busqueda filtrada --> 
+    <div class="container-fluid">
+		<form method="post" id="search-form">
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-5">
+							<!-- Campo de busqueda filtrada --> 
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="search">
+						</div>
+						<div class="col-sm-2">
+							<!-- Boton para busqueda filtrada --> 
+							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
+								<i class="material-icons">search</i></button>
+							</button>
 						</div>
 					</div>
-			        </div>
 				</div>
-            </div>
-			<div class="col-sm-7">
-				<div class="search-box">
-					<i class="material-icons">&#xE8B6;</i>
-					<input type="text" class="form-control" placeholder="Busqueda filtrada&hellip;">
+				<div class="col-sm-3">
+					<!-- Boton para ingresar nuevos registros --> 
+					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Pedido</button></a>							
 				</div>
 			</div>
-		</div> <!-- Cerrar opciones de busqueda filtrada -->
-	</div> <!-- Cierra seccion de busqueda filtrada -->
-    
+		</form>
+	</div>
+	<!-- Cierra seccion de busqueda filtrada -->		
 	
-	<div class="container-fluid"> <!-- Seccion de tabla de usuarios -->
-		<br><br>
-		<table class="table borde">
-			<thead class="thead-dark">
-				<tr>
-					<th>Cliente</th>
-					<th>Pos</th>
-					<th>OC</th>
-					<th>Solicitada</th>
-					<th>Descripcion</th>
-					<th>Codigo</th>
-					<th>Enviada</th>
-					<th>Fecha entregada</th>
-					<th>Fecha confirmada</th>
-					<th>Comentarios</th>
-					<th>Opciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Bayer</td>
-					<td>10</td>
-					<td>4502180550</td>
-					<td>50000</td>
-					<td>Inserto Aspirina Advanced TABS EC</td>
-					<td>86612704</td>
-					<td>50000</td>
-					<td>15-mar-21</td>
-					<td>15-mar-21</td>
-					<td></td>
-					<td>
-						<a href="#modalModificarPedido" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-						<a href="#modalEliminarPedido" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-					</td>
-				</tr>
+	<div class="container-fluid espacioSuperior"> <!-- Seccion de tabla de usuarios -->
+		<table class="table borde" id="tbody-rows">
+			<h4 id="warning-message" style="text-align:center"></h4>
+			<!-- Contenido de la tabla -->
+			<tbody>	
 			</tbody>
-		</table>	  
+		</table>
 	</div>
 
-	<div id="modalIngresarPedido" class="modal fade"> <!-- Modal ingresar pedido -->
+	<!-- Modal  -->
+	<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content"> <!-- Contenido del modal -->
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Agregar nuevo pedido</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body"> <!-- Cuerpo del modal -->				
-						<div class="row">
-							<div class="col-6">
-								<div class="form-group">
-									<label>Cliente</label>
-									<select id="inputState" class="form-control">
-										<option selected>ROTOFLEX</option>
-										<option>ZADICK</option>
-									</select>
-								</div>	
-								<div class="form-group">
-									<label>OC</label>
-									<input type="text" class="form-control" required>
-								</div>	
-								<div class="form-group">
-									<label>Codigo</label>
-									<input type="text" class="form-control" required>
-								</div>	
-								<div class="form-group">
-									<label>Fecha compra</label>
-									<input type="text" class="form-control" required>
-								</div>				
-							</div>			
-							<div class="col-6">			
-								<div class="form-group">
-									<label>Pos</label>
-									<input type="text" class="form-control" required>
-								</div>
-								<div class="form-group">
-									<label>Cantidad solicitada</label>
-									<input type="text" class="form-control" required>
-								</div>
-									
-								<div class="form-group">
-									<label>Cantidad enviada</label>
-									<input type="text" class="form-control" required>
-								</div>
-								<div class="form-group">
-									<label>Fecha confirmada</label>
-									<input type="text" class="form-control" required>
-								</div>
-							</div>										
-						</div>		
-						<div class="row">
-							<div class="col-12">
-								<div class="form-group">
-									<label>Descripcion</label>
-									<textarea class="form-control" aria-label="With textarea"></textarea>
-								</div>
-							</div>	
-						</div>
-						<div class="row">
-							<div class="col-12">
-								<div class="form-group">
-									<label>Comentarios</label>
-									<input type="text" class="form-control" required>
-								</div>
-							</div>	
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="modal-title" name="modal-title" class="modal-title">Modal title</h5>
+			</div>
+			<div class="modal-body">
+				<form method="post" id="save-form" enctype="multipart/form-data">
+					<div class="row">
+						<!-- Campo invicible del ID -->
+						<input class="d-none" type="number" id="idpedido" name="idpedido">
+						<div class="col-6 form-group">
+							<label>Responsable</label>
+							<select id="responsable" name="responsable" class="form-control">
+							</select>
 						</div>	
-					</div> <!-- Cierra cuerpo del modal -->
-					<div class="modal-footer"> <!-- Pie del modal -->
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-success" value="Agregar Usuario">
-					</div> <!-- Cierra pie del modal -->
+						<div class="col-6 form-group">
+							<label>Cliente</label>
+							<select id="cliente" name="cliente" class="form-control">
+							</select>
+							<label class="font-italic text-danger">*No podrá modificar el valor de este campo*</label>
+						</div>
+						<div class="col-6 form-group">
+							<label>Código</label>
+							<div class="form-group">
+								<input id="codigo" name="codigo" type="number" min="1" class="form-control" required>
+							</div>
+							<label class="font-italic text-danger">*No podrá modificar el valor de este campo*</label>
+						</div>
+						<div class="col-6 form-group">
+							<label>Fecha registrado</label>
+							<div class="form-group">
+								<input id="fecharegistro" name="fecharegistro" type="date" class="form-control" readonly>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Pos</label>
+							<input id="pos" name="pos" type="number" class="form-control" required>
+						</div>
+						<div class="col-6 form-group">
+							<label>Oc</label>
+							<div class="form-group">
+								<input id="oc" name="oc" type="number" class="form-control" min="1" required>
+							</div>			
+						</div>
+						<div class="col-6 form-group">
+							<label>Cantidad solicitada</label>
+							<div class="form-group">
+								<input id="cantidadsolicitada" name="cantidadsolicitada" type="number" class="form-control" required>
+							</div>
+						</div>						
+						<div class="col-6 form-group">
+							<label>Cantidad enviada</label>
+							<div class="form-group">
+								<input id="cantidadenviada" name="cantidadenviada" type="number" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Fecha de entrega</label>
+							<div class="form-group">
+								<input id="fechaentrega" name="fechaentrega" type="date" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Fecha confirmada de envío</label>
+							<div class="form-group">
+								<input id="fechaconfirmadaenvio" name="fechaconfirmadaenvio" type="date" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="form-group col-6">
+                            <label>Descripcion</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                        </div>
+						<div class="col-6 form-group">
+							<label>Comentarios</label>
+							<textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>
+						</div>
+					</div>
 				</form>
-			</div> <!-- Cierra contenido del modal -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+				<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
+			</div>
 		</div>
-	</div><!-- Cierra modal ingresar pedido -->
-</div> <!-- Cierra seccion de contenido -->
+	</div>
+	
+</div> 
+<!-- Cierra seccion de contenido -->
+
 <?php
 Dashboard_Page::footerTemplate('pedidos');
 ?>

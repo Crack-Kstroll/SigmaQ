@@ -178,6 +178,7 @@ class Indice extends Validator {
         return Database::getRows($query, $params);
     }
 
+    //Función para mostrar un registro
     public function readOneIndice() {
         $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, a.codigoadmin, cl.usuario, cl.codigocliente, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
                 FROM indiceentregas ie
@@ -227,26 +228,6 @@ class Indice extends Validator {
         $params = array("%$value%","%$value%","%$value%");
         return Database::getRows($query, $params);
     }
-
-
-    //Función para mostrar los empleados
-    public function getAdministradores() {
-        $query="SELECT codigoadmin, usuario
-                FROM administradores
-                WHERE estado = true";
-        $params=null;
-        return Database::executeRow($query, $params);
-    }
-
-    //Función para mostrar los clientes
-    public function getClientes() {
-        $query="SELECT usuario
-                FROM clientes
-                WHERE estado = true";
-        $params=null;
-        return Database::executeRow($query, $params);
-    }
-
 }
 
 ?>
