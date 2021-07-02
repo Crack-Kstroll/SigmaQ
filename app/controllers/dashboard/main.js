@@ -7,13 +7,17 @@ document.addEventListener('DOMContentLoaded', function () {
     readRows(API_HISTORIAL);
 });
 
+var content = [];
+var posiciones = 0;
+var seleccion = 0;
+
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 function fillTable(dataset) {
-    // Atributo para guardar las filas retornadas en el dataset 
-    let content = '';
+    let data = '';
+    let contador = 0; 
     dataset.map(function (row) {
         // Definimos la estructura de las filas con los campos del dataset 
-        content += `
+        data += `
         <tr>
             <th scope="row">${row.idregistro}</th>
             <td>${row.usuario}</td>	
@@ -21,17 +25,65 @@ function fillTable(dataset) {
             <td>${row.accion}</td>
             <td>${row.empresa}</td>
         </tr>
-        `;          
+        `;  
+        contador = contador + 1;
+        if (contador == 5) {
+            contador = 0;
+            content.push(data); 
+            data = '';
+            posiciones = posiciones + 1;
+        }      
     });
-    // Imprimimos las filas en la seccion de contenido de la tabla
-    document.getElementById('tbody-rows').innerHTML = content;
+    content.push(data); 
+    fillPagination(content[0]);
+    generatePagination();
 }
 
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
-document.getElementById('search-form').addEventListener('submit', function (event) {
-    // Evitamos que la pagina se refresque 
-    event.preventDefault();
-    // Se ejecuta la funcion search rows de components y se envia como parametro la api y el form que contiene el input buscar
-    searchRows(API_HISTORIAL, 'search-form');
-});
+function generatePagination() {
+    let pagination = '';
+    pagination += `
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            <li class="page-item"><a class="page-link" onclick="previousData()">Previous</a></li>
+        `; 
+    for (let index = 0; index <= posiciones; index++) {
+        let controller= `
+            <li class="page-item"><a class="page-link" onclick="fillPagination(content[${index}],${index+1})">${index+1}</a></li>
+        `;;
+        pagination = pagination + controller;
+    }
+    let pie = '';
+    pie += `
+                <li class="page-item"><a class="page-link" onclick="nextData()">Next</a></li>
+            </ul>
+        </nav>
+        `;  
+    pagination = pagination + pie;
+    document.getElementById('seccionPaginacion').innerHTML = pagination;
+}
 
+function previousData() {
+    seleccion = seleccion -1;
+    let position = seleccion;
+    if (position >= 0) {
+        document.getElementById('tbody-rows').innerHTML = content[position];
+    } else {
+        sweetAlert(3, 'No puedes retroceder mas', null);
+    }
+}
+
+function nextData() {
+    seleccion = seleccion + 1;
+    let position = seleccion;
+    if (position <= posiciones) {
+        document.getElementById('tbody-rows').innerHTML = content[position];
+    } else {
+        sweetAlert(3, 'No puedes avanzar mas', null);
+    }
+}
+
+function fillPagination(contenido,select) {
+    // Imprimimos las filas en la seccion de contenido de la tabla
+    document.getElementById('tbody-rows').innerHTML = contenido;
+    seleccion = select;
+}

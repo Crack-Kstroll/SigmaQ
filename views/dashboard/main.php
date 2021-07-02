@@ -25,14 +25,8 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 				<tbody id="tbody-rows">	
 				</tbody>
 			</table>
-			<div class="clearfix"> <!-- Seccion controladores tabla -->
-					<ul class="pagination">
-					<li class="page-item"><a href="#" class="page-link">Anterior</a></li>
-					<li class="page-item active"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-				</ul>
+			<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->
+					
 			</div> <!-- Cierra controladores de tabla -->
 		</div>	
 	</div> <!-- Cierra secion estadisticas -->
