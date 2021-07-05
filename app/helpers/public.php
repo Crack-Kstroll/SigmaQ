@@ -23,7 +23,7 @@ class Public_Page {
                     <div class="usuario--contenedor">
                         <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
                         <div class="usuario--opciones">
-                            <a href="login.php" class="usuario--contenedor__enlace">Cerrar Sesión</a>
+                            <a href="index.php" class="usuario--contenedor__enlace">Cerrar Sesión</a>
                         </div>
                     </div>
                 </nav>

@@ -228,6 +228,18 @@ class Indice extends Validator {
         $params = array("%$value%","%$value%","%$value%");
         return Database::getRows($query, $params);
     }
+
+    //Función para mostrar todos los índices de un cliente
+    public function readClienteIndices() {
+        $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
+        FROM indiceentregas ie
+        INNER JOIN administradores a
+            ON ie.responsable = a.codigoadmin
+        INNER JOIN clientes cl
+            ON ie.cliente = cl.codigocliente
+        WHERE ie.cliente = ?
+        ORDER BY ie.estado DESC";
+    }
 }
 
 ?>
