@@ -12,16 +12,6 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 	<div id="estadisticas" class="container-fluid"><!-- Seccion de estadisticas -->	
 		<div class="container-fluid">
 			<h3 class="centrar">Acciones realizadas por los usuarios del sistema</h3>
-			<div class="clearfix"> <!-- Seccion controladores tabla -->
-				<div class="hint-text">Mostrando <b>4</b> de <b>12</b> registros</div>
-					<ul class="pagination">
-					<li class="page-item"><a href="#" class="page-link">Anterior</a></li>
-					<li class="page-item active"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-				</ul>
-			</div> <!-- Cierra controladores de tabla -->
 			<table class="table borde">
 				<thead class="thead-dark">
 					<tr>
@@ -35,6 +25,8 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 				<tbody id="tbody-rows">	
 				</tbody>
 			</table>
+			<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->
+			</div> <!-- Cierra controladores de tabla -->
 		</div>	
 	</div> <!-- Cierra secion estadisticas -->
 </div>	<!-- Cierra la seccion de contenido -->

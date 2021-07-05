@@ -59,43 +59,67 @@ if (isset($_GET['action'])) {
             // Validamos el form donde se encuentran los inputs para poder obtener sus valores
             $_POST = $cliente->validateForm($_POST);
             // Obtenemos el valor de los input mediante los metodos set del modelo 
-            if ($cliente->setId($_POST['txtId'])) {
-                if ($cliente->setEmpresa($_POST['txtEmpresa'])) {
-                    if ($cliente->setTelefono($_POST['txtTelefono'])) {
-                        if ($cliente->setUsuario($_POST['txtUsuario'])) {
-                            if ($cliente->setCorreo($_POST['txtCorreo'])) { 
-                                // Validamos que la clave coincida con la confirmacion de clave                      
-                                if ($_POST['txtClave'] == $_POST['txtClave2']) {
-                                    if ($cliente->setClave($_POST['txtClave'])) {
-                                        // Se ejecuta la funcion para ingresar el registro
-                                        if ($cliente->createRow()) {
-                                            $result['status'] = 1;
-                                            // Se muestra un mensaje de exito en caso de registrarse correctamente
-                                            $result['message'] = 'Cliente registrado correctamente';
+            if ($cliente->validateNull($_POST['txtId'])) {
+                if ($cliente->setId($_POST['txtId'])) {
+                    if ($cliente->validateNull($_POST['txtEmpresa'])) {
+                        if ($cliente->setEmpresa($_POST['txtEmpresa'])) {
+                            if ($cliente->validateNull($_POST['txtTelefono'])) {
+                                if ($cliente->setTelefono($_POST['txtTelefono'])) {
+                                    if ($cliente->validateNull($_POST['txtUsuario'])) {
+                                        if ($cliente->setUsuario($_POST['txtUsuario'])) {
+                                            if ($cliente->validateNull($_POST['txtCorreo'])) {
+                                                if ($cliente->setCorreo($_POST['txtCorreo'])) { 
+                                                    // Validamos que la clave coincida con la confirmacion de clave                      
+                                                    if ($_POST['txtClave'] == $_POST['txtClave2']) {
+                                                        if ($cliente->validateNull($_POST['txtClave'])) {
+                                                            if ($cliente->setClave($_POST['txtClave'])) {
+                                                                // Se ejecuta la funcion para ingresar el registro
+                                                                if ($cliente->createRow()) {
+                                                                    $result['status'] = 1;
+                                                                    // Se muestra un mensaje de exito en caso de registrarse correctamente
+                                                                    $result['message'] = 'Cliente registrado correctamente';
+                                                                } else {
+                                                                    $result['exception'] = Database::getException();;
+                                                                }  
+                                                            } else {
+                                                                $result['exception'] = $cliente->getPasswordError();
+                                                            }
+                                                        } else {
+                                                            $result['exception'] = 'Ingrese la clave del cliente';
+                                                        }
+                                                    } else {
+                                                        $result['exception'] = 'Claves nuevas diferentes';
+                                                    }
+                                                } else {
+                                                    $result['exception'] = 'El correo tiene formato incorrecto';
+                                                }  
+                                            } else {
+                                                $result['exception'] = 'Ingrese el correo del cliente';
+                                            }                                                                                                                                                                 
                                         } else {
-                                            $result['exception'] = Database::getException();;
-                                        }  
+                                                $result['exception'] = 'El usuario tiene formato incorrecto';
+                                        }
                                     } else {
-                                        $result['exception'] = $cliente->getPasswordError();
+                                        $result['exception'] = 'Ingrese el usuario del cliente';
                                     }
                                 } else {
-                                    $result['exception'] = 'Claves nuevas diferentes';
-                                }
+                                    $result['exception'] = 'El telefono posee formato incorrecto';
+                                } 
                             } else {
-                                $result['exception'] = 'Correo incorrecto';
-                            }                                                                                                                                                   
+                                $result['exception'] = 'Ingrese el numero de telefono';
+                            }                                                                                           
                         } else {
-                                $result['exception'] = 'Usuario incorrecto';
-                        }
+                            $result['exception'] = 'El nombre de la empresa contiene caracteres erróneos';
+                        } 
                     } else {
-                        $result['exception'] = 'Telefono incorrecto';
-                    }                                                                       
+                        $result['exception'] = 'Ingrese el nombre de la empresa';
+                    }                                                                                  
                 } else {
-                    $result['exception'] = 'Empresa incorrecta';
-                }                                                                                 
+                    $result['exception'] = 'El codigo debe ser numerico';
+                }  
             } else {
-                $result['exception'] = 'Codigo incorrecto';
-            }                            
+                $result['exception'] = 'Ingrese el codigo del usuario';
+            }                        
         break;
         case 'readOne': // Caso para leer los datos de un solo registro parametrizado mediante el identificador
             if ($cliente->setId($_POST['id'])) {
@@ -114,50 +138,83 @@ if (isset($_GET['action'])) {
             }
         break;
         case 'update': // Caso para actualizar los datos de un registro
-           // Validamos el form donde se encuentran los inputs para poder obtener sus valores
-           $_POST = $cliente->validateForm($_POST);
-           // Obtenemos el valor de los input mediante los metodos set del modelo 
-            if ($cliente->setId($_POST['txtId'])) {
-                if ($cliente->setCodigo($_POST['txtIdx'])) {
-                    if ($cliente->setEmpresa($_POST['txtEmpresa'])) {
-                        if ($cliente->setTelefono($_POST['txtTelefono'])) {
-                            if ($cliente->setUsuario($_POST['txtUsuario'])) {
-                                if ($cliente->setCorreo($_POST['txtCorreo'])) { 
-                                    // Validamos que la clave coincida con la confirmacion de clave                      
-                                    if ($_POST['txtClave'] == $_POST['txtClave2']) {
-                                        if ($cliente->setClave($_POST['txtClave'])) {
-                                            // Se ejecuta la funcion para ingresar el registro
-                                            if ($cliente->updateRow()) {
-                                                $result['status'] = 1;
-                                                // Se muestra un mensaje de exito en caso de registrarse correctamente
-                                                $result['message'] = 'Cliente modificado correctamente';
+            // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+            $_POST = $cliente->validateForm($_POST);
+            // Obtenemos el valor de los input mediante los metodos set del modelo 
+            if ($cliente->setCodigo($_POST['txtIdx'])) {
+                if ($cliente->validateNull($_POST['txtId'])) {
+                    if ($cliente->setId($_POST['txtId'])) {
+                        if ($cliente->validateNull($_POST['txtEmpresa'])) {
+                            if ($cliente->setEmpresa($_POST['txtEmpresa'])) {
+                                if ($cliente->validateNull($_POST['txtTelefono'])) {
+                                    if ($cliente->setTelefono($_POST['txtTelefono'])) {
+                                        if ($cliente->validateNull($_POST['txtUsuario'])) {
+                                            if ($cliente->setUsuario($_POST['txtUsuario'])) {
+                                                if ($cliente->validateNull($_POST['txtCorreo'])) {
+                                                    if ($cliente->setCorreo($_POST['txtCorreo'])) { 
+                                                        // Verificamos si el usuario ingreso o no la clave asi obtenemos el valor del input o no
+                                                        if ($cliente->validateNull($_POST['txtClave'])) {
+                                                            // Validamos que la clave coincida con la confirmacion de clave                      
+                                                            if ($_POST['txtClave'] == $_POST['txtClave2']) {
+                                                                if ($cliente->setClave($_POST['txtClave'])) {
+                                                                    // Se ejecuta la funcion para ingresar el registro
+                                                                    if ($cliente->updateRow()) {
+                                                                        $result['status'] = 1;
+                                                                        // Se muestra un mensaje de exito en caso de modificarse correctamente
+                                                                        $result['message'] = 'Cliente y clave modificados correctamente';
+                                                                    } else {
+                                                                        $result['exception'] = Database::getException();;
+                                                                    }  
+                                                                } else {
+                                                                    $result['exception'] = $cliente->getPasswordError();
+                                                                }      
+                                                            } else {
+                                                                $result['exception'] = 'Claves nuevas diferentes';
+                                                            }
+                                                        } else {
+                                                            // Se ejecuta la funcion para actualizar el registro (Sin cambiar clave)
+                                                            if ($cliente->updateRow()) {
+                                                                $result['status'] = 1;
+                                                                // Se muestra mensaje de exito
+                                                                $result['message'] = 'Cliente modificado correctamente';       
+                                                                // En caso que exista algun error con alguna validacion se mostrara el mensaje de error
+                                                            } else {
+                                                                $result['exception'] = Database::getException();;
+                                                            }  
+                                                        }
+                                                    } else {
+                                                        $result['exception'] = 'El correo tiene formato incorrecto';
+                                                    }  
+                                                } else {
+                                                    $result['exception'] = 'Ingrese el correo del cliente';
+                                                }                                                                                                                                                                 
                                             } else {
-                                                $result['exception'] = Database::getException();;
-                                            }  
+                                                    $result['exception'] = 'El usuario tiene formato incorrecto';
+                                            }
                                         } else {
-                                            $result['exception'] = $cliente->getPasswordError();
+                                            $result['exception'] = 'Ingrese el usuario del cliente';
                                         }
                                     } else {
-                                        $result['exception'] = 'Claves nuevas diferentes';
-                                    }
+                                        $result['exception'] = 'El telefono posee formato incorrecto';
+                                    } 
                                 } else {
-                                    $result['exception'] = 'Correo incorrecto';
-                                }                                                                                                                                                   
+                                    $result['exception'] = 'Ingrese el numero de telefono';
+                                }                                                                                           
                             } else {
-                                    $result['exception'] = 'Usuario incorrecto';
-                            }
+                                $result['exception'] = 'El nombre de la empresa contiene caracteres erróneos';
+                            } 
                         } else {
-                            $result['exception'] = 'Telefono incorrecto';
-                        }                                                                       
+                            $result['exception'] = 'Ingrese el nombre de la empresa';
+                        }                                                                                  
                     } else {
-                        $result['exception'] = 'Empresa incorrecta';
-                    }                                                                     
+                        $result['exception'] = 'El codigo debe ser numerico';
+                    }  
                 } else {
-                    $result['exception'] = 'Codigo incorrecto';
-                }                                                                                 
+                    $result['exception'] = 'Ingrese el codigo del usuario';
+                }    
             } else {
-               $result['exception'] = 'Codigo incorrecto';
-            }       
+                $result['exception'] = 'El codigo debe ser numerico';
+            }         
         break;
         case 'delete': // Caso para eliminar un registro 
             // Validamos el form donde se encuentran los inputs para poder obtener sus valores

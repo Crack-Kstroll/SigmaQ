@@ -1,7 +1,8 @@
 <?php
 
-class Cliente extends Validator
+class Usuario extends Validator
 {
+    //Declaracion de los atributos de la clase
     private $id = null;
     private $estado = null;
     private $nombre = null;
@@ -14,16 +15,36 @@ class Cliente extends Validator
     private $clave = null;
     private $codigo = null;    
 
-    public function setId($value)
-    {
-        if($this->validateNaturalNumber($value)){
-            $this->id = $value;
+    /* Funcion para validar si el contenido del input esta vacio
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function validateNull($value){
+        if ($value != null) {
             return true;
         }else{
             return false;
         }
     }
 
+    /* Funcion para validar si el id es de tipo numerico
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function setId($value)
+    {
+        if($this->validateNaturalNumber($value)){
+                $this->id = $value;
+                return true;
+        }else{
+                return false;         
+        }       
+    }
+
+    /* Funcion para validar si el codigo es numerico
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setCodigo($value)
     {
         if($this->validateNaturalNumber($value)){
@@ -34,6 +55,10 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si el estado es booleano 
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setEstado($value)
     {
         if ($this->validateBoolean($value)) {
@@ -44,9 +69,13 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si el nombre cumple solo tiene letras
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setNombre($value)
     {
-        if ($this->validateAlphabetic($value, 1, 50)) {
+        if ($this->validateAlphabetic($value, 1, 40)) {
             $this->nombre = $value;
             return true;
         } else {
@@ -54,9 +83,13 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si el apellido contiene solo letras
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setApellido($value)
     {
-        if ($this->validateAlphabetic($value, 1, 50)) {
+        if ($this->validateAlphabetic($value, 1, 40)) {
             $this->apellido = $value;
             return true;
         } else {
@@ -64,6 +97,10 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si el dui posee el formato correcto
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setDui($value)
     {
         if ($this->validateDUI($value)) {
@@ -74,6 +111,10 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si el correo posee formato correcto
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setCorreo($value)
     {
         if ($this->validateEmail($value)) {
@@ -84,6 +125,10 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si el telefono posee formato correcto
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setTelefono($value)
     {
         if ($this->validatePhone($value)) {
@@ -94,9 +139,13 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si la direccion posee el tipo de dato correcto
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setDireccion($value)
     {
-        if ($this->validateString($value,1,250)) {
+        if ($this->validateString($value,1,150)) {
             $this->direccion = $value;
             return true;
         } else {
@@ -104,9 +153,13 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si el usuario posee el tipo de dato correcto
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setUsuario($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
+        if ($this->validateAlphanumeric($value, 1, 35)) {
             $this->usuario = $value;
             return true;
         }else {
@@ -114,6 +167,10 @@ class Cliente extends Validator
         }
     }
 
+    /* Funcion para validar si la clave posee el tipo de dato correcto
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
     public function setClave($value)
     {
         if ($this->validatePassword($value)) {
@@ -124,6 +181,7 @@ class Cliente extends Validator
         }
     }
 
+    // Funciones get para obtener el valor de los atributos de la clase
     public function getId()
     {
         return $this->id;
@@ -179,8 +237,10 @@ class Cliente extends Validator
         return $this->codigo;
     }
     
+    // Funcion para verificar si el usuario esta activo requiere del parametro del nombre de usuario
     public function checkState($usuario)
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'SELECT estado FROM administradores where usuario = ? and estado = true';
         $params = array($usuario);
         if ($data = Database::getRow($sql, $params)) {
@@ -190,8 +250,10 @@ class Cliente extends Validator
         }
     }
 
+    // Funcion para desactivar un usuario requiere de parametro el nombre de usuario
     public function desactivateAdmin($user)
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
         SET estado = false
         WHERE usuario = ?;';
@@ -199,8 +261,10 @@ class Cliente extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para validar si existe un usuario en la base de datos requiere el nombre del usuario como parametro
     public function checkUser($usuario)
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigoadmin,estado,nombre,apellido FROM administradores WHERE usuario = ?';
         $params = array($usuario);
         if ($data = Database::getRow($sql, $params)) {
@@ -214,8 +278,10 @@ class Cliente extends Validator
         }
     }
 
+    // Funcion para validar si la clave corresponde al usuario ingresado requiere la clave ingresada de parametro
     public function checkPassword($password)
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'SELECT clave FROM administradores WHERE codigoadmin = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
@@ -226,32 +292,41 @@ class Cliente extends Validator
         }
     }
 
+    // Funcion para cambiar la clave del usuario requiere de parametro el codigo de administrador de la variable de sesion 
     public function changePassword($value)
     {
+        // Se encripta la contraseña mediante la funcion password_hash
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores SET clave = ? WHERE codigoadmin = ?';
         $params = array($hash, $value);
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para editar el perfil de un usuario modifica la informacion personal requiere como parametro el codigo del usuario
     public function editProfile($value)
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores set nombre = ?, apellido = ?,dui = ?,correo = ?,telefono = ?,usuario = ?
         WHERE codigoadmin = ? ';
         $params = array($this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->usuario,$value);
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para obtener los datos de un usuario requiere de parametro el codigo del administrador
     public function readProfile($value)
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigoadmin, estado, nombre, apellido, dui, correo, telefono, direccion, usuario, clave, intentos
         FROM administradores WHERE codigoadmin = ?';
         $params = array($value);
         return Database::getRow($sql, $params);
     }
 
+    // Funcion para cambiar el estado de un usuario a activo
     public function activateUser()
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
         SET estado = true
         WHERE codigoadmin = ?;';
@@ -259,16 +334,19 @@ class Cliente extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para busqueda filtrada requiere el valor que se desea buscar 
     public function searchRows($value)
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
         from administradores
-        WHERE dui ILIKE ? 
+        WHERE CAST(codigoadmin AS CHAR) LIKE ? OR codigoadmin = ?
         order by estado desc';
-        $params = array("%$value%");
+        $params = array("%$value%",$value);
         return Database::getRows($sql, $params);
     }
 
+    // Funcion para cargar todos los registros en la tabla 
     public function readAll()
     {
         $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable, usuario,estado,dui,correo,telefono,direccion,intentos
@@ -278,25 +356,51 @@ class Cliente extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Funcion verificar si existen usuarios activos en la base de daots
+    public function readIndex()
+    {
+        // Declaracion de la sentencia SQL 
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
+        from administradores
+        where estado = true';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para registrar un usuario en la base de datos
     public function createRow()
     {
+        // Se encripta la contraseña mediante el metodo password_hash
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        // Declaracion de la sentencia SQL 
         $sql = 'INSERT INTO administradores(codigoadmin, estado, nombre, apellido, dui, correo, telefono, 
         direccion, usuario, clave, intentos) VALUES (?, default, ?, ?, ?, ?, ?, ?, ?, ?, default);';
         $params = array($this->id, $this->nombre,$this->apellido, $this->dui,$this->correo, $this->telefono,$this->direccion,$this->usuario, $hash);
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para actualizar los datos de un usuario de la base de datos
     public function updateRow()
     {
-        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
-        $sql = 'UPDATE administradores
-        SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? , clave = ?
-        WHERE codigoadmin = ?';
-        $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$hash,$this->codigo);
+        // Verifica si existe clave en caso de no existir se actualizan los datos menos la clave
+        if ($this->clave != null) {
+            // Se encripta la contraseña mediante el metodo password_hash
+            $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+            // Declaracion de la sentencia SQL 
+            $sql = 'UPDATE administradores
+            SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? , clave = ?
+            WHERE codigoadmin = ?';
+            $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$hash,$this->codigo);
+        } else {
+            $sql = 'UPDATE administradores
+            SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? 
+            WHERE codigoadmin = ?';
+            $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$this->codigo);
+        }    
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para cargar los datos de un usuario en especifico
     public function readRow()
     {
         $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable, estado,dui,correo,telefono,direccion,usuario,clave,intentos
@@ -305,8 +409,10 @@ class Cliente extends Validator
         return Database::getRow($sql, $params);
     }
 
+    // Funcion para cambiar el estado de un usuario a desactivado 
     public function desactivateUser()
     {
+        // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
         SET estado = false
         WHERE codigoadmin = ?;';
