@@ -54,7 +54,9 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 			<!-- Contenido de la tabla -->
 			<tbody id="tbody-rows">	
 			</tbody>
-		</table>	  
+		</table>	
+		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->			
+		</div> <!-- Cierra controladores de tabla -->  
 	<!-- Cierra seccion de tabla -->
 	</div>
 	<!-- Modal  -->

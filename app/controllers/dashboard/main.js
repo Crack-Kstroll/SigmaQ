@@ -7,13 +7,11 @@ document.addEventListener('DOMContentLoaded', function () {
     readRows(API_HISTORIAL);
 });
 
-var content = [];
-var posiciones = 0;
-var seleccion = 0;
-
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 function fillTable(dataset) {
+    // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
+    // Variable para llevar un control de la cantidad de registros agregados
     let contador = 0; 
     dataset.map(function (row) {
         // Definimos la estructura de las filas con los campos del dataset 
@@ -26,64 +24,33 @@ function fillTable(dataset) {
             <td>${row.empresa}</td>
         </tr>
         `;  
+        // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
+        //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
         if (contador == 5) {
+            // Reseteamos el contador a 0
             contador = 0;
+            // Agregamos el contenido de data al arreglo que contiene los datos content[]
             content.push(data); 
+            // Vaciamos el contenido de data para volverlo a llenar
             data = '';
+            // Agregamos una posicion dentro del arreglo debido a que se agrego un nuevo elemento
             posiciones = posiciones + 1;
         }      
     });
-    content.push(data); 
+    // Verificamos si el ultimo retorno de datos no esta vacio en caso de estarlo no se agrega a la paginacion
+    if (data != '') {
+        // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
+        content.push(data); 
+    } 
+    else{
+        // Se resta una posicion ya que no se agrego el contenido final por estar vacio
+        posiciones = posiciones -1;
+    }
+    // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
+    // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
     generatePagination();
 }
 
-function generatePagination() {
-    let pagination = '';
-    pagination += `
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-            <li class="page-item"><a class="page-link" onclick="previousData()">Previous</a></li>
-        `; 
-    for (let index = 0; index <= posiciones; index++) {
-        let controller= `
-            <li class="page-item"><a class="page-link" onclick="fillPagination(content[${index}],${index+1})">${index+1}</a></li>
-        `;;
-        pagination = pagination + controller;
-    }
-    let pie = '';
-    pie += `
-                <li class="page-item"><a class="page-link" onclick="nextData()">Next</a></li>
-            </ul>
-        </nav>
-        `;  
-    pagination = pagination + pie;
-    document.getElementById('seccionPaginacion').innerHTML = pagination;
-}
 
-function previousData() {
-    seleccion = seleccion -1;
-    let position = seleccion;
-    if (position >= 0) {
-        document.getElementById('tbody-rows').innerHTML = content[position];
-    } else {
-        sweetAlert(3, 'No puedes retroceder mas', null);
-    }
-}
-
-function nextData() {
-    seleccion = seleccion + 1;
-    let position = seleccion;
-    if (position <= posiciones) {
-        document.getElementById('tbody-rows').innerHTML = content[position];
-    } else {
-        sweetAlert(3, 'No puedes avanzar mas', null);
-    }
-}
-
-function fillPagination(contenido,select) {
-    // Imprimimos las filas en la seccion de contenido de la tabla
-    document.getElementById('tbody-rows').innerHTML = contenido;
-    seleccion = select;
-}

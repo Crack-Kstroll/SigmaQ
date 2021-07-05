@@ -26,7 +26,6 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 				</tbody>
 			</table>
 			<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->
-					
 			</div> <!-- Cierra controladores de tabla -->
 		</div>	
 	</div> <!-- Cierra secion estadisticas -->
