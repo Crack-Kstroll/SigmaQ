@@ -26,7 +26,7 @@ Login_Page::headerTemplate('Login | Clientes');
                             <input type="password" class="input">
                         </div>
                     </div>
-                    <div style="display: flex; justify-content-center">
+                    <div style="display: flex; justify-content:center">
                         <a href="main.php" class="btn">
                             INGRESAR
                             <!-- <input type="submit" class="btn" value="Login"> -->

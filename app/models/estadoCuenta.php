@@ -233,6 +233,25 @@ class EstadoCuenta extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Función para buscar un registro en el sitio público
+    public function searchEstadoPublico($value)
+    {
+        $sql = "SELECT s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral
+                FROM estadocuentas ec
+                INNER JOIN administradores a
+                ON ec.responsable = a.codigoadmin
+                INNER JOIN sociedades s
+                ON ec.sociedad = s.idsociedad
+                INNER JOIN clientes c
+                ON ec.cliente = c.codigocliente
+                INNER JOIN divisas d
+                ON ec.divisa = d.iddivisa
+                WHERE (s.sociedad LIKE ? OR  CONCAT(a.nombre,' ',a.apellido) LIKE ?) AND (ec.estado = true AND c.codigocliente = ?)
+                ORDER BY responsable";
+        $params = array("%$value%","%$value%", $_SESSION['codigocliente']);
+        return Database::getRows($sql, $params);
+    }
+
     // Función para llenar la tabla
     public function SelectEstadoCuenta()
     {
@@ -268,6 +287,26 @@ class EstadoCuenta extends Validator
                 WHERE idestadocuenta = ?";
         $params = array($this->id);
         // print($params);
+        return Database::getRows($sql, $params);
+    }
+
+    // Función para mostrar la tabla en el sitio público
+    public function SelectEstadoCuentaPublico()
+    {
+        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
+                FROM estadocuentas ec
+                INNER JOIN administradores a
+                ON ec.responsable = a.codigoadmin
+                INNER JOIN sociedades s
+                ON ec.sociedad = s.idsociedad
+                INNER JOIN clientes c
+                ON ec.cliente = c.codigocliente
+                INNER JOIN divisas d
+                ON ec.divisa = d.iddivisa
+                WHERE ec.estado = true AND c.codigocliente = ?
+                ORDER BY s.sociedad";
+        $params = array($_SESSION['codigocliente']);;
+        print($params);
         return Database::getRows($sql, $params);
     }
 
