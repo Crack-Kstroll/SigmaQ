@@ -187,7 +187,34 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 				</div>
 			</div>
 		</div>
+	</div>
 
+	<!-- Modal Divisas -->
+	<div class="modal fade" id="modal-divisas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 id="modal-title" name="modal-title" class="modal-title">Modal title</h5>
+				</div>
+				<div class="modal-body">
+					<form method="post" id="save-form-divisas" enctype="multipart/form-data">
+						<div class="row">
+							<!-- Campo invicible del ID -->
+							<input class="d-none" type="number" id="iddivisa" name="iddivisa">
+							<div class="col-12 form-group">
+								<label>Divisa</label>
+								<input id="divisa" name="divisa" type="text" class="form-control" required>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+					<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 <?php
 	Dashboard_Page::footerTemplate('estadoCuenta');
 ?>

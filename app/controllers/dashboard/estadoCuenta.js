@@ -169,7 +169,7 @@ const openCreateDialog = () => {
     fillSelect(API_DIVISAS, 'divisa', null);
 }
 
-// Función para abrir el Form al momento de crear un registro
+// Función para abrir el Form al momento de crear una sociedad
 const openCreateDialogSociedades = () => {
     //Se restauran los elementos del form
     document.getElementById('save-form-sociedades').reset();
@@ -180,7 +180,20 @@ const openCreateDialogSociedades = () => {
     // Se llama a la function para llenar los Selects
     fillSelect(API_CLIENTES, 'clientesociedad', null);
     // Se llama la función para llenar la tabla
-    fillTableSociedad();
+    // fillTableSociedad();
+    // readRows(API_SOCIEDADES);
+}
+
+// Función para abrir el Fomr al momento de crear una divisa
+const openCreateDialogDivisas = () => {
+    //Se restauran los elementos del form
+    document.getElementById('save-form-divisas').reset();
+    //Se abre el form
+    $('#modal-divisas').modal('show');
+    //Asignamos el titulo al modal
+    document.getElementById('modal-title').textContent = 'Registrar Sociedad'
+    // Se llama la función para llenar la tabla
+    // fillTableSociedad();
     // readRows(API_SOCIEDADES);
 }
 
