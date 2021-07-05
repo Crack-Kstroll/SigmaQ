@@ -180,7 +180,7 @@ class Cliente extends Validator
 
     public function readRow()
     {
-        $sql = 'SELECT codigocliente,estado,empresa,telefono,correo,usuario,clave,intentos 
+        $sql = 'SELECT codigocliente,usuario, estado,empresa,telefono,correo,clave,intentos 
         from clientes 
         where codigocliente = ?';
         $params = array($this->id);

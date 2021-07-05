@@ -214,6 +214,7 @@ class EstadoCuenta extends Validator
 
     // Métodos para realizar las operaciones SCRUD
 
+    // Función para buscar un registro
     public function searchEstado($value)
     {
         $sql = "SELECT s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral
@@ -232,9 +233,10 @@ class EstadoCuenta extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Función para llenar la tabla
     public function SelectEstadoCuenta()
     {
-        $sql = "SELECT CONCAT(a.nombre,' ',a.apellido) AS responsable, s.sociedad, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral
+        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
                 FROM estadocuentas ec
                 INNER JOIN administradores a
                 ON ec.responsable = a.codigoadmin
@@ -243,22 +245,33 @@ class EstadoCuenta extends Validator
                 INNER JOIN clientes c
                 ON ec.cliente = c.codigocliente
                 INNER JOIN divisas d
-                ON ec.divisa = d.iddivisa";
+                ON ec.divisa = d.iddivisa
+                ORDER BY s.sociedad";
         $params = null;
         print($params);
         return Database::getRows($sql, $params);
     }
 
+    // Función para seleccionar solo un estado
     public function SelectOneEstadoCuenta()
     {
-        $sql = 'SELECT idestadocuenta, responsable, sociedad, cliente, codigo, factura, asignacion, fechacontable, clase, vencimiento, (vencimiento - CURRENT_DATE) AS DiasRestantes, divisa, totalgeneral
-                FROM public.estadocuentas
-                WHERE idestadocuenta = ?';
+        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, a.codigoadmin, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.codigocliente, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes,d.iddivisa, d.divisa, ec.totalgeneral
+                FROM estadocuentas ec
+                INNER JOIN administradores a
+                ON ec.responsable = a.codigoadmin
+                INNER JOIN sociedades s
+                ON ec.sociedad = s.idsociedad
+                INNER JOIN clientes c
+                ON ec.cliente = c.codigocliente
+                INNER JOIN divisas d
+                ON ec.divisa = d.iddivisa
+                WHERE idestadocuenta = ?";
         $params = array($this->id);
-        print($params);
+        // print($params);
         return Database::getRows($sql, $params);
     }
 
+    // Función para insertar un estado
     public function insertEstado() {
         $query="INSERT INTO public.estadocuentas(responsable, sociedad, cliente, codigo, factura, asignacion, fechacontable, clase, vencimiento, divisa, totalgeneral)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -266,11 +279,26 @@ class EstadoCuenta extends Validator
         return Database::executeRow($query, $params);
     }
 
+    // Función para actualizar un estado
     public function updateEstado() {
         $query="UPDATE public.estadocuentas
                 SET responsable=?, sociedad=?, cliente=?, codigo=?, factura=?, asignacion=?, fechacontable=?, clase=?, vencimiento=?, divisa=?, totalgeneral=?
                 WHERE idestadocuenta = ?";
-        $params = array($this->responsable, $this->sociedad, $this->cliente, $this->codigo, $this->factura, $this->asignacion, $this->fechaContable, $this->clase, $this->vencimiento, $this->divisa, $this->total);
+        $params = array($this->responsable, $this->sociedad, $this->cliente, $this->codigo, $this->factura, $this->asignacion, $this->fechaContable, $this->clase, $this->vencimiento, $this->divisa, $this->total, $this->id);
+        return Database::executeRow($query, $params);
+    }
+
+    //Función para desactivar un registro
+    public function desableEstado() {
+        $query="UPDATE estadocuentas SET estado=false WHERE idestadocuenta = ?";
+        $params=array($this->id);
+        return Database::executeRow($query, $params);
+    }
+
+    //Función para activar un registro
+    public function enableEstado() {
+        $query="UPDATE estadocuentas SET estado=true WHERE idestadocuenta = ?";
+        $params=array($this->id);
         return Database::executeRow($query, $params);
     }
 

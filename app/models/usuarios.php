@@ -271,9 +271,9 @@ class Cliente extends Validator
 
     public function readAll()
     {
-        $sql = 'SELECT codigoadmin,usuario,estado,nombre,apellido,dui,correo,telefono,direccion,intentos
+        $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable, usuario,estado,dui,correo,telefono,direccion,intentos
         from administradores
-        order by estado desc';
+        order by estado desc";
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -299,8 +299,8 @@ class Cliente extends Validator
 
     public function readRow()
     {
-        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,clave,intentos
-        from administradores where codigoadmin = ?';
+        $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable, estado,dui,correo,telefono,direccion,usuario,clave,intentos
+        from administradores where codigoadmin = ?";
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }

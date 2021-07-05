@@ -78,7 +78,7 @@ const fillTable = dataset => {
                     
                     <td>
                         <a href="#" onclick="openUpdateDialog(${row.idestadocuenta})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#" onclick="${metodo}(${row.idestadocuenta})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="#" onclick="${metodo}(${row.idestadocuenta})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                     </td>
                 </tr>
             `
@@ -86,6 +86,62 @@ const fillTable = dataset => {
         })
         //Se agrega el contenido a la tabla mediante su id
         document.getElementById('tbody-rows').innerHTML = content;
+    }
+}
+
+// Función para mostrar los registros de las sociedades
+const fillTableSociedad = dataset => {
+    $('#warning-message').empty();
+    $('#tbody-rows').empty();
+    let content = ''
+    if(dataset == [].length) {
+        //console.log(dataset)
+        content+=`<h4>No hay índices registrados</h4>`
+        document.getElementById('warning-message').innerHTML = content
+    } else {
+        //Se agregan los titulos de las columnas
+        content += `
+            <thead class="thead-dark">
+                <tr>
+                    <th>Cliente</th>
+                    <th>Sociedad</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+        `
+
+
+        dataset.map( row => {
+
+            let toggleEnabledIcon = '';
+            let iconToolTip = '';
+            let metodo = '';
+
+            if(row.estado) {
+                //Cuando el registro esté habilitado
+                iconToolTip = 'Deshabilitar'
+                toggleEnabledIcon = 'block'
+                metodo = 'openDeleteDialog';
+
+            } else {
+                iconToolTip = 'Habilitar'
+                toggleEnabledIcon = 'check_circle_outline'
+                metodo = 'openActivateDialog';
+            }
+
+            content+= `
+                <tr>
+                    <td>${row.cliente}</th>
+                    <td>${row.sociedad}</th>
+                    <td>
+                        <a href="#" onclick="openUpdateDialog(${row.idsociedad})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#" onclick="${metodo}(${row.idsociedad})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
+                    </td>
+                </tr>
+            `
+        })
+        //Se agrega el contenido a la tabla mediante su id
+        document.getElementById('tbody-sociedades').innerHTML = content;
     }
 }
 
@@ -113,16 +169,33 @@ const openCreateDialog = () => {
     fillSelect(API_DIVISAS, 'divisa', null);
 }
 
+// Función para abrir el Form al momento de crear un registro
+const openCreateDialogSociedades = () => {
+    //Se restauran los elementos del form
+    document.getElementById('save-form-sociedades').reset();
+    //Se abre el form
+    $('#modal-sociedades').modal('show');
+    //Asignamos el titulo al modal
+    document.getElementById('modal-title').textContent = 'Registrar Sociedad'
+    // Se llama a la function para llenar los Selects
+    fillSelect(API_CLIENTES, 'clientesociedad', null);
+    // Se llama la función para llenar la tabla
+    fillTableSociedad();
+    // readRows(API_SOCIEDADES);
+}
+
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdateDialog(id) {
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Asignamos el valor del parametro id al campo del id del modal
     document.getElementById('idestado').value = id;
+    //Asignamos el titulo al modal
+    document.getElementById('modal-title').textContent = 'Actualizar registro'
     //Mandamos a llamar la funcion para colocar el titulo al formulario
-    modalTitle();
+    // modalTitle();
     const data = new FormData();
-    data.append('idestado', id);
+    data.append('id', id);
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
     fetch(API_ESTADO + 'readOne', {
         method: 'post',
@@ -134,8 +207,8 @@ function openUpdateDialog(id) {
             request.json().then(function (response) {
                 // En caso de encontrarse registros se imprimen los resultados en los inputs del modal
                 if (response.status) {
-                    // Colocamos el nombre de los inpus y los igualamos al valor de los campos del dataset 
-                    document.getElementById('idestado').value = response.dataset.idestadocuenta;
+                    // Colocamos el nombre de los inputs y los igualamos al valor de los campos del dataset 
+                    document.getElementById('idestado').value = response.dataset[0].idestadocuenta;
                     fillSelect(API_ADMINS, 'responsable', response.dataset[0].codigoadmin);
                     fillSelect(API_CLIENTES, 'cliente', response.dataset[0].codigocliente);
                     fillSelect(API_SOCIEDADES, 'sociedad', response.dataset[0].idsociedad);
@@ -143,15 +216,15 @@ function openUpdateDialog(id) {
                     // document.getElementById('responsable').value = response.dataset.responsable;
                     // document.getElementById('sociedad').value = response.dataset.sociedad;
                     // document.getElementById('usuario').value = response.dataset.usuario;
-                    document.getElementById('codigo').value = response.dataset.codigo;
-                    document.getElementById('factura').value = response.dataset.factura;
-                    document.getElementById('asignacion').value = response.dataset.asignacion;
-                    document.getElementById('fechacontable').value = response.dataset.fechacontable;
-                    document.getElementById('clase').value = response.dataset.clase;
-                    document.getElementById('vencimiento').value = response.dataset.vencimiento;
+                    document.getElementById('codigo').value = response.dataset[0].codigo;
+                    document.getElementById('factura').value = response.dataset[0].factura;
+                    document.getElementById('asignacion').value = response.dataset[0].asignacion;
+                    document.getElementById('fechacontable').value = response.dataset[0].fechacontable;
+                    document.getElementById('clase').value = response.dataset[0].clase;
+                    document.getElementById('vencimiento').value = response.dataset[0].vencimiento;
                     // document.getElementById('diasrestantes').value = response.dataset.diasrestantes;
                     // document.getElementById('divisa').value = response.dataset.divisa;
-                    document.getElementById('totalgeneral').value = response.dataset.totalgeneral;
+                    document.getElementById('total').value = response.dataset[0].totalgeneral;
                 } else {
                     // En caso de fallar se muestra el mensaje de error 
                     sweetAlert(2, response.exception, null);
@@ -181,22 +254,27 @@ const saveData = () => {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);
 }
-// Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
-function modalTitle() {
-    // Reseteamos el valor de los campos del modal
-    document.getElementById('save-form').reset();
-    // Ocultamos el input que contiene el ID del registro
-    document.getElementById('idestado').style.display = 'none';
-    // Atributo para almacenar el titulo del modal
-    let titulo = '';
-    // Compramos si el contenido el input esta vacio
-    if (document.getElementById("idestado").value == '') {
-        titulo = 'Ingresar registro'; // En caso que no exista valor se registra
-    }
-    else {
-        titulo = 'Actualizar registro';  // En caso que exista se actualiza 
-    }
-    // Colocamos el titulo al elemento con el id modal-title
-    document.getElementById('modal-title').textContent = titulo;
+
+// Función para desactivar el registro
+function openDeleteDialog(id) {
+    const data = new FormData();
+    // Asignamos el valor de la data que se enviara a la API
+    data.append('id', id);
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmDesactivate(API_ESTADO, data);
+    // Se manda a llamar la funcion para llenar la tabla con la API de parametro
+    readRows(API_ESTADO);
 }
+
+// Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
+function openActivateDialog(id) {
+    const data = new FormData();
+    // Asignamos el valor de la data que se enviara a la API
+    data.append('id', id);
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmActivate(API_ESTADO, data);
+    // Se manda a llamar la funcion para llenar la tabla con la API de parametro
+    readRows(API_ESTADO);
+}
+
 

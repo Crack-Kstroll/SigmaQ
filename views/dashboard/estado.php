@@ -165,13 +165,13 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 					<h5 id="modal-title" name="modal-title" class="modal-title">Modal title</h5>
 				</div>
 				<div class="modal-body">
-					<form method="post" id="save-form" enctype="multipart/form-data">
+					<form method="post" id="save-form-sociedades" enctype="multipart/form-data">
 						<div class="row">
 							<!-- Campo invicible del ID -->
 							<input class="d-none" type="number" id="idsociedad" name="idsociedad">
 							<div class="col-6 form-group">
 								<label>Cliente</label>
-								<select id="cliente" name="cliente" class="form-control">
+								<select id="clientesociedad" name="clientesociedad" class="form-control">
 								</select>
 							</div>
 							<div class="col-6 form-group">
