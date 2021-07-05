@@ -340,9 +340,9 @@ class Usuario extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
         from administradores
-        WHERE codigoadmin = ? 
+        WHERE CAST(codigoadmin AS CHAR) LIKE ? OR codigoadmin = ?
         order by estado desc';
-        $params = array("%$value%");
+        $params = array("%$value%",$value);
         return Database::getRows($sql, $params);
     }
 

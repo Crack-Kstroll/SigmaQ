@@ -237,13 +237,13 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigocliente,estado,empresa,telefono,correo,usuario,clave,intentos 
         from clientes
-        WHERE codigocliente = ? 
+        WHERE CAST(codigocliente AS CHAR) LIKE ? OR codigocliente = ?
         order by codigocliente';
-        $params = array($value);
+        $params = array("%$value%",$value);
         return Database::getRows($sql, $params);
     }
 
-    // Funcion verificar si existen usuarios activos en la base de daots
+    // Funcion verificar si existen usuarios activos en la base de datos
     public function readIndex()
     {
         // Declaracion de la sentencia SQL 

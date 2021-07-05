@@ -71,3 +71,10 @@ function fillPagination(contenido,select) {
     // Asignamos el valor al atributo seleccion para identificar que pagina se cargo
     seleccion = select;
 }
+
+// Funcion para resetar el valor de todos los atributos de la clase
+function resetPagination(){
+    content = [];
+    posiciones = 0;
+    seleccion = 0;
+}

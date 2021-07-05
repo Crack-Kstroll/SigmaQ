@@ -18,7 +18,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
-							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por codigo" aria-label="search">
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por codigo de administrador" aria-label="search">
 						</div>
 						<div class="col-sm-2">
 							<!-- Boton para busqueda filtrada --> 
@@ -36,7 +36,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 		</form>
 	<!-- Cierra seccion de busqueda filtrada -->		
 	</div>
-	
 	<!-- Seccion de tabla -->
 	<div class="container-fluid espacioSuperior"> 
 		<table class="table borde">
@@ -76,20 +75,21 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 						<div class="col-6">
 							<div class="form-group">
 								<label>Codigo*</label>
-								<input id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="000001" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<input id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="1" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
 								<label>Nombre*</label>
 								<input id="txtNombre" name="txtNombre" maxlength="40" type="text" class="form-control" placeholder="Roberto" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-							</div>	
-														
+							</div>							
 							<div class="form-group">
 								<label>Telefono*</label>
 								<div class="form-group">
 									<input id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="phoneBlock" class="form-text">
+										Debe iniciar con 2, 6 o 7 y debe tener una longitud de 9 caracteres incluyendo un guion luego del cuarto dígito
+        							</div>
 								</div>			
 							</div>
-
 							<div class="form-group">
 								<label>Correo*</label>
 								<div class="form-group">
@@ -112,6 +112,9 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 							<div class="form-group">
 								<label>DUI*</label>
 								<input id="txtDui" name="txtDui" type="text" maxlength="10" class="form-control" placeholder="01234567-8" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<div id="passwordHelpBlock" class="form-text">
+            						El DUI debe tener una longitud de 10 caracteres incluyendo un guion luego del octavo carácter
+        						</div>
 							</div>
 							<div class="form-group">
 								<label>Direccion*</label>

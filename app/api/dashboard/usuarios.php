@@ -392,13 +392,13 @@ if (isset($_GET['action'])) {
                                 $result['exception'] = Database::getException();
                             }
                         } else {
-                            $result['exception'] = 'Usuario inexistente';
+                            $result['exception'] = 'El usuario es inexistente';
                         }
                     } else {
-                        $result['exception'] = 'Codigo incorrecto';
+                        $result['exception'] = 'Codigo del administrador incorrecto';
                     }
                 } else {
-                    $result['exception'] = 'No se puede eliminar a si mismo';
+                    $result['exception'] = 'No se puede desactivar a si mismo';
                 }
             break;
             case 'activate': // Caso para eliminar un registro 

@@ -76,20 +76,24 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 								<input id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="000001" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
-								<label>Empresa*</label>
-								<input id="txtEmpresa" name="txtEmpresa" maxlength="40" type="text" class="form-control" placeholder="SigmaQ" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<label>Usuario*</label>
+								<input id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<div id="phoneBlock" class="form-text">
+									El usuario puede contener numeros y letras su longitud maxima es 35 caracteres 
+        						</div>
 							</div>															
 						</div>	
 						<div class="col-6">
 							<div class="form-group">
-								<label>Usuario*</label>
-								<input id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<label>Empresa*</label>
+								<input id="txtEmpresa" name="txtEmpresa" maxlength="40" type="text" class="form-control" placeholder="SigmaQ" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
 								<label>Telefono*</label>
-								<div class="form-group">
-									<input id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-								</div>			
+								<input id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<div id="phoneBlock" class="form-text">
+									Debe iniciar con 2, 6 o 7 y debe tener una longitud de 9 caracteres incluyendo un guion luego del cuarto dígito
+        						</div>			
 							</div>				
 						</div>				
 					</div>
