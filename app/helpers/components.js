@@ -1,4 +1,13 @@
+/*
+*   Función para obtener todos los registros disponibles en las tablas de la base de datos
+*
+*   Parámetros: api (ruta del servidor para obtener los datos).
+*
+*   Retorno: ninguno.
+*/
 function readRows(api) {
+    /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo get 
+    para obtener el resultado de la API*/
     fetch(api + 'readAll', {
         method: 'get'
     }).then(function (request) {
@@ -8,6 +17,7 @@ function readRows(api) {
                 let data = [];
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
+                    // Se obtiene el valor del dataset para asignarlo al atributo data
                     data = response.dataset;
                 } else {
                     sweetAlert(4, response.exception, null);
@@ -23,32 +33,16 @@ function readRows(api) {
     });
 }
 
-function searchRows(api, form) {
-    fetch(api + 'search', {
-        method: 'post',
-        body: new FormData(document.getElementById(form))
-    }).then(function (request) {
-        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
-        if (request.ok) {
-            request.json().then(function (response) {
-                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-                if (response.status) {
-                    // Se envían los datos a la función del controlador para que llene la tabla en la vista.
-                    fillTable(response.dataset);
-                    sweetAlert(1, response.message, null);
-                } else {
-                    sweetAlert(2, response.exception, null);
-                }
-            });
-        } else {
-            console.log(request.status + ' ' + request.statusText);
-        }
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
-
-function onlySaveRow(api, action, form, modal) {
+/*
+*   Función para crear o actualizar un registro en los mantenimientos de tablas (operación create y update).
+*
+*   Parámetros: api (ruta del servidor para enviar los datos), form (identificador del formulario) y modal (identificador de la caja de dialogo).
+*
+*   Retorno: ninguno.
+*/
+function saveRow(api, action, form, modal) {
+    /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+    para acceder a los campos desde la API*/
     fetch(api + action, {
         method: 'post',
         body: new FormData(document.getElementById(form))
@@ -59,9 +53,12 @@ function onlySaveRow(api, action, form, modal) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se cierra la caja de dialogo (modal) del formulario.
-                    let instance = M.Modal.getInstance(document.getElementById(modal));
-                    instance.close();
+                    $(`#${modal}`).modal('hide');
+                    // Resetamos los vectores que contienen los registros de la tabla
+                    resetPagination();
                     // Se cargan nuevamente las filas en la tabla de la vista después de agregar o modificar un registro.
+                    readRows(api);
+                    // Mostramos alerta con mensaje de exito
                     sweetAlert(1, response.message, null);
                 } else {
                     sweetAlert(2, response.exception, null);
@@ -75,9 +72,17 @@ function onlySaveRow(api, action, form, modal) {
     });
 }
 
-
-function saveRow(api, action, form, modal) {
-    fetch(api + action, {
+/*
+*   Función para obtener los resultados de una búsqueda en los mantenimientos de tablas (operación search).
+*
+*   Parámetros: api (ruta del servidor para obtener los datos) y form (identificador del formulario de búsqueda).
+*
+*   Retorno: ninguno.
+*/
+function searchRows(api, form) {
+    /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+    para acceder a los campos desde la API*/
+    fetch(api + 'search', {
         method: 'post',
         body: new FormData(document.getElementById(form))
     }).then(function (request) {
@@ -87,10 +92,11 @@ function saveRow(api, action, form, modal) {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    // Se cierra la caja de dialogo (modal) del formulario.
-                    $(`#${modal}`).modal('hide');
-                    // Se cargan nuevamente las filas en la tabla de la vista después de agregar o modificar un registro.
-                    readRows(api);
+                    // Resetamos los vectores que contienen los registros de la tabla
+                    resetPagination();
+                    // Se envían los datos a la función del controlador para que llene la tabla en la vista.
+                    fillTable(response.dataset);
+                    // Mostramos alerta con mensaje de exito
                     sweetAlert(1, response.message, null);
                 } else {
                     sweetAlert(2, response.exception, null);
@@ -104,7 +110,15 @@ function saveRow(api, action, form, modal) {
     });
 }
 
+/*
+*   Función para eliminar un registro seleccionado en los mantenimientos de tablas (operación delete). Requiere el archivo sweetalert.min.js para funcionar.
+*
+*   Parámetros: api (ruta del servidor para enviar los datos) y data (objeto con los datos del registro a eliminar).
+*
+*   Retorno: ninguno.
+*/
 function confirmDelete(api, data) {
+    // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
         text: '¿Desea eliminar el registro?',
@@ -115,6 +129,8 @@ function confirmDelete(api, data) {
     }).then(function (value) {
         // Se verifica si fue cliqueado el botón Sí para hacer la petición de borrado, de lo contrario no se hace nada.
         if (value) {
+            /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+            para acceder a los campos desde la API*/
             fetch(api + 'delete', {
                 method: 'post',
                 body: data
@@ -124,10 +140,14 @@ function confirmDelete(api, data) {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
+                            // Resetamos los vectores que contienen los registros de la tabla
+                            resetPagination();
                             // Se cargan nuevamente las filas en la tabla de la vista después de borrar un registro.
                             readRows(api);
+                            // Se muestra una alerta con el mensaje de exito
                             sweetAlert(1, response.message, null);
                         } else {
+                            // Se muestra una alerta con el mensaje de error
                             sweetAlert(2, response.exception, null);
                         }
                     });
@@ -141,7 +161,15 @@ function confirmDelete(api, data) {
     });
 }
 
+/*
+*   Función para eliminar un registro seleccionado en los mantenimientos de tablas (operación delete). Requiere el archivo sweetalert.min.js para funcionar.
+*
+*   Parámetros: api (ruta del servidor para enviar los datos) y data (objeto con los datos del registro a eliminar).
+*
+*   Retorno: ninguno.
+*/
 function confirmDesactivate(api, data) {
+    // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
         text: '¿Desea desactivar el registro?',
@@ -152,6 +180,8 @@ function confirmDesactivate(api, data) {
     }).then(function (value) {
         // Se verifica si fue cliqueado el botón Sí para hacer la petición de borrado, de lo contrario no se hace nada.
         if (value) {
+            /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+            para acceder a los campos desde la API*/
             fetch(api + 'delete', {
                 method: 'post',
                 body: data
@@ -161,8 +191,11 @@ function confirmDesactivate(api, data) {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
+                            // Resetamos los vectores que contienen los registros de la tabla
+                            resetPagination();
                             // Se cargan nuevamente las filas en la tabla de la vista después de borrar un registro.
                             readRows(api);
+                            // Se muestra una alerta con el mensaje de exito
                             sweetAlert(1, response.message, null);
                         } else {
                             sweetAlert(2, response.exception, null);
@@ -178,7 +211,15 @@ function confirmDesactivate(api, data) {
     });
 }
 
+/*
+*   Función para eliminar un registro seleccionado en los mantenimientos de tablas (operación delete). Requiere el archivo sweetalert.min.js para funcionar.
+*
+*   Parámetros: api (ruta del servidor para enviar los datos) y data (objeto con los datos del registro a eliminar).
+*
+*   Retorno: ninguno.
+*/
 function confirmActivate(api, data) {
+    // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
         text: '¿Desea activar el registro?',
@@ -189,6 +230,8 @@ function confirmActivate(api, data) {
     }).then(function (value) {
         // Se verifica si fue cliqueado el botón Sí para hacer la petición de borrado, de lo contrario no se hace nada.
         if (value) {
+            /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+            para acceder a los campos desde la API*/
             fetch(api + 'activate', {
                 method: 'post',
                 body: data
@@ -198,10 +241,14 @@ function confirmActivate(api, data) {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
+                            // Resetamos los vectores que contienen los registros de la tabla
+                            resetPagination();
                             // Se cargan nuevamente las filas en la tabla de la vista después de borrar un registro.
                             readRows(api);
+                            // Se muestra una alerta con el mensaje de exito
                             sweetAlert(1, response.message, null);
                         } else {
+                            // Se muestra una alerta con el mensaje de error
                             sweetAlert(2, response.exception, null);
                         }
                     });
@@ -215,7 +262,15 @@ function confirmActivate(api, data) {
     });
 }
 
+/*
+*   Función para eliminar un registro seleccionado en los mantenimientos de tablas (operación delete). Requiere el archivo sweetalert.min.js para funcionar.
+*
+*   Parámetros: api (ruta del servidor para enviar los datos) y data (objeto con los datos del registro a eliminar).
+*
+*   Retorno: ninguno.
+*/
 function onlyConfirmDelete(api, data) {
+    // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
         text: '¿Desea eliminar el registro?',
@@ -226,6 +281,8 @@ function onlyConfirmDelete(api, data) {
     }).then(function (value) {
         // Se verifica si fue cliqueado el botón Sí para hacer la petición de borrado, de lo contrario no se hace nada.
         if (value) {
+            /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+            para acceder a los campos desde la API*/
             fetch(api + 'delete', {
                 method: 'post',
                 body: data
@@ -238,6 +295,7 @@ function onlyConfirmDelete(api, data) {
                             // Se cargan nuevamente las filas en la tabla de la vista después de borrar un registro.
                             sweetAlert(1, response.message, null);
                         } else {
+                            // Se muestra una alerta con el mensaje de error
                             sweetAlert(2, response.exception, null);
                         }
                     });
@@ -251,6 +309,13 @@ function onlyConfirmDelete(api, data) {
     });
 }
 
+/*
+*   Función para manejar los mensajes de notificación al usuario. Requiere el archivo sweetalert.min.js para funcionar.
+*
+*   Parámetros: type (tipo de mensaje), text (texto a mostrar) y url (ubicación a direccionar al cerrar el mensaje).
+*
+*   Retorno: ninguno.
+*/
 function sweetAlert(type, text, url) {
     // Se compara el tipo de mensaje a mostrar.
     switch (type) {
@@ -294,6 +359,13 @@ function sweetAlert(type, text, url) {
     }
 }
 
+/*
+*   Función para cargar las opciones en un select de formulario.
+*
+*   Parámetros: endpoint (ruta específica del servidor para obtener los datos), select (identificador del select en el formulario) y selected (valor seleccionado).
+*
+*   Retorno: ninguno.
+*/
 function fillSelect(endpoint, select, selected) {
     fetch(endpoint, {
         method: 'get'
@@ -326,105 +398,6 @@ function fillSelect(endpoint, select, selected) {
                 }
                 // Se agregan las opciones a la etiqueta select mediante su id.
                 document.getElementById(select).innerHTML = content;
-            });
-        } else {
-            console.log(request.status + ' ' + request.statusText);
-        }
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
-
-function barGraph(canvas, xAxis, yAxis, legend, title) {
-    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
-    const context = document.getElementById(canvas).getContext('2d');
-    // Se crea una instancia para generar la gráfica con los datos recibidos.
-    const chart = new Chart(context, {
-        type: 'bar',
-        data: {
-            labels: xAxis,
-            datasets: [{
-                label: legend,
-                data: yAxis,
-                borderColor: '#000000',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                display: false
-            },
-            title: {
-                display: true,
-                text: title
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        precision: 0
-                    }
-                }]
-            }
-        }
-    });
-}
-
-function pieGraph(canvas, legends, values, title) {
-    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
-    let colors = [];
-    // Se declara e inicializa una variable para sumar los valores a graficar.
-    let total = 0;
-    // Se generan códigos hexadecimales de 6 cifras de acuerdo con el número de datos a mostrar y se van acumulando los valores.
-    for (i = 0; i < values.length; i++) {
-        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
-        total += values[i];
-    }
-    // Se declara un arreglo para guardar los porcentajes de cada cantidad.
-    let percentages = [];
-    // Se calcula el porcetaje que corresponde a cada valor.
-    for (i = 0; i < values.length; i++) {
-        percentages.push((values[i] * 100 / total).toFixed(2));
-    }
-    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
-    const context = document.getElementById(canvas).getContext('2d');
-    // Se crea una instancia para generar la gráfica con los datos recibidos.
-    const chart = new Chart(context, {
-        type: 'pie',
-        data: {
-            labels: legends,
-            datasets: [{
-                data: percentages,
-                backgroundColor: colors
-            }]
-        },
-        options: {
-            responsive: true,
-            title: {
-                display: true,
-                text: title
-            }
-        }
-    });
-}
-
-function searchCards(api, form) {
-    fetch(api + 'search', {
-        method: 'post',
-        body: new FormData(document.getElementById(form))
-    }).then(function (request) {
-        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
-        if (request.ok) {
-            request.json().then(function (response) {
-                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-                if (response.status) {
-                    // Se envían los datos a la función del controlador para que llene la tabla en la vista.
-                    fillCards(response.dataset);
-                    sweetAlert(1, response.message, null);
-                } else {
-                    sweetAlert(2, response.exception, null);
-                }
             });
         } else {
             console.log(request.status + ' ' + request.statusText);

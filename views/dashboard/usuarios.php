@@ -18,7 +18,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
-							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por DUI" aria-label="search">
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por codigo de administrador" aria-label="search">
 						</div>
 						<div class="col-sm-2">
 							<!-- Boton para busqueda filtrada --> 
@@ -30,13 +30,12 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 				</div>
 				<div class="col-sm-3">
 					<!-- Boton para ingresar nuevos registros --> 
-					<a href="#" onclick="modalTitle()" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar usuario</button></a>						
+					<a href="#" onclick="modalTitle(0)" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar usuario</button></a>						
 				</div>
 			</div>
 		</form>
 	<!-- Cierra seccion de busqueda filtrada -->		
 	</div>
-	
 	<!-- Seccion de tabla -->
 	<div class="container-fluid espacioSuperior"> 
 		<table class="table borde">
@@ -50,7 +49,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<th>Correo</th>
 					<th>Telefono</th>
 					<th>Usuario</th>
-					<th>Intentos</th>
 					<th>Estado</th>
 					<th>Opciones</th>
 				</tr>
@@ -58,7 +56,9 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 			<!-- Contenido de la tabla -->
 			<tbody id="tbody-rows">	
 			</tbody>
-		</table>	  
+		</table>	 
+		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->				
+		</div> <!-- Cierra controladores de tabla --> 
 	<!-- Cierra seccion de tabla -->
 	</div>
 	<!-- Modal  -->
@@ -74,52 +74,55 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
-								<label>Codigo</label>
-								<input id="txtId" name="txtId" type="number" min="1" class="form-control" required>
+								<label>Codigo*</label>
+								<input id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="1" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
-								<label>Nombre</label>
-								<input id="txtNombre" name="txtNombre" type="text" class="form-control" required>
-							</div>	
+								<label>Nombre*</label>
+								<input id="txtNombre" name="txtNombre" maxlength="40" type="text" class="form-control" placeholder="Roberto" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+							</div>							
 							<div class="form-group">
-								<label>Apellido</label>
-								<input id="txtApellido" name="txtApellido" type="text" class="form-control" required>
-							</div>								
-							<div class="form-group">
-								<label>Telefono</label>
+								<label>Telefono*</label>
 								<div class="form-group">
-									<input id="txtTelefono" name="txtTelefono" type="text" class="form-control" placeholder="0000-0000" required>
+									<input id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="phoneBlock" class="form-text">
+										Debe iniciar con 2, 6 o 7 y debe tener una longitud de 9 caracteres incluyendo un guion luego del cuarto dígito
+        							</div>
 								</div>			
+							</div>
+							<div class="form-group">
+								<label>Correo*</label>
+								<div class="form-group">
+									<input id="txtCorreo" name="txtCorreo" type="email"  maxlength="60" class="form-control" placeholder="correo@example.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>												
+								</div>			
+							</div>
+							<div id="boxClave" class="form-group">
 							</div>			
 						</div>		
 						<div class="col-6">
 							<div class="form-group">
-								<label>Usuario</label>
-								<input id="txtUsuario" name="txtUsuario" type="text" class="form-control" required>
+								<label>Usuario*</label>
+								<input id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+							</div>
+							
+							<div class="form-group">
+								<label>Apellido*</label>
+								<input id="txtApellido" name="txtApellido" maxlength="40" type="text" class="form-control" placeholder="Sanchez" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+							</div>	
+							<div class="form-group">
+								<label>DUI*</label>
+								<input id="txtDui" name="txtDui" type="text" maxlength="10" class="form-control" placeholder="01234567-8" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<div id="passwordHelpBlock" class="form-text">
+            						El DUI debe tener una longitud de 10 caracteres incluyendo un guion luego del octavo carácter
+        						</div>
 							</div>
 							<div class="form-group">
-								<label>Contraseña</label>
-								<input id="txtClave" name="txtClave" type="password" class="form-control" placeholder="" required>
-							</div>
-							<div class="form-group">
-								<label>Confirmar contraseña</label>
-								<input id="txtClave2" name="txtClave2" type="password" class="form-control" placeholder="" required>
-							</div>
-							<div class="form-group">
-								<label>DUI</label>
-								<div class="form-group">
-									<input id="txtDui" name="txtDui" type="text" class="form-control" placeholder="01234567-8" required>
-								</div> 
+								<label>Direccion*</label>
+								<input id="txtDireccion" name="txtDireccion" type="text" maxlength="150"  class="form-control" placeholder="Avenida Aguilares 218 San Salvador CP, 1101" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>		
-						</div>
-						<div class="col-6">
-							<label>Correo</label>
-							<input id="txtCorreo" name="txtCorreo" type="email" class="form-control" placeholder="correo@example.com" required>				
-						</div>
-						<div class="col-6">
-							<label>Direccion</label>
-							<input id="txtDireccion" name="txtDireccion" type="text" class="form-control"  required>				
-						</div>		
+							<div id="boxConfirmar" class="form-group">				
+							</div>	
+						</div>	
 					</div>
 				</form>
 			</div>
