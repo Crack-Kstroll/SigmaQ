@@ -22,6 +22,8 @@ function readRows(api) {
                 } else {
                     sweetAlert(4, response.exception, null);
                 }
+                // Se resetean los valores de los arreglos de la paginacion
+                resetPagination();
                 // Se envían los datos a la función del controlador para que llene la tabla en la vista.
                 fillTable(data);
             });

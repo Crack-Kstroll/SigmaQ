@@ -21,7 +21,6 @@ const openCreateDialog = () => {
     //Asignamos la fecha mínima para las fechas
     document.getElementById('fechaentrega').setAttribute('min', new Date().toDateInputValue()) 
     document.getElementById('fechaconfirmadaenvio').setAttribute('min', new Date().toDateInputValue()) 
-
     // Se llama a la function para llenar los Selects
     fillSelect(API_ADMINS, 'responsable', null);
     fillSelect(API_CLIENTES, 'cliente', null);
@@ -33,39 +32,41 @@ function fillTable(dataset) {
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
     let contador = 0; 
+    // Obtenemos los valores del retorno de la consulta de la base de datos (dataset)
     dataset.map(function (row) {
+        // Declaracion de variables para almacenar los nombres de iconos y metodo
         let toggleEnabledIcon = '';
-            let iconToolTip = '';
-            let metodo = '';
-
-            if(row.estado) {
-                //Cuando el registro esté habilitado
-                iconToolTip = 'Deshabilitar'
-                toggleEnabledIcon = 'block'
-                metodo = 'openDeleteDialog';
-
-            } else {
-                iconToolTip = 'Habilitar'
-                toggleEnabledIcon = 'check_circle_outline'
-                metodo = 'openActivateDialog';
-            }
-            data+= `
-                <tr>
-                    <td>${row.usuario}</th>
-                    <td>${row.pos}</th>
-                    <td>${row.oc}</th>
-                    <td>${row.cantidadsolicitada}</th>
-                    <td>${row.codigo}</th>
-                    <td>${row.cantidadenviada}</th>
-                    <td>${row.fecharegistro}</th>
-                    <td>${row.fechaentregada}</th>
-                    <td>${row.fechaconfirmadaenvio}</th>
-                    <td>
-                        <a href="#" onclick="openUpdateDialog(${row.idpedido})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#" onclick="${metodo}(${row.idpedido})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
-                    </td>
-                </tr>
-            `;           
+        let iconToolTip = '';
+        let metodo = '';
+        // Se verifica si el estado es activo o inactivo
+        if(row.estado) {
+            //Cuando el registro esté habilitado
+            iconToolTip = 'Deshabilitar'
+            toggleEnabledIcon = 'block'
+            metodo = 'openDeleteDialog';
+        } else {
+            // Cuando este deshabilitado
+            iconToolTip = 'Habilitar'
+            toggleEnabledIcon = 'check_circle_outline'
+            metodo = 'openActivateDialog';
+        }
+        data+= `
+            <tr>
+                <td>${row.usuario}</th>
+                <td>${row.pos}</th>
+                <td>${row.oc}</th>
+                <td>${row.cantidadsolicitada}</th>
+                <td>${row.codigo}</th>
+                <td>${row.cantidadenviada}</th>
+                <td>${row.fecharegistro}</th>
+                <td>${row.fechaentregada}</th>
+                <td>${row.fechaconfirmadaenvio}</th>
+                <td>
+                    <a href="#" onclick="openUpdateDialog(${row.idpedido})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                    <a href="#" onclick="${metodo}(${row.idpedido})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
+                </td>
+            </tr>
+        `;           
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
@@ -94,7 +95,6 @@ function fillTable(dataset) {
     // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
     generatePagination();
 }
-
 
 //Función para obtener la fecha actual
 Date.prototype.toDateInputValue = (function() {

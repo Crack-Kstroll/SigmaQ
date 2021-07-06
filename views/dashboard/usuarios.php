@@ -18,7 +18,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
-							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por codigo de administrador" aria-label="search">
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por código de administrador" aria-label="search">
 						</div>
 						<div class="col-sm-2">
 							<!-- Boton para busqueda filtrada --> 

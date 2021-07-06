@@ -2,7 +2,6 @@ const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
 const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
 const API_INDICES = '../../app/api/dashboard/indiceEntrega.php?action=';
 
-
 // Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
 document.addEventListener('DOMContentLoaded', () => {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
@@ -16,15 +15,18 @@ function fillTable(dataset) {
     // Variable para llevar un control de la cantidad de registros agregados
     let contador = 0; 
     dataset.map(function (row) {
+            // Variables para almacernar los nombres de los iconos del los botones y del estado del usuario en la tabla
             let toggleEnabledIcon = '';
             let iconToolTip = '';
             let metodo = '';
+            // Definimos el icono a mostrar en la tabla segun el estado del registro
             if(row.estado) {
-                //Cuando el registro esté habilitado
+                // Cuando el registro esté habilitado
                 iconToolTip = 'Deshabilitar'
                 toggleEnabledIcon = 'block'
                 metodo = 'openDeleteDialog';
             } else {
+                // Cuando el registro esté deshabilitado
                 iconToolTip = 'Habilitar'
                 toggleEnabledIcon = 'check_circle_outline'
                 metodo = 'openActivateDialog';
@@ -146,7 +148,6 @@ function openUpdateDialog(id) {
     document.getElementById('modal-title').textContent = 'Registrar Indice de Entrega'
     // Asignamos el valor del parametro id al campo del id del modal
     document.getElementById('idindice').value = id;
-
     const data = new FormData();
     data.append('id', id);
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro

@@ -3,11 +3,13 @@ const API_USUARIOS = '../../app/api/dashboard/usuarios.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
+    //Ejecutamos la función cuando cargue la pagina
     readProfile();
 });
 
 // Función para obtener y mostrar las categorías existentes en la base.
 function readProfile() {
+    // Se realiza solicitud a la API de usuarios enviando como parametro el metodo readProfile para obtener los datos del usuario activo
     fetch(API_USUARIOS + 'readProfile', {
         method: 'get'
     }).then(function (request) {

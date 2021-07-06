@@ -32,14 +32,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Metodo para cargar todos los datos de la categoria seleccionada al presionar el boton
 function iniciarSesion() {
+    // Validamos que el campo de usuario no este vacio
     if(document.getElementById("usuario").value == ''){
         sweetAlert(3, 'Debe ingresar su usuario', null);
     }
     else{
+        // Validamos que el campo de clave no este vacio
         if(document.getElementById("clave").value == ''){
             sweetAlert(3, 'Debe ingresar la contraseña', null);
         }
         else{
+            // Realizamos peticion a la API de clientes con el caso login y method post para dar acceso al valor de los campos del form
             fetch(API_CLIENT + 'logIn', {
                 method: 'post',
                 body: new FormData(document.getElementById('session-form'))
@@ -50,6 +53,7 @@ function iniciarSesion() {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
+                            // En caso de iniciar sesion correctamente mostrar mensaje y redirigir al menu
                             sweetAlert(1, response.message, 'main.php');
                         } else {
                             sweetAlert(3, response.exception, null);

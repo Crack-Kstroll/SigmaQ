@@ -1,12 +1,6 @@
 const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
 const API_SOCIEDADES = '../../app/api/dashboard/sociedades.php?action=';
 
-// Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
-document.addEventListener('DOMContentLoaded', () => {
-    // Se manda a llamar la funcion para llenar la tabla con la API de parametro
-
-})
-
 // Función para llenar la tabla con los datos de los registros. Se usa en la función readRows()
 const fillTableSociedad = dataset => {
     $('#warning-message').empty();
@@ -27,26 +21,24 @@ const fillTableSociedad = dataset => {
                 </tr>
             </thead>
         `
-
-
+        // Se obtienen los datos procedentes de la base (dataset)
         dataset.map( row => {
-
+            // Declaramos variables para almacenar los nombres de los iconos y el nombre del metodo
             let toggleEnabledIcon = '';
             let iconToolTip = '';
             let metodo = '';
-
+            // Se verifica el estado de la sociedad
             if(row.estado) {
                 //Cuando el registro esté habilitado
                 iconToolTip = 'Deshabilitar'
                 toggleEnabledIcon = 'block'
                 metodo = 'openDeleteDialog';
-
             } else {
+                // Cuando este habilitada
                 iconToolTip = 'Habilitar'
                 toggleEnabledIcon = 'check_circle_outline'
                 metodo = 'openActivateDialog';
             }
-
             content+= `
                 <tr>
                     <td>${row.cliente}</th>

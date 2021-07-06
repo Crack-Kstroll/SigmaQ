@@ -13,20 +13,30 @@ function fillTable(dataset) {
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
     let contador = 0;
+    // Variables para almacernar los nombres de los iconos del los botones y del estado del usuario en la tabla
     let iconToolTip = '';
     let iconMetod = ''; 
+    // Obtenemos los datos de la consulta realizada en la base (dataset)
     dataset.map(function (row) {
         // Definimos el icono a mostrar en la tabla segun el estado del registro
         if (row.estado) {
+            // Si el estado del usuario es activo se muestran los siguiente icono
             icon = 'lock_open'
+            // Se asigna el nombre del metodo para deshabilitar el registro
             metodo = 'openDeleteDialog';
+            // Tooltip para indicar la accion que realiza el boton
             iconToolTip = 'Deshabilitar';
+            // Se asigna el siguiente icono al boton
             iconMetod = 'block';
         }
         else{
+            // Si el estado del usuario es activo se muestran los siguiente icono
             icon = 'lock';
+            // Se asigna el nombre del metodo para activar el registro
             metodo = 'openActivateDialog';
+            // Tooltip para indicar la accion que realiza el boton
             iconToolTip = 'Habilitar'; 
+            // Se asigna el siguiente icono al boton
             iconMetod= 'check_circle_outline'
         }
         // Definimos la estructura de las filas con los campos del dataset 
@@ -47,7 +57,7 @@ function fillTable(dataset) {
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
-        if (contador == 3) {
+        if (contador == 8) {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]

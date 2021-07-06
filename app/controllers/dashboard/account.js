@@ -1,8 +1,3 @@
-/*
-*   Este controlador es de uso general en las páginas web del sitio público. Se importa en la plantilla del pie del documento.
-*   Sirve para manejar todo lo que tiene que ver con la cuenta del cliente.
-*/
-
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API = '../../app/api/dashboard/usuarios.php?action=';
 
@@ -18,6 +13,7 @@ function logOut() {
     }).then(function (value) {
         // Se verifica si fue cliqueado el botón Sí para hacer la petición de cerrar sesión, de lo contrario se muestra un mensaje.
         if (value) {
+            // Peticion a la base de datos con el parametro de la API de usuarios y el caso logout
             fetch(API + 'logOut', {
                 method: 'get'
             }).then(function (request) {
@@ -26,6 +22,7 @@ function logOut() {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
+                            // En caso de exito muestra mensaje de exito y redirige al login 
                             sweetAlert(1, response.message, 'index.php');
                         } else {
                             sweetAlert(2, response.exception, null);
@@ -38,6 +35,7 @@ function logOut() {
                 console.log(error);
             });
         } else {
+            // En caso que el usuario seleccione la opcion no 
             sweetAlert(4, 'Puede continuar con la sesión', null);
         }
     });

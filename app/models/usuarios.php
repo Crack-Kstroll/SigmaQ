@@ -243,6 +243,7 @@ class Usuario extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT estado FROM administradores where usuario = ? and estado = true';
         $params = array($usuario);
+        // Se compara si los datos ingresados coinciden con el resultado obtenido de la base de datos
         if ($data = Database::getRow($sql, $params)) {
             return true;
         } else {
@@ -257,6 +258,7 @@ class Usuario extends Validator
         $sql = 'UPDATE administradores
         SET estado = false
         WHERE usuario = ?;';
+        // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
         $params = array($user);
         return Database::executeRow($sql, $params);
     }
@@ -267,7 +269,9 @@ class Usuario extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigoadmin,estado,nombre,apellido FROM administradores WHERE usuario = ?';
         $params = array($usuario);
+        // Se comprueba si el usuario existe en la base de datos
         if ($data = Database::getRow($sql, $params)) {
+            // Obtenemos los datos devueltos en la consulta para igualarlos a los atributos de la clase 
             $this->id = $data['codigoadmin'];
             $this->nombre = $data['nombre'];
             $this->apellido = $data['apellido'];
@@ -309,6 +313,7 @@ class Usuario extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores set nombre = ?, apellido = ?,dui = ?,correo = ?,telefono = ?,usuario = ?
         WHERE codigoadmin = ? ';
+        // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
         $params = array($this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->usuario,$value);
         return Database::executeRow($sql, $params);
     }
@@ -375,6 +380,7 @@ class Usuario extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'INSERT INTO administradores(codigoadmin, estado, nombre, apellido, dui, correo, telefono, 
         direccion, usuario, clave, intentos) VALUES (?, default, ?, ?, ?, ?, ?, ?, ?, ?, default);';
+        // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
         $params = array($this->id, $this->nombre,$this->apellido, $this->dui,$this->correo, $this->telefono,$this->direccion,$this->usuario, $hash);
         return Database::executeRow($sql, $params);
     }
@@ -390,11 +396,13 @@ class Usuario extends Validator
             $sql = 'UPDATE administradores
             SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? , clave = ?
             WHERE codigoadmin = ?';
+            // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
             $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$hash,$this->codigo);
         } else {
             $sql = 'UPDATE administradores
             SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? 
             WHERE codigoadmin = ?';
+            // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
             $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$this->codigo);
         }    
         return Database::executeRow($sql, $params);
@@ -403,8 +411,9 @@ class Usuario extends Validator
     // Funcion para cargar los datos de un usuario en especifico
     public function readRow()
     {
-        $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable, estado,dui,correo,telefono,direccion,usuario,clave,intentos
+        $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido
         from administradores where codigoadmin = ?";
+        // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }

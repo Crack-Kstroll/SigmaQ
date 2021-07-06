@@ -3,6 +3,7 @@ const API_CLIENT = '../../app/api/dashboard/usuarios.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de registrar cliente.
 function registrarUsuario() {
+    // Se realiza solicitud a la API de usuarios enviando como parametro el metodo register en caso de primer uso del sistema
     fetch(API_CLIENT + 'register', {
         method: 'post',
         body: new FormData(document.getElementById('register-form'))

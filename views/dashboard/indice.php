@@ -4,7 +4,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 ?>
 <div id="contenido" class="container-fluid fondo">
     <div class="container-fluid espacioSuperior">
-        <h5 class="tituloMto">Gestion de indice de entrega</h5>
+        <h5 class="tituloMto">Gestion de índice de entrega</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
     </div>
     <!-- Seccion de busqueda filtrada --> 
@@ -74,69 +74,69 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 						<!-- Campo invicible del ID -->
 						<input class="d-none" type="number" id="idindice" name="idindice">
 						<div class="col-6 form-group">
-							<label>Responsable</label>
+							<label>Responsable*</label>
 							<select id="responsable" name="responsable" class="form-control">
 							</select>
 						</div>	
 						<div class="col-6 form-group">
-							<label>Cliente</label>
+							<label>Cliente*</label>
 							<select id="cliente" name="cliente" class="form-control">
 							</select>
 						</div>
 						<div class="col-6 form-group">
-							<label>Organización</label>
+							<label>Organización*</label>
 							<input id="organizacion" name="organizacion" type="text" class="form-control" required>
 						</div>
 						<div class="col-6 form-group">
-							<label>Índice</label>
+							<label>Índice*</label>
 							<div class="form-group">
 								<input id="indice" name="indice" type="number" class="form-control" min="1" required>
 							</div>			
 						</div>
 						<div class="col-6 form-group">
-							<label>Compromiso total</label>
+							<label>Compromiso total*</label>
 							<div class="form-group">
 								<input id="totalcompromiso" name="totalcompromiso" type="number" min="0" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
-							<label>Cumplidos</label>
+							<label>Cumplidos*</label>
 							<div class="form-group">
 								<input id="cumplidos" name="cumplidos" type="number" min="0" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
-							<label>No cumplidos</label>
+							<label>No cumplidos*</label>
 							<div class="form-group">
 								<input id="nocumplidos" name="nocumplidos" type="number" min="0" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
-							<label>No considerados</label>
+							<label>No considerados*</label>
 							<div class="form-group">
 								<input id="noconsiderados" name="noconsiderados" type="number" min="0" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
-							<label>Incumplidos no entregados</label>
+							<label>Incumplidos no entregados %*</label>
 							<div class="form-group">
 								<input id="incumnoentregados" name="incumnoentregados" type="text" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
-							<label>Incumplidos por calidad</label>
+							<label>Incumplidos por calidad %*</label>
 							<div class="form-group">
 								<input id="incumporcalidad" name="incumporcalidad" type="text" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
-							<label>Incumplidos por fecha</label>
+							<label>Incumplidos por fecha %*</label>
 							<div class="form-group">
 								<input id="incumporfecha" name="incumporfecha" type="text" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
-							<label>Incumplidos por cantidad</label>
+							<label>Incumplidos por cantidad %*</label>
 							<div class="form-group">
 								<input id="incumporcantidad" name="incumporcantidad" type="text" class="form-control" required>
 							</div>

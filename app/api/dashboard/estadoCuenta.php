@@ -53,6 +53,7 @@ if (isset($_GET['action'])) {
                                                                                 // Se muestra un mensaje de exito en caso de registrarse correctamente
                                                                                 $result['message'] = 'Registro ingresado correctamente';
                                                                             } else {
+                                                                                // En caso de ocurrir un error se muestra el mensaje con la excepcion
                                                                                 if (Database::getException()) {
                                                                                     $result['exception'] = Database::getException();
                                                                                 } else {
@@ -132,6 +133,7 @@ if (isset($_GET['action'])) {
                                                                                     // Se muestra un mensaje de exito en caso de registrarse correctamente
                                                                                     $result['message'] = 'Registro actualizado correctamente';
                                                                                 } else {
+                                                                                    // En caso de corrir un error se muestra el mensaje con la excepcion
                                                                                     if (Database::getException()) {
                                                                                         $result['exception'] = Database::getException();
                                                                                     } else {

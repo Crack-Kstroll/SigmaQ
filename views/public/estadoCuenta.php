@@ -37,7 +37,7 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
 		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->				
 		</div> <!-- Cierra controladores de tabla --> 
 	<!-- Cierra seccion de tabla -->
-	</div><div class="my-4"></div>
+	</div>
 <?php
 Public_Page::footerTemplate('estadoCuenta');
 ?>

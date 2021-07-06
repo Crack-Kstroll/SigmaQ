@@ -83,9 +83,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 			</tbody>
 		</table>
 	</div>
-
-
-
 	<!-- Modal  Estados-->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -100,46 +97,45 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 								<!-- Campo invicible del ID -->
 								<input class="d-none" type="number" id="idestado" name="idestado">
 								<div class="form-group">
-									<label>Responsable</label>
+									<label>Responsable*</label>
 									<select id="responsable" name="responsable" class="form-control">
 									</select>
 								</div>
 								<div class="form-group">
-									<label>Cliente</label>
+									<label>Cliente*</label>
 									<div class="form-group">
 										<select id="cliente" name="cliente" class="form-control">
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
-									<label>Fecha Contable</label>
+									<label>Fecha Contable*</label>
 									<input id="fechacontable" name="fechacontable" type="date" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Codigo</label>
+									<label>Codigo*</label>
 									<input id="codigo" name="codigo" type="number" class="form-control" required>
 								</div>
 								<div class="form-group">
-									<label>Factura</label>
+									<label>Factura*</label>
 									<input id="factura" name="factura" type="number" class="form-control" placeholder="" required>
 								</div>
 								<div class="form-group">
-									<label>Asignación</label>
+									<label>Asignación*</label>
 									<input id="asignacion" name="asignacion" type="number" class="form-control" placeholder="" required>
 								</div>
 							</div>
 							<div class="col-6">
-
 								<div class="form-group">
-									<label>Fecha Vencimiento</label>
+									<label>Fecha Vencimiento*</label>
 									<input id="vencimiento" name="vencimiento" type="date" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Clase</label>
+									<label>Clase*</label>
 									<input id="clase" name="clase" type="text" class="form-control" required>
 								</div>
 							</div>
@@ -147,14 +143,14 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
-									<label>Sociedad</label>
+									<label>Sociedad*</label>
 									<select id="sociedad" name="sociedad" class="form-control">
 									</select>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Divisas</label>
+									<label>Divisas*</label>
 									<select id="divisa" name="divisa" class="form-control">
 									</select>
 								</div>
@@ -162,7 +158,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<label>Total General</label>
+								<label>Total General*</label>
 								<input id="total" name="total" type="number" class="form-control" required>
 							</div>
 						</div>
