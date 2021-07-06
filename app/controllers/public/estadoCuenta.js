@@ -1,12 +1,16 @@
-const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
-const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
-const API_INDICES = '../../app/api/public/indice.php?action=';
+// Constantes para establecer las rutas y parámetros de comunicación con la API.
+const API_ESTADO = '../../app/api/public/estadoCuenta.php?action=';
+// const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
+// const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
+// const API_SOCIEDADES = '../../app/api/dashboard/sociedades.php?action=readAll';
+// const API_DIVISAS = '../../app/api/dashboard/divisas.php?action=readAll';
 
-// Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
-document.addEventListener('DOMContentLoaded', () => {
+// Método manejador de eventos que se ejecutara cuando cargue la pagina
+document.addEventListener('DOMContentLoaded', function () {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
-    readRows(API_INDICES);
-})
+    readRows(API_ESTADO);
+    // fillTable();
+});
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 function fillTable(dataset) {
@@ -18,16 +22,18 @@ function fillTable(dataset) {
         // Definimos la estructura de las filas con los campos del dataset 
         data+= `
             <tr>
-                <td>${row.organizacion}</th>
-                <td>${row.indice}</th>
-                <td>${row.totalcompromiso}</th>
-                <td>${row.cumplidos}</th>
-                <td>${row.nocumplidos}</th>
-                <td>${row.noconsiderados}</th>
-                <td>${row.incumnoentregados}</th>
-                <td>${row.incumporfecha}</th>
-                <td>${row.incumporcalidad}</th>
-                <td>${row.incumporcantidad}</th>
+                <td>${row.responsable}</td>
+                <td>${row.sociedad}</td>
+                <td>${row.usuario}</td>
+                <td>${row.codigo}</td>
+                <td>${row.factura}</td>
+                <td>${row.asignacion}</td>
+                <td>${row.fechacontable}</td>
+                <td>${row.clase}</td>
+                <td>${row.vencimiento}</td>
+                <td>${row.diasrestantes}</td>
+                <td>${row.divisa}</td>
+                <td>${row.totalgeneral}</td>
             </tr>
         `;           
         // Agregamos uno al contador por la fila agregada anteriormente al data

@@ -2,36 +2,36 @@
 include('../../app/helpers/public.php');
 Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 ?>
-
 <div class="my-4"></div>
-<!-- Botón con el modal -->
-<!-- <div class="container-fluid my-4">
-  <div class="row">
-    <div class="col">
-        Button trigger modal
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="conf_tabla_estado">
-          Configurar tabla
-        </button>
-    </div>
-  </div>
-</div> -->
-
-<!-- Seccion de tabla de usuarios -->
-<div class="container-fluid espacioSuperior"> 
-  <table class="table borde" id="tbody-rows">
-    <h4 id="warning-message" style="text-align:center"></h4>
-    <!-- Contenido de la tabla -->
-    <tbody>	
-    </tbody>
-  </table>
-</div>
-
-
-
+<!-- Tabla -->
+	<!-- Seccion de tabla de registros -->
+	<div class="container-fluid espacioSuperior"> 
+		<table class="table borde">
+			<!-- Cabecera de la tabla -->
+			<thead class="thead-dark">
+				<tr>
+					<th>Cliente</th>
+                    <th>Pos</th>
+                    <th>OC</th>
+                    <th>Solicitada</th>
+                    <th>Codigo</th>
+                    <th>Enviada</th>
+                    <th>Fecha registrado</th>
+                    <th>Fecha de entrega</th>
+                    <th>Fecha de confirmación</th>
+				</tr>
+			</thead>
+			<!-- Contenido de la tabla -->
+			<tbody id="tbody-rows">	
+			</tbody>
+		</table>	 
+		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->				
+		</div> <!-- Cierra controladores de tabla --> 
+	<!-- Cierra seccion de tabla -->
+	</div>																																																				<br><br><div class="my-4"></div><div class="my-4"></div>
 <?php
 Public_Page::footerTemplate('status');
 ?>
-
 <!-- Modal  -->
 <div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog">

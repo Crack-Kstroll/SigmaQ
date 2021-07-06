@@ -403,9 +403,8 @@ class Usuario extends Validator
     // Funcion para cargar los datos de un usuario en especifico
     public function readRow()
     {
-        // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,clave,intentos
-        from administradores where codigoadmin = ?';
+        $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable, estado,dui,correo,telefono,direccion,usuario,clave,intentos
+        from administradores where codigoadmin = ?";
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }

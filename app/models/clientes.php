@@ -257,7 +257,6 @@ class Cliente extends Validator
     // Funcion para cargar todos los registros en la tabla 
     public function readAll()
     {
-        // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigocliente,usuario,estado,empresa,telefono,correo,clave,intentos 
         from clientes 
         order by codigocliente';
@@ -312,8 +311,7 @@ class Cliente extends Validator
     // Funcion para cargar los datos de un cliente en especifico
     public function readRow()
     {
-        // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigocliente,estado,empresa,telefono,correo,usuario,clave,intentos 
+        $sql = 'SELECT codigocliente,usuario, estado,empresa,telefono,correo,clave,intentos 
         from clientes 
         where codigocliente = ?';
         $params = array($this->id);

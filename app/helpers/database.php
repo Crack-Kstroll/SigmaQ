@@ -19,7 +19,6 @@ class Database
         $database = 'SigmaNew';
         $username = 'postgres';
         $password = '2002';
-
         // Se crea la conexión mediante la extensión PDO y el controlador para PostgreSQL.
         self::$connection = new PDO('pgsql:host='.$server.';dbname='.$database.';port=5432', $username, $password);
     }

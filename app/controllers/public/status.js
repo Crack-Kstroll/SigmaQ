@@ -8,56 +8,54 @@ document.addEventListener('DOMContentLoaded', () => {
     readRows(API_PEDIDOS);
 })
 
-//Función para llenar la tabla con los registros
-const fillTable = dataset => {
-    $('#warning-message').empty();
-    $('#tbody-rows').empty();
-    let content = ''
-    if(dataset == [].length) {
-        //console.log(dataset)
-        content+=`<h4>No hay índices registrados</h4>`
-        document.getElementById('warning-message').innerHTML = content
-    } else {
-        //Se agregan los titulos de las columnas
-        content += `
-            <thead class="thead-dark">
-                <tr>
-                    <th>Cliente</th>
-                    <th>Pos</th>
-                    <th>OC</th>
-                    <th>Solicitada</th>
-                    <th>Codigo</th>
-                    <th>Enviada</th>
-                    <th>Fecha registrado</th>
-                    <th>Fecha de entrega</th>
-                    <th>Fecha de confirmación</th>
-                    ${' '/*<th>Opciones</th>*/}
-                </tr>
-            </thead>
-        `
-
-
-        dataset.map( row => {
-            content+= `
-                <tr>
-                    <td>${row.usuario}</th>
-                    <td>${row.pos}</th>
-                    <td>${row.oc}</th>
-                    <td>${row.cantidadsolicitada}</th>
-                    <td>${row.codigo}</th>
-                    <td>${row.cantidadenviada}</th>
-                    <td>${row.fecharegistro}</th>
-                    <td>${row.fechaentregada}</th>
-                    <td>${row.fechaconfirmadaenvio}</th>
-                    ${' '/*<td>
-                        <a href="#" onclick="openView(${row.idpedido})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Ver Más">visibility</i></a>
-                    </td>*/}
-                </tr>
-            `
-        })
-        //Se agrega el contenido a la tabla mediante su id
-        document.getElementById('tbody-rows').innerHTML = content;
+// Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
+function fillTable(dataset) {
+    // Variable para almacenar registros de 5 en 5 del dataset 
+    let data = '';
+    // Variable para llevar un control de la cantidad de registros agregados
+    let contador = 0; 
+    dataset.map(function (row) {
+        // Definimos la estructura de las filas con los campos del dataset 
+        data+= `
+            <tr>
+                <td>${row.usuario}</th>
+                <td>${row.pos}</th>
+                <td>${row.oc}</th>
+                <td>${row.cantidadsolicitada}</th>
+                <td>${row.codigo}</th>
+                <td>${row.cantidadenviada}</th>
+                <td>${row.fecharegistro}</th>
+                <td>${row.fechaentregada}</th>
+                <td>${row.fechaconfirmadaenvio}</th>
+            </tr>
+        `;           
+        // Agregamos uno al contador por la fila agregada anteriormente al data
+        contador = contador + 1;
+        //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
+        if (contador == 9) {
+            // Reseteamos el contador a 0
+            contador = 0;
+            // Agregamos el contenido de data al arreglo que contiene los datos content[]
+            content.push(data); 
+            // Vaciamos el contenido de data para volverlo a llenar
+            data = '';
+            // Agregamos una posicion dentro del arreglo debido a que se agrego un nuevo elemento
+            posiciones = posiciones + 1;
+        }      
+    });
+    // Verificamos si el ultimo retorno de datos no esta vacio en caso de estarlo no se agrega a la paginacion
+    if (data != '') {
+        // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
+        content.push(data); 
+    } 
+    else{
+        // Se resta una posicion ya que no se agrego el contenido final por estar vacio
+        posiciones = posiciones -1;
     }
+    // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
+    fillPagination(content[0]);
+    // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
+    generatePagination();
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
@@ -74,45 +72,6 @@ function openView(id) {
     document.getElementById("codigo").readOnly = true;
     //Se establece ReadOnly el campo del cliente
     document.getElementById("cliente").setAttribute('disabled',false)
-
     const data = new FormData();
     data.append('id', id);
-    // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
-    // fetch(API_PEDIDOS + 'readOne', {
-    //     method: 'post',
-    //     body: data 
-    // }).then( request => { 
-    //     // Luego se compara si la respuesta de la API fue satisfactoria o no
-    //     if (request.ok) { 
-    //         // console.log(request.text())
-    //        return request.json()
-    //     } else {
-    //         console.log(request.status + ' ' + request.statusText);
-    //     }
-    // // En ocurrir un error se muestra en la consola 
-    // }).then( response => {
-    //     // En caso de encontrarse registros se imprimen los resultados en los inputs del modal
-    //     if (response.status) {
-    //         // Colocamos el nombre de los inpus y los igualamos al valor de los campos del dataset 
-    //         document.getElementById('idpedido').value = response.dataset[0].idpedido;
-    //         fillSelect(API_ADMINS, 'responsable', response.dataset[0].codigoadmin);
-    //         fillSelect(API_CLIENTES, 'cliente', response.dataset[0].codigocliente);
-    //         document.getElementById('oc').value = response.dataset[0].oc
-    //         document.getElementById('pos').value = response.dataset[0].pos;
-    //         document.getElementById('codigo').value = response.dataset[0].codigo;
-    //         document.getElementById('cantidadsolicitada').value = response.dataset[0].cantidadsolicitada;
-    //         document.getElementById('descripcion').value = response.dataset[0].descripcion;
-    //         document.getElementById('cantidadenviada').value = response.dataset[0].cantidadenviada;
-    //         document.getElementById('fechaentrega').value = response.dataset[0].fechaentregada;
-    //         document.getElementById('fechaconfirmadaenvio').value = response.dataset[0].fechaconfirmadaenvio;
-    //         document.getElementById('comentarios').value = response.dataset[0].comentarios;
-    //         document.getElementById('fecharegistro').value = response.dataset[0].fecharegistro;
-    //         } else { 
-    //         // En caso de fallar se muestra el mensaje de error 
-    //         sweetAlert(2, response.exception, null);
-    //     }
-    // }
-    // ).catch(function (error) {
-    //     console.log(error);
-    // });
 }

@@ -2,6 +2,7 @@ const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
 const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
 const API_INDICES = '../../app/api/dashboard/indiceEntrega.php?action=';
 
+
 // Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
 document.addEventListener('DOMContentLoaded', () => {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro

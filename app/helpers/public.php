@@ -91,6 +91,7 @@ class Public_Page {
                     <script type="text/javascript" src="../../app/helpers/components.js"></script>
                     <script type="text/javascript" src="../../app/controllers/public/account.js"></script>
                     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+                    <script type="text/javascript" src="../../app/controllers/paginacion.js"></script>
                     <script type="text/javascript" src="../../app/controllers/public/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
                     <!-- LINKS PARA LA LIBRERÍA DE LA TABLA -->
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
