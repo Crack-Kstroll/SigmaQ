@@ -83,6 +83,7 @@ const fillTable = dataset => {
     }
 }
 
+// Función para guardar los registros del form
 const saveData = () => {
     // Se define atributo que almacenara la accion a realizar
     let action = '';
@@ -98,7 +99,7 @@ const saveData = () => {
     readRows(API_INDICES);
 }
 
-
+//Función para abrir el mensaje de confirmación para deshabilitar un registro
 function openDeleteDialog(id) {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API

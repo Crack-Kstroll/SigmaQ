@@ -50,7 +50,7 @@ class Dashboard_Page
                             <h6 id="datosAdmin" class="letraBlanca">' . $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] . '</h6>
                         </div>
                     </div>   <!-- Cierra seccion informacion de usuario -->
-                    <div class="list-group list-group-flush fondoNegro espacioOpciones h-100"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
+                    <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
                         <div class="card-header fondoAcordeon" id="headingOne"> 
                             <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
                                 Mantenimientos

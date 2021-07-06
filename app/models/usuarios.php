@@ -349,9 +349,9 @@ class Usuario extends Validator
     // Funcion para cargar todos los registros en la tabla 
     public function readAll()
     {
-        $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable, usuario,estado,dui,correo,telefono,direccion,intentos
+        $sql = 'SELECT codigoadmin,usuario,estado,nombre,apellido,dui,correo,telefono,direccion,intentos
         from administradores
-        order by estado desc";
+        order by estado desc';
         $params = null;
         return Database::getRows($sql, $params);
     }

@@ -9,21 +9,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }).then(function (request) {
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
         if (request.ok) {
-            request.json().then(function (response) {
-                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción
-                if (response.status) {
-                    sweetAlert(4, 'Debe autenticarse para ingresar', null);
-                } else {
-                    // Se verifica si ocurrió un problema en la base de datos, de lo contrario se continua normalmente.
-                    if (response.error) {
-                        sweetAlert(2, response.exception, null);
-                    } else {
-                        sweetAlert(3, response.exception, null);
-                    }
-                }
-            });
+            return request.json()
         } else {
             console.log(request.status + ' ' + request.statusText);
+        }
+    }).then(function (response) {
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción
+        if (response.status) {
+            sweetAlert(4, 'Debe autenticarse para ingresar');
+        } else {
+            // Se verifica si ocurrió un problema en la base de datos, de lo contrario se continua normalmente.
+            if (response.error) {
+                sweetAlert(2, response.exception, null);
+            } else {
+                sweetAlert(3, response.exception, null);
+            }
         }
     }).catch(function (error) {
         console.log(error);

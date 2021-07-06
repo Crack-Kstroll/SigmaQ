@@ -19,6 +19,7 @@ class Public_Page {
                 <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
                 <link rel="stylesheet" href="../../resources/css/public.css">
                 <link rel="shortcut icon" href="../../resources/img/brand/qRoja.png" type="image/x-icon">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             </head>
             <body> 
         ');
