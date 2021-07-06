@@ -13,15 +13,21 @@ function fillTable(dataset) {
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
     let contador = 0; 
+    let iconToolTip = '';
+    let iconMetod = '';
     dataset.map(function (row) {
         // Definimos el icono a mostrar en la tabla segun el estado del registro
         if (row.estado) {
             icon = 'lock_open'
             metodo = 'openDeleteDialog';
+            iconToolTip = 'Deshabilitar';
+            iconMetod = 'block';
         }
         else{
             icon = 'lock';
-            metodo = 'openActivateDialog'; 
+            metodo = 'openActivateDialog';
+            iconToolTip = 'Habilitar'; 
+            iconMetod= 'check_circle_outline'
         }
         // Definimos la estructura de las filas con los campos del dataset 
         data += `
@@ -36,7 +42,7 @@ function fillTable(dataset) {
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a href="#" onclick="${metodo}(${row.codigoadmin})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a href="#" onclick="${metodo}(${row.codigoadmin})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
                 </td>
             </tr>
         `;           
