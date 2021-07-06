@@ -34,7 +34,7 @@ Public_Page::headerTemplate('SigmaQ - Bienvenido');
     ?>
 
     <div class="card--options__container">
-        <a class="card--options__link" href="">
+        <a class="card--options__link" href="estadoCuenta.php">
             <div class="card col-mb-3 col-bg-3">
                 <h3 class="card-header">ESTADOS DE CUENTA</h3>
                 <div class="options--img__container">
@@ -45,7 +45,7 @@ Public_Page::headerTemplate('SigmaQ - Bienvenido');
                 </div>
             </div>
         </a>
-        <a class="card--options__link" href="">
+        <a class="card--options__link" href="statusPedidos.php">
             <div class="card col-mb-3 col-bg-3">
                 <h3 class="card-header">STATUS DE PÉDIDO</h3>
                 <div class="options--img__container">
@@ -56,7 +56,7 @@ Public_Page::headerTemplate('SigmaQ - Bienvenido');
                 </div>
             </div>
         </a>
-        <a class="card--options__link" href="">
+        <a class="card--options__link" href="indiceEntrega.php">
             <div class="card col-mb-3 col-bg-3">
                 <h3 class="card-header">ÍNDICE DE ENTREGA</h3>
                 <div class="options--img__container">
@@ -79,22 +79,20 @@ Public_Page::headerTemplate('SigmaQ - Bienvenido');
     </div>
 
     <div class="contact--container">
-        <div class="contact--container__img">
+        <!-- <div class="contact--container__img">
             <img class="contact--img" src="../../resources/img/profile/person.jpg" alt="">
-        </div>
-        <div class="contact--info">
+        </div> -->
+        <div class="contact--info mt-4">
             <h5 class="contact--info__title">Contacta a tu Ejecutivo de Ventas de manera fácil y rápida</h5>
-            <h3 class="contact--info__name">CARLOS PERÉZ</h3>
+            <h3 class="contact--info__name" id="responsable-name">CARLOS PERÉZ</h3>
             <p class="contact--info__position">Ejecutivo de Negocios</p>
-            <p class="contact--info__contacts">T: (502) 2301-9800</p>
-            <p class="contact--info__contacts">D: (502) 2301-9839 </p>
-            <p class="contact--info__contacts">M: (502) 3128-8066</p>
-            <p class="contact--info__mail">cfernandezlitozadik.sigmaq.com</p>
+            <p class="contact--info__contacts" id="responsable-telefono">T: (502) 2301-9800</p>
+            <p class="contact--info__mail" id="responsable-correo">cfernandezlitozadik.sigmaq.com</p>
         </div>
     </div>
 
 </section>
 
 <?php
-Public_Page::footerTemplate('index');
+Public_Page::footerTemplate('main');
 ?>

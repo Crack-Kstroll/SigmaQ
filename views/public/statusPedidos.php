@@ -2,224 +2,121 @@
 include('../../app/helpers/public.php');
 Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 ?>
-<!-- Jumbotron para el título -->
-<div class="jumbotron jumbotron-fluid" id="jumbo_estado">
-  <div class="container">
-    <h1 class="display-4">Status de pedidos</h1>
-    <p class="lead">Chequea el status de tu producto aquí.</p>
-  </div>
-</div>
+
+<div class="my-4"></div>
 <!-- Botón con el modal -->
-<div class="container-fluid">
+<!-- <div class="container-fluid my-4">
   <div class="row">
     <div class="col">
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="conf_tabla_estado">
-        Configurar tabla
-      </button>
-
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Configura lo que quieres ver</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck1" checked="">
-                      <label class="custom-control-label" for="customCheck1">POS</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-                      <label class="custom-control-label" for="customCheck2">OC Bayer</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck3" checked="">
-                      <label class="custom-control-label" for="customCheck3">Cantidad pedida</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck4" checked="">
-                      <label class="custom-control-label" for="customCheck4">Descripción</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">               
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck7" checked="">
-                      <label class="custom-control-label" for="customCheck7">Código Bayer</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck8" checked="">
-                      <label class="custom-control-label" for="customCheck8">Cantidad enviada</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck9" checked="">
-                      <label class="custom-control-label" for="customCheck9">Fecha de entrega</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck10" checked="">
-                      <label class="custom-control-label" for="customCheck10">Fecha de envío</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck11" checked="">
-                      <label class="custom-control-label" for="customCheck11">Comentarios</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary">Guardar</button>
-            </div>
-          </div>
-        </div>
-      </div>
+        Button trigger modal
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="conf_tabla_estado">
+          Configurar tabla
+        </button>
     </div>
   </div>
-</div>
-<!-- Tabla -->
-<div class="container-fluid">
-    <table class="table table-striped table-bordered mydatatable" id="tabla">
-        <thead id="cabecera_tabla">
-            <tr>
-                <th>POS</th>
-                <th>OC Bayer</th>
-                <th>Cantidad pedida</th>
-                <th>Descripción</th>
-                <th>Cod. Bayer</th>
-                <th>Cant. enviada</th>
-                <th>Entrega</th>
-                <th>Envío</th>
-                <th>Comentarios</th>
-            </tr>
-        </thead>
+</div> -->
 
-        <tbody>
-            <tr>
-                <td>10</td>
-                <td>45987415258</td>
-                <td>50,000</td>
-                <td>Inserto Aspirina Advanced</td>
-                <td>159874568</td>
-                <td>50,000</td>
-                <td>15/03/2021</td>
-                <td>15/03/2021</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>45987415258</td>
-                <td>20,000</td>
-                <td>Inserto Aspirina Advanced</td>
-                <td>159874568</td>
-                <td>20,600</td>
-                <td>15/03/2021</td>
-                <td>15/03/2021</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>2587946135</td>
-                <td>500,000</td>
-                <td>REDOXON Naranja TAEF</td>
-                <td>58976431</td>
-                <td>414,000</td>
-                <td>25/03/2021</td>
-                <td>01/04/2021</td>
-                <td></td>
-            <tr>
-                <td>20</td>
-                <td>2587946135</td>
-                <td>500,000</td>
-                <td>REDOXON Naranja TAEF</td>
-                <td>58976431</td>
-                <td>300,000</td>
-                <td>25/03/2021</td>
-                <td>01/04/2021</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>98456721</td>
-                <td>500,000</td>
-                <td>FOIL Neversa 130</td>
-                <td>69857245</td>
-                <td>160,002</td>
-                <td>25/03/2021</td>
-                <td>09/01/2021</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>9512364785</td>
-                <td>200,000</td>
-                <td>REDOXON Doble ACC</td>
-                <td>987546211</td>
-                <td>175,000</td>
-                <td>25/03/2021</td>
-                <td>01/04/2021</td>
-                <td>Complementos</td>
-            </tr>
-            <tr>
-            <td>10</td>
-                <td>9512364785</td>
-                <td>200,000</td>
-                <td>REDOXON Doble ACC</td>
-                <td>987546211</td>
-                <td>175,000</td>
-                <td>25/03/2021</td>
-                <td>01/04/2021</td>
-                <td>Complementos</td>
-            </tr>
-            <tr>
-                <td>20</td>
-                <td>9876541235</td>
-                <td>8,000</td>
-                <td>Caja Aspirina 1.28 COL</td>
-                <td>987546211</td>
-                <td>9,000</td>
-                <td></td>
-                <td>03/02/2021</td>
-                <td>Cliente confirmará de recibido</td>
-            </tr>
-            <tr>
-                <td>20</td>
-                <td>9876541235</td>
-                <td>8,000</td>
-                <td>Caja Aspirina 1.28 COL</td>
-                <td>987546211</td>
-                <td>9,000</td>
-                <td></td>
-                <td>03/02/2021</td>
-                <td>Cliente confirmará de retraso</td>
-            </tr>
-        </tbody>
-
-        <tfoot>
-        <tr>
-                <th>POS</th>
-                <th>OC Bayer</th>
-                <th>Cantidad pedida</th>
-                <th>Descripción</th>
-                <th>Cod. Bayer</th>
-                <th>Cant. enviada</th>
-                <th>Entrega</th>
-                <th>Envío</th>
-                <th>Comentarios</th>
-            </tr>
-        </tfoot>
-    </table>
+<!-- Seccion de tabla de usuarios -->
+<div class="container-fluid espacioSuperior"> 
+  <table class="table borde" id="tbody-rows">
+    <h4 id="warning-message" style="text-align:center"></h4>
+    <!-- Contenido de la tabla -->
+    <tbody>	
+    </tbody>
+  </table>
 </div>
+
+
 
 <?php
 Public_Page::footerTemplate('status');
 ?>
+
+<!-- Modal  -->
+<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="modal-title" name="modal-title" class="modal-title">Modal title</h5>
+			</div>
+			<div class="modal-body">
+				<form method="post" id="save-form" enctype="multipart/form-data">
+					<div class="row">
+						<!-- Campo invicible del ID -->
+						<input class="d-none" type="number" id="idpedido" name="idpedido">
+						<div class="col-6 form-group">
+							<label>Responsable</label>
+							<select id="responsable" name="responsable" class="form-control">
+							</select>
+						</div>	
+						<div class="col-6 form-group">
+							<label>Cliente</label>
+							<select id="cliente" name="cliente" class="form-control">
+							</select>
+							<label class="font-italic text-danger">*No podrá modificar el valor de este campo*</label>
+						</div>
+						<div class="col-6 form-group">
+							<label>Código</label>
+							<div class="form-group">
+								<input id="codigo" name="codigo" type="number" min="1" class="form-control" required>
+							</div>
+							<label class="font-italic text-danger">*No podrá modificar el valor de este campo*</label>
+						</div>
+						<div class="col-6 form-group">
+							<label>Fecha registrado</label>
+							<div class="form-group">
+								<input id="fecharegistro" name="fecharegistro" type="date" class="form-control" readonly>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Pos</label>
+							<input id="pos" name="pos" type="number" class="form-control" required>
+						</div>
+						<div class="col-6 form-group">
+							<label>Oc</label>
+							<div class="form-group">
+								<input id="oc" name="oc" type="number" class="form-control" min="1" required>
+							</div>			
+						</div>
+						<div class="col-6 form-group">
+							<label>Cantidad solicitada</label>
+							<div class="form-group">
+								<input id="cantidadsolicitada" name="cantidadsolicitada" type="number" class="form-control" required>
+							</div>
+						</div>						
+						<div class="col-6 form-group">
+							<label>Cantidad enviada</label>
+							<div class="form-group">
+								<input id="cantidadenviada" name="cantidadenviada" type="number" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Fecha de entrega</label>
+							<div class="form-group">
+								<input id="fechaentrega" name="fechaentrega" type="date" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<label>Fecha confirmada de envío</label>
+							<div class="form-group">
+								<input id="fechaconfirmadaenvio" name="fechaconfirmadaenvio" type="date" min="0" class="form-control" required>
+							</div>
+						</div>
+						<div class="form-group col-6">
+							<label>Descripcion</label>
+							<textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+						</div>
+						<div class="col-6 form-group">
+							<label>Comentarios</label>
+							<textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+				<button onclick="saveData()" type="button" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>

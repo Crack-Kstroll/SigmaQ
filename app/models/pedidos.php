@@ -229,4 +229,27 @@ class Pedidos extends Validator {
         $params=array($this->codigo);
         return Database::getRow($query, $params);
     }
+
+    public function readClientePedidos() {
+        $query="SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
+                FROM pedido p
+                INNER JOIN administradores a
+                    ON p.responsable = a.codigoadmin
+                INNER JOIN clientes cl
+                    ON p.cliente = cl.codigocliente
+                WHERE cliente = ? AND p.estado = true
+                ORDER BY p.estado DESC";
+        $params = array($this->cliente);
+        return Database::getRows($query, $params);
+    }
+
+    public function readResponsableInfo() {
+        $query="SELECT ad.nombre, ad.apellido, telefono, correo
+                FROM pedido pe
+                INNER JOIN administradores ad
+                    ON ad.codigoadmin = pe.responsable
+                WHERE cliente = ? AND ad.estado = true";
+        $params = array($this->cliente);
+        return Database::getRows($query, $params);
+    }
 }

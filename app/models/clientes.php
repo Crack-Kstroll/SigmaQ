@@ -257,7 +257,12 @@ class Cliente extends Validator
     // Funcion para cargar todos los registros en la tabla 
     public function readAll()
     {
+<<<<<<< HEAD
         $sql = 'SELECT codigocliente,usuario,estado,empresa,telefono,correo,clave,intentos 
+=======
+        // Declaracion de la sentencia SQL 
+        $sql = 'SELECT codigocliente,estado,empresa,telefono,correo,usuario,clave,intentos 
+>>>>>>> b72239623aefc021397827a37aff5fc301206572
         from clientes 
         order by codigocliente';
         $params = null;

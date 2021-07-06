@@ -13,21 +13,22 @@ function readRows(api) {
     }).then(function (request) {
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
         if (request.ok) {
-            request.json().then(function (response) {
-                let data = [];
-                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-                if (response.status) {
-                    // Se obtiene el valor del dataset para asignarlo al atributo data
-                    data = response.dataset;
-                } else {
-                    sweetAlert(4, response.exception, null);
-                }
-                // Se envían los datos a la función del controlador para que llene la tabla en la vista.
-                fillTable(data);
-            });
+            // console.log(request.text())
+            return request.json()
         } else {
             console.log(request.status + ' ' + request.statusText);
         }
+    }).then(function (response) {
+        let data = [];
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (response.status) {
+            // Se obtiene el valor del dataset para asignarlo al atributo data
+            data = response.dataset;
+        } else {
+            sweetAlert(response.exception);
+        }
+        // Se envían los datos a la función del controlador para que llene la tabla en la vista.
+        fillTable(data);
     }).catch(function (error) {
         console.log(error);
     });

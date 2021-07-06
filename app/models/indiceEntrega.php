@@ -237,8 +237,10 @@ class Indice extends Validator {
             ON ie.responsable = a.codigoadmin
         INNER JOIN clientes cl
             ON ie.cliente = cl.codigocliente
-        WHERE ie.cliente = ?
+        WHERE ie.cliente = ? AND ie.estado = true
         ORDER BY ie.estado DESC";
+        $params = array($this->cliente);
+        return Database::getRows($query, $params);
     }
 }
 

@@ -34,7 +34,8 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 	</div>
 	<!-- Cierra seccion de busqueda filtrada -->		
 
-	<div class="container-fluid espacioSuperior"> <!-- Seccion de tabla de usuarios -->
+	<!-- Seccion de tabla de usuarios -->
+	<div class="container-fluid espacioSuperior"> 
 		<table class="table borde" id="tbody-rows">
 			<h4 id="warning-message" style="text-align:center"></h4>
 			<!-- Contenido de la tabla -->
