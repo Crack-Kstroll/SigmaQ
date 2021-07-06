@@ -16,9 +16,9 @@ const fillTable = dataset => {
     $('#warning-message').empty();
     $('#tbody-rows').empty();
     let content = ''
-    if(dataset == [].length) {
+    if (dataset == [].length) {
         //console.log(dataset)
-        content+=`<h4>No hay registros ingresados</h4>`
+        content += `<h4>No hay registros ingresados</h4>`
         document.getElementById('warning-message').innerHTML = content
     } else {
         //Se agregan los titulos de las columnas
@@ -43,13 +43,13 @@ const fillTable = dataset => {
         `
 
 
-        dataset.map( row => {
+        dataset.map(row => {
 
             let toggleEnabledIcon = '';
             let iconToolTip = '';
             let metodo = '';
 
-            if(row.estado) {
+            if (row.estado) {
                 //Cuando el registro esté habilitado
                 iconToolTip = 'Deshabilitar'
                 toggleEnabledIcon = 'block'
@@ -61,7 +61,7 @@ const fillTable = dataset => {
                 metodo = 'openActivateDialog';
             }
 
-            content+= `
+            content += `
                 <tr>
                     <td>${row.responsable}</td>
                     <td>${row.sociedad}</td>
@@ -82,69 +82,98 @@ const fillTable = dataset => {
                     </td>
                 </tr>
             `
-            
+
         })
         //Se agrega el contenido a la tabla mediante su id
         document.getElementById('tbody-rows').innerHTML = content;
     }
 }
 
-// Función para mostrar los registros de las sociedades
-const fillTableSociedad = dataset => {
-    $('#warning-message').empty();
-    $('#tbody-rows').empty();
-    let content = ''
-    if(dataset == [].length) {
-        //console.log(dataset)
-        content+=`<h4>No hay índices registrados</h4>`
-        document.getElementById('warning-message').innerHTML = content
-    } else {
-        //Se agregan los titulos de las columnas
-        content += `
-            <thead class="thead-dark">
-                <tr>
-                    <th>Cliente</th>
-                    <th>Sociedad</th>
-                    <th>Opciones</th>
-                </tr>
-            </thead>
-        `
+// Función para obtener los datos de la tabla de sociedades
+// function readSociedades(api) {
+//     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo get 
+//     para obtener el resultado de la API*/
+//     fetch(api + 'readAll', {
+//         method: 'get'
+//     }).then(function (request) {
+//         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+//         if (request.ok) {
+//             request.json().then(function (response) {
+//                 let data = [];
+//                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+//                 if (response.status) {
+//                     // Se obtiene el valor del dataset para asignarlo al atributo data
+//                     data = response.dataset;
+//                 } else {
+//                     sweetAlert(2, response.exception, null);
+//                 }
+//                 // Se envían los datos a la función del controlador para que llene la tabla en la vista.
+//                 fillTableSociedades(data);
+//             });
+//         } else {
+//             console.log(request.status + ' ' + request.statusText);
+//         }
+//     }).catch(function (error) {
+//         console.log(error);
+//     });
+// }
+
+// Función para llenar la tabla de sociedades
+// const fillTableSociedades = dataset => {
+//     $('#warning-message').empty();
+//     $('#tbody-rows').empty();
+//     let content = ''
+//     if (dataset == [].length) {
+//         //console.log(dataset)
+//         content += `<h4>No hay registros ingresados</h4>`
+//         document.getElementById('warning-message').innerHTML = content
+//     } else {
+//         //Se agregan los titulos de las columnas
+//         content += `
+//             <thead class="thead-dark">
+//                 <tr>
+//                     <th>Cliente</th>
+//                     <th>Sociedad</th>
+//                     <th>Acciones</th>
+//                 </tr>
+//             </thead>
+//         `
 
 
-        dataset.map( row => {
+//         dataset.map(row => {
 
-            let toggleEnabledIcon = '';
-            let iconToolTip = '';
-            let metodo = '';
+//             let toggleEnabledIcon = '';
+//             let iconToolTip = '';
+//             let metodo = '';
 
-            if(row.estado) {
-                //Cuando el registro esté habilitado
-                iconToolTip = 'Deshabilitar'
-                toggleEnabledIcon = 'block'
-                metodo = 'openDeleteDialog';
+//             if (row.estado) {
+//                 //Cuando el registro esté habilitado
+//                 iconToolTip = 'Deshabilitar'
+//                 toggleEnabledIcon = 'block'
+//                 metodo = 'openDeleteDialog';
 
-            } else {
-                iconToolTip = 'Habilitar'
-                toggleEnabledIcon = 'check_circle_outline'
-                metodo = 'openActivateDialog';
-            }
+//             } else {
+//                 iconToolTip = 'Habilitar'
+//                 toggleEnabledIcon = 'check_circle_outline'
+//                 metodo = 'openActivateDialog';
+//             }
 
-            content+= `
-                <tr>
-                    <td>${row.cliente}</th>
-                    <td>${row.sociedad}</th>
-                    <td>
-                        <a href="#" onclick="openUpdateDialog(${row.idsociedad})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#" onclick="${metodo}(${row.idsociedad})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
-                    </td>
-                </tr>
-            `
-        })
-        //Se agrega el contenido a la tabla mediante su id
-        document.getElementById('tbody-sociedades').innerHTML = content;
-    }
-}
+//             content += `
+//                 <tr>
+//                     <td>${row.cliente}</td>
+//                     <td>${row.sociedad}</td>
+//                     <td>
+//                         <a href="#" onclick="openUpdateDialog(${row.idsociedad})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+//                         <a href="#" onclick="${metodo}(${row.idsociedad})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
+//                     </td>
+//                 </tr>
+//             `
 
+//         })
+//         //Se agrega el contenido a la tabla mediante su id
+//         document.getElementById('tbody-sociedades').innerHTML = content;
+//     }
+// }
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
 document.getElementById('search-form').addEventListener('submit', function (event) {
     // Evitamos que la pagina se refresque 
@@ -170,32 +199,32 @@ const openCreateDialog = () => {
 }
 
 // Función para abrir el Form al momento de crear una sociedad
-const openCreateDialogSociedades = () => {
-    //Se restauran los elementos del form
-    document.getElementById('save-form-sociedades').reset();
-    //Se abre el form
-    $('#modal-sociedades').modal('show');
-    //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Registrar Sociedad'
-    // Se llama a la function para llenar los Selects
-    fillSelect(API_CLIENTES, 'clientesociedad', null);
-    // Se llama la función para llenar la tabla
-    // fillTableSociedad();
-    // readRows(API_SOCIEDADES);
-}
+// const openCreateDialogSociedades = () => {
+//     //Se restauran los elementos del form
+//     document.getElementById('save-form-sociedades').reset();
+//     //Se abre el form
+//     $('#modal-sociedades').modal('show');
+//     //Asignamos el titulo al modal
+//     document.getElementById('modal-title').textContent = 'Registrar Sociedad'
+//     // Se llama a la function para llenar los Selects
+//     fillSelect(API_CLIENTES, 'clientesociedad', null);
+//     // Se llama la función para llenar la tabla
+//     // fillTableSociedad();
+//     readSociedades(API_SOCIEDADES);
+// }
 
 // Función para abrir el Fomr al momento de crear una divisa
-const openCreateDialogDivisas = () => {
-    //Se restauran los elementos del form
-    document.getElementById('save-form-divisas').reset();
-    //Se abre el form
-    $('#modal-divisas').modal('show');
-    //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Registrar Sociedad'
-    // Se llama la función para llenar la tabla
-    // fillTableSociedad();
-    // readRows(API_SOCIEDADES);
-}
+// const openCreateDialogDivisas = () => {
+//     //Se restauran los elementos del form
+//     document.getElementById('save-form-divisas').reset();
+//     //Se abre el form
+//     $('#modal-divisas').modal('show');
+//     //Asignamos el titulo al modal
+//     document.getElementById('modal-title').textContent = 'Registrar Sociedad'
+//     // Se llama la función para llenar la tabla
+//     // fillTableSociedad();
+//     // readRows(API_SOCIEDADES);
+// }
 
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdateDialog(id) {

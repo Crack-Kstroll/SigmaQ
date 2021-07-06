@@ -246,7 +246,7 @@ class EstadoCuenta extends Validator
                 ON ec.cliente = c.codigocliente
                 INNER JOIN divisas d
                 ON ec.divisa = d.iddivisa
-                WHERE (s.sociedad LIKE ? OR  CONCAT(a.nombre,' ',a.apellido) LIKE ?) AND (ec.estado = true AND c.codigocliente = ?)
+                WHERE (ec.codigo LIKE ? OR  ec.asignacion LIKE ?) AND (ec.estado = true AND c.codigocliente = ?)
                 ORDER BY responsable";
         $params = array("%$value%","%$value%", $_SESSION['codigocliente']);
         return Database::getRows($sql, $params);

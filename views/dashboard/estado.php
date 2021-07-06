@@ -14,7 +14,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 	<div class="container-fluid">
 		<form method="post" id="search-form">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-sm-7">
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada -->
@@ -28,18 +28,18 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 					<!-- Boton para ingresar nuevos registros -->
 					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar registro</button></a>
 				</div>
-				<div class="col-sm-2">
+				<!-- <div class="col-sm-2"> -->
 					<!-- Boton para ingresar nuevos registros -->
-					<a class="btn btn-success btn-md " onclick="openCreateDialogDivisas()" role="button" aria-disabled="true">Admin. Divisas</button></a>
-				</div>
-				<div class="col-sm-2">
+					<!-- <a class="btn btn-success btn-md " onclick="openCreateDialogDivisas()" role="button" aria-disabled="true">Admin. Divisas</button></a>
+				</div> -->
+				<!-- <div class="col-sm-2"> -->
 					<!-- Boton para ingresar nuevos registros -->
-					<a class="btn btn-warning btn-md " onclick="openCreateDialogSociedades()" role="button" aria-disabled="true">Admin. Sociedades</button></a>
-				</div>
+					<!-- <a class="btn btn-warning btn-md " onclick="openCreateDialogSociedades()" role="button" aria-disabled="true">Admin. Sociedades</button></a>
+				</div> -->
 			</div>
 		</form>
 		<!-- Cierra seccion de busqueda filtrada -->
@@ -55,15 +55,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 		</table>
 	</div>
 
-	<!-- Seccion de tabla de sociedades -->
-	<div class="container-fluid espacioSuperior">
-		<table class="table borde" id="tbody-sociedades">
-			<h4 id="warning-message" style="text-align:center"></h4>
-			<!-- Contenido de la tabla -->
-			<tbody>
-			</tbody>
-		</table>
-	</div>
+
 
 	<!-- Modal  Estados-->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -157,6 +149,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 
 	</div> <!-- Cierra seccion contenido -->
 
+
 	<!-- Modal Sociedades -->
 	<div class="modal fade" id="modal-sociedades" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -180,6 +173,16 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 							</div>
 						</div>
 					</form>
+
+					<!-- Seccion de tabla de sociedades -->
+					<div class="container-fluid espacioSuperior">
+						<table class="table borde" id="tbody-sociedades">
+							<h4 id="warning-message" style="text-align:center"></h4>
+							<!-- Contenido de la tabla -->
+							<tbody>
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -215,6 +218,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 			</div>
 		</div>
 	</div>
-<?php
+	<?php
 	Dashboard_Page::footerTemplate('estadoCuenta');
-?>
+	?>

@@ -10,6 +10,19 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
   </div>
 </div>
 
+
+<!-- <div class="my-4"></div> -->
+<!-- Botón con el modal -->
+<!-- <div class="container-fluid my-4">
+  <div class="row">
+    <div class="col">
+        Button trigger modal
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="conf_tabla_estado">
+          Configurar tabla
+        </button>
+    </div>
+  </div>
+</div> -->
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
 		<form method="post" id="search-form">
@@ -28,17 +41,17 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-2">
+				<!-- <div class="col-sm-2"> -->
 					<!-- Boton para ingresar nuevos registros -->
-					<a class="btn btn-primary btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Configurar tabla</button></a>
-				</div>
+					<!-- <a class="btn btn-primary btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Configurar tabla</button></a>
+				</div> -->
 			</div>
 		</form>
 		<!-- Cierra seccion de busqueda filtrada -->
 	</div>
 
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -113,7 +126,7 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 <!-- Tabla -->
 	<!-- Seccion de tabla de registros -->
