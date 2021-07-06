@@ -20,7 +20,7 @@ function readRows(api) {
                     // Se obtiene el valor del dataset para asignarlo al atributo data
                     data = response.dataset;
                 } else {
-                    sweetAlert(4, response.exception, null);
+                    sweetAlert(response.exception);
                 }
                 // Se envían los datos a la función del controlador para que llene la tabla en la vista.
                 fillTable(data);

@@ -293,7 +293,7 @@ class EstadoCuenta extends Validator
     // Función para mostrar la tabla en el sitio público
     public function SelectEstadoCuentaPublico()
     {
-        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
+        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable,  ec.cliente, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
                 FROM estadocuentas ec
                 INNER JOIN administradores a
                 ON ec.responsable = a.codigoadmin
@@ -303,10 +303,10 @@ class EstadoCuenta extends Validator
                 ON ec.cliente = c.codigocliente
                 INNER JOIN divisas d
                 ON ec.divisa = d.iddivisa
-                WHERE ec.estado = true AND c.codigocliente = ?
+                WHERE ec.estado = true AND ec.cliente = ?
                 ORDER BY s.sociedad";
         $params = array($_SESSION['codigocliente']);;
-        print($params);
+        // print_r($_SESSION['codigocliente']);
         return Database::getRows($sql, $params);
     }
 

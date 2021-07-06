@@ -116,7 +116,15 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
       </div>
 
 <!-- Tabla -->
-
+	<!-- Seccion de tabla de registros -->
+	<div class="container-fluid espacioSuperior">
+		<table class="table borde" id="tbody-rows">
+			<h4 id="warning-message" style="text-align:center"></h4>
+			<!-- Contenido de la tabla -->
+			<tbody>
+			</tbody>
+		</table>
+	</div>
 
 <?php
 Public_Page::footerTemplate('estadoCuenta');

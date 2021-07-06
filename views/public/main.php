@@ -96,5 +96,5 @@ Public_Page::headerTemplate('SigmaQ - Bienvenido');
 </section>
 
 <?php
-Public_Page::footerTemplate('index');
+Public_Page::footerTemplate('main');
 ?>

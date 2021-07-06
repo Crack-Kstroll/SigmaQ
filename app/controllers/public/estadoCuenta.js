@@ -9,6 +9,7 @@ const API_ESTADO = '../../app/api/public/estadoCuenta.php?action=';
 document.addEventListener('DOMContentLoaded', function () {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);
+    // fillTable();
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
@@ -72,5 +73,5 @@ document.getElementById('search-form').addEventListener('submit', function (even
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    searchRows(API_HISTORIAL, 'search-form');
+    searchRows(API_ESTADO, 'search-form');
 });

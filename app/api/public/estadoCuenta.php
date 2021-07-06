@@ -17,7 +17,7 @@ if (isset($_GET['action'])) {
         // Se evalua la acción a realizar
         // print($_GET['action']);
         switch ($_GET['action']) {
-                //Caso para mostrar los registros
+            //Caso para mostrar los registros
             case 'readAll':
                 if ($result['dataset'] = $estadoCuenta->SelectEstadoCuentaPublico()) {
                     $result['status'] = 1;
