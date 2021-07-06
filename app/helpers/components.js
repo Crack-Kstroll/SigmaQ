@@ -13,22 +13,21 @@ function readRows(api) {
     }).then(function (request) {
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
         if (request.ok) {
-            // console.log(request.text())
-            return request.json()
+            request.json().then(function (response) {
+                let data = [];
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    // Se obtiene el valor del dataset para asignarlo al atributo data
+                    data = response.dataset;
+                } else {
+                    sweetAlert(4, response.exception, null);
+                }
+                // Se envían los datos a la función del controlador para que llene la tabla en la vista.
+                fillTable(data);
+            });
         } else {
             console.log(request.status + ' ' + request.statusText);
         }
-    }).then(function (response) {
-        let data = [];
-        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-        if (response.status) {
-            // Se obtiene el valor del dataset para asignarlo al atributo data
-            data = response.dataset;
-        } else {
-            sweetAlert(response.exception);
-        }
-        // Se envían los datos a la función del controlador para que llene la tabla en la vista.
-        fillTable(data);
     }).catch(function (error) {
         console.log(error);
     });
@@ -89,7 +88,6 @@ function searchRows(api, form) {
     }).then(function (request) {
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
         if (request.ok) {
-            // console.log(request.json())
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
@@ -223,7 +221,7 @@ function confirmActivate(api, data) {
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
-        text: '¿Desea activar el registro?',
+        text: '¿Desea activar el usuario?',
         icon: 'info',
         buttons: ['No', 'Sí'],
         closeOnClickOutside: false,
@@ -399,6 +397,8 @@ function fillSelect(endpoint, select, selected) {
                 }
                 // Se agregan las opciones a la etiqueta select mediante su id.
                 document.getElementById(select).innerHTML = content;
+                // Se inicializa el componente Select del formulario para que muestre las opciones.
+                M.FormSelect.init(document.querySelectorAll('select'));
             });
         } else {
             console.log(request.status + ' ' + request.statusText);
@@ -407,3 +407,4 @@ function fillSelect(endpoint, select, selected) {
         console.log(error);
     });
 }
+

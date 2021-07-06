@@ -15,7 +15,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
-							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="search">
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
 						<div class="col-sm-2">
 							<!-- Boton para busqueda filtrada --> 
@@ -33,17 +33,34 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 		</form>
 	</div>
 	<!-- Cierra seccion de busqueda filtrada -->		
-
 	<!-- Seccion de tabla de usuarios -->
 	<div class="container-fluid espacioSuperior"> 
-		<table class="table borde" id="tbody-rows">
-			<h4 id="warning-message" style="text-align:center"></h4>
+		<table class="table borde">
+			<!-- Cabecera de la tabla -->
+			<thead class="thead-dark">
+				<tr>
+					<th>Cliente</th>
+                    <th>Organizacion</th>
+                    <th>Indice</th>
+                    <th>Compromisos</th>
+                    <th>Cumplidos</th>
+                    <th>No Cumplidos</th>
+                    <th>No Considerados</th>
+                    <th>% incum no entregados</th>
+                    <th>% incum por fecha</th>
+                    <th>% incum por calidad</th>
+                    <th>% incum por cantidad</th>
+                    <th>Opciones</th>
+				</tr>
+			</thead>
 			<!-- Contenido de la tabla -->
-			<tbody>	
+			<tbody id="tbody-rows">	
 			</tbody>
-		</table>
+		</table>	 
+		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->				
+		</div> <!-- Cierra controladores de tabla --> 
+	<!-- Cierra seccion de tabla -->
 	</div>
-
 	<!-- Modal  -->
 	<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
