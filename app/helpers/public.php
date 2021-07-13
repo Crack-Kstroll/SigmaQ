@@ -24,8 +24,10 @@ class Public_Page {
             <body> 
         ');
         $filename = basename($_SERVER['PHP_SELF']);
-        if (isset($_SESSION['empresa'])) {
-            if ($filename != 'index.php' ) {
+        if (isset($_SESSION['empresa'])) 
+        {
+            if ($filename != 'index.php' ) 
+            {
                 print('
                 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
                     <a class="navbar-brand" href="main.php">
@@ -62,16 +64,21 @@ class Public_Page {
                     </div>
                 </nav>
                 ');
-            } else {
+            } 
+            else 
+            {
                 header('location: main.php');
             }
-        } else {
+        } 
+        else 
+        {
             header('location: index.php');
         }
     }
 
     //Método para imprimir el pie y establecer el controlador del documento
-    public static function footerTemplate($controller) {
+    public static function footerTemplate($controller) 
+    {
         print('
             <footer class="footer">
                 <div class="info">
@@ -110,7 +117,8 @@ class Public_Page {
         ');
     }
 
-    public static function sectionTitleTemplate($title, $id) {
+    public static function sectionTitleTemplate($title, $id) 
+    {
         print('
         <a id="'.$id.'"> 
             <div class="section--title__container" >

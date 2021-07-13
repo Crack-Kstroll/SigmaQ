@@ -2,7 +2,8 @@
 const API = '../../app/api/dashboard/usuarios.php?action=';
 
 // Función para mostrar un mensaje de confirmación al momento de cerrar sesión.
-function logOut() {
+function logOut() 
+{
     swal({
         title: 'Advertencia',
         text: '¿Está seguro de cerrar la sesión?',

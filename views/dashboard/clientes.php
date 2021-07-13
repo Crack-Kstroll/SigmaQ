@@ -42,7 +42,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
 				<tr>
-					<th>Codigo</th>
+					<th>Código</th>
 					<th>Empresa</th>
 					<th>Telefono</th>
 					<th>Correo</th>
@@ -72,14 +72,14 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
-								<label>Codigo*</label>
+								<label>Código*</label>
 								<input id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="000001" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
 								<label>Usuario*</label>
 								<input id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 								<div id="phoneBlock" class="form-text">
-									El usuario puede contener numeros y letras su longitud maxima es 35 caracteres 
+									El usuario puede contener numeros y letras su longitud máxima es 35 caracteres 
         						</div>
 							</div>															
 						</div>	
@@ -89,7 +89,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 								<input id="txtEmpresa" name="txtEmpresa" maxlength="40" type="text" class="form-control" placeholder="SigmaQ" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
-								<label>Telefono*</label>
+								<label>Teléfono*</label>
 								<input id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 								<div id="phoneBlock" class="form-text">
 									Debe iniciar con 2, 6 o 7 y debe tener una longitud de 9 caracteres incluyendo un guion luego del cuarto dígito

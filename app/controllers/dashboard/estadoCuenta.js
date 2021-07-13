@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-function fillTable(dataset) {
+const fillTable = (dataset) =>{
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -110,15 +110,13 @@ const openCreateDialog = () => {
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-function openUpdateDialog(id) {
+const openUpdateDialog = (id) =>{
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Asignamos el valor del parametro id al campo del id del modal
     document.getElementById('idestado').value = id;
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Actualizar registro'
-    //Mandamos a llamar la funcion para colocar el titulo al formulario
-    // modalTitle();
+    document.getElementById('modal-title').textContent = 'Actualizar registro';
     const data = new FormData();
     data.append('id', id);
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
@@ -181,7 +179,7 @@ const saveData = () => {
 }
 
 // Función para desactivar el registro
-function openDeleteDialog(id) {
+const openDeleteDialog = (id) => {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -192,7 +190,7 @@ function openDeleteDialog(id) {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-function openActivateDialog(id) {
+const openActivateDialog = (id) =>{ 
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);

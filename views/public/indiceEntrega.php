@@ -10,8 +10,8 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
 				<tr>
-					<th>Organizacion</th>
-					<th>Indice</th>
+					<th>Organización</th>
+					<th>Índice</th>
 					<th>Compromisos</th>
 					<th>Cumplidos</th>
 					<th>No Cumplidos</th>

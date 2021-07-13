@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-function fillTable(dataset) {
+const fillTable = (dataset) =>{  
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -96,7 +96,7 @@ const saveData = () => {
 }
 
 //Función para abrir el mensaje de confirmación para deshabilitar un registro
-function openDeleteDialog(id) {
+const openDeleteDialog = (id) => { 
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -107,7 +107,7 @@ function openDeleteDialog(id) {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-function openActivateDialog(id) {
+const openActivateDialog = (id) => {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -139,7 +139,7 @@ const openCreateDialog = () => {
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-function openUpdateDialog(id) {
+const openUpdateDialog = (id) =>{ 
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     //Se abre el form

@@ -1,8 +1,7 @@
 <?php
-//Clase para manejar los mantenimientos del catálogo
-
 //Es una clase hija de Validator
-class Indice extends Validator {
+class Indice extends Validator 
+{
     //Declaración de atributos 
     private $idindice = null;
     private $responsable = null;
@@ -49,7 +48,8 @@ class Indice extends Validator {
         }
     }
 
-    public function setOrganizacion($organizacion) {
+    public function setOrganizacion($organizacion) 
+    {
         if($this->validateAlphaNumeric($organizacion, 1, 20)) {
             $this->organizacion = $organizacion;
             return true;
@@ -58,7 +58,8 @@ class Indice extends Validator {
         }
     }
 
-    public function setIndice($indice) {
+    public function setIndice($indice) 
+    {
         if($this->validateMoney($indice)) {
             $this->indice = $indice;
             return true;
@@ -107,7 +108,8 @@ class Indice extends Validator {
         }
     }
 
-    public function setIncumNoEntregados($incumNoEntregados) {
+    public function setIncumNoEntregados($incumNoEntregados) 
+    {
         if($this->validateAlphaNumeric($incumNoEntregados, 1, 5)) {
             $this->incumnoentregados = $incumNoEntregados;
             return true;
@@ -116,16 +118,19 @@ class Indice extends Validator {
         }
     }
 
-    public function setIncumPorCalidad($incumPorCalidad) {
+    public function setIncumPorCalidad($incumPorCalidad) 
+    {
         if($this->validateAlphaNumeric($incumPorCalidad, 1, 5)) {
             $this->incumporcalidad = $incumPorCalidad;
             return true;
-        } else {
+        } 
+        else {
             return false;
         }
     }
 
-    public function setIncumPorFecha($incumPorFecha) {
+    public function setIncumPorFecha($incumPorFecha) 
+    {
         if($this->validateAlphaNumeric($incumPorFecha, 1, 5)) {
             $this->incumporfecha = $incumPorFecha;
             return true;
@@ -134,7 +139,8 @@ class Indice extends Validator {
         }
     }
 
-    public function setIncumPorCantidad($incumPorCantidad) {
+    public function setIncumPorCantidad($incumPorCantidad) 
+    {
         if($this->validateAlphaNumeric($incumPorCantidad, 1, 5)) {
             $this->incumporcantidad = $incumPorCantidad;
             return true;
@@ -144,29 +150,34 @@ class Indice extends Validator {
     }
     
     //Functiones para obtener los valores de los atributos
-    public function getIdIndice() {
+    public function getIdIndice() 
+    {
         return $this->idindice;
     }
 
-    public function getResponsable() {
+    public function getResponsable() 
+    {
         return $this->responsable;
     }
 
-    public function getCliente() {
+    public function getCliente() 
+    {
         return $this->cliente;
     }
 
     //Funciones para realizar los mantenimientos a la tabla
 
     //Función para insertar un registro para el índice
-    public function insertIndice() {
+    public function insertIndice() 
+    {
         $query="INSERT INTO indiceentregas(responsable, cliente, organizacion, indice, totalcompromiso, cumplidos, nocumplidos, noconsiderados, incumnoentregados, incumporcalidad, incumporfecha, incumporcantidad) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         $params = array($this->responsable, $this->cliente, $this->organizacion, $this->indice, $this->totalcompromiso, $this->cumplidos, $this->nocumplidos, $this->noconsiderados, $this->incumnoentregados, $this->incumporcalidad, $this->incumporfecha, $this->incumporcantidad);
         return Database::executeRow($query, $params);
     }
 
     //Función para mostrar los índices
-    public function selectIndice() {
+    public function selectIndice() 
+    {
         $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
                 FROM indiceentregas ie
                 INNER JOIN administradores a
@@ -179,7 +190,8 @@ class Indice extends Validator {
     }
 
     //Función para mostrar un registro
-    public function readOneIndice() {
+    public function readOneIndice() 
+    {
         $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, a.codigoadmin, cl.usuario, cl.codigocliente, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
                 FROM indiceentregas ie
                 INNER JOIN administradores a
@@ -193,7 +205,8 @@ class Indice extends Validator {
     }
 
     //Función para actualizar un registros
-    public function updateIndice() {
+    public function updateIndice() 
+    {
         $query="UPDATE indiceentregas
                 SET responsable = ?, organizacion = ?, indice = ?, totalcompromiso = ?, cumplidos = ?, nocumplidos = ?, noconsiderados = ?, incumnoentregados = ?, incumporcalidad = ?, incumporfecha = ?, incumporcantidad = ? 
                 WHERE idindice = ?";
@@ -202,21 +215,24 @@ class Indice extends Validator {
     }
 
     //Función para eliminar un registro
-    public function desableIndice() {
+    public function desableIndice() 
+    {
         $query="UPDATE indiceentregas SET estado=false WHERE idindice = ?";
         $params=array($this->idindice);
         return Database::executeRow($query, $params);
     }
 
     //Función para activar un registro
-    public function enableIndice() {
+    public function enableIndice() 
+    {
         $query="UPDATE indiceentregas SET estado=true WHERE idindice = ?";
         $params=array($this->idindice);
         return Database::executeRow($query, $params);
     }
 
     //Función para realizar una búsqueda en los registros
-    public function searchRows($value) {
+    public function searchRows($value) 
+    {
         $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
                 FROM indiceentregas ie
                 INNER JOIN administradores a
@@ -230,7 +246,8 @@ class Indice extends Validator {
     }
 
     //Función para mostrar todos los índices de un cliente
-    public function readClienteIndices() {
+    public function readClienteIndices() 
+    {
         $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
         FROM indiceentregas ie
         INNER JOIN administradores a

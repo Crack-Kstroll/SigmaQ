@@ -18,7 +18,7 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
 						<th scope="col">#</th>
 						<th scope="col">Usuario</th>				
 						<th scope="col">Hora</th>
-						<th scope="col">Accion</th>
+						<th scope="col">Acción</th>
 						<th scope="col">Empresa</th>
 					</tr>
 				</thead>

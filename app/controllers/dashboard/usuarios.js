@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-function fillTable(dataset) {
+const fillTable = (dataset) =>{   
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -50,7 +50,7 @@ function fillTable(dataset) {
                 <td>${row.usuario}</td>
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
-                    <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.codigoadmin})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
                 </td>
             </tr>
@@ -93,7 +93,7 @@ document.getElementById('search-form').addEventListener('submit', function (even
 });
 
 // Función para preparar el formulario al momento de modificar un registro.
-function openUpdateDialog(id) {
+const openUpdateDialog = (id) =>{  
     //Mandamos a llamar la funcion para colocar el titulo al formulario
     modalTitle(id);
     // Asignamos el valor del parametro id al campo del id del modal
@@ -135,7 +135,7 @@ function openUpdateDialog(id) {
 }
 
 // Función para definir si el metodo a ejecutar es guardar o actualizar.
-function saveData(){
+const saveData = () =>{  
     // Se define atributo que almacenara la accion a realizar
     let action = '';
     // Se comprara el valor del input id 
@@ -149,7 +149,7 @@ function saveData(){
 }
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
-function modalTitle(id) {
+const modalTitle = (id) =>{  
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Ocultamos el input que contiene el ID del registro
@@ -166,12 +166,12 @@ function modalTitle(id) {
         clave = `<label  id="lblClave">Contraseña*</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
         <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud minima de 6 caracteres y un maximo de 35
+            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
         </div>`;
         confirmar = `<label id="lblConfirmarClave">Confirmar clave*</label>
         <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
         <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud minima de 6 caracteres y un maximo de 35
+            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
         </div>`;     
     }
     else{
@@ -179,12 +179,12 @@ function modalTitle(id) {
         clave = `<label  id="lblClave">Contraseña</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
         <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud minima de 6 caracteres y un maximo de 35
+            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
         </div>`;
         confirmar = `<label id="lblConfirmarClave">Confirmar clave</label>
         <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
         <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud minima de 6 caracteres y un maximo de 35
+            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
         </div>`;
     }
     // Colocamos el titulo al elemento con el id modal-title
@@ -194,7 +194,7 @@ function modalTitle(id) {
 }
 
 // Función para establecer el registro a eliminar y abrir una caja de dialogo de confirmación.
-function openDeleteDialog(id) {
+const openDeleteDialog = (id) =>{  
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -203,7 +203,7 @@ function openDeleteDialog(id) {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-function openActivateDialog(id) {
+const openActivateDialog = () =>{ 
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);

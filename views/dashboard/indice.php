@@ -40,8 +40,8 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 			<thead class="thead-dark">
 				<tr>
 					<th>Cliente</th>
-                    <th>Organizacion</th>
-                    <th>Indice</th>
+                    <th>Organización</th>
+                    <th>Índice</th>
                     <th>Compromisos</th>
                     <th>Cumplidos</th>
                     <th>No Cumplidos</th>

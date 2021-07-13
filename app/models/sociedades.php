@@ -1,6 +1,7 @@
 <?php
-
-class sociedades extends Validator{
+//Es una clase hija de Validator
+class sociedades extends Validator
+{
 
     // Declaración de atributos
     private $idsociedad = null;
@@ -57,6 +58,7 @@ class sociedades extends Validator{
 
     // Métodos para realizar las operaciones SCRUD
 
+    // Metodo para llenar la tabla método (Select)
     public function SelectSociedades()
     {
         $sql = "SELECT s.idsociedad, s.sociedad, c.usuario  
@@ -68,6 +70,7 @@ class sociedades extends Validator{
         return Database::getRows($sql, $params);
     }
 
+    // Metodo para obtener los datos de un registro (Read one)
     public function SelectOneSociedades()
     {
         $sql = 'SELECT idsociedad, cliente, sociedad
@@ -78,14 +81,18 @@ class sociedades extends Validator{
         return Database::getRows($sql, $params);
     }
 
-    public function insertSociedad() {
+    // Metodo para insertar datos en la base (Insert)
+    public function insertSociedad() 
+    {
         $query="INSERT INTO sociedades (cliente, sociedad)
         VALUES (?, ?)";
         $params = array($this->cliente, $this->sociedad);
         return Database::executeRow($query, $params);
     }
 
-    public function updateSociedad() {
+    // Metodo para actualizar datos en la base (Update)
+    public function updateSociedad() 
+    {
         $query="UPDATE sociedades
                 SET cliente = ?, sociedad = ?
                 WHERE idsociedad = ?";
@@ -93,7 +100,9 @@ class sociedades extends Validator{
         return Database::executeRow($query, $params);
     }
 
-    public function deleteSociedad() {
+    // Metodo para eliminar datos en la base (Delete)
+    public function deleteSociedad() 
+    {
         $query = "DELETE FROM sociedades WHERE idsociedad = ?";
         $params = array($this->idsociedad);
         return Database::executeRow($query, $params);

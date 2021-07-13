@@ -1,6 +1,6 @@
 <?php
 include('../../app/helpers/dashboard.php');
-Dashboard_Page::headerTemplate('Edicion de perfil','dashboard');
+Dashboard_Page::headerTemplate('Edición de perfil','dashboard');
 ?>
 
 <style>
@@ -40,7 +40,7 @@ Dashboard_Page::headerTemplate('Edicion de perfil','dashboard');
             </div><br>
             <div class="row">
                 <div class="col-6">
-                    <label for="txtTelefono" class="form-label">Telefono</label>
+                    <label for="txtTelefono" class="form-label">Teléfono</label>
                     <input type="phone" class="form-control" id="txtTelefono" name="txtTelefono">
                 </div>
                 <div class="col-6">
@@ -66,21 +66,21 @@ Dashboard_Page::headerTemplate('Edicion de perfil','dashboard');
                     <label for="txtClaveActual" class="form-label">Clave actual</label>
                     <input type="password" id="txtClaveActual" name="txtClaveActual" class="form-control" aria-describedby="claveActual">
                     <div id="claveActual" class="form-text">
-                    Tu contraseña debe tener una longitud minima de 6 caracteres y un maximo de 30, puede contener letras numeros y espacios
+                    Tu contraseña debe tener una longitud mínima de 6 caracteres y un máximo de 30, puede contener letras numeros y espacios
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-4 mx-auto">
                     <label for="txtClaveNueva" class="form-label">Nueva clave</label>
                     <input type="password" id="txtClaveNueva" name="txtClaveNueva" class="form-control" aria-describedby="claveNueva">
                     <div id="claveNueva" class="form-text">
-                    Tu contraseña debe tener una longitud minima de 6 caracteres y un maximo de 30, puede contener letras numeros y espacios
+                    Tu contraseña debe tener una longitud mínima de 6 caracteres y un máximo de 30, puede contener letras numeros y espacios
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-4 mx-auto">
                     <label for="txtClaveConfirmar" class="form-label">Confirmar clave</label>
                     <input type="password" id="txtClaveConfirmar" name="txtClaveConfirmar" class="form-control" aria-describedby="claveConfirmar">
                     <div id="claveConfirmar" class="form-text">
-                    Tu contraseña debe tener una longitud minima de 6 caracteres y un maximo de 30, puede contener letras numeros y espacios
+                    Tu contraseña debe tener una longitud mínima de 6 caracteres y un máximo de 30, puede contener letras numeros y espacios
                     </div>
                 </div>
             </div>

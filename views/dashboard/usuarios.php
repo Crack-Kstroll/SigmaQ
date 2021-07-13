@@ -42,12 +42,12 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
 				<tr>
-					<th>Codigo</th>
+					<th>Código</th>
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>DUI</th>
 					<th>Correo</th>
-					<th>Telefono</th>
+					<th>Teléfono</th>
 					<th>Usuario</th>
 					<th>Estado</th>
 					<th>Opciones</th>
@@ -74,7 +74,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<div class="row">
 						<div class="col-6">
 							<div class="form-group">
-								<label>Codigo*</label>
+								<label>Código*</label>
 								<input id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="1" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							<div class="form-group">
@@ -82,7 +82,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 								<input id="txtNombre" name="txtNombre" maxlength="40" type="text" class="form-control" placeholder="Roberto" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>							
 							<div class="form-group">
-								<label>Telefono*</label>
+								<label>Teléfono*</label>
 								<div class="form-group">
 									<input id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 									<div id="phoneBlock" class="form-text">
@@ -117,7 +117,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
         						</div>
 							</div>
 							<div class="form-group">
-								<label>Direccion*</label>
+								<label>Dirección*</label>
 								<input id="txtDireccion" name="txtDireccion" type="text" maxlength="150"  class="form-control" placeholder="Avenida Aguilares 218 San Salvador CP, 1101" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>		
 							<div id="boxConfirmar" class="form-group">				

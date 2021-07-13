@@ -19,7 +19,7 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
           <th>Responsable</th>
           <th>Sociedad</th>
           <th>Usuario</th>
-          <th>Codigo</th>
+          <th>Código</th>
           <th>Factura</th>
           <th>Asignación</th>
           <th>Fecha Contable</th>

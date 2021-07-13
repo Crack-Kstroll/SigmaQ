@@ -1,5 +1,5 @@
 <?php
-
+//Es una clase hija de Validator
 class Cliente extends Validator
 {
     // Declaracion de los atributos de la clase
@@ -16,10 +16,11 @@ class Cliente extends Validator
     *  Parámetro: valor del input  
     *  Retorna un valor tipo booleano
     */ 
-    public function validateNull($value){
+    public function validateNull($value)
+    {
         if ($value != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -33,7 +34,7 @@ class Cliente extends Validator
         if($this->validateNaturalNumber($value)){
             $this->id = $value;
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -47,7 +48,7 @@ class Cliente extends Validator
         if($this->validateNaturalNumber($value)){
             $this->codigo = $value;
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -58,7 +59,7 @@ class Cliente extends Validator
     */ 
     public function setEstado($value)
     {
-        if ($this->validateBoolean($value)) {
+        if ($this->validateBoolean($value)){
             $this->estado = $value;
             return true;
         } else {
@@ -117,7 +118,7 @@ class Cliente extends Validator
         if ($this->validateAlphanumeric($value, 1, 50)) {
             $this->usuario = $value;
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -183,9 +184,12 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT estado FROM clientes where usuario = ? and estado = true';
         $params = array($usuario);
-        if ($data = Database::getRow($sql, $params)) {
+        if ($data = Database::getRow($sql, $params)) 
+        {
             return true;
-        } else {
+        } 
+        else 
+        {
             return false;
         }
     }
@@ -207,12 +211,15 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigocliente,estado,empresa FROM clientes WHERE usuario = ?';
         $params = array($usuario);
-        if ($data = Database::getRow($sql, $params)) {
+        if ($data = Database::getRow($sql, $params)) 
+        {
             $this->id = $data['codigocliente'];
             $this->empresa = $data['empresa'];
             $this->usuario = $usuario;
             return true;
-        } else {
+        } 
+        else 
+        {
             return false;
         }
     }
@@ -224,9 +231,12 @@ class Cliente extends Validator
         $sql = 'SELECT clave FROM clientes WHERE codigocliente = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave'])) {
+        if (password_verify($password, $data['clave'])) 
+        {
             return true;
-        } else {
+        } 
+        else 
+        {
             return false;
         }
     }
@@ -291,7 +301,8 @@ class Cliente extends Validator
     public function updateRow()
     {
         // Verifica si existe clave en caso de no existir se actualizan los datos menos la clave
-        if ($this->clave != null) {
+        if ($this->clave != null) 
+        {
             // Se encripta la contraseña mediante el metodo password_hash
             $hash = password_hash($this->clave, PASSWORD_DEFAULT);
             // Declaracion de la sentencia SQL 
@@ -299,7 +310,9 @@ class Cliente extends Validator
             SET codigocliente = ?, empresa= ?, telefono = ?, correo = ?, usuario = ?, clave = ?
             WHERE codigocliente = ?';
             $params = array($this->id ,$this->empresa, $this->telefono, $this->correo,$this->usuario,$hash,$this->codigo);
-        } else {
+        } 
+        else
+        {
             $sql = 'UPDATE clientes
             SET codigocliente = ?, empresa= ?, telefono = ?, correo = ?, usuario = ?
             WHERE codigocliente = ?';

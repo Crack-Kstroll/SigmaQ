@@ -1,8 +1,7 @@
 <?php
-//Clase para manejar los mantenimientos del catálogo
-
 //Es una clase hija de Validator
-class Pedidos extends Validator {
+class Pedidos extends Validator 
+{
     //Declaración de atributos 
     private $idpedido = null;
     private $responsable = null;
@@ -79,7 +78,8 @@ class Pedidos extends Validator {
         }
     }
 
-    public function setDescripcion($descripcion) {
+    public function setDescripcion($descripcion) 
+    {
         if($this->validateAlphaNumeric($descripcion, 1, 200)) {
             $this->descripcion = $descripcion;
             return true;
@@ -128,7 +128,8 @@ class Pedidos extends Validator {
         }
     }
 
-    public function setComentarios($comentarios) {
+    public function setComentarios($comentarios) 
+    {
         if($this->validateAlphaNumeric($comentarios, 1, 150)) {
             $this->comentarios = $comentarios;
             return true;
@@ -138,22 +139,26 @@ class Pedidos extends Validator {
     }
 
     //Functiones para obtener los valores de los atributos
-    public function getIdPedido() {
+    public function getIdPedido() 
+    {
         return $this->idpedido;
     }
 
-    public function getResponsable() {
+    public function getResponsable() 
+    {
         return $this->responsable;
     }
 
-    public function getCliente() {
+    public function getCliente()
+    {
         return $this->cliente;
     }
 
     //Funciones para realizar los mantenimientos a la tabla
     
     //Función para insertar un registro para el índice
-    public function insertPedido() {
+    public function insertPedido() 
+    {
         $query="INSERT INTO pedido(responsable, cliente, pos, oc, cantidadsolicitada, descripcion, codigo, cantidadenviada, fechaentregada, fechaconfirmadaenvio, comentarios, fecharegistro) 
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_date)";
         $params=array($this->responsable, $this->cliente, $this->pos, $this->oc, $this->cantidadsolicitada, $this->descripcion, $this->codigo, $this->cantidadenviada, $this->fechaentrega, $this->fechaconfirmadaenvio, $this->comentarios);
@@ -161,7 +166,8 @@ class Pedidos extends Validator {
     }
 
     //Función para mostrar los índices
-    public function readPedidos() {
+    public function readPedidos() 
+    {
         $query="SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
                 FROM pedido p
                 INNER JOIN administradores a
@@ -174,7 +180,8 @@ class Pedidos extends Validator {
     }
 
     //Función para mostrar un registro
-    public function readOnePedido() {
+    public function readOnePedido() 
+    {
         $query="SELECT p.idpedido, p.responsable, a.codigoadmin, cl.codigocliente, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
                 FROM pedido p
                 INNER JOIN administradores a
@@ -188,7 +195,8 @@ class Pedidos extends Validator {
     }
 
     //Función para actualizar un registros
-    public function updatePedido() {
+    public function updatePedido() 
+    {
         $query="UPDATE pedido 
                 SET responsable = ?, pos = ?, oc = ?, cantidadsolicitada = ?, descripcion = ?,"./*codigo = ?, */ " cantidadenviada = ?, fechaentregada = ?, fechaconfirmadaenvio = ?, comentarios = ?
                 WHERE idpedido = ?";
@@ -197,21 +205,24 @@ class Pedidos extends Validator {
     }
 
     //Función para eliminar un registro
-    public function desablePedido() {
+    public function desablePedido() 
+    {
         $query="UPDATE pedido SET estado=false WHERE idpedido = ?";
         $params=array($this->idpedido);
         return Database::executeRow($query, $params);
     }
 
     //Función para activar un registro
-    public function enablePedido() {
+    public function enablePedido() 
+    {
         $query="UPDATE pedido SET estado=true WHERE idpedido = ?";
         $params=array($this->idpedido);
         return Database::executeRow($query, $params);
     }
 
     //Función para realizar una búsqueda en los registros
-    public function searchRows($value) {
+    public function searchRows($value) 
+    {
         $query="SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
                 FROM pedido p
                 INNER JOIN administradores a
@@ -224,13 +235,17 @@ class Pedidos extends Validator {
         return Database::getRows($query, $params);
     }
 
-    public function checkCode() {
+    //Función para realizar validar el codigo del pedido
+    public function checkCode() 
+    {
         $query="SELECT * FROM pedido WHERE codigo = ?";
         $params=array($this->codigo);
         return Database::getRow($query, $params);
     }
 
-    public function readClientePedidos() {
+    //Función para cargar los pedidos pertenecientes a un cliente
+    public function readClientePedidos() 
+    {
         $query="SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
                 FROM pedido p
                 INNER JOIN administradores a
@@ -243,7 +258,9 @@ class Pedidos extends Validator {
         return Database::getRows($query, $params);
     }
 
-    public function readResponsableInfo() {
+    //Función para leer los datos del responsable de cierto cliente
+    public function readResponsableInfo() 
+    {
         $query="SELECT ad.nombre, ad.apellido, telefono, correo
                 FROM pedido pe
                 INNER JOIN administradores ad

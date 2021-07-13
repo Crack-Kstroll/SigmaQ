@@ -5,7 +5,7 @@
 *
 *   Retorno: ninguno.
 */
-function readRows(api) {
+const readRows = (api) =>{ 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo get 
     para obtener el resultado de la API*/
     fetch(api + 'readAll', {
@@ -42,7 +42,7 @@ function readRows(api) {
 *
 *   Retorno: ninguno.
 */
-function saveRow(api, action, form, modal) {
+const saveRow = (api, action, form, modal) =>{ 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
     para acceder a los campos desde la API*/
     fetch(api + action, {
@@ -81,7 +81,7 @@ function saveRow(api, action, form, modal) {
 *
 *   Retorno: ninguno.
 */
-function searchRows(api, form) {
+const searchRows = (api, form) =>{ 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
     para acceder a los campos desde la API*/
     fetch(api + 'search', {
@@ -118,7 +118,7 @@ function searchRows(api, form) {
 *
 *   Retorno: ninguno.
 */
-function confirmDelete(api, data) {
+const confirmDelete = (api, data) =>{ 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -169,7 +169,7 @@ function confirmDelete(api, data) {
 *
 *   Retorno: ninguno.
 */
-function confirmDesactivate(api, data) {
+const confirmDesactivate = (api, data) =>{ 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -219,7 +219,7 @@ function confirmDesactivate(api, data) {
 *
 *   Retorno: ninguno.
 */
-function confirmActivate(api, data) {
+const confirmActivate = (api, data) =>{ 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -270,7 +270,7 @@ function confirmActivate(api, data) {
 *
 *   Retorno: ninguno.
 */
-function onlyConfirmDelete(api, data) {
+const onlyConfirmDelete = (api, data) =>{  
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -317,7 +317,7 @@ function onlyConfirmDelete(api, data) {
 *
 *   Retorno: ninguno.
 */
-function sweetAlert(type, text, url) {
+const sweetAlert = (type, text, url) =>{  
     // Se compara el tipo de mensaje a mostrar.
     switch (type) {
         case 1:
@@ -367,7 +367,7 @@ function sweetAlert(type, text, url) {
 *
 *   Retorno: ninguno.
 */
-function fillSelect(endpoint, select, selected) {
+const fillSelect = (endpoint, select, selected) =>{   
     fetch(endpoint, {
         method: 'get'
     }).then(function (request) {

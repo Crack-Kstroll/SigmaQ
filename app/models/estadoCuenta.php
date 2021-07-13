@@ -1,5 +1,5 @@
 <?php
-
+//Es una clase hija de Validator
 class EstadoCuenta extends Validator
 {
     // Declaración de atributos
@@ -20,7 +20,7 @@ class EstadoCuenta extends Validator
     // Metodos para asignar valores a los atributos
     public function setId($value)
     {
-        if ($this->validateNaturalNumber($value)) {
+        if ($this->validateNaturalNumber($value)){
             $this->id = $value;
             return true;
         } else {
@@ -122,7 +122,8 @@ class EstadoCuenta extends Validator
 
     public function setDiasVencidos($value)
     {
-        if ($this->validateNaturalNumber($value)) {
+        if ($this->validateNaturalNumber($value)) 
+        {
             $this->diasVencidos = $value;
             return true;
         } else {
@@ -151,7 +152,6 @@ class EstadoCuenta extends Validator
     }
 
     // Funciones para obtener los valores de los atributos
-
     public function getId()
     {
         return $this->id;

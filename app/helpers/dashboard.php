@@ -25,7 +25,8 @@ class Dashboard_Page
         ');
         $filename = basename($_SERVER['PHP_SELF']);
         if (isset($_SESSION['nombre'])) {
-            if ($filename != 'index.php' && $filename != 'register.php') {
+            if ($filename != 'index.php' && $filename != 'register.php') 
+            {
                 print('
                 <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
                 <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
@@ -66,7 +67,7 @@ class Dashboard_Page
                         </a>
                         <a href="indice.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
                             <img class="tamañoIconos" src="../../resources/img/icons/seguimiento.png" alt=""> 
-                            Indice de entrega
+                            Índice de entrega
                         </a>
                         <a href="estado.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
                             <img class="tamañoIconos" src="../../resources/img/icons/estadoCuenta.png" alt=""> 
@@ -80,21 +81,26 @@ class Dashboard_Page
                     <div class=" position-relative ">
                         <a onclick="logOut()" class="list-group-item fondoAcordeon textoBlanco sinBorde position-absolute w-100 logOut-bottom">
                             <img class="tamañoIconos" src="../../resources/img/icons/cerrarSesion.png" alt=""> 
-                            Cerrar Sesion
+                            Cerrar Sesión
                         </a>
                     </div>
                 </div> <!-- Cierra el contenedor sidebar -->
                 ');
-            } else {
+            } 
+            else 
+            {
                 header('location: main.php');
             }
-        } else {
+        } 
+        else 
+        {
             header('location: index.php');
         }
     }
 
     //Método para imprimir el pie y establecer el controlador del documento
-    public static function footerTemplate($controller) {
+    public static function footerTemplate($controller) 
+    {
         print('
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>

@@ -16,9 +16,9 @@ class Database
     {
         // Credenciales para establecer la conexión con la base de datos.
         $server = 'localhost';
-        $database = 'SigmaNew';
-        $username = 'postgres';
-        $password = '2002';
+        $database = 'sigma';
+        $username = 'ricaldone';
+        $password = '123456';
         // Se crea la conexión mediante la extensión PDO y el controlador para PostgreSQL.
         self::$connection = new PDO('pgsql:host='.$server.';dbname='.$database.';port=5432', $username, $password);
     }
@@ -32,14 +32,17 @@ class Database
     */
     public static function executeRow($query, $values)
     {
-        try {
+        try 
+        {
             self::connect();
             self::$statement = self::$connection->prepare($query);
             $state = self::$statement->execute($values);
             // Se anula la conexión con el servidor de base de datos.
             self::$connection = null;
             return $state;
-        } catch (PDOException $error) {
+        } 
+        catch (PDOException $error) 
+        {
             // Se obtiene el código y el mensaje de la excepción para establecer un error personalizado.
             self::setException($error->getCode(), $error->getMessage());
             return false;
@@ -55,18 +58,24 @@ class Database
     */
     public static function getLastRow($query, $values)
     {
-        try {
+        try 
+        {
             self::connect();
             self::$statement = self::$connection->prepare($query);
-            if (self::$statement->execute($values)) {
+            if (self::$statement->execute($values)) 
+            {
                 $id = self::$connection->lastInsertId();
-            } else {
+            } 
+            else 
+            {
                 $id = 0;
             }
             // Se anula la conexión con el servidor de base de datos.
             self::$connection = null;
             return $id;
-        } catch (PDOException $error) {
+        } 
+        catch (PDOException $error) 
+        {
             // Se obtiene el código y el mensaje de la excepción para establecer un error personalizado.
             self::setException($error->getCode(), $error->getMessage());
             return 0;
@@ -82,14 +91,17 @@ class Database
     */
     public static function getRow($query, $values)
     {
-        try {
+        try 
+        {
             self::connect();
             self::$statement = self::$connection->prepare($query);
             self::$statement->execute($values);
             // Se anula la conexión con el servidor de base de datos.
             self::$connection = null;
             return self::$statement->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $error) {
+        } 
+        catch (PDOException $error) 
+        {
             // Se obtiene el código y el mensaje de la excepción para establecer un error personalizado.
             self::setException($error->getCode(), $error->getMessage());
             return false;
@@ -105,14 +117,17 @@ class Database
     */
     public static function getRows($query, $values)
     {
-        try {
+        try 
+        {
             self::connect();
             self::$statement = self::$connection->prepare($query);
             self::$statement->execute($values);
             // Se anula la conexión con el servidor de base de datos.
             self::$connection = null;
             return self::$statement->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $error) {
+        } 
+        catch (PDOException $error) 
+        {
             // Se obtiene el código y el mensaje de la excepción para establecer un error personalizado.
             self::setException($error->getCode(), $error->getMessage());
             return false;
@@ -129,7 +144,8 @@ class Database
     private static function setException($code, $message)
     {
         // Se compara el código del error para establecer un error personalizado.
-        switch ($code) {
+        switch ($code) 
+        {
             case '7':
                 self::$error = 'Existe un problema al conectar con el servidor';
                 break;

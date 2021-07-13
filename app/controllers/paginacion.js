@@ -1,12 +1,10 @@
 // Atributo para almacenar en un arreglo el contenido de la tabla 
-var content = [];
-// Atributo para almacenar el numero de posiciones que posee el arreglo
-var posiciones = 0;
+const content = [];
 // Atributo para guardar el numero de pagina seleccionado en la paginacion
-var seleccion = 0;
+const seleccion = 0;                                                                                                                                           var posiciones = 0;
 
 // Funcion para generar la estructura de la paginacion en el formulario
-function generatePagination() {
+const generatePagination = () =>{ 
     let pagination = '';
     // Definimos la estructura de la cabecera de la paginacion
     pagination += `
@@ -37,7 +35,7 @@ function generatePagination() {
 }
 
 // Funcion para retroceder de pagina en pagina (paginacion)
-function previousData() {
+const previousData = () =>{ 
     // Como retrocedemos una pagina restamos uno a la atributo que contiene la pagina seleccionada
     seleccion = seleccion -1;
     // Se verifica si la pagina seleccionada no es menor a 0
@@ -51,7 +49,7 @@ function previousData() {
 }
 
 // Funcion para avanzar de pagina en pagina (paginacion)
-function nextData() {
+const nextData = () =>{ 
     // Como avanzamos una pagina agregamos uno al atributo que contiene la pagina seleccionada
     seleccion = seleccion + 1;
     // Verificamos si la pagina seleccionada no es mayor a la ultima posicion del arreglo
@@ -65,16 +63,16 @@ function nextData() {
 }
 
 // Funcion para cargar los datos dentro de la tabla 
-function fillPagination(contenido,select) {
+const fillPagination = (contenido,select) =>{ 
     // Imprimimos las filas en la seccion de contenido de la tabla
     document.getElementById('tbody-rows').innerHTML = contenido;
     // Asignamos el valor al atributo seleccion para identificar que pagina se cargo
-    seleccion = select;
+    this.seleccion = select;
 }
 
 // Funcion para resetar el valor de todos los atributos de la clase
-function resetPagination(){
-    content = [];
-    posiciones = 0;
-    seleccion = 0;
-}
+const resetPagination = () =>{ 
+    this.content = [];
+    this.posiciones = 0;
+    this.seleccion = 0;
+}                                                                                                                                                                               

@@ -14,7 +14,7 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
                     <th>Pos</th>
                     <th>OC</th>
                     <th>Solicitada</th>
-                    <th>Codigo</th>
+                    <th>Código</th>
                     <th>Enviada</th>
                     <th>Fecha registrado</th>
                     <th>Fecha de entrega</th>

@@ -1,19 +1,14 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
 const API_ESTADO = '../../app/api/public/estadoCuenta.php?action=';
-// const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
-// const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
-// const API_SOCIEDADES = '../../app/api/dashboard/sociedades.php?action=readAll';
-// const API_DIVISAS = '../../app/api/dashboard/divisas.php?action=readAll';
 
 // Método manejador de eventos que se ejecutara cuando cargue la pagina
 document.addEventListener('DOMContentLoaded', function () {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);
-    // fillTable();
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-function fillTable(dataset) {
+const fillTable = (dataset) =>{ 
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados

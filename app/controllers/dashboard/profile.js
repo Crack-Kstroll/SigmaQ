@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para obtener y mostrar las categorías existentes en la base.
-function readProfile() {
+const readProfile = () =>{  
     // Se realiza solicitud a la API de usuarios enviando como parametro el metodo readProfile para obtener los datos del usuario activo
     fetch(API_USUARIOS + 'readProfile', {
         method: 'get'
@@ -18,6 +18,7 @@ function readProfile() {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
+                    // Se agregan los datos obtenidos a los inputs del formulario
                     document.getElementById('txtNombre').value = response.dataset.nombre;
                     document.getElementById('txtApellido').value = response.dataset.apellido;
                     document.getElementById('txtCorreo').value = response.dataset.correo;
@@ -25,6 +26,7 @@ function readProfile() {
                     document.getElementById('txtTelefono').value = response.dataset.telefono;
                     document.getElementById('txtUsuario').value = response.dataset.usuario;
                 } else {
+                    // Se muestra mensaje de error en caso de no ejecutarse la sentencia
                     sweetAlert(3, 'Error al cargar los datos', null);
                 }
             });
@@ -37,7 +39,7 @@ function readProfile() {
 }
 
 // Función para obtener y mostrar las categorías existentes en la base.
-function modificarDatos() {
+const modificarDatos = () =>{  
     fetch(API_USUARIOS + 'editProfile', {
         method: 'post',
         body: new FormData(document.getElementById('save-form'))
@@ -51,6 +53,7 @@ function modificarDatos() {
                 } else {
                     // Se verifica si el token falló (ya sea por tiempo o por uso).
                     if (response.recaptcha) {
+                        // Si se completa la accion redirigimos al menu principal
                         sweetAlert(2, response.exception, 'main.php');
                     } else {
                         sweetAlert(2, response.exception, null);
@@ -66,7 +69,7 @@ function modificarDatos() {
 }
 
 // Función para obtener y mostrar las categorías existentes en la base.
-function actualizarContraseña() {
+const actualizarContraseña = () =>{  
     fetch(API_USUARIOS + 'changePassword', {
         method: 'post',
         body: new FormData(document.getElementById('password-form'))
@@ -80,6 +83,7 @@ function actualizarContraseña() {
                 } else {
                     // Se verifica si el token falló (ya sea por tiempo o por uso).
                     if (response.recaptcha) {
+                        // Si se completa la accion redirigimos al menu principal
                         sweetAlert(2, response.exception, 'main.php');
                     } else {
                         sweetAlert(2, response.exception, null);

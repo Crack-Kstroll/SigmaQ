@@ -1,3 +1,4 @@
+// Constantes para establecer las rutas y parámetros de comunicación con la API.
 const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
 const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
 const API_INDICES = '../../app/api/public/indice.php?action=';
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-function fillTable(dataset) {
+const fillTable = (dataset) =>{ 
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados

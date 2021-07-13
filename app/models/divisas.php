@@ -1,6 +1,4 @@
 <?php
-//Clase para manejar los mantenimientos del catálogo
-
 //Es una clase hija de Validator
 class Divisas extends Validator{
 
@@ -51,7 +49,7 @@ class Divisas extends Validator{
         return Database::getRows($sql, $params);
     }
 
-    public function SelectOneDivisa()
+    public function selectOneDivisa()
     {
         $sql = 'SELECT iddivisa, divisa 
                 FROM divisas
@@ -61,14 +59,16 @@ class Divisas extends Validator{
         return Database::getRows($sql, $params);
     }
 
-    public function insertDivisa() {
+    public function insertDivisa() 
+    {
         $query="INSERT INTO divisas(divisa)
                 VALUES (?)";
         $params = array($this->divisa);
         return Database::executeRow($query, $params);
     }
 
-    public function updateDivisa() {
+    public function updateDivisa() 
+    {
         $query="UPDATE divisas
                 SET divisa = ?
                 WHERE iddivisa = ?";
@@ -76,7 +76,8 @@ class Divisas extends Validator{
         return Database::executeRow($query, $params);
     }
 
-    public function deleteDivisa() {
+    public function deleteDivisa() 
+    {
         $query = "DELETE FROM divisas WHERE iddivisa = ?";
         $params = array($this->iddivisa);
         return Database::executeRow($query, $params);

@@ -8,9 +8,12 @@ class Login_Page
         // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en las páginas web.
         session_start();
         // Se imprime el código HTML de la cabecera del documento.
-        if (isset($_SESSION['nombre'])) {
+        if (isset($_SESSION['nombre'])) 
+        {
             header('location: main.php');
-        } else {
+        } 
+        else 
+        {
             print('
             <!DOCTYPE html>
             <html lang="es">
@@ -46,7 +49,8 @@ class Login_Page
     }
 
     //Método para imprimir el pie y establecer el controlador del documento
-    public static function footerTemplate($controller) {
+    public static function footerTemplate($controller) 
+    {
         print('
                 <script type="text/javascript" src="../../app/controllers/initialization.js"></script>
                 <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
