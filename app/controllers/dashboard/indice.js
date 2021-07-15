@@ -132,7 +132,7 @@ const openCreateDialog = () => {
     //Se abre el form
     $('#modal-form').modal('show');
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Registrar Indice de Entrega'
+    document.getElementById('modal-title').textContent = 'Registrar índice de entrega'
     // Se llama a la function para llenar los Selects
     fillSelect(API_ADMINS, 'responsable', null);
     fillSelect(API_CLIENTES, 'cliente', null);
@@ -145,7 +145,7 @@ const openUpdateDialog = (id) =>{
     //Se abre el form
     $('#modal-form').modal('show');
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Registrar Indice de Entrega'
+    document.getElementById('modal-title').textContent = 'Registrar índice de entrega'
     // Asignamos el valor del parametro id al campo del id del modal
     document.getElementById('idindice').value = id;
     const data = new FormData();

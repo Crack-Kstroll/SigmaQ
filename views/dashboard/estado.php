@@ -6,7 +6,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 	<!-- Seccion de contenido (contiene todo el contenido de la pagina) -->
 	<div class="container-fluid espacioSuperior">
 		<!-- Seccion titulo de pagina -->
-		<h5 class="tituloMto">Gestion de estados de cuenta</h5>
+		<h5 class="tituloMto">Gestión de estados de cuenta</h5>
 		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	</div> <!-- Cierra seccion titulo pagina -->
 
@@ -30,7 +30,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 				</div>
 				<div class="col-sm-4">
 					<!-- Boton para ingresar nuevos registros -->
-					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar registro</button></a>
+					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar estado</button></a>
 				</div>
 				<!-- <div class="col-sm-2"> -->
 					<!-- Boton para ingresar nuevos registros -->
@@ -109,13 +109,13 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 									</div>
 								</div>
 								<div class="form-group">
-									<label>Fecha Contable*</label>
+									<label>Fecha contable*</label>
 									<input id="fechacontable" name="fechacontable" type="date" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Codigo*</label>
+									<label>Código*</label>
 									<input id="codigo" name="codigo" type="number" class="form-control" required>
 								</div>
 								<div class="form-group">
@@ -129,7 +129,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Fecha Vencimiento*</label>
+									<label>Fecha vencimiento*</label>
 									<input id="vencimiento" name="vencimiento" type="date" class="form-control" required>
 								</div>
 							</div>
@@ -158,7 +158,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<label>Total General*</label>
+								<label>Total general*</label>
 								<input id="total" name="total" type="number" class="form-control" required>
 							</div>
 						</div>

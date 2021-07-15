@@ -8,7 +8,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos','dashboard');
     
 	<!-- Seccion de titulo de pagina -->
 	<div class="container-fluid espacioSuperior"> 
-        <h5 class="tituloMto">Gestion de pedidos</h5>
+        <h5 class="tituloMto">Gestión de pedidos</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
     </div> 
 	<!-- Cierra seccion de titulo de pagina -->
@@ -91,8 +91,8 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos','dashboard');
 							<label>Código*</label>
 							<div class="form-group">
 								<input id="codigo" name="codigo" type="number" min="1" class="form-control" required>
+								<label class="font-italic text-danger">No podrá modificar el valor de este campo</label>
 							</div>
-							<label class="font-italic text-danger">No podrá modificar el valor de este campo</label>
 						</div>
 						<div class="col-6 form-group">
 							<label>Fecha registrado*</label>
@@ -135,7 +135,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos','dashboard');
 							</div>
 						</div>
 						<div class="form-group col-6">
-							<label>Descripcion*</label>
+							<label>Descripción*</label>
 							<textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
 						</div>
 						<div class="col-6 form-group">

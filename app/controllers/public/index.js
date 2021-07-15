@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Metodo para cargar todos los datos de la categoria seleccionada al presionar el boton
-function iniciarSesion() {
+const iniciarSesion = () =>{   
     if(document.getElementById("usuario").value == ''){
         sweetAlert(3, 'Debe ingresar su usuario', null);
     }

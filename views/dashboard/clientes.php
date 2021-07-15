@@ -6,7 +6,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 <div id="contenido" class="container-fluid fondo"> 
 	<!-- Seccion de titulo de pagina -->
 	<div class="container-fluid espacioSuperior"> 
-        <h5 class="tituloMto">Gestion de cliente</h5>
+        <h5 class="tituloMto">Gestión de cliente</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	<!-- Cierra seccion de titulo de pagina -->
     </div>
@@ -44,7 +44,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 				<tr>
 					<th>Código</th>
 					<th>Empresa</th>
-					<th>Telefono</th>
+					<th>Teléfono</th>
 					<th>Correo</th>
 					<th>Usuario</th>
 					<th>Estado</th>

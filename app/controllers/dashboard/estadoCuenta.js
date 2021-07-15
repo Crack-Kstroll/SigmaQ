@@ -101,7 +101,7 @@ const openCreateDialog = () => {
     //Se abre el form
     $('#staticBackdrop').modal('show');
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Ingresar registro'
+    document.getElementById('modal-title').textContent = 'Ingresar estado de cuenta'
     // Se llama a la function para llenar los Selects
     fillSelect(API_ADMINS, 'responsable', null);
     fillSelect(API_CLIENTES, 'cliente', null);
@@ -116,7 +116,7 @@ const openUpdateDialog = (id) =>{
     // Asignamos el valor del parametro id al campo del id del modal
     document.getElementById('idestado').value = id;
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Actualizar registro';
+    document.getElementById('modal-title').textContent = 'Actualizar estado de cuenta';
     const data = new FormData();
     data.append('id', id);
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro

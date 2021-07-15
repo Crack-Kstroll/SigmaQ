@@ -4,7 +4,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 ?>
 <div id="contenido" class="container-fluid fondo">
     <div class="container-fluid espacioSuperior">
-        <h5 class="tituloMto">Gestion de índice de entrega</h5>
+        <h5 class="tituloMto">Gestión de índice de entrega</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
     </div>
     <!-- Seccion de busqueda filtrada --> 
@@ -114,31 +114,31 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 						<div class="col-6 form-group">
 							<label>No considerados*</label>
 							<div class="form-group">
-								<input id="noconsiderados" name="noconsiderados" type="number" min="0" class="form-control" required>
+								<input id="noconsiderados" name="noconsiderados" type="number" min="0" max="100" class="form-control" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" required/>							
 							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Incumplidos no entregados %*</label>
 							<div class="form-group">
-								<input id="incumnoentregados" name="incumnoentregados" type="text" class="form-control" required>
+								<input id="incumnoentregados" name="incumnoentregados" type="number" min="0" max="100" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Incumplidos por calidad %*</label>
 							<div class="form-group">
-								<input id="incumporcalidad" name="incumporcalidad" type="text" class="form-control" required>
+								<input id="incumporcalidad" name="incumporcalidad" type="number" min="0" max="100" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Incumplidos por fecha %*</label>
 							<div class="form-group">
-								<input id="incumporfecha" name="incumporfecha" type="text" class="form-control" required>
+								<input id="incumporfecha" name="incumporfecha" type="number" min="0" max="100" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Incumplidos por cantidad %*</label>
 							<div class="form-group">
-								<input id="incumporcantidad" name="incumporcantidad" type="text" class="form-control" required>
+								<input id="incumporcantidad" name="incumporcantidad" type="number" min="0" max="100" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" class="form-control" required>
 							</div>
 						</div>
 					</div>

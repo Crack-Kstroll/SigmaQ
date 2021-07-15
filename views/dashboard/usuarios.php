@@ -6,7 +6,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 <div id="contenido" class="container-fluid fondo"> 
 	<!-- Seccion de titulo de pagina -->
 	<div class="container-fluid espacioSuperior"> 
-        <h5 class="tituloMto">Gestion de usuarios</h5>
+        <h5 class="tituloMto">Gestión de usuarios</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	<!-- Cierra seccion de titulo de pagina -->
     </div>
