@@ -3,32 +3,107 @@ include('../../app/helpers/public.php');
 Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 ?>
 <div class="my-4"></div>
-<!-- Tabla -->
-	<!-- Seccion de tabla de registros -->
-	<div class="container-fluid espacioSuperior"> 
-		<table class="table borde">
-			<!-- Cabecera de la tabla -->
-			<thead class="thead-dark">
-				<tr>
-					<th>Cliente</th>
-                    <th>Pos</th>
-                    <th>OC</th>
-                    <th>Solicitada</th>
-                    <th>Código</th>
-                    <th>Enviada</th>
-                    <th>Fecha registrado</th>
-                    <th>Fecha de entrega</th>
-                    <th>Fecha de confirmación</th>
-				</tr>
-			</thead>
-			<!-- Contenido de la tabla -->
-			<tbody id="tbody-rows">	
-			</tbody>
-		</table>	 
-		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->				
-		</div> <!-- Cierra controladores de tabla --> 
-	<!-- Cierra seccion de tabla -->
-	</div>																																																				<br><br><div class="my-4"></div><div class="my-4"></div>
+
+<!-- Botón para el modal de personalización de la tabla -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<a onclick=openCustomDialog() type="button" class="btn btn-primary" id="conf_tabla_estado">
+				Configurar tabla
+			</a>
+		</div>
+	</div>
+</div>
+
+
+<!-- Seccion de tabla de registros -->
+<div class="container-fluid espacioSuperior"> 
+	<table class="table borde">
+		<h4 id="warning-message" style="text-align:center"></h4>
+		<!-- Contenido de la tabla -->
+		<thead id="theaders" class="thead-dark">
+
+		</thead>
+		<tbody id="tbody-rows">	
+		</tbody>
+	</table>	  
+
+	<!-- Seccion controladores tabla -->				
+	<div id="seccionPaginacion" class="clearfix"> 
+	</div> 
+	<!-- Cierra controladores de tabla --> 
+
+</div>  
+<!-- Cierra seccion de tabla -->
+
+<!-- Modal  -->
+<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 id="modal-title" name="modal-title" class="modal-title">Personalización de la tabla</h5>
+			</div>
+			<div class="modal-body">
+				<form method="post" id="save-form" enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="pos" checked>
+								<label class="form-check-label" for="pos">Pos</label>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="oc" checked>
+								<label class="form-check-label" for="oc">Oc</label>
+							</div>		
+						</div>
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="solicitada" checked>
+								<label class="form-check-label" for="solicitada">Solicitada</label>
+							</div>	
+						</div>
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="codigo" checked>
+								<label class="form-check-label" for="codigo">Código</label>
+							</div>	
+						</div>
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="enviada" checked>
+								<label class="form-check-label" for="enviada">Enviada</label>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="fecharegistrado" checked>
+								<label class="form-check-label" for="fecharegistrado">Fecha registrado</label>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="fechaentrega" checked>
+								<label class="form-check-label" for="fechaentrega">Fecha de entrega</label>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="fechaconfirmacion" checked>
+								<label class="form-check-label" for="fechaconfirmacion">Fecha de confirmación</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button onclick="readRows('../../app/api/public/pedidos.php?action=')" type="button" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <?php
 Public_Page::footerTemplate('status');
 ?>

@@ -11,25 +11,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 const fillTable = (dataset) =>{ 
+    //Se oculta el modal de la personalización
+    $('#modal-form').modal('hide');
+    //Se crea la fila de los headers de la tabla
+    let headers = `<tr>`;
+    //Se agregan los headers si está seleccionado en la tabla
+    if(document.getElementById('pos').checked) {
+        headers += `<th>Pos</th>`
+    }
+    if(document.getElementById('oc').checked) {
+        headers += `<th>OC</th>`
+    }
+    if(document.getElementById('solicitada').checked) {
+        headers += `<th>Solicitada</th>`
+    }
+    if(document.getElementById('codigo').checked) {
+        headers += `<th>Código</th>`
+    }
+    if(document.getElementById('enviada').checked) {
+        headers += `<th>Enviada</th>`
+    }
+    if(document.getElementById('fecharegistrado').checked) {
+        headers += `<th>Fecha registrado</th>`
+    }
+    if(document.getElementById('fechaentrega').checked) {
+        headers += `<th>Fecha de entrega</th>`
+    }
+    if(document.getElementById('fechaconfirmacion').checked) {
+        headers += `<th>Fecha de confirmación</th>`
+    }
+    //Se agrega el cierre de la cabecera de la tabla
+    headers += `</tr>`;
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
-    let contador = 0; 
+    let contador = 0;
+    //Se abre la etiqueta del cuerpo de la tabla
     dataset.map(function (row) {
         // Definimos la estructura de las filas con los campos del dataset 
-        data+= `
-            <tr>
-                <td>${row.usuario}</th>
-                <td>${row.pos}</th>
-                <td>${row.oc}</th>
-                <td>${row.cantidadsolicitada}</th>
-                <td>${row.codigo}</th>
-                <td>${row.cantidadenviada}</th>
-                <td>${row.fecharegistro}</th>
-                <td>${row.fechaentregada}</th>
-                <td>${row.fechaconfirmadaenvio}</th>
-            </tr>
-        `;           
+        data+= `<tr>`;
+        if(document.getElementById('pos').checked) {
+            data += `<td>${row.pos}</td>`
+        }
+        if(document.getElementById('oc').checked) {
+            data += `<td>${row.oc}</td>`
+        }
+        if(document.getElementById('solicitada').checked) {
+            data += ` <td>${row.cantidadsolicitada}</td>`
+        }
+        if(document.getElementById('codigo').checked) {
+            data += `<td>${row.codigo}</td>`
+        }
+        if(document.getElementById('enviada').checked) {
+            data += `<td>${row.cantidadenviada}</td>`
+        }
+        if(document.getElementById('fecharegistrado').checked) {
+            data += `<td>${row.fecharegistro}</td>`
+        }
+        if(document.getElementById('fechaentrega').checked) {
+            data += `<td>${row.fechaentregada}</td>`
+        }
+        if(document.getElementById('fechaconfirmacion').checked) {
+            data += `<td>${row.fechaconfirmadaenvio}</td>`
+        }    
+        //Se cierra la etiqueta de la fila
+        data+=`</tr>`
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
@@ -44,6 +90,7 @@ const fillTable = (dataset) =>{
             posiciones = posiciones + 1;
         }      
     });
+    //Se cierra la etiqueta del cuerpo de la tabla
     // Verificamos si el ultimo retorno de datos no esta vacio en caso de estarlo no se agrega a la paginacion
     if (data != '') {
         // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
@@ -57,6 +104,9 @@ const fillTable = (dataset) =>{
     fillPagination(content[0]);
     // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
     generatePagination();
+    //Se agrega el contenido a la tabla mediante su id
+    document.getElementById('theaders').innerHTML = headers;
+    document.getElementById('tbody-rows').innerHTML = data;
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
@@ -75,4 +125,8 @@ const openView = (id) =>{
     document.getElementById("cliente").setAttribute('disabled',false)
     const data = new FormData();
     data.append('id', id);
+}
+
+const openCustomDialog = () => {
+    $('#modal-form').modal('show');
 }
