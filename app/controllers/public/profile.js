@@ -38,7 +38,7 @@ const readProfile = () =>{
 
 // Función para obtener y mostrar las categorías existentes en la base.
 const modificarDatos = () =>{  
-    fetch(API_USUARIOS + 'editProfile2', {
+    fetch(API_USUARIOS + 'editProfile', {
         method: 'post',
         body: new FormData(document.getElementById('save-form'))
     }).then(function (request) {

@@ -142,7 +142,8 @@ if (isset($_GET['action']))
                 $result['exception'] = 'Usuario incorrecto';
             }
         break;
-        case 'readProfile': // Caso para leer los datos de un solo registro parametrizado mediante el identificador
+        // Caso para leer los datos de un solo registro parametrizado mediante el identificador
+        case 'readProfile': 
             if ($cliente->setId($_SESSION['codigocliente'])) {
                 // Se ejecuta la funcion para leer los datos de un registro
                 if ($result['dataset'] = $cliente->readRow()) {
@@ -158,7 +159,8 @@ if (isset($_GET['action']))
                 $result['exception'] = 'Usuario incorrecto';
             }
         break;
-        case 'editProfile': // Caso para editar los datos de un usuario que ha iniciado sesion
+        // Caso para editar los datos de un usuario que ha iniciado sesion
+        case 'editProfile': 
             // Validamos el form donde se encuentran los inputs para poder obtener sus valores
             $_POST = $cliente->validateForm($_POST); 
             // Obtenemos el valor de los input mediante los metodos set del modelo 
