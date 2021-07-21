@@ -5,7 +5,7 @@
 *
 *   Retorno: ninguno.
 */
-const readRows = (api) =>{ 
+const readRows = (api) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo get 
     para obtener el resultado de la API*/
     fetch(api + 'readAll', {
@@ -42,7 +42,7 @@ const readRows = (api) =>{
 *
 *   Retorno: ninguno.
 */
-const saveRow = (api, action, form, modal) =>{ 
+const saveRow = (api, action, form, modal) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
     para acceder a los campos desde la API*/
     fetch(api + action, {
@@ -81,7 +81,7 @@ const saveRow = (api, action, form, modal) =>{
 *
 *   Retorno: ninguno.
 */
-const searchRows = (api, form) =>{ 
+const searchRows = (api, form) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
     para acceder a los campos desde la API*/
     fetch(api + 'search', {
@@ -118,7 +118,7 @@ const searchRows = (api, form) =>{
 *
 *   Retorno: ninguno.
 */
-const confirmDelete = (api, data) =>{ 
+const confirmDelete = (api, data) => { 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -169,7 +169,7 @@ const confirmDelete = (api, data) =>{
 *
 *   Retorno: ninguno.
 */
-const confirmDesactivate = (api, data) =>{ 
+const confirmDesactivate = (api, data) => { 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -219,7 +219,7 @@ const confirmDesactivate = (api, data) =>{
 *
 *   Retorno: ninguno.
 */
-const confirmActivate = (api, data) =>{ 
+const confirmActivate = (api, data) => { 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -270,7 +270,7 @@ const confirmActivate = (api, data) =>{
 *
 *   Retorno: ninguno.
 */
-const onlyConfirmDelete = (api, data) =>{  
+const onlyConfirmDelete = (api, data) => {  
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -317,7 +317,7 @@ const onlyConfirmDelete = (api, data) =>{
 *
 *   Retorno: ninguno.
 */
-const sweetAlert = (type, text, url) =>{  
+const sweetAlert = (type, text, url) => {  
     // Se compara el tipo de mensaje a mostrar.
     switch (type) {
         case 1:
@@ -367,7 +367,7 @@ const sweetAlert = (type, text, url) =>{
 *
 *   Retorno: ninguno.
 */
-const fillSelect = (endpoint, select, selected) =>{   
+const fillSelect = (endpoint, select, selected) => {   
     fetch(endpoint, {
         method: 'get'
     }).then(function (request) {
@@ -408,3 +408,188 @@ const fillSelect = (endpoint, select, selected) =>{
     });
 }
 
+/*
+*   Función para generar una gráfica de barras verticales. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const barGraph = (canvas, xAxis, yAxis, legend, title) => { 
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = ["#0a1733", "#0a1733","#11295c","#183b85","#2151b8"]
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                borderColor: '#220e5e',
+                borderWidth: 1,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }]
+            }
+        }
+    });
+}
+
+/*
+*   Función para generar una gráfica de pastel. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const pieGraph = (canvas, legends, values, title) => { 
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = ["#0a1733", "#0a1733","#11295c","#183b85","#2151b8"]
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'pie',
+        data: {
+            labels: legends,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+    });
+}
+
+/*
+*   Función para generar una gráfica de doughnut. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const doughnutGraph = (canvas, legends, values, title) => { 
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = ["#0a1733", "#0a1733","#11295c","#183b85","#2151b8"]
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'doughnut',
+        data: {
+            labels: legends,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+    });
+}
+
+
+/*
+*   Función para generar una gráfica de area polar. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const polarGraph = (canvas, legends, values, title) => { 
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = ["#0a1733", "#0a1733","#11295c","#183b85","#2151b8"]
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'polarArea',
+        data: {
+            labels: legends,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+    });
+}
+
+/*
+*   Función para generar una gráfica de lineas verticales. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const lineGraph = (canvas, xAxis, yAxis, legend, title) => { 
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'line',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                borderColor: '#170a59',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }]
+            }
+        }
+    });
+}
