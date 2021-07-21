@@ -31,6 +31,7 @@ Login_Page::headerTemplateDashboard('Login | Administradores');
                         INGRESAR
                     </a>
                 </div>  
+                <a href="#">¿Olvido su usuario o contraseña?</a>
             </form>
         </div>
     </div>

@@ -62,12 +62,9 @@ class Database
         {
             self::connect();
             self::$statement = self::$connection->prepare($query);
-            if (self::$statement->execute($values)) 
-            {
+            if (self::$statement->execute($values)) {
                 $id = self::$connection->lastInsertId();
-            } 
-            else 
-            {
+            } else {
                 $id = 0;
             }
             // Se anula la conexión con el servidor de base de datos.

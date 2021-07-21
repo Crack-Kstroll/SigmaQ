@@ -31,7 +31,7 @@ class Cliente extends Validator
     */ 
     public function setId($value)
     {
-        if($this->validateNaturalNumber($value)){
+        if($this->validateNaturalNumber($value)) {
             $this->id = $value;
             return true;
         } else {
@@ -45,7 +45,7 @@ class Cliente extends Validator
     */ 
     public function setCodigo($value)
     {
-        if($this->validateNaturalNumber($value)){
+        if($this->validateNaturalNumber($value)) {
             $this->codigo = $value;
             return true;
         } else {
@@ -59,7 +59,7 @@ class Cliente extends Validator
     */ 
     public function setEstado($value)
     {
-        if ($this->validateBoolean($value)){
+        if ($this->validateBoolean($value)) {
             $this->estado = $value;
             return true;
         } else {
@@ -90,7 +90,7 @@ class Cliente extends Validator
         if ($this->validatePhone($value)) {
             $this->telefono = $value;
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -184,12 +184,9 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT estado FROM clientes where usuario = ? and estado = true';
         $params = array($usuario);
-        if ($data = Database::getRow($sql, $params)) 
-        {
+        if ($data = Database::getRow($sql, $params)) {
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -198,9 +195,7 @@ class Cliente extends Validator
     public function desactivateClient($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'UPDATE clientes
-        SET estado = false
-        WHERE usuario = ?;';
+        $sql = 'UPDATE clientes SET estado = false WHERE usuario = ?;';
         $params = array($usuario);
         return Database::executeRow($sql, $params);
     }
@@ -211,15 +206,12 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigocliente,estado,empresa FROM clientes WHERE usuario = ?';
         $params = array($usuario);
-        if ($data = Database::getRow($sql, $params)) 
-        {
+        if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['codigocliente'];
             $this->empresa = $data['empresa'];
             $this->usuario = $usuario;
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -231,12 +223,9 @@ class Cliente extends Validator
         $sql = 'SELECT clave FROM clientes WHERE codigocliente = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave'])) 
-        {
+        if (password_verify($password, $data['clave'])) {
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -301,8 +290,7 @@ class Cliente extends Validator
     public function updateRow()
     {
         // Verifica si existe clave en caso de no existir se actualizan los datos menos la clave
-        if ($this->clave != null) 
-        {
+        if ($this->clave != null) {
             // Se encripta la contraseña mediante el metodo password_hash
             $hash = password_hash($this->clave, PASSWORD_DEFAULT);
             // Declaracion de la sentencia SQL 
@@ -310,9 +298,7 @@ class Cliente extends Validator
             SET codigocliente = ?, empresa= ?, telefono = ?, correo = ?, usuario = ?, clave = ?
             WHERE codigocliente = ?';
             $params = array($this->id ,$this->empresa, $this->telefono, $this->correo,$this->usuario,$hash,$this->codigo);
-        } 
-        else
-        {
+        } else {
             $sql = 'UPDATE clientes
             SET codigocliente = ?, empresa= ?, telefono = ?, correo = ?, usuario = ?
             WHERE codigocliente = ?';
@@ -329,6 +315,38 @@ class Cliente extends Validator
         where codigocliente = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
+    }
+
+    // Funcion para actualizar los datos de un usuario de la base de datos
+    public function editProfile($codigo)
+    {
+        $sql = 'UPDATE public.clientes
+        SET empresa=?, telefono=?, correo=?, usuario=?
+        WHERE codigocliente=?;';
+        // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
+        $params = array($this->empresa ,$this->telefono, $this->correo, $this->usuario,$codigo);
+        return Database::executeRow($sql, $params);
+    }
+
+    // Funcion para cambiar la clave del usuario requiere de parametro el codigo de administrador de la variable de sesion 
+    public function changePassword($value)
+    {
+        // Se encripta la contraseña mediante la funcion password_hash
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        // Declaracion de la sentencia SQL 
+        $sql = 'UPDATE clientes SET clave = ? WHERE codigocliente = ?';
+        $params = array($hash, $value);
+        return Database::executeRow($sql, $params);
+    }
+
+    // Funcion para cargar los datos de un cliente en especifico
+    public function readProfile($value)
+    {
+        $sql = 'SELECT codigocliente,usuario, estado,empresa,telefono,correo,clave,intentos 
+        from clientes 
+        where codigocliente = ?';
+        $params = array($value);
+        return Database::getRow($sql, null);
     }
 
     // Funcion para cambiar el estado de un cliente a desactivado 

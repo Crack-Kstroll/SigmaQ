@@ -23,7 +23,7 @@ class Usuario extends Validator
     {
         if ($value != null) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
@@ -34,10 +34,10 @@ class Usuario extends Validator
     */ 
     public function setId($value)
     {
-        if($this->validateNaturalNumber($value)){
+        if($this->validateNaturalNumber($value)) {
             $this->id = $value;
             return true;
-        } else{
+        } else {
             return false;         
         }       
     }
@@ -48,7 +48,7 @@ class Usuario extends Validator
     */ 
     public function setCodigo($value)
     {
-        if($this->validateNaturalNumber($value)){
+        if($this->validateNaturalNumber($value)) {
             $this->codigo = $value;
             return true;
         } else {
@@ -160,8 +160,7 @@ class Usuario extends Validator
     */ 
     public function setUsuario($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 35)) 
-        {
+        if ($this->validateAlphanumeric($value, 1, 35)) {
             $this->usuario = $value;
             return true;
         } else {
@@ -246,12 +245,9 @@ class Usuario extends Validator
         $sql = 'SELECT estado FROM administradores where usuario = ? and estado = true';
         $params = array($usuario);
         // Se compara si los datos ingresados coinciden con el resultado obtenido de la base de datos
-        if ($data = Database::getRow($sql, $params)) 
-        {
+        if ($data = Database::getRow($sql, $params)) {
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -275,17 +271,14 @@ class Usuario extends Validator
         $sql = 'SELECT codigoadmin,estado,nombre,apellido FROM administradores WHERE usuario = ?';
         $params = array($usuario);
         // Se comprueba si el usuario existe en la base de datos
-        if ($data = Database::getRow($sql, $params)) 
-        {
+        if ($data = Database::getRow($sql, $params)) {
             // Obtenemos los datos devueltos en la consulta para igualarlos a los atributos de la clase 
             $this->id = $data['codigoadmin'];
             $this->nombre = $data['nombre'];
             $this->apellido = $data['apellido'];
             $this->usuario = $usuario;
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -297,12 +290,9 @@ class Usuario extends Validator
         $sql = 'SELECT clave FROM administradores WHERE codigoadmin = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave'])) 
-        {
+        if (password_verify($password, $data['clave'])) {
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }

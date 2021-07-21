@@ -25,8 +25,7 @@ class Dashboard_Page
         ');
         $filename = basename($_SERVER['PHP_SELF']);
         if (isset($_SESSION['nombre'])) {
-            if ($filename != 'index.php' && $filename != 'register.php') 
-            {
+            if ($filename != 'index.php' && $filename != 'register.php') {
                 print('
                 <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
                 <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
@@ -86,14 +85,10 @@ class Dashboard_Page
                     </div>
                 </div> <!-- Cierra el contenedor sidebar -->
                 ');
-            } 
-            else 
-            {
+            } else {
                 header('location: main.php');
             }
-        } 
-        else 
-        {
+        } else {
             header('location: index.php');
         }
     }
