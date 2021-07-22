@@ -13,7 +13,8 @@ class Usuario extends Validator
     private $direccion = null;
     private $usuario = null;  
     private $clave = null;
-    private $codigo = null;    
+    private $codigo = null;  
+    private $tipo = null;      
 
     /* Funcion para validar si el contenido del input esta vacio
     *  Parámetro: valor del input  
@@ -154,6 +155,20 @@ class Usuario extends Validator
         }
     }
 
+    /* Funcion para validar si el tipo de usuario posee el tipo de dato correcto
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function setTipo($value)
+    {
+        if($this->validateNaturalNumber($value)) {
+            $this->tipo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /* Funcion para validar si el usuario posee el tipo de dato correcto
     *  Parámetro: valor del input  
     *  Retorna un valor tipo booleano
@@ -196,6 +211,11 @@ class Usuario extends Validator
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    public function getTipo()
+    {
+        return $this->tipo;
     }
 
     public function getApellido()
@@ -268,7 +288,7 @@ class Usuario extends Validator
     public function checkUser($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin,estado,nombre,apellido FROM administradores WHERE usuario = ?';
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,tipo FROM administradores WHERE usuario = ?';
         $params = array($usuario);
         // Se comprueba si el usuario existe en la base de datos
         if ($data = Database::getRow($sql, $params)) {
@@ -276,6 +296,7 @@ class Usuario extends Validator
             $this->id = $data['codigoadmin'];
             $this->nombre = $data['nombre'];
             $this->apellido = $data['apellido'];
+            $this->tipo = $data['tipo'];
             $this->usuario = $usuario;
             return true;
         } else {
@@ -323,7 +344,7 @@ class Usuario extends Validator
     public function readProfile($value)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin, estado, nombre, apellido, dui, correo, telefono, direccion, usuario, clave, intentos
+        $sql = 'SELECT codigoadmin, estado, nombre, apellido, dui, correo, telefono, direccion, usuario, clave, intentos,tipo
         FROM administradores WHERE codigoadmin = ?';
         $params = array($value);
         return Database::getRow($sql, $params);
@@ -344,7 +365,7 @@ class Usuario extends Validator
     public function searchRows($value)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,tipo
         from administradores
         WHERE CAST(codigoadmin AS CHAR) LIKE ? OR codigoadmin = ?
         order by estado desc';
@@ -355,9 +376,9 @@ class Usuario extends Validator
     // Funcion para cargar todos los registros en la tabla 
     public function readAll()
     {
-        $sql = 'SELECT codigoadmin,usuario,estado,nombre,apellido,dui,correo,telefono,direccion,intentos
+        $sql = 'SELECT codigoadmin,usuario,estado,nombre,apellido,dui,correo,telefono,direccion,tipo
         from administradores
-        order by estado desc';
+        order by tipo asc';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -366,7 +387,7 @@ class Usuario extends Validator
     public function readIndex()
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,intentos
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,tipo
         from administradores
         where estado = true';
         $params = null;
@@ -380,9 +401,9 @@ class Usuario extends Validator
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
         // Declaracion de la sentencia SQL 
         $sql = 'INSERT INTO administradores(codigoadmin, estado, nombre, apellido, dui, correo, telefono, 
-        direccion, usuario, clave, intentos) VALUES (?, default, ?, ?, ?, ?, ?, ?, ?, ?, default);';
+        direccion, usuario, clave,tipo) VALUES (?, default, ?, ?, ?, ?, ?, ?, ?, ?,?);';
         // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
-        $params = array($this->id, $this->nombre,$this->apellido, $this->dui,$this->correo, $this->telefono,$this->direccion,$this->usuario, $hash);
+        $params = array($this->id, $this->nombre,$this->apellido, $this->dui,$this->correo, $this->telefono,$this->direccion,$this->usuario, $hash,$this->tipo);
         return Database::executeRow($sql, $params);
     }
 
@@ -412,7 +433,7 @@ class Usuario extends Validator
     // Funcion para cargar los datos de un usuario en especifico
     public function readRow()
     {
-        $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido
+        $sql = "SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
         from administradores where codigoadmin = ?";
         // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
         $params = array($this->id);

@@ -122,9 +122,6 @@ body {
 /**** CIERRA SECCION DE CONTENIDO DE FORMULARIOS****/
 
 /****   SECCION DEL SIDEBAR   ****/
-.logOut-bottom {
-	/* bottom: 0px; */
-}
 
 .fondoNegro{
     background-color:black;
@@ -152,6 +149,11 @@ body {
 
 .espacioInfo{
 	padding-left: 30px;
+}
+
+.espacioTipo{
+	padding-left: 30px;
+	padding-top:5px;
 }
 
 

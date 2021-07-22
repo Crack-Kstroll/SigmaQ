@@ -50,6 +50,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<th>Teléfono</th>
 					<th>Usuario</th>
 					<th>Estado</th>
+					<th>Tipo</th>
 					<th>Opciones</th>
 				</tr>
 			</thead>

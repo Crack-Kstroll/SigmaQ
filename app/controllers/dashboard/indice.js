@@ -4,9 +4,37 @@ const API_INDICES = '../../app/api/dashboard/indiceEntrega.php?action=';
 
 // Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
 document.addEventListener('DOMContentLoaded', () => {
+    // Se manda a llamar funcion para tener la opcion de eliminar todos los registros de la base de datos
+    opcionesUsuario();
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_INDICES);
 })
+
+// Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
+const opcionesUsuario = () =>{  
+    let tipo = document.getElementById("tipoUsuario").value;
+    let contenido = '';
+    if (tipo == 'Root') {
+        contenido+= `
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            <div class="col-sm-4">
+                <button onclick="limpiarBase()" class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
+                </button>
+            </div>
+            `;      
+    } else {
+        contenido+= `
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            `; 
+    }
+    document.getElementById('seccionAgregar').innerHTML = contenido;
+}
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 const fillTable = (dataset) =>{  

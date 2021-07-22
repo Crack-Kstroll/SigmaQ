@@ -163,6 +163,67 @@ const confirmDelete = (api, data) => {
 }
 
 /*
+*   Función para eliminar todos los registros de una tabla (limpiar base de datos)
+*
+*   Parámetros: api (ruta del servidor para enviar los datos) y data (objeto con los datos del registro a eliminar).
+*
+*   Retorno: ninguno.
+*/
+const confirmClean = (api, data) => { 
+    // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
+    swal({
+        title: 'Advertencia',
+        text: '¿Desea eliminar todos los registros de la tabla?',
+        icon: 'warning',
+        buttons: ['No', 'Sí'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    }).then(function (value) {
+        swal({
+            title: 'Advertencia',
+            text: '¿Confirma la acción a realizar?',
+            icon: 'info',
+            buttons: ['No', 'Sí'],
+            closeOnClickOutside: false,
+            closeOnEsc: false
+        }).then(function (value) {
+            if (value) {
+                /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+                para acceder a los campos desde la API*/
+                fetch(api + 'deleteAll', {
+                    method: 'post',
+                    body: data
+                }).then(function (request) {
+                    // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+                    if (request.ok) {
+                        request.json().then(function (response) {
+                            // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                            if (response.status) {
+                                // Resetamos los vectores que contienen los registros de la tabla
+                                resetPagination();
+                                // Se cargan nuevamente las filas en la tabla de la vista después de borrar un registro.
+                                readRows(api);
+                                // Se muestra una alerta con el mensaje de exito
+                                sweetAlert(1, response.message, null);
+                            } else {
+                                sweetAlert(2, response.exception, null);
+                            }
+                        });
+                    } else {
+                        console.log(request.status + ' ' + request.statusText);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        });
+    });
+}
+
+// Se verifica si fue cliqueado el botón Sí para hacer la petición de borrado, de lo contrario no se hace nada.
+
+
+/*
 *   Función para eliminar un registro seleccionado en los mantenimientos de tablas (operación delete). Requiere el archivo sweetalert.min.js para funcionar.
 *
 *   Parámetros: api (ruta del servidor para enviar los datos) y data (objeto con los datos del registro a eliminar).

@@ -11,7 +11,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
     <div class="container-fluid">
 		<form method="post" id="search-form">
 			<div class="row">
-				<div class="col-sm-9">
+				<div class="col-sm-8">
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
@@ -25,9 +25,11 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					<!-- Boton para ingresar nuevos registros --> 
-					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+					<div id="seccionAgregar" class="row">
+						
+					</div>	
 				</div>
 			</div>
 		</form>

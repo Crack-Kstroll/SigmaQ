@@ -49,7 +49,14 @@ class Dashboard_Page
                         <div class="container espacioInfo">
                             <h6 id="datosAdmin" class="letraBlanca">' . $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] . '</h6>
                         </div>
+                        <div class="container espacioTipo">
+                            <h6 id="datosAdmin" class="letraBlanca">' . 'Tipo: ' . $_SESSION['tipo'] . '</h6>
+                        </div>
+                        <input class="d-none" type="text" id="tipoUsuario" name="tipoUsuario" value="'. $_SESSION['tipo'] .'">
                     </div>   <!-- Cierra seccion informacion de usuario -->
+                ');
+                if ($_SESSION['tipo'] == 'Root') {
+                    print('
                     <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
                         <div class="card-header fondoAcordeon" id="headingOne"> 
                             <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
@@ -85,6 +92,37 @@ class Dashboard_Page
                     </div>
                 </div> <!-- Cierra el contenedor sidebar -->
                 ');
+                } else {
+                    print('
+                    <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
+                        <div class="card-header fondoAcordeon" id="headingOne"> 
+                            <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+                                Mantenimientos
+                            </button>            
+                        </div>      
+                        <a href="indice.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
+                            <img class="tamañoIconos" src="../../resources/img/icons/seguimiento.png" alt=""> 
+                            Índice de entrega
+                        </a>
+                        <a href="estado.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
+                            <img class="tamañoIconos" src="../../resources/img/icons/estadoCuenta.png" alt=""> 
+                            Estados de cuenta
+                        </a>
+                        <a href="pedidos.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
+                            <img class="tamañoIconos" src="../../resources/img/icons/pedidos.png" alt=""> 
+                            Estatus de pedidos
+                        </a>                              
+                    </div>  <!-- Cierra seccion de opciones del sidebar -->  
+                    <div class=" position-relative ">
+                        <a onclick="logOut()" class="list-group-item fondoAcordeon textoBlanco sinBorde position-absolute w-100 logOut-bottom">
+                            <img class="tamañoIconos" src="../../resources/img/icons/cerrarSesion.png" alt=""> 
+                            Cerrar Sesión
+                        </a>
+                    </div>
+                </div> <!-- Cierra el contenedor sidebar -->
+                ');
+                }
+                
             } else {
                 header('location: main.php');
             }

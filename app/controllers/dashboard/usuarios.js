@@ -16,6 +16,8 @@ const fillTable = (dataset) =>{
     // Variables para almacernar los nombres de los iconos del los botones y del estado del usuario en la tabla
     let iconToolTip = '';
     let iconMetod = '';
+    let iconType = '';
+    let iconTypeTooltip = '';
     dataset.map(function (row) {
         // Definimos el icono a mostrar en la tabla segun el estado del registro
         if (row.estado) {
@@ -36,7 +38,14 @@ const fillTable = (dataset) =>{
             // Tooltip para indicar la accion que realiza el boton
             iconToolTip = 'Habilitar'; 
             // Se asigna el siguiente icono al boton
-            iconMetod= 'check_circle_outline'
+            iconMetod= 'check_circle_outline';
+        }
+        if (row.tipo == 1) {
+            iconType = 'folder_special';
+            iconTypeTooltip = 'Root';
+        } else {
+            iconType = 'folder_shared';
+            iconTypeTooltip = 'Admin';
         }
         // Definimos la estructura de las filas con los campos del dataset 
         data += `
@@ -49,6 +58,7 @@ const fillTable = (dataset) =>{
                 <td>${row.telefono}</td>
                 <td>${row.usuario}</td>
                 <td><i class="material-icons">${icon}</i></td>
+                <td><i class="material-icons" data-toggle="tooltip" title="${iconTypeTooltip}">${iconType}</i></a></td>
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.codigoadmin})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
