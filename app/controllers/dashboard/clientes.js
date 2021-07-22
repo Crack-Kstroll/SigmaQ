@@ -79,8 +79,11 @@ const fillTable = (dataset) => {
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
-    // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
-    generatePagination();
+    // Se verifica si el contenido que se imprimio en la tabla no estaba vacio
+    if (content[0] != null) {
+        // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
+        generatePagination();
+    }
 }
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.

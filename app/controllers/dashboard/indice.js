@@ -20,7 +20,7 @@ const opcionesUsuario = () =>{
                 <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
             </div>
             <div class="col-sm-4">
-                <button onclick="limpiarBase()" class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+                <button class="centrarBoton btn btn-outline-info my-2 my-sm-0">
                     <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
                 </button>
             </div>
@@ -103,8 +103,12 @@ const fillTable = (dataset) =>{
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
-    // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
-    generatePagination();
+    // Se verifica si el contenido que se imprimio en la tabla no estaba vacio
+    if (content[0] != null) {
+        // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
+        generatePagination();
+    }
+    
 }
 
 // Función para guardar los registros del form
@@ -151,6 +155,14 @@ document.getElementById('search-form').addEventListener('submit', function (even
     event.preventDefault();
     // Se ejecuta la funcion search rows de components y se envia como parametro la api y el form que contiene el input buscar
     searchRows(API_INDICES, 'search-form');
+});
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('delete-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmClean(API_INDICES);
 });
 
 // Función para abrir el Form al momento de crear un registro

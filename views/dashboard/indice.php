@@ -9,9 +9,9 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
     </div>
     <!-- Seccion de busqueda filtrada --> 
     <div class="container-fluid">
-		<form method="post" id="search-form">
 			<div class="row">
 				<div class="col-sm-8">
+					<form method="post" id="search-form">
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
@@ -24,15 +24,19 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 							</button>
 						</div>
 					</div>
+					</form>
 				</div>
 				<div class="col-sm-4">
+				<form method="post" id="delete-form">
+
 					<!-- Boton para ingresar nuevos registros --> 
 					<div id="seccionAgregar" class="row">
 						
 					</div>	
+				</form>
 				</div>
 			</div>
-		</form>
+		
 	</div>
 	<!-- Cierra seccion de busqueda filtrada -->		
 	<!-- Seccion de tabla de usuarios -->

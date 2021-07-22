@@ -93,8 +93,10 @@ const searchRows = (api, form) => {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    // Resetamos los vectores que contienen los registros de la tabla
+                    // Se resetean los valores de los arreglos de la paginacion
                     resetPagination();
+                    // Borramos el contenido de la tabla
+                    deleteTable();
                     // Se envían los datos a la función del controlador para que llene la tabla en la vista.
                     fillTable(response.dataset);
                     // Mostramos alerta con mensaje de exito
@@ -169,7 +171,7 @@ const confirmDelete = (api, data) => {
 *
 *   Retorno: ninguno.
 */
-const confirmClean = (api, data) => { 
+const confirmClean = (api) => { 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -191,18 +193,15 @@ const confirmClean = (api, data) => {
                 /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
                 para acceder a los campos desde la API*/
                 fetch(api + 'deleteAll', {
-                    method: 'post',
-                    body: data
+                    method: 'post'
                 }).then(function (request) {
                     // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
                     if (request.ok) {
                         request.json().then(function (response) {
                             // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                             if (response.status) {
-                                // Resetamos los vectores que contienen los registros de la tabla
-                                resetPagination();
-                                // Se cargan nuevamente las filas en la tabla de la vista después de borrar un registro.
-                                readRows(api);
+                                // Borramos el contenido de la tabla 
+                                deleteTable();
                                 // Se muestra una alerta con el mensaje de exito
                                 sweetAlert(1, response.message, null);
                             } else {
