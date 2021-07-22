@@ -416,16 +416,16 @@ class Usuario extends Validator
             $hash = password_hash($this->clave, PASSWORD_DEFAULT);
             // Declaracion de la sentencia SQL 
             $sql = 'UPDATE administradores
-            SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? , clave = ?
+            SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? , clave = ?, tipo = ?
             WHERE codigoadmin = ?';
             // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
-            $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$hash,$this->codigo);
+            $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$this->tipo,$hash,$this->codigo);
         } else {
             $sql = 'UPDATE administradores
-            SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? 
+            SET codigoadmin = ?, nombre = ?, apellido = ?, dui = ?, correo = ?, telefono = ? , direccion = ? , usuario = ? ,tipo = ?
             WHERE codigoadmin = ?';
             // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
-            $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$this->codigo);
+            $params = array($this->id ,$this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->direccion,$this->usuario,$this->tipo,$this->codigo);
         }    
         return Database::executeRow($sql, $params);
     }

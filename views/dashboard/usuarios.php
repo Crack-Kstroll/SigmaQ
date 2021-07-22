@@ -118,11 +118,21 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
         						</div>
 							</div>
 							<div class="form-group">
-								<label>Dirección*</label>
-								<input id="txtDireccion" name="txtDireccion" type="text" maxlength="150"  class="form-control" placeholder="Avenida Aguilares 218 San Salvador CP, 1101" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<label>Tipo usuario*</label>
+								<select id="tipo" name="tipo" class="form-control">
+									<option selected>Seleccione un tipo de usuario</option>
+  									<option value="1">Root</option>
+  									<option value="2">Admin</option>
+								</select>
 							</div>		
 							<div id="boxConfirmar" class="form-group">				
 							</div>	
+						</div>	
+						<div class="col-12">
+							<div class="form-group">
+								<label>Dirección*</label>
+								<input id="txtDireccion" name="txtDireccion" type="text" maxlength="150"  class="form-control" placeholder="Avenida Aguilares 218 San Salvador CP, 1101" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+							</div>
 						</div>	
 					</div>
 				</form>

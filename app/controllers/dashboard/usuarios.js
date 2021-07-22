@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) =>{
+const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -106,7 +106,7 @@ document.getElementById('search-form').addEventListener('submit', function (even
 });
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openUpdateDialog = (id) =>{  
+const openUpdateDialog = (id) => {  
     //Mandamos a llamar la funcion para colocar el titulo al formulario
     modalTitle(id);
     // Asignamos el valor del parametro id al campo del id del modal
@@ -133,6 +133,7 @@ const openUpdateDialog = (id) =>{
                     document.getElementById('txtTelefono').value = response.dataset.telefono;
                     document.getElementById('txtDireccion').value = response.dataset.direccion;
                     document.getElementById('txtUsuario').value = response.dataset.usuario;
+                    document.getElementById("tipo").selectedIndex = response.dataset.tipo;
                 } else { 
                     // En caso de fallar se muestra el mensaje de error 
                     sweetAlert(2, response.exception, null);
@@ -148,7 +149,7 @@ const openUpdateDialog = (id) =>{
 }
 
 // Función para definir si el metodo a ejecutar es guardar o actualizar.
-const saveData = () =>{  
+const saveData = () => {  
     // Se define atributo que almacenara la accion a realizar
     let action = '';
     // Se comprara el valor del input id 
@@ -162,7 +163,7 @@ const saveData = () =>{
 }
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
-const modalTitle = (id) =>{  
+const modalTitle = (id) => {  
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Ocultamos el input que contiene el ID del registro
