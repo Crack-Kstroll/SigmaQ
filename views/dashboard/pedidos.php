@@ -4,8 +4,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos','dashboard');
 ?>
 
 <!-- Seccion de contenido -->
-<div id="contenido" class="container-fluid fondo"> 
-    
+<div id="contenido" class="container-fluid fondo">    
 	<!-- Seccion de titulo de pagina -->
 	<div class="container-fluid espacioSuperior"> 
         <h5 class="tituloMto">Gestión de pedidos</h5>
@@ -15,13 +14,13 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos','dashboard');
     
 	<!-- Seccion de busqueda filtrada --> 
     <div class="container-fluid">
-		<form method="post" id="search-form">
 			<div class="row">
-				<div class="col-sm-9">
+				<div class="col-sm-8">
+					<form method="post" id="search-form">
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
-							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, usuario, correo y empresa" aria-label="search">
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
 						<div class="col-sm-2">
 							<!-- Boton para busqueda filtrada --> 
@@ -30,13 +29,19 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos','dashboard');
 							</button>
 						</div>
 					</div>
+					</form>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
+				<form method="post" id="delete-form">
+
 					<!-- Boton para ingresar nuevos registros --> 
-					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Pedido</button></a>							
+					<div id="seccionAgregar" class="row">
+						
+					</div>	
+				</form>
 				</div>
 			</div>
-		</form>
+		
 	</div>
 	<!-- Cierra seccion de busqueda filtrada -->		
 	<div class="container-fluid espacioSuperior"> 

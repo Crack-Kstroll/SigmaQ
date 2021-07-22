@@ -7,8 +7,44 @@ const API_DIVISAS = '../../app/api/dashboard/divisas.php?action=readAll';
 
 // Método manejador de eventos que se ejecutara cuando cargue la pagina
 document.addEventListener('DOMContentLoaded', function () {
+    // Se manda a llamar funcion para tener la opcion de eliminar todos los registros de la base de datos
+    opcionesUsuario();
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);
+});
+
+// Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
+const opcionesUsuario = () =>{  
+    let tipo = document.getElementById("tipoUsuario").value;
+    let contenido = '';
+    if (tipo == 'Root') {
+        contenido+= `
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            <div class="col-sm-4">
+                <button class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
+                </button>
+            </div>
+            `;      
+    } else {
+        contenido+= `
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            `; 
+    }
+    document.getElementById('seccionAgregar').innerHTML = contenido;
+}
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('delete-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmClean(API_ESTADO);
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().

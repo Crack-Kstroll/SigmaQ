@@ -12,37 +12,34 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
-		<form method="post" id="search-form">
 			<div class="row">
-				<div class="col-sm-7">
+				<div class="col-sm-8">
+					<form method="post" id="search-form">
 					<div class="row">
-						<div class="col-sm-6">
-							<!-- Campo de busqueda filtrada -->
-							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por sociedad o responsable" aria-label="search">
+						<div class="col-sm-5">
+							<!-- Campo de busqueda filtrada --> 
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
 						<div class="col-sm-2">
-							<!-- Boton para busqueda filtrada -->
+							<!-- Boton para busqueda filtrada --> 
 							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 								<i class="material-icons">search</i></button>
 							</button>
 						</div>
 					</div>
+					</form>
 				</div>
 				<div class="col-sm-4">
-					<!-- Boton para ingresar nuevos registros -->
-					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar estado</button></a>
+				<form method="post" id="delete-form">
+
+					<!-- Boton para ingresar nuevos registros --> 
+					<div id="seccionAgregar" class="row">
+						
+					</div>	
+				</form>
 				</div>
-				<!-- <div class="col-sm-2"> -->
-					<!-- Boton para ingresar nuevos registros -->
-					<!-- <a class="btn btn-success btn-md " onclick="openCreateDialogDivisas()" role="button" aria-disabled="true">Admin. Divisas</button></a>
-				</div> -->
-				<!-- <div class="col-sm-2"> -->
-					<!-- Boton para ingresar nuevos registros -->
-					<!-- <a class="btn btn-warning btn-md " onclick="openCreateDialogSociedades()" role="button" aria-disabled="true">Admin. Sociedades</button></a>
-				</div> -->
 			</div>
-		</form>
-		<!-- Cierra seccion de busqueda filtrada -->
+		
 	</div>
 
 	<div class="container-fluid espacioSuperior"> 

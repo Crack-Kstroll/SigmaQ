@@ -203,7 +203,7 @@ if (isset($_GET['action']))
                     $result['exception'] = 'Codigo incorrecto';
                 }
             break;
-            //Caso para desactivar un registro
+            //Caso para eliminar todos los registros de la base de datos
             case 'deleteAll':
                 // Ejecutamos funcion para desactivar un usuario
                 if ($indice->deleteAll()) {

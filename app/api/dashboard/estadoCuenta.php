@@ -30,6 +30,18 @@ if (isset($_GET['action']))
                     }
                 }
             break;
+            //Caso para eliminar todos los registros de la base de datos
+            case 'deleteAll':
+                // Ejecutamos funcion para desactivar un usuario
+                if ($estadoCuenta->deleteAll()) {
+                    $result['status'] = 1;
+                    // Mostramos mensaje de exito
+                    $result['message'] = 'Datos eliminados correctamente'; 
+                    // En caso de que alguna validacion falle se muestra el mensaje con el error 
+                } else {
+                    $result['exception'] = Database::getException();
+                }        
+            break;
             //Caso para insertar un registro
             case 'create':
                 //Validamos los datos del formulario

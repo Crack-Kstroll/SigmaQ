@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     readRows(API_INDICES);
 })
 
-// Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
+// Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
 const opcionesUsuario = () =>{  
     let tipo = document.getElementById("tipoUsuario").value;
     let contenido = '';

@@ -278,6 +278,18 @@ if (isset($_GET['action']))
                     $result['exception'] = 'Codigo incorrecto';
                 }
             break;
+            //Caso para eliminar todos los registros de la base de datos
+            case 'deleteAll':
+                // Ejecutamos funcion para desactivar un usuario
+                if ($pedido->deleteAll()) {
+                    $result['status'] = 1;
+                    // Mostramos mensaje de exito
+                    $result['message'] = 'Datos eliminados correctamente'; 
+                    // En caso de que alguna validacion falle se muestra el mensaje con el error 
+                } else {
+                    $result['exception'] = Database::getException();
+                }        
+            break;
             //Caso para activar un registro
             case 'activate':
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores

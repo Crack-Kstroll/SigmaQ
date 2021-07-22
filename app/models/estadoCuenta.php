@@ -268,6 +268,13 @@ class EstadoCuenta extends Validator
         return Database::getRows($sql, $params);
     }
 
+    //Función para eliminar un registro
+    public function deleteAll() 
+    {
+        $query="DELETE FROM estadocuentas";
+        return Database::executeRow($query, null);
+    }
+
     // Función para seleccionar solo un estado
     public function SelectOneEstadoCuenta()
     {
