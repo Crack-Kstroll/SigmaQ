@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
-const opcionesUsuario = () =>{  
+const opcionesUsuario = () => {  
     let tipo = document.getElementById("tipoUsuario").value;
     let contenido = '';
     if (tipo == 'Root') {
@@ -37,7 +37,7 @@ const opcionesUsuario = () =>{
 }
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) =>{  
+const fillTable = (dataset) => {  
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -179,7 +179,7 @@ const openCreateDialog = () => {
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openUpdateDialog = (id) =>{ 
+const openUpdateDialog = (id) => { 
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     //Se abre el form

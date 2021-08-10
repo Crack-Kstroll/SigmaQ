@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
-const opcionesUsuario = () =>{  
+const opcionesUsuario = () => {  
     let tipo = document.getElementById("tipoUsuario").value;
     let contenido = '';
     if (tipo == 'Root') {
@@ -48,7 +48,7 @@ document.getElementById('delete-form').addEventListener('submit', function (even
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) =>{
+const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -149,7 +149,7 @@ const openCreateDialog = () => {
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openUpdateDialog = (id) =>{
+const openUpdateDialog = (id) => {
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Asignamos el valor del parametro id al campo del id del modal
@@ -229,7 +229,7 @@ const openDeleteDialog = (id) => {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-const openActivateDialog = (id) =>{ 
+const openActivateDialog = (id) => { 
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);

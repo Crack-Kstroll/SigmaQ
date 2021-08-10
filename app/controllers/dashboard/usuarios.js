@@ -175,7 +175,7 @@ const modalTitle = (id) => {
     // Atributo para almacenar el input confirmar clave
     let confirmar = '';
     // Compramos si el contenido el input esta vacio
-    if(id == 0){
+    if(id == 0) {
         titulo = 'Registrar usuario'; // En caso que no exista valor se registra
         clave = `<label  id="lblClave">Contraseña*</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
@@ -188,7 +188,7 @@ const modalTitle = (id) => {
             La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
         </div>`;     
     }
-    else{
+    else {
         titulo = 'Actualizar usuario';  // En caso que exista se actualiza 
         clave = `<label  id="lblClave">Contraseña</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
@@ -208,7 +208,7 @@ const modalTitle = (id) => {
 }
 
 // Función para establecer el registro a eliminar y abrir una caja de dialogo de confirmación.
-const openDeleteDialog = (id) =>{  
+const openDeleteDialog = (id) => {  
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -217,7 +217,7 @@ const openDeleteDialog = (id) =>{
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-const openActivateDialog = () =>{ 
+const openActivateDialog = () => { 
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);

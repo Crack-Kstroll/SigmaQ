@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para obtener y mostrar las categorías existentes en la base.
-const readProfile = () =>{  
+const readProfile = () => {  
     // Se realiza solicitud a la API de usuarios enviando como parametro el metodo readProfile para obtener los datos del usuario activo
     fetch(API_USUARIOS + 'readProfile', {
         method: 'get'
@@ -37,7 +37,7 @@ const readProfile = () =>{
 }
 
 // Función para obtener y mostrar las categorías existentes en la base.
-const modificarDatos = () =>{  
+const modificarDatos = () => {  
     fetch(API_USUARIOS + 'editProfile', {
         method: 'post',
         body: new FormData(document.getElementById('save-form'))
@@ -67,7 +67,7 @@ const modificarDatos = () =>{
 }
 
 // Función para obtener y mostrar las categorías existentes en la base.
-const actualizarContraseña = () =>{  
+const actualizarContraseña = () => {  
     fetch(API_USUARIOS + 'changePassword', {
         method: 'post',
         body: new FormData(document.getElementById('password-form'))

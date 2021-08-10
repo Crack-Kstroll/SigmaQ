@@ -482,14 +482,18 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
         type: 'bar',
         data: {
             labels: xAxis,
             datasets: [{
                 label: legend,
+                // Agregamos el arreglo con los datos para llenar el grafico
                 data: yAxis,
+                // Asignamos el color del borde del grafico
                 borderColor: '#220e5e',
                 borderWidth: 1,
+                // Colocamos el arreglo con los codigos de colores
                 backgroundColor: colors
             }]
         },
@@ -528,11 +532,14 @@ const pieGraph = (canvas, legends, values, title) => {
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
         type: 'pie',
         data: {
             labels: legends,
             datasets: [{
+                // Agregamos el arreglo con los datos para llenar el grafico
                 data: values,
+                // Colocamos el arreglo con los codigos de colores
                 backgroundColor: colors
             }]
         },
@@ -560,11 +567,14 @@ const doughnutGraph = (canvas, legends, values, title) => {
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
         type: 'doughnut',
         data: {
             labels: legends,
             datasets: [{
+                // Agregamos el arreglo con los datos para llenar el grafico
                 data: values,
+                // Colocamos el arreglo con los codigos de colores
                 backgroundColor: colors
             }]
         },
@@ -593,11 +603,14 @@ const polarGraph = (canvas, legends, values, title) => {
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
         type: 'polarArea',
         data: {
             labels: legends,
             datasets: [{
+                // Agregamos el arreglo con los datos para llenar el grafico
                 data: values,
+                // Colocamos el arreglo con los codigos de colores
                 backgroundColor: colors
             }]
         },
@@ -623,12 +636,15 @@ const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
         type: 'line',
         data: {
             labels: xAxis,
             datasets: [{
+                // Agregamos el arreglo con los datos para llenar el grafico
                 label: legend,
                 data: yAxis,
+                // Asignamos el color del borde del grafico
                 borderColor: '#170a59',
                 borderWidth: 1,
             }]
