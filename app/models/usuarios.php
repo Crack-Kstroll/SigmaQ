@@ -451,4 +451,40 @@ class Usuario extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para reporte de los clientes con mas productos adquiridos dentro del sistema
+    public function graficaUsuarios()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = "SELECT c.usuario,COUNT(codigocliente) as cantidad
+        FROM historialcliente h
+        INNER JOIN clientes c ON c.codigocliente = h.usuario
+        WHERE c.estado = true
+        GROUP BY c.usuario
+        ORDER BY cantidad DESC
+        LIMIT 5";
+        // Envio de parametros
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para cargar todos tipos de usuarios de la base de datos
+    public function readAll2()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT tipo,count(tipo) as cantidad 
+        from administradores group by tipo order by tipo';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para cargar registros de un tipo de usuario en especifico
+    public function readUsuariosTipo()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT codigoadmin,nombre,apellido,usuario,telefono,estado
+        FROM administradores 
+        WHERE tipo= ?';
+        $params = array($this->tipo);
+        return Database::getRows($sql, $params);
+    }
 }

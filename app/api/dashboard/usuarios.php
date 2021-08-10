@@ -457,6 +457,20 @@ if (isset($_GET['action']))
                     $result['exception'] = 'No se puede eliminar a si mismo';
                 }
             break;
+            // Caso para consulta de grafica cantidad de productos vendidos en los ultimos 30 dias
+            case 'graficaUsuarios':
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $cliente->graficaUsuarios()) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            break;
             case 'logIn': // Caso para el inicio de sesion del usuario
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $cliente->validateForm($_POST);

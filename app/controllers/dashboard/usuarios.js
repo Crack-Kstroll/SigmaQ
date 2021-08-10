@@ -105,6 +105,64 @@ document.getElementById('search-form').addEventListener('submit', function (even
     searchRows(API_USUARIOS, 'search-form');
 });
 
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('chart-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Se llaman a la funciones que muestran las 5 gráficas en la página web.
+    graficaAcciones();
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
+    myModal.show();
+});
+
+// Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
+function graficaAcciones() {
+    // Realizamos peticion a la API enviando el nombre del caso y metodo get debido a que la funcion de la API retorna datos
+    fetch(API_USUARIOS + 'graficaUsuarios', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se declara variable para guardar el numero de registros que han sido ingresados en el arreglo
+                let contador = 0;
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.usuario);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                    barGraph('chart1', categorias, cantidad, 'Cantidad de acciones realizadas', '');
+                } else {
+                    document.getElementById('chart1').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('report-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Abrimos el reporte en una pestaña nueva
+    window.open('../../app/reports/dashboard/usuarios.php');
+    // Mandamos a llamar la funcion para generar la grafica dentro del modal
+    sweetAlert(2, 'Reportiño', null);
+});
+
 // Función para preparar el formulario al momento de modificar un registro.
 const openUpdateDialog = (id) => {  
     //Mandamos a llamar la funcion para colocar el titulo al formulario

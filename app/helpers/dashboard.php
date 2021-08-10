@@ -140,6 +140,7 @@ class Dashboard_Page
             <script type="text/javascript" src="../../app/controllers/initialization.js"></script>
             <script type="text/javascript" src="../../app/controllers/paginacion.js"></script>
             <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+            <script type="text/javascript" src="../../resources/js/chart.js"></script>
             <script type="text/javascript" src="../../app/helpers/components.js"></script>
             <script type="text/javascript" src="../../app/controllers/dashboard/account.js"></script>
             <script type="text/javascript" src="../../app/controllers/dashboard/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->

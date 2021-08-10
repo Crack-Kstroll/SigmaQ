@@ -12,9 +12,9 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
     </div>
 	<!-- Seccion de busqueda filtrada --> 
     <div class="container-fluid">
-		<form method="post" id="search-form">
-			<div class="row">
-				<div class="col-sm-9">
+		<div class="row">
+			<div class="col-sm-8">
+				<form method="post" id="search-form">
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
@@ -26,15 +26,35 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 								<i class="material-icons">search</i></button>
 							</button>
 						</div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<!-- Boton para ingresar nuevos registros --> 
-					<a href="#" onclick="modalTitle(0)" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar usuario</button></a>						
-				</div>
+					</div>		
+				</form>
 			</div>
-		</form>
-	<!-- Cierra seccion de busqueda filtrada -->		
+			<!-- Cierra seccion de busqueda filtrada -->
+			<div class="col-sm-4">
+				<div class="row">
+					<div class="col-sm-6">
+						<!-- Boton para ingresar nuevos registros --> 
+						<a href="#" onclick="modalTitle(0)" class="btn btn-info btn-md " role="button" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Registrar usuario</button></a>
+					</div>
+					<div class="col-sm-2">
+						<form method="post" id="chart-form">
+							<!-- Boton para busqueda filtrada --> 
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit">
+								<i class="material-icons">insert_chart</i></button>
+							</button>
+						</form>
+					</div>
+					<div class="col-sm-2 ajustarboton">
+						<form method="post" id="report-form">
+							<!-- Boton para busqueda filtrada --> 
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit">
+								<i class="material-icons">assignment_ind</i></button>
+							</button>
+						</form>
+					</div>
+				</div>			
+			</div>
+		</div>		
 	</div>
 	<!-- Seccion de tabla -->
 	<div class="container-fluid espacioSuperior"> 
@@ -62,7 +82,24 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 		</div> <!-- Cierra controladores de tabla --> 
 	<!-- Cierra seccion de tabla -->
 	</div>
-	<!-- Modal  -->
+	<!-- Modal chart-modal -->
+	<div class="modal fade" id="chart-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Gráfica de los cinco clientes con más acciones realizadas</h5>
+				</div>
+				<div class="modal-body">
+					<!-- Se muestra una gráfica de barra con la cantidad de productos por categoría -->
+					<canvas id="chart1"></canvas>                                                                                                   <br><br><br>	 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->  
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">

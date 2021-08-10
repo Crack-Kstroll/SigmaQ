@@ -117,8 +117,17 @@ body {
 .centrarBoton{
 	padding-bottom:0px;
 	padding-top:7px;
-
 }
+
+.centrarBoton2{
+	padding-bottom:0px;
+	padding-top:12px;
+}
+
+.ajustarboton{
+	padding-left:30px;
+}
+
 /**** CIERRA SECCION DE CONTENIDO DE FORMULARIOS****/
 
 /****   SECCION DEL SIDEBAR   ****/
