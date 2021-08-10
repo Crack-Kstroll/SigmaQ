@@ -12,7 +12,7 @@ if (isset($_GET['action']))
     $cliente = new Cliente;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
-    // Se compara la acción a realizar cuando un usuario ha iniciado sesión.
+    // Se compara la acción a realizar cuando un usuario ha iniciado sesión
     switch ($_GET['action']) 
     {
         case 'readAll':  // Caso para cargar los datos todos los datos en la tabla
