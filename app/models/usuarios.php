@@ -467,6 +467,21 @@ class Usuario extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Funcion para reporte de los clientes con mas productos adquiridos dentro del sistema
+    public function graficaParam($parametro)
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = "SELECT h.accion,COUNT(h.idregistro) as cantidad 
+		FROM historialusuario h 
+		INNER JOIN administradores a ON h.usuario = a.codigoadmin 
+		WHERE h.usuario = ?
+		GROUP BY h.accion
+		ORDER BY cantidad DESC";
+        // Envio de parametros
+        $params = array($parametro);
+        return Database::getRows($sql, $params);
+    }
+
     // Funcion para cargar todos tipos de usuarios de la base de datos
     public function readAll2()
     {
@@ -487,4 +502,21 @@ class Usuario extends Validator
         $params = array($this->tipo);
         return Database::getRows($sql, $params);
     }
+
+    // Metodo para cargar todos los usuarios existentes
+    public function readUsuarios()
+    {
+        $sql = 'SELECT codigoadmin,usuario from administradores where codigoadmin = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+    // Metodo para cargar los datos de los usuarios registrados en el sistema
+    public function readVentasCategorias()
+    {
+        $sql = 'SELECT accion,hora FROM historialusuario WHERE usuario = ? ORDER BY hora DESC';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
 }

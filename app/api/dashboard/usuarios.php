@@ -457,10 +457,26 @@ if (isset($_GET['action']))
                     $result['exception'] = 'No se puede eliminar a si mismo';
                 }
             break;
-            // Caso para consulta de grafica cantidad de productos vendidos en los ultimos 30 dias
+            // Caso para cargar los datos de la grafica general de usuarios usuarios con mas acciones realizadas
             case 'graficaUsuarios':
                 // Ejecutamos la funcion para cargar los datos de la base
                 if ($result['dataset'] = $cliente->graficaUsuarios()) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            break;
+            // Caso para cargar los datos de la grafica parametrizada de la cantidad de acciones realizadas por cada usuario
+            case 'graficaParam':
+                // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+                $_POST = $cliente->validateForm($_POST);    
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $cliente->graficaParam($_POST['id'])) {
                     $result['status'] = 1;
                 } else {
                     // Se ejecuta si existe algun error en la base de datos 
@@ -565,6 +581,11 @@ if (isset($_GET['action']))
                             $_SESSION['nombre'] = $cliente->getNombre();
                             $_SESSION['apellido'] = $cliente->getApellido();
                             $_SESSION['intentos'] = 0;
+                            if ($cliente->getTipo() != 1) {
+                                $_SESSION['tipo'] = 'Admin';
+                            } else {
+                                $_SESSION['tipo'] = 'Root';
+                            }
                             $result['status'] = 1;
                             // Mostramos mensaje de bienvenido al usuario
                             $result['message'] = 'Autenticación correcta, bienvenido';

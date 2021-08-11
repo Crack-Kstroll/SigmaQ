@@ -12,9 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
 const opcionesUsuario = () => {  
+    // Obtenemos el valor del tipo de usuario del panel lateral
     let tipo = document.getElementById("tipoUsuario").value;
     let contenido = '';
+    // Comparamos si el usuario es root
     if (tipo == 'Root') {
+        // Cargamos el contenido correspondiente a los usuarios root
         contenido+= `
             <div class="col-sm-6">
                 <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
@@ -26,6 +29,7 @@ const opcionesUsuario = () => {
             </div>
             `;      
     } else {
+        // Cargamos el contenido para los usuarios admins
         contenido+= `
             <div class="col-sm-4"></div>
             <div class="col-sm-6">
@@ -81,7 +85,7 @@ const fillTable = (dataset) => {
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 8 eso significa que la data contiene 8 filas
-        if (contador == 8) {
+        if (contador == 7) {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]

@@ -18,6 +18,7 @@ const fillTable = (dataset) => {
     let iconMetod = '';
     let iconType = '';
     let iconTypeTooltip = '';
+    // Recorremos el contenido del arreglo
     dataset.map(function (row) {
         // Definimos el icono a mostrar en la tabla segun el estado del registro
         if (row.estado) {
@@ -40,6 +41,7 @@ const fillTable = (dataset) => {
             // Se asigna el siguiente icono al boton
             iconMetod= 'check_circle_outline';
         }
+        // Verificamos el tipo de usuario
         if (row.tipo == 1) {
             iconType = 'folder_special';
             iconTypeTooltip = 'Root';
@@ -63,6 +65,10 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.codigoadmin})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
                 </td>
+                <td>
+                    <a href="#" onclick="parameterChart(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
+                    <a href="../../app/reports/dashboard/accionesUsuario.php?id=${row.codigoadmin}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte">assignment_ind</i></a>
+                </td>
             </tr>
         `;           
         // Agregamos uno al contador por la fila agregada anteriormente al data
@@ -84,7 +90,7 @@ const fillTable = (dataset) => {
         // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
         content.push(data); 
     } 
-    else{
+    else {
         // Se resta una posicion ya que no se agrego el contenido final por estar vacio
         posiciones = posiciones -1;
     }
@@ -115,6 +121,59 @@ document.getElementById('chart-form').addEventListener('submit', function (event
     var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
     myModal.show();
 });
+
+// Función para cargar el grafico parametrizado.
+const parameterChart = (id) => {
+    // Reseteamos el valor de los campos del modal
+    var ctx = document.getElementById('chart1').getContext('2d');
+    if (window.grafica) {
+        window.grafica.clear();
+        window.grafica.destroy();
+    }
+
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
+    myModal.show();
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Gráfica de número de acciones realizadas por cada usuario';
+    // Creamos un form data para enviar el id 
+    const data = new FormData();
+    data.append('id', id);
+    // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
+    fetch(API_USUARIOS + 'graficaParam', {
+        method: 'post',
+        body: data 
+    }).then( request => { 
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) { 
+           return request.json()
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    // En ocurrir un error se muestra en la consola 
+    }).then( response => {
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+        if (response.status) {
+            // Se declaran los arreglos para guardar los datos por gráficar.
+            let categorias = [];
+            let cantidad = [];
+            // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+            response.dataset.map(function (row) {
+                // Se asignan los datos a los arreglos.
+                categorias.push(row.accion);
+                cantidad.push(row.cantidad);        
+            });
+            // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+            pieGraph('chart1', categorias, cantidad, '');
+        } else {
+            document.getElementById('chart1').remove();
+            console.log(response.exception);
+        }
+    }
+    ).catch(function (error) {
+        console.log(error);
+    });
+}
 
 // Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
 function graficaAcciones() {
@@ -159,8 +218,6 @@ document.getElementById('report-form').addEventListener('submit', function (even
     event.preventDefault();
     // Abrimos el reporte en una pestaña nueva
     window.open('../../app/reports/dashboard/usuarios.php');
-    // Mandamos a llamar la funcion para generar la grafica dentro del modal
-    sweetAlert(2, 'Reportiño', null);
 });
 
 // Función para preparar el formulario al momento de modificar un registro.

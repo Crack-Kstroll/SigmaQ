@@ -39,7 +39,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<div class="col-sm-2">
 						<form method="post" id="chart-form">
 							<!-- Boton para busqueda filtrada --> 
-							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit">
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar gráfico">
 								<i class="material-icons">insert_chart</i></button>
 							</button>
 						</form>
@@ -47,7 +47,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<div class="col-sm-2 ajustarboton">
 						<form method="post" id="report-form">
 							<!-- Boton para busqueda filtrada --> 
-							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit">
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte">
 								<i class="material-icons">assignment_ind</i></button>
 							</button>
 						</form>
@@ -72,6 +72,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 					<th>Estado</th>
 					<th>Tipo</th>
 					<th>Opciones</th>
+					<th>Extras</th>
 				</tr>
 			</thead>
 			<!-- Contenido de la tabla -->
@@ -87,7 +88,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Gráfica de los cinco clientes con más acciones realizadas</h5>
+					<h5 class="modal-title" id="title-chart">Gráfica de los cinco clientes con más acciones realizadas</h5>
 				</div>
 				<div class="modal-body">
 					<!-- Se muestra una gráfica de barra con la cantidad de productos por categoría -->
@@ -98,7 +99,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>			
 	<!-- Modal -->  
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
