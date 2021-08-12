@@ -111,12 +111,12 @@ document.getElementById('search-form').addEventListener('submit', function (even
     searchRows(API_USUARIOS, 'search-form');
 });
 
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+// Método manejador de eventos que se ejecuta cuando quiere cargar el grafico
 document.getElementById('chart-form').addEventListener('submit', function (event) {
     // Evitamos que la pagina se refresque 
     event.preventDefault();
     // Colocamos el titulo del modal 
-    document.getElementById('title-chart').textContent = 'Top 5 de clientes con más acciones';
+    document.getElementById('title-chart').textContent = 'Top 5 de usuarios con más acciones';
     // Se llama la funcion que muestra el gráfico en el modal.
     graficaAcciones();
     // Mandamos a llamar el modal desde JS
@@ -173,7 +173,7 @@ const parameterChart = (id) => {
                 cantidad.push(row.cantidad);        
             });
             // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
-            pieGraph('chart1', categorias, cantidad, '');
+            pieGraph('chart1', categorias, cantidad, 'Cantidad de acciones realizadas');
         } else {
             document.getElementById('chart1').remove();
             console.log(response.exception);

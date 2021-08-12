@@ -351,7 +351,37 @@ if (isset($_GET['action']))
             } else {
                 $result['exception'] = 'Codigo incorrecto';
             }
-        break;   
+        break;  
+        // Caso para cargar los datos de la grafica general de clientes con mas acciones realizadas
+        case 'graficaClientes':
+            // Ejecutamos la funcion para cargar los datos de la base
+            if ($result['dataset'] = $cliente->graficaClientes()) {
+                $result['status'] = 1;
+            } else {
+                // Se ejecuta si existe algun error en la base de datos 
+                if (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+            }
+        break;
+        // Caso para cargar los datos de la grafica parametrizada de la cantidad de acciones realizadas por cada usuario
+        case 'graficaParam':
+            // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+            $_POST = $cliente->validateForm($_POST);    
+            // Ejecutamos la funcion para cargar los datos de la base
+            if ($result['dataset'] = $cliente->graficaParam($_POST['id'])) {
+                $result['status'] = 1;
+            } else {
+                // Se ejecuta si existe algun error en la base de datos 
+                if (Database::getException()) {
+                    $result['exception'] = Database::getException();
+                } else {
+                    $result['exception'] = 'No hay datos disponibles';
+                }
+            }
+        break; 
         default:
             // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 
             $result['exception'] = 'Acción no disponible dentro de la sesión';

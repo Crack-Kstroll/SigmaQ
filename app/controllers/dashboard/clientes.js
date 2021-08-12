@@ -52,6 +52,10 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="openUpdateDialog(${row.codigocliente})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.codigocliente})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
                 </td>
+                <td>
+                    <a href="#" onclick="parameterChart(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
+                    <a href="../../app/reports/dashboard/accionesCliente.php?id=${row.codigocliente}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte">assignment_ind</i></a>
+                </td>
             </tr>
         `;
         // Agregamos uno al contador por la fila agregada anteriormente al data
@@ -92,6 +96,134 @@ document.getElementById('search-form').addEventListener('submit', function (even
     event.preventDefault();
     // Se ejecuta la funcion search rows de components y se envia como parametro la api y el form que contiene el input buscar
     searchRows(API_CLIENTES, 'search-form');
+});
+
+// Método manejador de eventos que se ejecuta cuando quiere cargar el grafico
+document.getElementById('chart-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Top 5 de clientes con más acciones';
+    // Se llama la funcion que muestra el gráfico en el modal.
+    graficaAcciones();
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
+    myModal.show();
+});
+
+// Funcion para borrar el grafico del modal
+const resetChart = () => {
+    // Reseteamos el contenido del chart
+    let content = '';
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
+}
+
+// Función para cargar el grafico parametrizado.
+const parameterChart = (id) => {
+    // Reseteamos el contenido del chart
+    resetChart();
+    // Creamos un atributo para guardar el codigo HTML para generar el grafico
+    let content = '<canvas id="chart1"></canvas>';
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
+    myModal.show();
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Top 5 de acciones más realizadas por un cliente';
+    // Creamos un form data para enviar el id 
+    const data = new FormData();
+    data.append('id', id);
+    // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
+    fetch(API_CLIENTES + 'graficaParam', {
+        method: 'post',
+        body: data 
+    }).then( request => { 
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) { 
+           return request.json()
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    // En ocurrir un error se muestra en la consola 
+    }).then( response => {
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+        if (response.status) {
+            // Se declaran los arreglos para guardar los datos por gráficar.
+            let categorias = [];
+            let cantidad = [];
+            // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+            response.dataset.map(function (row) {
+                // Se asignan los datos a los arreglos.
+                categorias.push(row.accion);
+                cantidad.push(row.cantidad);        
+            });
+            // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+            doughnutGraph('chart1', categorias, cantidad, 'Cantidad de acciones realizadas');
+        } else {
+            document.getElementById('chart1').remove();
+            console.log(response.exception);
+        }
+    }
+    ).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
+function graficaAcciones() {
+    // Reseteamos el contenido del chart
+    resetChart();
+    // Creamos un atributo para guardar el codigo HTML para generar el grafico
+    let content = '';
+    // Agregamos el codigo para generar el codigo
+    content += `
+        <canvas id="chart2"></canvas>
+    `;
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
+    // Realizamos peticion a la API enviando el nombre del caso y metodo get debido a que la funcion de la API retorna datos
+    fetch(API_CLIENTES + 'graficaClientes', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se declara variable para guardar el numero de registros que han sido ingresados en el arreglo
+                let contador = 0;
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.usuario);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                    polarGraph('chart2', categorias, cantidad, 'Cantidad de acciones realizadas', '');
+                } else {
+                    document.getElementById('chart2').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('report-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Abrimos el reporte en una pestaña nueva
+    window.open('../../app/reports/dashboard/clientes.php');
 });
 
 // Función para preparar el formulario al momento de modificar un registro.

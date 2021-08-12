@@ -360,4 +360,75 @@ class Cliente extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para reporte de los clientes con mas productos adquiridos dentro del sistema
+    public function graficaClientes()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = "SELECT c.usuario,COUNT(codigocliente) as cantidad
+        FROM historialcliente h
+        INNER JOIN clientes c ON c.codigocliente = h.usuario
+        WHERE c.estado = true
+        GROUP BY c.usuario
+        ORDER BY cantidad DESC
+        LIMIT 5";
+        // Envio de parametros
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para reporte de los clientes con mas productos adquiridos dentro del sistema
+    public function graficaParam($parametro)
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = "SELECT h.accion,COUNT(h.idregistro) as cantidad 
+		FROM historialcliente h 
+		INNER JOIN clientes c ON h.usuario = c.codigocliente
+		WHERE h.usuario = ?
+		GROUP BY h.accion
+		ORDER BY cantidad DESC
+        LIMIT 5";
+        // Envio de parametros
+        $params = array($parametro);
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para cargar todos tipos de usuarios de la base de datos
+    public function readEstado()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT estado,count(estado) as cantidad 
+        from clientes group by estado order by estado desc';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para cargar registros de un tipo de usuario en especifico
+    public function readUsuariosEstado()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT codigocliente,empresa,usuario,telefono,correo,estado
+        FROM clientes
+        WHERE estado = ? 
+        ORDER BY codigocliente';
+        $params = array($this->estado);
+        return Database::getRows($sql, $params);
+    }
+
+    // Metodo para cargar todos los usuarios existentes
+    public function readClientes()
+    {
+        $sql = 'SELECT codigocliente,usuario from clientes where codigocliente = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+    // Metodo para cargar los datos de los usuarios registrados en el sistema
+    public function readAccionesCliente()
+    {
+        $sql = 'SELECT accion,hora FROM historialcliente
+		WHERE usuario = ? ORDER BY hora DESC';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
 }
