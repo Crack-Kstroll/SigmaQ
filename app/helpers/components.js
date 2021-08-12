@@ -477,7 +477,7 @@ const fillSelect = (endpoint, select, selected) => {
 */
 const barGraph = (canvas, xAxis, yAxis, legend, title) => { 
     // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
-    let colors = ["#0a1733", "#0a1733","#11295c","#183b85","#2151b8"]
+    let colors = ["#000000", "#CE0E2D","#58595B","#E6E7E8","#FFFFFF"];
     // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
@@ -491,7 +491,7 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
                 // Agregamos el arreglo con los datos para llenar el grafico
                 data: yAxis,
                 // Asignamos el color del borde del grafico
-                borderColor: '#220e5e',
+                borderColor: '#000000',
                 borderWidth: 1,
                 // Colocamos el arreglo con los codigos de colores
                 backgroundColor: colors
@@ -502,6 +502,7 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
             legend: {
                 display: false
             },
+            // Colocamos el titulo al grafico
             title: {
                 display: true,
                 text: title
@@ -527,7 +528,7 @@ const barGraph = (canvas, xAxis, yAxis, legend, title) => {
 */
 const pieGraph = (canvas, legends, values, title) => { 
     // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
-    let colors = ["#0a1733", "#0a1733","#11295c","#183b85","#2151b8"]
+    let colors = ["#000000", "#CE0E2D","#58595B","#E6E7E8","#FFFFFF"]
     // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
@@ -540,7 +541,10 @@ const pieGraph = (canvas, legends, values, title) => {
                 // Agregamos el arreglo con los datos para llenar el grafico
                 data: values,
                 // Colocamos el arreglo con los codigos de colores
-                backgroundColor: colors
+                backgroundColor: colors,
+                // Asignamos el color del borde del grafico
+                borderColor: '#000000',
+                borderWidth: 1,
             }]
         },
         options: {
@@ -562,7 +566,7 @@ const pieGraph = (canvas, legends, values, title) => {
 */
 const doughnutGraph = (canvas, legends, values, title) => { 
     // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
-    let colors = ["#0a1733", "#0a1733","#11295c","#183b85","#2151b8"]
+    let colors = ["#000000", "#CE0E2D","#58595B","#E6E7E8","#FFFFFF"];
     // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
@@ -575,7 +579,10 @@ const doughnutGraph = (canvas, legends, values, title) => {
                 // Agregamos el arreglo con los datos para llenar el grafico
                 data: values,
                 // Colocamos el arreglo con los codigos de colores
-                backgroundColor: colors
+                backgroundColor: colors,
+                // Asignamos el color del borde del grafico
+                borderColor: '#000000',
+                borderWidth: 1,
             }]
         },
         options: {
@@ -598,7 +605,7 @@ const doughnutGraph = (canvas, legends, values, title) => {
 */
 const polarGraph = (canvas, legends, values, title) => { 
     // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
-    let colors = ["#0a1733", "#0a1733","#11295c","#183b85","#2151b8"]
+    let colors = ["#000000", "#CE0E2D","#58595B","#E6E7E8","#FFFFFF"];
     // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
@@ -611,7 +618,10 @@ const polarGraph = (canvas, legends, values, title) => {
                 // Agregamos el arreglo con los datos para llenar el grafico
                 data: values,
                 // Colocamos el arreglo con los codigos de colores
-                backgroundColor: colors
+                backgroundColor: colors,
+                // Asignamos el color del borde del grafico
+                borderColor: '#000000',
+                borderWidth: 1,
             }]
         },
         options: {
@@ -645,7 +655,7 @@ const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
                 label: legend,
                 data: yAxis,
                 // Asignamos el color del borde del grafico
-                borderColor: '#170a59',
+                borderColor: '#000000',
                 borderWidth: 1,
             }]
         },

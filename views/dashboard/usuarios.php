@@ -92,7 +92,8 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 				</div>
 				<div class="modal-body">
 					<!-- Se muestra una gráfica de barra con la cantidad de productos por categoría -->
-					<canvas id="chart1"></canvas>                                                                                                   <br><br><br>	 
+					<div id="chart-container" class="containter-fluid">
+					</div>  
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>

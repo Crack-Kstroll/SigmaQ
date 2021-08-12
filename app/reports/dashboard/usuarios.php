@@ -13,7 +13,7 @@ $categoria = new Usuario;
 if ($dataCategorias = $categoria->readAll2()) {
     // Se recorren los registros ($dataCategorias) fila por fila ($rowCategoria).
     foreach ($dataCategorias as $rowCategoria) {
-        $pdf->SetFillColor(0, 31, 97);
+        $pdf->SetFillColor(0,0,0);
         // Se establece la fuente para el nombre de la categoría.
         $pdf->SetFont('Helvetica', 'B', 12);
         $pdf->SetTextColor(255);
@@ -34,7 +34,7 @@ if ($dataCategorias = $categoria->readAll2()) {
             // Se verifica si existen registros (productos) para mostrar, de lo contrario se imprime un mensaje.
             if ($dataProductos = $categoria->readUsuariosTipo()) {
                 // Se establece un color de relleno para los encabezados.
-                $pdf->SetFillColor(220);
+                $pdf->SetFillColor(230,231,232);
                 // Se establece la fuente para los encabezados.
                 $pdf->SetFont('Helvetica', 'B', 11);
                 $pdf->SetTextColor(9,9,9);

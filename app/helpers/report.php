@@ -57,15 +57,15 @@ class Report extends FPDF
             // Se ubica el título.
             $this->Cell(20);
             $this->SetFont('Arial', 'B', 15);
-            $this->Cell(166, 12, utf8_decode($this->title), 0, 1, 'C');
+            $this->Cell(180, 12, utf8_decode($this->title), 0, 1, 'C');
             // Se ubica la fecha y hora del servidor.
             $this->Cell(20);
             $this->SetFont('Arial', '', 12);
-            $this->Cell(166, 10, utf8_decode('Fecha y hora de generación: ') .date('d-m-Y H:i:s'), 0, 1, 'C');
+            $this->Cell(180, 10, utf8_decode('Fecha y hora de generación: ') .date('d-m-Y H:i:s'), 0, 1, 'C');
             // Se setea el usuario de la sesión en el reporte.
             $this->Cell(20);
             $this->SetFont('Arial', '', 12);
-            $this->Cell(166, 10, ('Usuario que solicita el reporte: '. $_SESSION['usuario']), 0, 1, 'C');
+            $this->Cell(180, 10, ('Usuario que solicita el reporte: '. $_SESSION['usuario']), 0, 1, 'C');
             // Se agrega un salto de línea para mostrar el contenido principal del documento.
             $this->Ln(10);
         }       

@@ -115,27 +115,36 @@ document.getElementById('search-form').addEventListener('submit', function (even
 document.getElementById('chart-form').addEventListener('submit', function (event) {
     // Evitamos que la pagina se refresque 
     event.preventDefault();
-    // Se llaman a la funciones que muestran las 5 gráficas en la página web.
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Top 5 de clientes con más acciones';
+    // Se llama la funcion que muestra el gráfico en el modal.
     graficaAcciones();
     // Mandamos a llamar el modal desde JS
     var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
     myModal.show();
 });
 
+// Funcion para borrar el grafico del modal
+const resetChart = () => {
+    // Reseteamos el contenido del chart
+    let content = '';
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
+}
+
 // Función para cargar el grafico parametrizado.
 const parameterChart = (id) => {
-    // Reseteamos el valor de los campos del modal
-    var ctx = document.getElementById('chart1').getContext('2d');
-    if (window.grafica) {
-        window.grafica.clear();
-        window.grafica.destroy();
-    }
-
+    // Reseteamos el contenido del chart
+    resetChart();
+    // Creamos un atributo para guardar el codigo HTML para generar el grafico
+    let content = '<canvas id="chart1"></canvas>';
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
     // Mandamos a llamar el modal desde JS
     var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
     myModal.show();
     // Colocamos el titulo del modal 
-    document.getElementById('title-chart').textContent = 'Gráfica de número de acciones realizadas por cada usuario';
+    document.getElementById('title-chart').textContent = 'Top 5 de acciones más realizadas por un usuario';
     // Creamos un form data para enviar el id 
     const data = new FormData();
     data.append('id', id);
@@ -177,6 +186,16 @@ const parameterChart = (id) => {
 
 // Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
 function graficaAcciones() {
+    // Reseteamos el contenido del chart
+    resetChart();
+    // Creamos un atributo para guardar el codigo HTML para generar el grafico
+    let content = '';
+    // Agregamos el codigo para generar el codigo
+    content += `
+        <canvas id="chart2"></canvas>
+    `;
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
     // Realizamos peticion a la API enviando el nombre del caso y metodo get debido a que la funcion de la API retorna datos
     fetch(API_USUARIOS + 'graficaUsuarios', {
         method: 'get'
@@ -198,9 +217,9 @@ function graficaAcciones() {
                         cantidad.push(row.cantidad);
                     });
                     // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
-                    barGraph('chart1', categorias, cantidad, 'Cantidad de acciones realizadas', '');
+                    barGraph('chart2', categorias, cantidad, 'Cantidad de acciones realizadas', '');
                 } else {
-                    document.getElementById('chart1').remove();
+                    document.getElementById('chart2').remove();
                     console.log(response.exception);
                 }
             });

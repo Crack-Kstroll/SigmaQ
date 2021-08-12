@@ -455,9 +455,9 @@ class Usuario extends Validator
     public function graficaUsuarios()
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
-        $sql = "SELECT c.usuario,COUNT(codigocliente) as cantidad
-        FROM historialcliente h
-        INNER JOIN clientes c ON c.codigocliente = h.usuario
+        $sql = "SELECT c.usuario,COUNT(codigoadmin) as cantidad
+        FROM historialusuario h
+        INNER JOIN administradores c ON c.codigoadmin = h.usuario
         WHERE c.estado = true
         GROUP BY c.usuario
         ORDER BY cantidad DESC
@@ -476,7 +476,8 @@ class Usuario extends Validator
 		INNER JOIN administradores a ON h.usuario = a.codigoadmin 
 		WHERE h.usuario = ?
 		GROUP BY h.accion
-		ORDER BY cantidad DESC";
+		ORDER BY cantidad DESC
+        LIMIT 5";
         // Envio de parametros
         $params = array($parametro);
         return Database::getRows($sql, $params);
