@@ -53,7 +53,7 @@ if ($categoria->setId($_GET['id'])) {
                     // Se agrega un salto de línea para mostrar el contenido principal del documento.
                     $pdf->Ln(2);
                     $pdf->Cell(20);
-                    $pdf->SetFont('Arial', 'B', 10);}
+                    $pdf->SetFont('Arial', 'B', 10);
                     // Imprimos el numero total de acciones realizado
                     $pdf->Cell(280, 10, utf8_decode('Número total de acciones: ') .$numero, 0, 1, 'C');
                 } else {

@@ -30,7 +30,7 @@ if ($categoria->setId($_GET['id'])) {
             // Se establece el codigo de usuario para obtener sus acciones, de lo contrario se imprime un mensaje de error.
             if ($categoria->setId($rowCategoria['codigoadmin'])) {
                 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
-                if ($dataProductos = $categoria->readVentasCategorias()) {
+                if ($dataProductos = $categoria->readAcciones()) {
                     // Se establece un color de relleno para los encabezados.
                     $pdf->SetFillColor(230,231,232);
                     // Se establece la fuente para los encabezados.

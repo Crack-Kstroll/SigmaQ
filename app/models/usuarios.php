@@ -513,7 +513,7 @@ class Usuario extends Validator
     }
 
     // Metodo para cargar los datos de los usuarios registrados en el sistema
-    public function readVentasCategorias()
+    public function readAcciones()
     {
         $sql = 'SELECT accion,hora FROM historialusuario WHERE usuario = ? ORDER BY hora DESC';
         $params = array($this->id);
