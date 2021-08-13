@@ -6,32 +6,31 @@ require('../../models/clientes.php');
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
 $pdf->startReport('Reporte de clientes agrupado por estado');
-
-// Se instancia el módelo Categorías para obtener los datos.
+// Se instancia el módelo Cliente para obtener los datos.
 $categoria = new Cliente;
-// Se verifica si existen registros (categorías) para mostrar, de lo contrario se imprime un mensaje.
+// Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataCategorias = $categoria->readEstado()) {
-    // Se recorren los registros ($dataCategorias) fila por fila ($rowCategoria).
+    // Se recorren los registros fila por fila.
     foreach ($dataCategorias as $rowCategoria) {
         $pdf->SetFillColor(0,0,0);
-        // Se establece la fuente para el nombre de la categoría.
+        // Se establece la fuente para el estado del cliente.
         $pdf->SetFont('Helvetica', 'B', 12);
         $pdf->SetTextColor(255);
         // Creamos una variable para almacenar el encabezado de la celda
         $tipo = '';
-        // Compramamos el valor del estado de usuario
+        // Compramamos el valor del estado de cliente
         if ($rowCategoria['estado'] == 'true') {
-            // Si el estado es true es un usuario activo
+            // Si el estado es true es un cliente activo
             $tipo = 'Usuarios activos';
         } else {
-            // Si no esta inactvivo
+            // Si no esta inactivo
             $tipo = 'Usuarios inactivos';                                                                                                               $rowCategoria['estado'] = 'false';
         }
-        // Se imprime una celda con el nombre de la categoría.
+        // Se imprime una celda con el nombre del estado.
         $pdf->Cell(0, 10, utf8_decode($tipo), 1, 1, 'C', 1);
-        // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
+        // Se establece el estado para obtener sus clientes, de lo contrario se imprime un mensaje de error.
         if ($categoria->setEstado($rowCategoria['estado'])) {
-            // Se verifica si existen registros (productos) para mostrar, de lo contrario se imprime un mensaje.
+            // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataProductos = $categoria->readUsuariosEstado()) {
                 // Se establece un color de relleno para los encabezados.
                 $pdf->SetFillColor(230,231,232);
@@ -44,11 +43,11 @@ if ($dataCategorias = $categoria->readEstado()) {
                 $pdf->Cell(40, 10, utf8_decode('Usuario'), 1, 0, 'C', 1);
                 $pdf->Cell(36, 10, utf8_decode('Teléfono'), 1, 0, 'C', 1);
                 $pdf->Cell(50, 10, utf8_decode('Correo'), 1, 1, 'C', 1);
-                // Se establece la fuente para los datos de los productos.
+                // Se establece la fuente para los datos de los clientes.
                 $pdf->SetFont('Helvetica', '', 11);
-                // Se recorren los registros ($dataProductos) fila por fila ($rowProducto).
+                // Se recorren los registros fila por fila.
                 foreach ($dataProductos as $rowProducto) {
-                    // Se imprimen las celdas con los datos de los productos.
+                    // Se imprimen las celdas con los datos de los clientes.
                     $pdf->SetTextColor(9,9,9);
                     $pdf->Cell(20, 10, utf8_decode($rowProducto['codigocliente']), 1, 0);
                     $pdf->Cell(40, 10, utf8_decode($rowProducto['empresa']), 1, 0);
@@ -58,21 +57,21 @@ if ($dataCategorias = $categoria->readEstado()) {
                 }
                 // Comparamos el valor del tipo de usuario
                 if ($rowCategoria['estado'] == 'true') {
-                    // Comparamos si existe uno o mas registros dentro de la categoria
+                    // Comparamos si existe uno o mas registros dentro del estado
                     if ($rowCategoria['cantidad'] == 1) {
-                        // En caso de existir un solo registro se coloca el nombre de categoria en singular
+                        // En caso de existir un solo registro se coloca el nombre del estado en singular
                         $tipo = 'activo';
                     } else {
-                        // En caso de existir mas de un registro se coloca el nombre de la categoria en plural
+                        // En caso de existir mas de un registro se coloca el nombre del estado en plural
                         $tipo = 'activos';
                     } 
                 } else {
-                    // Comparamos si existe uno o mas registros dentro de la categoria
+                    // Comparamos si existe uno o mas registros dentro del estado
                     if ($rowCategoria['cantidad'] == 1) {
-                        // En caso de existir un solo registro se coloca el nombre de categoria en singular
+                        // En caso de existir un solo registro se coloca el nombre del estado en singular
                         $tipo = 'inactivo';
                     } else {
-                        // En caso de existir mas de un registro se coloca el nombre de la categoria en plural
+                        // En caso de existir mas de un registro se coloca el nombre del estado en plural
                         $tipo = 'inactivos';
                     }                    
                 }
@@ -84,15 +83,19 @@ if ($dataCategorias = $categoria->readEstado()) {
                 $pdf->Cell(283, 10, 'Existen ' .$rowCategoria['cantidad'].' usuarios '.$tipo, 0, 1, 'C');
                 $pdf->Ln(2);
             } else {
+                // Colocamos el color del texto a mostrar
                 $pdf->SetTextColor(9,9,9);
+                // Imprimimos el mensaje que no se encontraron clientes en ese estado
                 $pdf->Cell(0, 10, utf8_decode('No hay clientes con este estado'), 1, 1);
             }
         } else {
+            // Colocamos el color del texto a mostrar
             $pdf->SetTextColor(9,9,9);
             $pdf->Cell(0, 10, utf8_decode('Estado incorrecto o inexistente'), 1, 1);
         }
     }
 } else {
+    // Colocamos el color del texto a mostrar
     $pdf->SetTextColor(9,9,9);
     $pdf->Cell(0, 10, utf8_decode('No hay clientes para mostrar'), 1, 1);
 }

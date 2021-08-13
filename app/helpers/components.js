@@ -635,6 +635,18 @@ const polarGraph = (canvas, legends, values, title) => {
 }
 
 /*
+*   Función para eliminar el contenido del contenedor de las graficas 
+*
+*   Parámetros: Nombre del contenedor del grafico.
+*
+*   Retorno: ninguno.
+*/
+const resetChart = (container) => {
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById(container).innerHTML = '';
+}
+
+/*
 *   Función para generar una gráfica de lineas verticales. Requiere el archivo chart.js para funcionar.
 *
 *   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título de la gráfica).

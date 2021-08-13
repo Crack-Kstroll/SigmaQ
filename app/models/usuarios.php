@@ -484,7 +484,7 @@ class Usuario extends Validator
     }
 
     // Funcion para cargar todos tipos de usuarios de la base de datos
-    public function readAll2()
+    public function readTipo()
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = 'SELECT tipo,count(tipo) as cantidad 

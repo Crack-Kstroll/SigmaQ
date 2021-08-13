@@ -124,18 +124,10 @@ document.getElementById('chart-form').addEventListener('submit', function (event
     myModal.show();
 });
 
-// Funcion para borrar el grafico del modal
-const resetChart = () => {
-    // Reseteamos el contenido del chart
-    let content = '';
-    // Se agrega el codigo HTML en el contenedor de la grafica.
-    document.getElementById('chart-container').innerHTML = content;
-}
-
 // Función para cargar el grafico parametrizado.
 const parameterChart = (id) => {
     // Reseteamos el contenido del chart
-    resetChart();
+    resetChart('chart-container');
     // Creamos un atributo para guardar el codigo HTML para generar el grafico
     let content = '<canvas id="chart1"></canvas>';
     // Se agrega el codigo HTML en el contenedor de la grafica.
@@ -187,13 +179,9 @@ const parameterChart = (id) => {
 // Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
 function graficaAcciones() {
     // Reseteamos el contenido del chart
-    resetChart();
+    resetChart('chart-container');
     // Creamos un atributo para guardar el codigo HTML para generar el grafico
-    let content = '';
-    // Agregamos el codigo para generar el codigo
-    content += `
-        <canvas id="chart2"></canvas>
-    `;
+    let content = '<canvas id="chart2"></canvas>';
     // Se agrega el codigo HTML en el contenedor de la grafica.
     document.getElementById('chart-container').innerHTML = content;
     // Realizamos peticion a la API enviando el nombre del caso y metodo get debido a que la funcion de la API retorna datos
@@ -288,9 +276,11 @@ const saveData = () => {
     let action = '';
     // Se comprara el valor del input id 
     if (document.getElementById('txtIdx').value) {
-        action = 'update'; // En caso que exista se actualiza 
+        // En caso que exista se actualiza 
+        action = 'update'; 
     } else {
-        action = 'create'; // En caso que no se crea 
+        // En caso que no se crea 
+        action = 'create'; 
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
     saveRow(API_USUARIOS, action, 'save-form', 'staticBackdrop');
