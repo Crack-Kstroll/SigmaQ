@@ -515,8 +515,20 @@ class Usuario extends Validator
     // Metodo para cargar los datos de los usuarios registrados en el sistema
     public function readAcciones()
     {
-        $sql = 'SELECT accion,hora FROM historialusuario WHERE usuario = ? ORDER BY hora DESC';
+        $sql = "SELECT accion,hora FROM historialusuario 
+        WHERE usuario = ? 
+        ORDER BY hora DESC";
         $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+    // Metodo para cargar los datos de los usuarios registrados en el sistema
+    public function readAccionesParam($fechaInicio,$fechaFin)
+    {
+        $sql = "SELECT accion,hora FROM historialusuario 
+        WHERE usuario = ? and hora BETWEEN ? and ? 
+        ORDER BY hora DESC";
+        $params = array($this->id,$fechaInicio,$fechaFin);
         return Database::getRows($sql, $params);
     }
 

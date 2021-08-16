@@ -75,6 +75,27 @@ const saveRow = (api, action, form, modal) => {
 }
 
 /*
+*   Función para crear o actualizar un registro en los mantenimientos de tablas (operación create y update).
+*
+*   Parámetros: api (ruta del servidor para enviar los datos), form (identificador del formulario) y modal (identificador de la caja de dialogo).
+*
+*   Retorno: ninguno.
+*/
+const paramReport = (api, action, form,modal) => { 
+    /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+    para acceder a los campos desde la API*/
+    fetch(api + action, {
+        method: 'post',
+        body: new FormData(document.getElementById(form))
+    }).then(function (request) {
+        // Se cierra la caja de dialogo (modal) del formulario.
+        $(`#${modal}`).modal('hide');
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+/*
 *   Función para obtener los resultados de una búsqueda en los mantenimientos de tablas (operación search).
 *
 *   Parámetros: api (ruta del servidor para obtener los datos) y form (identificador del formulario de búsqueda).

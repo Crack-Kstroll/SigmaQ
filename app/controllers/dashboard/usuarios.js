@@ -69,6 +69,9 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="parameterChart(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
                     <a href="../../app/reports/dashboard/accionesUsuario.php?id=${row.codigoadmin}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte">assignment_ind</i></a>
                 </td>
+                <td>
+                    <a href="#" onclick="parameterReportModal(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte parametrizado">collections_bookmark</i></a>
+                </td> 
             </tr>
         `;           
         // Agregamos uno al contador por la fila agregada anteriormente al data
@@ -174,6 +177,44 @@ const parameterChart = (id) => {
     ).catch(function (error) {
         console.log(error);
     });
+}
+
+// Función para cargar el reporte parametrizado.
+const parameterReportModal = (id) => {
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('report-modal'));
+    myModal.show();
+    // Guardamos el valor del id en un input
+    document.getElementById('idReport').value = id;
+}
+
+// Función para cargar el reporte parametrizado.
+const parameterReport = () => {
+    // Obtenemos el valor de los inputs tipo date del formulario
+    let fechaInicial = document.getElementById("fechaInicial").value;
+    let fechaFinal = document.getElementById("fechaFinal").value;
+    // Verificamos si el usuario ha seleccionado el rango de fechas
+    if (fechaInicial == '' || fechaFinal == '') {
+        // Mostramos alerta con mensaje de validacion
+        sweetAlert(3, 'Seleccione un rango de fechas', null);
+    } else {
+        // Validamos si la fecha inicial no es mayor a la fecha final
+        if (fechaInicial > fechaFinal) {
+            // Mostramos alerta con mensaje de validacion
+            sweetAlert(3, 'La fecha inicial es mayor a la fecha final', null);
+        } else {
+            // Ejecutamos la funcion parameterReport para guardar los parametros para el reporte
+            paramReport(API_USUARIOS, 'param-report', 'parameter-form', 'report-modal');
+            // Obtenemos el valor del input que contiene el ID del registro seleccionado
+            let id = document.getElementById('idReport').value;
+            // Declaramos un atributo para guardar la url a cargar
+            let url = '';
+            // Definimos la url del reporte agregando el id al final de la direccion
+            url += `../../app/reports/dashboard/accionesUsuarioParam.php?id=${id}`;
+            // Abrimos el reporte en una pestaña nueva
+            window.open(url);
+        }  
+    }   
 }
 
 // Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.

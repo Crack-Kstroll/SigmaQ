@@ -487,7 +487,16 @@ if (isset($_GET['action']))
                     }
                 }
             break;
-            case 'logIn': // Caso para el inicio de sesion del usuario
+            // Caso para cargar los parametros en variables de sesion para el reporte parametrizado
+            case 'param-report':  
+                // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+                $_POST = $cliente->validateForm($_POST);
+                // Asignamos el valor de los inputs a variables de sesion 
+                $_SESSION['fechaInicio'] = $_POST['fechaInicial'];
+                $_SESSION['fechaFin'] = $_POST['fechaFinal'];                              
+            break;
+            // Caso para el inicio de sesion del usuario
+            case 'logIn': 
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $cliente->validateForm($_POST);
                 // Ejecutamos la funcion que verifica si existe el usuario en la base de datos
@@ -501,6 +510,7 @@ if (isset($_GET['action']))
                             $_SESSION['usuario'] = $cliente->getUsuario();
                             $_SESSION['nombre'] = $cliente->getNombre();
                             $_SESSION['apellido'] = $cliente->getApellido();
+                            // Verificamos si el tipo de usuario no es root (= 1)
                             if ($cliente->getTipo() != 1) {
                                 $_SESSION['tipo'] = 'Admin';
                             } else {
