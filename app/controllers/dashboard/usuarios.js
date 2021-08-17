@@ -183,7 +183,10 @@ const parameterChart = (id) => {
 const parameterReportModal = (id) => {
     // Mandamos a llamar el modal desde JS
     var myModal = new bootstrap.Modal(document.getElementById('report-modal'));
+    // Hacemos visible el modal
     myModal.show();
+    // Limpiamos el contenido del modal 
+    document.getElementById('parameter-form').reset();
     // Guardamos el valor del id en un input
     document.getElementById('idReport').value = id;
 }
@@ -203,18 +206,16 @@ const parameterReport = () => {
             // Mostramos alerta con mensaje de validacion
             sweetAlert(3, 'La fecha inicial es mayor a la fecha final', null);
         } else {
-            // Ejecutamos la funcion parameterReport para guardar los parametros para el reporte
-            paramReport(API_USUARIOS, 'param-report', 'parameter-form', 'report-modal');
             // Obtenemos el valor del input que contiene el ID del registro seleccionado
             let id = document.getElementById('idReport').value;
             // Declaramos un atributo para guardar la url a cargar
             let url = '';
             // Definimos la url del reporte agregando el id al final de la direccion
             url += `../../app/reports/dashboard/accionesUsuarioParam.php?id=${id}`;
-            // Abrimos el reporte en una pestaña nueva
-            window.open(url);
+            // Ejecutamos la funcion parameterReport para guardar los parametros para el reporte
+            paramReport(API_USUARIOS, 'param-report', 'parameter-form', 'report-modal',url);
         }  
-    }   
+    }  
 }
 
 // Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.

@@ -352,6 +352,34 @@ if (isset($_GET['action']))
                 $result['exception'] = 'Codigo incorrecto';
             }
         break;  
+        // Caso para cargar los parametros en variables de sesion para el reporte parametrizado
+        case 'param-report':  
+            // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+            $_POST = $cliente->validateForm($_POST);
+            // Validamos si los inputs no estan vacios
+            if ($_POST['fechaInicial'] != '' || $_POST['fechaFinal'] != '') { 
+                // Validamos si el formato de las fechas ingresas es correcto
+                if (!$cliente->setFechaInicial($_POST['fechaInicial'])) {    
+                    if (!$cliente->setFechaFinal($_POST['fechaFinal'])) {
+                        // Validamos si la fecha inicial no es mayor a la fecha final
+                        if ($_POST['fechaInicial'] < $_POST['fechaFinal']) {
+                            // Asignamos el valor de los parametros a las variables de sesion
+                            $_SESSION['fechaInicio'] = $_POST['fechaInicial'];
+                            $_SESSION['fechaFin'] = $_POST['fechaFinal']; 
+                            $result['status'] = 1;
+                        } else {
+                            $result['exception'] = 'Fecha inicial mayor a la fecha menor'; 
+                        } 
+                    } else {
+                        $result['exception'] = 'La fecha inicial no cumple el formato correcto';
+                    }
+                } else {
+                    $result['exception'] = 'La fecha final no cumple el formato correcto';
+                }      
+            } else {
+                $result['exception'] = 'Seleccione el rango de fechas';
+            }                             
+        break;
         // Caso para cargar los datos de la grafica general de clientes con mas acciones realizadas
         case 'graficaClientes':
             // Ejecutamos la funcion para cargar los datos de la base

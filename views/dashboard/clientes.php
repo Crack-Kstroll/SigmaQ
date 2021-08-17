@@ -70,6 +70,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 					<th>Estado</th>
 					<th>Opciones</th>
 					<th>Extras</th>
+					<th></th>
 				</tr>
 			</thead>
 			<!-- Contenido de la tabla -->
@@ -94,6 +95,40 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal report-modal -->
+	<div class="modal fade" id="report-modal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="title-chart">Seleccione un rango de fechas para generar el reporte</h5>
+				</div>
+				<div class="modal-body">
+					<!-- Formulario para enviar parametros -->
+					<form method="post" id="parameter-form" enctype="multipart/form-data">
+						<div class="d-none"><input type="number" id="idReport" name="idReport" /></div>
+						<div class="row">
+							<div class="col-6 form-group">
+								<label>Fecha inicial*</label>
+								<div class="form-group">
+									<input id="fechaInicial" name="fechaInicial" type="date" class="form-control" >
+								</div>
+							</div>
+							<div class="col-6 form-group">
+								<label>Fecha final*</label>
+								<div class="form-group">
+									<input id="fechaFinal" name="fechaFinal" type="date" class="form-control" >
+								</div>
+							</div>
+						</div>
+					</form>			 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+					<button onclick="parameterReport()" type="button" class="btn btn-primary">Generar reporte</button>
 				</div>
 			</div>
 		</div>
