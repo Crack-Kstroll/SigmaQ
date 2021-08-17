@@ -29,7 +29,7 @@ const generatePagination = () =>{
         </nav>
         `;  
     // Agregamos el pie al contenido previamente agregado al atributo paginacion
-    pagination = pagination + pie;
+    pagination = pagination + pie; 
     // Imprimimos el contenido del atributo paginacion en la seccion especificada
     document.getElementById('seccionPaginacion').innerHTML = pagination;
 }
@@ -64,15 +64,29 @@ const nextData = () =>{
 
 // Funcion para cargar los datos dentro de la tabla 
 const fillPagination = (contenido,select) =>{ 
-    // Imprimimos las filas en la seccion de contenido de la tabla
-    document.getElementById('tbody-rows').innerHTML = contenido;
-    // Asignamos el valor al atributo seleccion para identificar que pagina se cargo
-    this.seleccion = select;
+    if (contenido != null) {
+        // Imprimimos las filas en la seccion de contenido de la tabla
+        document.getElementById('tbody-rows').innerHTML = contenido;
+        // Asignamos el valor al atributo seleccion para identificar que pagina se cargo
+        this.seleccion = select; 
+    }    
+}
+
+// Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
+const deleteTable = () =>{
+    let data = '';
+    data += ``;           
+    document.getElementById('tbody-rows').innerHTML = data;
+    document.getElementById('seccionPaginacion').innerHTML = data;
 }
 
 // Funcion para resetar el valor de todos los atributos de la clase
 const resetPagination = () =>{ 
-    this.content = [];
+    // Reseteamos el valor de los atributos de la clase
     this.posiciones = 0;
     this.seleccion = 0;
+    // Vaciamos el contenido del arreglo que contiene los datos de la tabla
+    for (let i = content.length; i > 0; i--) {
+        content.pop();
+    }
 }                                                                                                                                                                               

@@ -13,70 +13,60 @@ if (isset($_GET['action']))
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como usuario para realizar las acciones correspondientes.
-    if (isset($_SESSION['codigoadmin'])) 
-    {
+    if (isset($_SESSION['codigoadmin'])) {
         // Se evalua la acción a realizar
         // print($_GET['action']);
         switch ($_GET['action']) 
         {
-                //Caso para mostrar los registros
+            //Caso para mostrar los registros
             case 'readAll':
-                if ($result['dataset'] = $estadoCuenta->SelectEstadoCuenta()) 
-                {
+                if ($result['dataset'] = $estadoCuenta->SelectEstadoCuenta()) {
                     $result['status'] = 1;
-                } 
-                else 
-                {
-                    if (Database::getException()) 
-                    {
+                } else {
+                    if (Database::getException()) {
                         $result['exception'] = Database::getException();
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'No hay registros ingresados';
                     }
                 }
+            break;
+            //Caso para eliminar todos los registros de la base de datos
+            case 'deleteAll':
+                // Ejecutamos funcion para desactivar un usuario
+                if ($estadoCuenta->deleteAll()) {
+                    $result['status'] = 1;
+                    // Mostramos mensaje de exito
+                    $result['message'] = 'Datos eliminados correctamente'; 
+                    // En caso de que alguna validacion falle se muestra el mensaje con el error 
+                } else {
+                    $result['exception'] = Database::getException();
+                }        
             break;
             //Caso para insertar un registro
             case 'create':
                 //Validamos los datos del formulario
                 $_POST = $estadoCuenta->validateForm($_POST);
                 //Pasamos la información al modelo, mediante los setters
-                if (isset($_POST['responsable'])) 
-                {
-                    if ($estadoCuenta->setResponsable($_POST['responsable'])) 
-                    {
-                        if (isset($_POST['sociedad'])) 
-                        {
-                            if ($estadoCuenta->setSociedad($_POST['sociedad'])) 
-                            {
+                if (isset($_POST['responsable'])) {
+                    if ($estadoCuenta->setResponsable($_POST['responsable'])) {
+                        if (isset($_POST['sociedad'])) {
+                            if ($estadoCuenta->setSociedad($_POST['sociedad'])) {
                                 if (isset($_POST['cliente'])) {
-                                    if ($estadoCuenta->setCliente($_POST['cliente'])) 
-                                    {
-                                        if ($estadoCuenta->setCodigo($_POST['codigo'])) 
-                                        {
-                                            if ($estadoCuenta->setFactura($_POST['factura'])) 
-                                            {
-                                                if ($estadoCuenta->setAsignacion($_POST['asignacion'])) 
-                                                {
-                                                    if ($estadoCuenta->setFechaContable($_POST['fechacontable'])) 
-                                                    {
+                                    if ($estadoCuenta->setCliente($_POST['cliente'])) {
+                                        if ($estadoCuenta->setCodigo($_POST['codigo'])) {
+                                            if ($estadoCuenta->setFactura($_POST['factura'])) {
+                                                if ($estadoCuenta->setAsignacion($_POST['asignacion'])) {
+                                                    if ($estadoCuenta->setFechaContable($_POST['fechacontable'])) {
                                                         if ($estadoCuenta->setClase($_POST['clase'])) {
-                                                            if ($estadoCuenta->setVencimiento($_POST['vencimiento'])) 
-                                                            {
+                                                            if ($estadoCuenta->setVencimiento($_POST['vencimiento'])) {
                                                                 if (isset($_POST['divisa'])) {
-                                                                    if ($estadoCuenta->setDivisa($_POST['divisa'])) 
-                                                                    {
-                                                                        if ($estadoCuenta->setTotal($_POST['total'])) 
-                                                                        {
-                                                                            if ($estadoCuenta->insertEstado()) 
-                                                                            {
+                                                                    if ($estadoCuenta->setDivisa($_POST['divisa'])) {
+                                                                        if ($estadoCuenta->setTotal($_POST['total'])) {
+                                                                            if ($estadoCuenta->insertEstado()) {
                                                                                 $result['status'] = 1;
                                                                                 // Se muestra un mensaje de exito en caso de registrarse correctamente
                                                                                 $result['message'] = 'Registro ingresado correctamente';
-                                                                            } 
-                                                                            else 
-                                                                            {
+                                                                            } else {
                                                                                 // En caso de ocurrir un error se muestra el mensaje con la excepcion
                                                                                 if (Database::getException()) {
                                                                                     $result['exception'] = Database::getException();
@@ -84,78 +74,49 @@ if (isset($_GET['action']))
                                                                                     $result['exception'] = 'Ocurrió un problema al insertar el registro';
                                                                                 }
                                                                             }
-                                                                        } else 
-                                                                        {
+                                                                        } else {
                                                                             $result['exception'] = 'Total incorrecto';
                                                                         }
-                                                                    } 
-                                                                    else 
-                                                                    {
+                                                                    } else {
                                                                         $result['exception'] = 'Divisa incorrecta';
                                                                     }
-                                                                } 
-                                                                else 
-                                                                {
+                                                                } else {
                                                                     $result['exception'] = 'Escoja una divisa';
                                                                 }
-                                                            } 
-                                                            else 
-                                                            {
+                                                            } else {
                                                                 $result['exception'] = 'Fecha de vencimiento incorrecta';
                                                             }
-                                                        } 
-                                                        else 
-                                                        {
+                                                        } else {
                                                             $result['exception'] = 'Clase incorrecta';
                                                         }
-                                                    } 
-                                                    else 
-                                                    {
+                                                    } else {
                                                         $result['exception'] = 'Fecha contable incorrecta';
                                                     }
-                                                } 
-                                                else 
-                                                {
+                                                } else {
                                                     $result['exception'] = 'Asignación incorrecta';
                                                 }
-                                            } 
-                                            else 
-                                            {
+                                            } else {
                                                 $result['exception'] = 'Factura incorrecta';
                                             }
-                                        } 
-                                        else 
-                                        {
+                                        } else {
                                             $result['exception'] = 'Código incorrecto';
                                         }
-                                    } 
-                                    else 
-                                    {
+                                    } else {
                                         $result['exception'] = 'Cliente incorrecto';
                                     }
-                                } 
-                                else 
-                                {
+                                } else {
                                     $result['exception'] = 'Escoja un cliente';
                                 }
-                            } 
-                            else 
-                            {
+                            } else {
                                 $result['exception'] = 'Sociedad incorrecta';
                             }
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'Escoja una sociedad';
                         }
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'Responsable incorrecto';
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Escoja un responsable';
                 }
             break;
@@ -164,132 +125,81 @@ if (isset($_GET['action']))
                 //Validamos los datos del formulario
                 $_POST = $estadoCuenta->validateForm($_POST);
                 // Obtenemos el valor de los input mediante los metodos set del modelo 
-                if ($estadoCuenta->setId($_POST['idestado'])) 
-                {
+                if ($estadoCuenta->setId($_POST['idestado'])) {
                     //Pasamos la información al modelo, mediante los setters
-                    if (isset($_POST['responsable'])) 
-                    {
-                        if ($estadoCuenta->setResponsable($_POST['responsable'])) 
-                        {
+                    if (isset($_POST['responsable'])) {
+                        if ($estadoCuenta->setResponsable($_POST['responsable'])) {
                             if (isset($_POST['sociedad'])) {
-                                if ($estadoCuenta->setSociedad($_POST['sociedad'])) 
-                                {
+                                if ($estadoCuenta->setSociedad($_POST['sociedad'])) {
                                     if (isset($_POST['cliente'])) {
-                                        if ($estadoCuenta->setCliente($_POST['cliente'])) 
-                                        {
-                                            if ($estadoCuenta->setCodigo($_POST['codigo'])) 
-                                            {
-                                                if ($estadoCuenta->setFactura($_POST['factura'])) 
-                                                {
-                                                    if ($estadoCuenta->setAsignacion($_POST['asignacion'])) 
-                                                    {
-                                                        if ($estadoCuenta->setFechaContable($_POST['fechacontable'])) 
-                                                        {
-                                                            if ($estadoCuenta->setClase($_POST['clase'])) 
-                                                            {
-                                                                if ($estadoCuenta->setVencimiento($_POST['vencimiento'])) 
-                                                                {
+                                        if ($estadoCuenta->setCliente($_POST['cliente'])) {
+                                            if ($estadoCuenta->setCodigo($_POST['codigo'])) {
+                                                if ($estadoCuenta->setFactura($_POST['factura'])) {
+                                                    if ($estadoCuenta->setAsignacion($_POST['asignacion'])) {
+                                                        if ($estadoCuenta->setFechaContable($_POST['fechacontable'])) {
+                                                            if ($estadoCuenta->setClase($_POST['clase'])) {
+                                                                if ($estadoCuenta->setVencimiento($_POST['vencimiento'])) {
                                                                     if (isset($_POST['divisa'])) {
-                                                                        if ($estadoCuenta->setDivisa($_POST['divisa'])) 
-                                                                        {
-                                                                            if ($estadoCuenta->setTotal($_POST['total'])) 
-                                                                            {
-                                                                                if ($estadoCuenta->updateEstado()) 
-                                                                                {
+                                                                        if ($estadoCuenta->setDivisa($_POST['divisa'])) {
+                                                                            if ($estadoCuenta->setTotal($_POST['total'])) {
+                                                                                if ($estadoCuenta->updateEstado()) {
                                                                                     $result['status'] = 1;
                                                                                     // Se muestra un mensaje de exito en caso de registrarse correctamente
                                                                                     $result['message'] = 'Registro actualizado correctamente';
-                                                                                } 
-                                                                                else 
-                                                                                {
+                                                                                } else {
                                                                                     // En caso de corrir un error se muestra el mensaje con la excepcion
-                                                                                    if (Database::getException()) 
-                                                                                    {
+                                                                                    if (Database::getException()) {
                                                                                         $result['exception'] = Database::getException();
-                                                                                    } 
-                                                                                    else 
-                                                                                    {
+                                                                                    } else {
                                                                                         $result['exception'] = 'Ocurrió un problema al insertar el registro';
                                                                                     }
                                                                                 }
-                                                                            } 
-                                                                            else 
-                                                                            {
+                                                                            } else {
                                                                                 $result['exception'] = 'Incompletos por calidad erróneos';
                                                                             }
-                                                                        } 
-                                                                        else 
-                                                                        {
+                                                                        } else {
                                                                             $result['exception'] = 'Divisa incorrecta';
                                                                         }
-                                                                    } 
-                                                                    else
-                                                                    {
+                                                                    } else {
                                                                         $result['exception'] = 'Escoja una divisa';
                                                                     }
-                                                                } 
-                                                                else 
-                                                                {
+                                                                } else {
                                                                     $result['exception'] = 'No considerados incorrectos';
                                                                 }
-                                                            } 
-                                                            else 
-                                                            {
+                                                            } else {
                                                                 $result['exception'] = 'Clase incorrecta';
                                                             }
-                                                        } 
-                                                        else 
-                                                        {
+                                                        } else {
                                                             $result['exception'] = 'Fecha contable incorrecta';
                                                         }
-                                                    } 
-                                                    else 
-                                                    {
+                                                    } else {
                                                         $result['exception'] = 'Asignación incorrecta';
                                                     }
-                                                } 
-                                                else 
-                                                {
+                                                } else {
                                                     $result['exception'] = 'Factura incorrecta';
                                                 }
-                                            } 
-                                            else 
-                                            {
+                                            } else {
                                                 $result['exception'] = 'Código incorrecto';
                                             }
-                                        } 
-                                        else 
-                                        {
+                                        } else {
                                             $result['exception'] = 'Cliente incorrecto';
                                         }
-                                    } 
-                                    else 
-                                    {
+                                    } else {
                                         $result['exception'] = 'Escoja un cliente';
                                     }
-                                } 
-                                else 
-                                {
+                                } else {
                                     $result['exception'] = 'Sociedad incorrecta';
                                 }
-                            } 
-                            else 
-                            {
+                            } else {
                                 $result['exception'] = 'Escoja una sociedad';
                             }
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'Responsable incorrecto';
                         }
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'Escoja un responsable';
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Codigo incorrecto';
                 }
 
@@ -299,31 +209,22 @@ if (isset($_GET['action']))
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $estadoCuenta->validateForm($_POST);
                 // Obtenemos el valor de los input mediante los metodos set del modelo 
-                if ($estadoCuenta->setId($_POST['id'])) 
-                {
+                if ($estadoCuenta->setId($_POST['id'])) {
                     // Cargamos los datos del registro que se desea eliminar
-                    if ($data = $estadoCuenta->SelectOneEstadoCuenta()) 
-                    {
+                    if ($data = $estadoCuenta->SelectOneEstadoCuenta()) {
                         // Ejecutamos funcion para desactivar un usuario
-                        if ($estadoCuenta->desableEstado())
-                        {
+                        if ($estadoCuenta->desableEstado()){
                             $result['status'] = 1;
                             // Mostramos mensaje de exito
                             $result['message'] = 'Registro desactivado correctamente';
                             // En caso de que alguna validacion falle se muestra el mensaje con el error 
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = Database::getException();
                         }
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'Registro inexistente';
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Codigo incorrecto';
                 }
             break;
@@ -332,31 +233,22 @@ if (isset($_GET['action']))
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $estadoCuenta->validateForm($_POST);
                 // Obtenemos el valor de los input mediante los metodos set del modelo 
-                if ($estadoCuenta->setId($_POST['id'])) 
-                {
+                if ($estadoCuenta->setId($_POST['id'])) {
                     // Cargamos los datos del registro que se desea eliminar
-                    if ($data = $estadoCuenta->SelectOneEstadoCuenta()) 
-                    {
+                    if ($data = $estadoCuenta->SelectOneEstadoCuenta()) {
                         // Ejecutamos funcion para desactivar un usuario
-                        if ($estadoCuenta->enableEstado()) 
-                        {
+                        if ($estadoCuenta->enableEstado()) {
                             $result['status'] = 1;
                             // Mostramos mensaje de exito
                             $result['message'] = 'Registro activado correctamente';
                             // En caso de que alguna validacion falle se muestra el mensaje con el error 
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = Database::getException();
                         }
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'Registro inexistente';
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Codigo incorrecto';
                 }
             break;
@@ -365,67 +257,46 @@ if (isset($_GET['action']))
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $estadoCuenta->validateForm($_POST);
                 // Validamos si el input no esta vacio
-                if ($_POST['search'] != '') 
-                {
+                if ($_POST['search'] != '') {
                     // Ejecutamos la funcion para la busqueda filtrada enviando el contenido del input como parametro
-                    if ($result['dataset'] = $estadoCuenta->searchEstado($_POST['search'])) 
-                    {
+                    if ($result['dataset'] = $estadoCuenta->searchEstado($_POST['search'])) {
                         $result['status'] = 1;
                         // Obtenemos la cantidad de resultados retornados por la consulta
                         $rows = count($result['dataset']);
                         // Verificamos si la cantidad de resultados es mayor a uno asi varia el mensaje a mostrar
-                        if ($rows > 1)
-                        {
+                        if ($rows > 1){
                             // Mostramos un mensaje con la cantidad de coincidencias encontradas
                             $result['message'] = 'Se encontraron ' . $rows . ' coincidencias';
-                        } 
-                        else 
-                        {
+                        } else {
                             // Mostramos un mensaje donde solo hubo una sola coincidencia
                             $result['message'] = 'Solo existe una coincidencia';
                         }
-                    } 
-                    else
-                    {
-                        if (Database::getException()) 
-                        {
+                    } else {
+                        if (Database::getException()) {
                             $result['exception'] = Database::getException();
-                        } 
-                        else 
-                        {
+                        } else {
                             // En caso de no encontrar registros se muestra el siguiente mensaje
                             $result['exception'] = 'No hay coincidencias';
                         }
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 }
             break;
             // Caso para leer los datos de un solo registro parametrizado mediante el identificador
             case 'readOne':
-                if ($estadoCuenta->setId($_POST['id'])) 
-                {
+                if ($estadoCuenta->setId($_POST['id'])) {
                     // Se ejecuta la funcion para leer los datos de un registro
-                    if ($result['dataset'] = $estadoCuenta->SelectOneEstadoCuenta()) 
-                    {
+                    if ($result['dataset'] = $estadoCuenta->SelectOneEstadoCuenta()) {
                         $result['status'] = 1;
-                    } 
-                    else 
-                    {
-                        if (Database::getException()) 
-                        {
+                    } else {
+                        if (Database::getException()) {
                             $result['exception'] = Database::getException();
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'Registro inexistente'; // Se muestra en caso de no encontrar registro con ese id
                         }
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Registro incorrecto';
                 }
             default:

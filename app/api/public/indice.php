@@ -19,26 +19,17 @@ if (isset($_GET['action']))
         switch($_GET['action']) 
         {
             case 'readAll':
-                if($indice->setCliente($_SESSION['codigocliente'])) 
-                {
-                    if($result['dataset'] = $indice->readClienteIndices()) 
-                    {
+                if($indice->setCliente($_SESSION['codigocliente'])) {
+                    if($result['dataset'] = $indice->readClienteIndices()) {
                         $result['status'] = 1;
-                    } 
-                    else 
-                    {
-                        if(Database::getException()) 
-                        {
+                    } else {
+                        if(Database::getException()) {
                             $result['exception'] = Database::getException(); 
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'No hay índices registradas';
                         }
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Código de cliente incorrecto';
                 }
             break;

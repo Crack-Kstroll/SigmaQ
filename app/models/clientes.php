@@ -31,7 +31,7 @@ class Cliente extends Validator
     */ 
     public function setId($value)
     {
-        if($this->validateNaturalNumber($value)){
+        if($this->validateNaturalNumber($value)) {
             $this->id = $value;
             return true;
         } else {
@@ -45,7 +45,7 @@ class Cliente extends Validator
     */ 
     public function setCodigo($value)
     {
-        if($this->validateNaturalNumber($value)){
+        if($this->validateNaturalNumber($value)) {
             $this->codigo = $value;
             return true;
         } else {
@@ -59,7 +59,7 @@ class Cliente extends Validator
     */ 
     public function setEstado($value)
     {
-        if ($this->validateBoolean($value)){
+        if ($this->validateBoolean($value)) {
             $this->estado = $value;
             return true;
         } else {
@@ -90,7 +90,7 @@ class Cliente extends Validator
         if ($this->validatePhone($value)) {
             $this->telefono = $value;
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -184,12 +184,9 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT estado FROM clientes where usuario = ? and estado = true';
         $params = array($usuario);
-        if ($data = Database::getRow($sql, $params)) 
-        {
+        if ($data = Database::getRow($sql, $params)) {
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -198,9 +195,7 @@ class Cliente extends Validator
     public function desactivateClient($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'UPDATE clientes
-        SET estado = false
-        WHERE usuario = ?;';
+        $sql = 'UPDATE clientes SET estado = false WHERE usuario = ?;';
         $params = array($usuario);
         return Database::executeRow($sql, $params);
     }
@@ -211,15 +206,12 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigocliente,estado,empresa FROM clientes WHERE usuario = ?';
         $params = array($usuario);
-        if ($data = Database::getRow($sql, $params)) 
-        {
+        if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['codigocliente'];
             $this->empresa = $data['empresa'];
             $this->usuario = $usuario;
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -231,12 +223,9 @@ class Cliente extends Validator
         $sql = 'SELECT clave FROM clientes WHERE codigocliente = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave'])) 
-        {
+        if (password_verify($password, $data['clave'])) {
             return true;
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }
@@ -301,8 +290,7 @@ class Cliente extends Validator
     public function updateRow()
     {
         // Verifica si existe clave en caso de no existir se actualizan los datos menos la clave
-        if ($this->clave != null) 
-        {
+        if ($this->clave != null) {
             // Se encripta la contraseña mediante el metodo password_hash
             $hash = password_hash($this->clave, PASSWORD_DEFAULT);
             // Declaracion de la sentencia SQL 
@@ -310,9 +298,7 @@ class Cliente extends Validator
             SET codigocliente = ?, empresa= ?, telefono = ?, correo = ?, usuario = ?, clave = ?
             WHERE codigocliente = ?';
             $params = array($this->id ,$this->empresa, $this->telefono, $this->correo,$this->usuario,$hash,$this->codigo);
-        } 
-        else
-        {
+        } else {
             $sql = 'UPDATE clientes
             SET codigocliente = ?, empresa= ?, telefono = ?, correo = ?, usuario = ?
             WHERE codigocliente = ?';
@@ -331,6 +317,38 @@ class Cliente extends Validator
         return Database::getRow($sql, $params);
     }
 
+    // Funcion para actualizar los datos de un usuario de la base de datos
+    public function editProfile($codigo)
+    {
+        $sql = 'UPDATE public.clientes
+        SET empresa=?, telefono=?, correo=?, usuario=?
+        WHERE codigocliente=?;';
+        // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
+        $params = array($this->empresa ,$this->telefono, $this->correo, $this->usuario,$codigo);
+        return Database::executeRow($sql, $params);
+    }
+
+    // Funcion para cambiar la clave del usuario requiere de parametro el codigo de administrador de la variable de sesion 
+    public function changePassword($value)
+    {
+        // Se encripta la contraseña mediante la funcion password_hash
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        // Declaracion de la sentencia SQL 
+        $sql = 'UPDATE clientes SET clave = ? WHERE codigocliente = ?';
+        $params = array($hash, $value);
+        return Database::executeRow($sql, $params);
+    }
+
+    // Funcion para cargar los datos de un cliente en especifico
+    public function readProfile($value)
+    {
+        $sql = 'SELECT codigocliente,usuario, estado,empresa,telefono,correo,clave,intentos 
+        from clientes 
+        where codigocliente = ?';
+        $params = array($value);
+        return Database::getRow($sql, null);
+    }
+
     // Funcion para cambiar el estado de un cliente a desactivado 
     public function desactivateUser()
     {
@@ -340,6 +358,77 @@ class Cliente extends Validator
         WHERE codigocliente = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
+    }
+
+    // Funcion para reporte de los clientes con mas productos adquiridos dentro del sistema
+    public function graficaClientes()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = "SELECT c.usuario,COUNT(codigocliente) as cantidad
+        FROM historialcliente h
+        INNER JOIN clientes c ON c.codigocliente = h.usuario
+        WHERE c.estado = true
+        GROUP BY c.usuario
+        ORDER BY cantidad DESC
+        LIMIT 5";
+        // Envio de parametros
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para reporte de los clientes con mas productos adquiridos dentro del sistema
+    public function graficaParam($parametro)
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = "SELECT h.accion,COUNT(h.idregistro) as cantidad 
+		FROM historialcliente h 
+		INNER JOIN clientes c ON h.usuario = c.codigocliente
+		WHERE h.usuario = ?
+		GROUP BY h.accion
+		ORDER BY cantidad DESC
+        LIMIT 5";
+        // Envio de parametros
+        $params = array($parametro);
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para cargar todos tipos de usuarios de la base de datos
+    public function readEstado()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT estado,count(estado) as cantidad 
+        from clientes group by estado order by estado desc';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    // Funcion para cargar registros de un tipo de usuario en especifico
+    public function readUsuariosEstado()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT codigocliente,empresa,usuario,telefono,correo,estado
+        FROM clientes
+        WHERE estado = ? 
+        ORDER BY codigocliente';
+        $params = array($this->estado);
+        return Database::getRows($sql, $params);
+    }
+
+    // Metodo para cargar todos los usuarios existentes
+    public function readClientes()
+    {
+        $sql = 'SELECT codigocliente,usuario from clientes where codigocliente = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+    // Metodo para cargar los datos de los usuarios registrados en el sistema
+    public function readAccionesCliente()
+    {
+        $sql = 'SELECT accion,hora FROM historialcliente
+		WHERE usuario = ? ORDER BY hora DESC';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
     }
 
 }

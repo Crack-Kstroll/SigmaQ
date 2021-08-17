@@ -7,12 +7,53 @@ const API_DIVISAS = '../../app/api/dashboard/divisas.php?action=readAll';
 
 // Método manejador de eventos que se ejecutara cuando cargue la pagina
 document.addEventListener('DOMContentLoaded', function () {
+    // Se manda a llamar funcion para tener la opcion de eliminar todos los registros de la base de datos
+    opcionesUsuario();
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);
 });
 
+// Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
+const opcionesUsuario = () => {  
+    // Obtenemos el valor del tipo de usuario del panel lateral
+    let tipo = document.getElementById("tipoUsuario").value;
+    let contenido = '';
+    // Comparamos si el usuario es root 
+    if (tipo == 'Root') {
+        // Cargamos el contenido correspondiente a los usuarios root
+        contenido+= `
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            <div class="col-sm-4">
+                <button class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
+                </button>
+            </div>
+            `;      
+    } else {
+        // Cargamos el contenido para los usuarios admins
+        contenido+= `
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            `; 
+    }
+    // Agregamos el codigo al contenedor HTML
+    document.getElementById('seccionAgregar').innerHTML = contenido;
+}
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('delete-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmClean(API_ESTADO);
+});
+
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) =>{
+const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -29,7 +70,6 @@ const fillTable = (dataset) =>{
             iconToolTip = 'Deshabilitar'
             toggleEnabledIcon = 'block'
             metodo = 'openDeleteDialog';
-
         } else {
             // Cuando el registro esté deshabilitado
             iconToolTip = 'Habilitar'
@@ -59,7 +99,7 @@ const fillTable = (dataset) =>{
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
-        if (contador == 4) {
+        if (contador == 8) {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
@@ -81,8 +121,11 @@ const fillTable = (dataset) =>{
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
-    // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
-    generatePagination();
+    // Se verifica si el contenido que se imprimio en la tabla no estaba vacio
+    if (content[0] != null) {
+        // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
+        generatePagination();
+    }
 }
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
@@ -101,7 +144,7 @@ const openCreateDialog = () => {
     //Se abre el form
     $('#staticBackdrop').modal('show');
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Ingresar registro'
+    document.getElementById('modal-title').textContent = 'Ingresar estado de cuenta'
     // Se llama a la function para llenar los Selects
     fillSelect(API_ADMINS, 'responsable', null);
     fillSelect(API_CLIENTES, 'cliente', null);
@@ -110,13 +153,13 @@ const openCreateDialog = () => {
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openUpdateDialog = (id) =>{
+const openUpdateDialog = (id) => {
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Asignamos el valor del parametro id al campo del id del modal
     document.getElementById('idestado').value = id;
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Actualizar registro';
+    document.getElementById('modal-title').textContent = 'Actualizar estado de cuenta';
     const data = new FormData();
     data.append('id', id);
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
@@ -190,7 +233,7 @@ const openDeleteDialog = (id) => {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-const openActivateDialog = (id) =>{ 
+const openActivateDialog = (id) => { 
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);

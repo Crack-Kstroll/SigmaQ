@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
+<<<<<<< HEAD
 const fillTable = (dataset) =>{ 
     //Se oculta el modal de la personalización
     $('#modal-form').modal('hide');
@@ -42,6 +43,9 @@ const fillTable = (dataset) =>{
     }
     //Se agrega el cierre de la cabecera de la tabla
     headers += `</tr>`;
+=======
+const fillTable = (dataset) => { 
+>>>>>>> 2a4ce8d7b148fbed713657877032ed172c2f5794
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -110,7 +114,7 @@ const fillTable = (dataset) =>{
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openView = (id) =>{  
+const openView = (id) => {  
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     //Se abre el form

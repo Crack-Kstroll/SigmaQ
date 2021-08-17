@@ -20,7 +20,7 @@ class EstadoCuenta extends Validator
     // Metodos para asignar valores a los atributos
     public function setId($value)
     {
-        if ($this->validateNaturalNumber($value)){
+        if ($this->validateNaturalNumber($value)) {
             $this->id = $value;
             return true;
         } else {
@@ -46,8 +46,6 @@ class EstadoCuenta extends Validator
         } else {
             return false;
         }
-        // $this->sociedad = $value;
-        // return true;
     }
 
     public function setCliente($value)
@@ -122,8 +120,7 @@ class EstadoCuenta extends Validator
 
     public function setDiasVencidos($value)
     {
-        if ($this->validateNaturalNumber($value)) 
-        {
+        if ($this->validateNaturalNumber($value)) {
             $this->diasVencidos = $value;
             return true;
         } else {
@@ -271,6 +268,13 @@ class EstadoCuenta extends Validator
         return Database::getRows($sql, $params);
     }
 
+    //Función para eliminar un registro
+    public function deleteAll() 
+    {
+        $query="DELETE FROM estadocuentas";
+        return Database::executeRow($query, null);
+    }
+
     // Función para seleccionar solo un estado
     public function SelectOneEstadoCuenta()
     {
@@ -311,7 +315,8 @@ class EstadoCuenta extends Validator
     }
 
     // Función para insertar un estado
-    public function insertEstado() {
+    public function insertEstado() 
+    {
         $query="INSERT INTO public.estadocuentas(idestadocuenta,estado,responsable, sociedad, cliente, codigo, factura, asignacion, fechacontable, clase, vencimiento, divisa, totalgeneral)
                 VALUES (default,default,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $params = array($this->responsable, $this->sociedad, $this->cliente, $this->codigo, $this->factura, $this->asignacion, $this->fechaContable, $this->clase, $this->vencimiento, $this->divisa, $this->total);
@@ -319,7 +324,8 @@ class EstadoCuenta extends Validator
     }
 
     // Función para actualizar un estado
-    public function updateEstado() {
+    public function updateEstado() 
+    {
         $query="UPDATE public.estadocuentas
                 SET responsable=?, sociedad=?, cliente=?, codigo=?, factura=?, asignacion=?, fechacontable=?, clase=?, vencimiento=?, divisa=?, totalgeneral=?
                 WHERE idestadocuenta = ?";
@@ -328,14 +334,16 @@ class EstadoCuenta extends Validator
     }
 
     //Función para desactivar un registro
-    public function desableEstado() {
+    public function desableEstado() 
+    {
         $query="UPDATE estadocuentas SET estado=false WHERE idestadocuenta = ?";
         $params=array($this->id);
         return Database::executeRow($query, $params);
     }
 
     //Función para activar un registro
-    public function enableEstado() {
+    public function enableEstado() 
+    {
         $query="UPDATE estadocuentas SET estado=true WHERE idestadocuenta = ?";
         $params=array($this->id);
         return Database::executeRow($query, $params);

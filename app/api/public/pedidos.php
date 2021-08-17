@@ -19,50 +19,32 @@ if (isset($_GET['action']))
         switch($_GET['action']) 
         {
             case 'readAll':
-                if($pedido->setCliente($_SESSION['codigocliente'])) 
-                {
-                    if($result['dataset'] = $pedido->readClientePedidos()) 
-                    {
+                if($pedido->setCliente($_SESSION['codigocliente'])) {
+                    if($result['dataset'] = $pedido->readClientePedidos()) {
                         $result['status'] = 1;
-                    } 
-                    else 
-                    {
-                        if(Database::getException()) 
-                        {
+                    } else {
+                        if(Database::getException()) {
                             $result['exception'] = Database::getException(); 
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'No hay pedidos registradas';
                         }
                     }
-                }
-                else 
-                {
+                } else {
                     $result['exception'] = 'Código de cliente incorrecto';
                 }
             break;
             case 'readResponsableInfo': 
-                if($pedido->setCliente($_SESSION['codigocliente'])) 
-                {
-                    if($result['dataset'] = $pedido->readResponsableInfo()) 
-                    {
+                if($pedido->setCliente($_SESSION['codigocliente'])) {
+                    if($result['dataset'] = $pedido->readResponsableInfo()) {
                         $result['status'] = 1;
-                    } 
-                    else 
-                    {
-                        if(Database::getException()) 
-                        {
+                    } else {
+                        if(Database::getException()) {
                             $result['exception'] = Database::getException(); 
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'No se encontró un responsable';
                         }
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Código de cliente incorrecto';
                 }
             break;

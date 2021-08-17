@@ -4,14 +4,14 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 ?>
 <div id="contenido" class="container-fluid fondo">
     <div class="container-fluid espacioSuperior">
-        <h5 class="tituloMto">Gestion de índice de entrega</h5>
+        <h5 class="tituloMto">Gestión de índice de entrega</h5>
         <img src="../../resources/img/utilities/division.png" class="separador" alt="">
     </div>
     <!-- Seccion de busqueda filtrada --> 
     <div class="container-fluid">
-		<form method="post" id="search-form">
 			<div class="row">
-				<div class="col-sm-9">
+				<div class="col-sm-8">
+					<form method="post" id="search-form">
 					<div class="row">
 						<div class="col-sm-5">
 							<!-- Campo de busqueda filtrada --> 
@@ -24,13 +24,19 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 							</button>
 						</div>
 					</div>
+					</form>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
+				<form method="post" id="delete-form">
+
 					<!-- Boton para ingresar nuevos registros --> 
-					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+					<div id="seccionAgregar" class="row">
+						
+					</div>	
+				</form>
 				</div>
 			</div>
-		</form>
+		
 	</div>
 	<!-- Cierra seccion de busqueda filtrada -->		
 	<!-- Seccion de tabla de usuarios -->
@@ -114,31 +120,31 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 						<div class="col-6 form-group">
 							<label>No considerados*</label>
 							<div class="form-group">
-								<input id="noconsiderados" name="noconsiderados" type="number" min="0" class="form-control" required>
+								<input id="noconsiderados" name="noconsiderados" type="number" min="0" max="100" class="form-control" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" required/>							
 							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Incumplidos no entregados %*</label>
 							<div class="form-group">
-								<input id="incumnoentregados" name="incumnoentregados" type="text" class="form-control" required>
+								<input id="incumnoentregados" name="incumnoentregados" type="number" min="0" max="100" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Incumplidos por calidad %*</label>
 							<div class="form-group">
-								<input id="incumporcalidad" name="incumporcalidad" type="text" class="form-control" required>
+								<input id="incumporcalidad" name="incumporcalidad" type="number" min="0" max="100" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Incumplidos por fecha %*</label>
 							<div class="form-group">
-								<input id="incumporfecha" name="incumporfecha" type="text" class="form-control" required>
+								<input id="incumporfecha" name="incumporfecha" type="number" min="0" max="100" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Incumplidos por cantidad %*</label>
 							<div class="form-group">
-								<input id="incumporcantidad" name="incumporcantidad" type="text" class="form-control" required>
+								<input id="incumporcantidad" name="incumporcantidad" type="number" min="0" max="100" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" class="form-control" required>
 							</div>
 						</div>
 					</div>

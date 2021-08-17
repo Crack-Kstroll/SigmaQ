@@ -4,12 +4,44 @@ const API_INDICES = '../../app/api/dashboard/indiceEntrega.php?action=';
 
 // Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
 document.addEventListener('DOMContentLoaded', () => {
+    // Se manda a llamar funcion para tener la opcion de eliminar todos los registros de la base de datos
+    opcionesUsuario();
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_INDICES);
 })
 
+// Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
+const opcionesUsuario = () => {  
+    // Obtenemos el valor del tipo de usuario del panel lateral
+    let tipo = document.getElementById("tipoUsuario").value;
+    let contenido = '';
+    // Comparamos si el usuario es root
+    if (tipo == 'Root') {
+        // Cargamos el contenido correspondiente a los usuarios root
+        contenido+= `
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            <div class="col-sm-4">
+                <button class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
+                </button>
+            </div>
+            `;      
+    } else {
+        // Cargamos el contenido para los usuarios admins
+        contenido+= `
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            `; 
+    }
+    document.getElementById('seccionAgregar').innerHTML = contenido;
+}
+
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) =>{  
+const fillTable = (dataset) => {  
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -53,7 +85,7 @@ const fillTable = (dataset) =>{
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 8 eso significa que la data contiene 8 filas
-        if (contador == 8) {
+        if (contador == 7) {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
@@ -75,8 +107,12 @@ const fillTable = (dataset) =>{
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
-    // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
-    generatePagination();
+    // Se verifica si el contenido que se imprimio en la tabla no estaba vacio
+    if (content[0] != null) {
+        // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
+        generatePagination();
+    }
+    
 }
 
 // Función para guardar los registros del form
@@ -125,6 +161,14 @@ document.getElementById('search-form').addEventListener('submit', function (even
     searchRows(API_INDICES, 'search-form');
 });
 
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('delete-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmClean(API_INDICES);
+});
+
 // Función para abrir el Form al momento de crear un registro
 const openCreateDialog = () => {
     //Se restauran los elementos del form
@@ -132,20 +176,20 @@ const openCreateDialog = () => {
     //Se abre el form
     $('#modal-form').modal('show');
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Registrar Indice de Entrega'
+    document.getElementById('modal-title').textContent = 'Registrar índice de entrega'
     // Se llama a la function para llenar los Selects
     fillSelect(API_ADMINS, 'responsable', null);
     fillSelect(API_CLIENTES, 'cliente', null);
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openUpdateDialog = (id) =>{ 
+const openUpdateDialog = (id) => { 
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     //Se abre el form
     $('#modal-form').modal('show');
     //Asignamos el titulo al modal
-    document.getElementById('modal-title').textContent = 'Registrar Indice de Entrega'
+    document.getElementById('modal-title').textContent = 'Registrar índice de entrega'
     // Asignamos el valor del parametro id al campo del id del modal
     document.getElementById('idindice').value = id;
     const data = new FormData();
