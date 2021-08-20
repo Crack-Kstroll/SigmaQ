@@ -71,6 +71,7 @@ if (isset($_GET['action']))
                                                                         {
                                                                             if ($estadoCuenta->insertEstado()) 
                                                                             {
+                                                                                print('a');
                                                                                 $result['status'] = 1;
                                                                                 // Se muestra un mensaje de exito en caso de registrarse correctamente
                                                                                 $result['message'] = 'Registro ingresado correctamente';

@@ -173,6 +173,7 @@ const saveData = () => {
         action = 'create'; // En caso que no se crea 
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
+    // console.log(action);
     saveRow(API_ESTADO, action, 'save-form', 'staticBackdrop');
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);

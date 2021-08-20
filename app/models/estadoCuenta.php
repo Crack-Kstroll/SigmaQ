@@ -312,8 +312,8 @@ class EstadoCuenta extends Validator
 
     // Función para insertar un estado
     public function insertEstado() {
-        $query="INSERT INTO public.estadocuentas(idestadocuenta,estado,responsable, sociedad, cliente, codigo, factura, asignacion, fechacontable, clase, vencimiento, divisa, totalgeneral)
-                VALUES (default,default,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query="INSERT INTO public.estadocuentas(responsable, sociedad, cliente, codigo, factura, asignacion, fechacontable, clase, vencimiento, divisa, totalgeneral)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $params = array($this->responsable, $this->sociedad, $this->cliente, $this->codigo, $this->factura, $this->asignacion, $this->fechaContable, $this->clase, $this->vencimiento, $this->divisa, $this->total);
         return Database::executeRow($query, $params);
     }

@@ -2,12 +2,17 @@
 include('../../app/helpers/public.php');
 Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
 ?>
-<!-- Jumbotron para el título -->
-<div class="jumbotron jumbotron-fluid" id="jumbo_estado">
-  <div class="container">
-    <h1 class="display-4">Estado de cuenta</h1>
-    <p class="lead">Aquí puedes revisar tus estados de cuenta actualizados desde el mes de enero 2021.</p>
-  </div>
+<div class="my-4"></div>
+
+<!-- Botón para el modal de personalización de la tabla -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<a onclick=openCustomDialog() type="button" class="btn btn-primary" id="conf_tabla_estado">
+				Configurar tabla
+			</a>
+		</div>
+	</div>
 </div>
 <!-- Tabla -->
 	<!-- Seccion de tabla de registros -->
