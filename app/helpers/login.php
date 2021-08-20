@@ -8,12 +8,9 @@ class Login_Page
         // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en las páginas web.
         session_start();
         // Se imprime el código HTML de la cabecera del documento.
-        if (isset($_SESSION['nombre'])) 
-        {
+        if (isset($_SESSION['nombre'])) {
             header('location: main.php');
-        } 
-        else 
-        {
+        } else {
             print('
             <!DOCTYPE html>
             <html lang="es">

@@ -165,6 +165,13 @@ class Pedidos extends Validator
         return Database::executeRow($query, $params);
     }
 
+    //Función para eliminar un registro
+    public function deleteAll() 
+    {
+        $query="DELETE FROM pedido";
+        return Database::executeRow($query, null);
+    }
+
     //Función para mostrar los índices
     public function readPedidos() 
     {

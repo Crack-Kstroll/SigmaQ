@@ -6,43 +6,40 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 	<!-- Seccion de contenido (contiene todo el contenido de la pagina) -->
 	<div class="container-fluid espacioSuperior">
 		<!-- Seccion titulo de pagina -->
-		<h5 class="tituloMto">Gestion de estados de cuenta</h5>
+		<h5 class="tituloMto">Gestión de estados de cuenta</h5>
 		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	</div> <!-- Cierra seccion titulo pagina -->
 
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
-		<form method="post" id="search-form">
 			<div class="row">
-				<div class="col-sm-7">
+				<div class="col-sm-8">
+					<form method="post" id="search-form">
 					<div class="row">
-						<div class="col-sm-6">
-							<!-- Campo de busqueda filtrada -->
-							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por sociedad o responsable" aria-label="search">
+						<div class="col-sm-5">
+							<!-- Campo de busqueda filtrada --> 
+							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
 						<div class="col-sm-2">
-							<!-- Boton para busqueda filtrada -->
+							<!-- Boton para busqueda filtrada --> 
 							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 								<i class="material-icons">search</i></button>
 							</button>
 						</div>
 					</div>
+					</form>
 				</div>
 				<div class="col-sm-4">
-					<!-- Boton para ingresar nuevos registros -->
-					<a class="btn btn-info btn-md " onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar registro</button></a>
+				<form method="post" id="delete-form">
+
+					<!-- Boton para ingresar nuevos registros --> 
+					<div id="seccionAgregar" class="row">
+						
+					</div>	
+				</form>
 				</div>
-				<!-- <div class="col-sm-2"> -->
-					<!-- Boton para ingresar nuevos registros -->
-					<!-- <a class="btn btn-success btn-md " onclick="openCreateDialogDivisas()" role="button" aria-disabled="true">Admin. Divisas</button></a>
-				</div> -->
-				<!-- <div class="col-sm-2"> -->
-					<!-- Boton para ingresar nuevos registros -->
-					<!-- <a class="btn btn-warning btn-md " onclick="openCreateDialogSociedades()" role="button" aria-disabled="true">Admin. Sociedades</button></a>
-				</div> -->
 			</div>
-		</form>
-		<!-- Cierra seccion de busqueda filtrada -->
+		
 	</div>
 
 	<div class="container-fluid espacioSuperior"> 
@@ -74,15 +71,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 	<!-- Cierra seccion de tabla -->
 	</div>
 
-	<!-- Seccion de tabla de registros -->
-	<div class="container-fluid espacioSuperior">
-		<table class="table borde" id="tbody-rows">
-			<h4 id="warning-message" style="text-align:center"></h4>
-			<!-- Contenido de la tabla -->
-			<tbody>
-			</tbody>
-		</table>
-	</div>
 	<!-- Modal  Estados-->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -109,13 +97,13 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 									</div>
 								</div>
 								<div class="form-group">
-									<label>Fecha Contable*</label>
+									<label>Fecha contable*</label>
 									<input id="fechacontable" name="fechacontable" type="date" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Codigo*</label>
+									<label>Código*</label>
 									<input id="codigo" name="codigo" type="number" class="form-control" required>
 								</div>
 								<div class="form-group">
@@ -129,7 +117,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Fecha Vencimiento*</label>
+									<label>Fecha vencimiento*</label>
 									<input id="vencimiento" name="vencimiento" type="date" class="form-control" required>
 								</div>
 							</div>
@@ -158,7 +146,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<label>Total General*</label>
+								<label>Total general*</label>
 								<input id="total" name="total" type="number" class="form-control" required>
 							</div>
 						</div>

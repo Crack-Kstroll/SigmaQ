@@ -117,14 +117,20 @@ body {
 .centrarBoton{
 	padding-bottom:0px;
 	padding-top:7px;
-
 }
+
+.centrarBoton2{
+	padding-bottom:0px;
+	padding-top:12px;
+}
+
+.ajustarboton{
+	padding-left:30px;
+}
+
 /**** CIERRA SECCION DE CONTENIDO DE FORMULARIOS****/
 
 /****   SECCION DEL SIDEBAR   ****/
-.logOut-bottom {
-	/* bottom: 0px; */
-}
 
 .fondoNegro{
     background-color:black;
@@ -152,6 +158,11 @@ body {
 
 .espacioInfo{
 	padding-left: 30px;
+}
+
+.espacioTipo{
+	padding-left: 30px;
+	padding-top:5px;
 }
 
 

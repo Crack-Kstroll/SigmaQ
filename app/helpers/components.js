@@ -5,7 +5,7 @@
 *
 *   Retorno: ninguno.
 */
-const readRows = (api) =>{ 
+const readRows = (api) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo get 
     para obtener el resultado de la API*/
     fetch(api + 'readAll', {
@@ -42,7 +42,7 @@ const readRows = (api) =>{
 *
 *   Retorno: ninguno.
 */
-const saveRow = (api, action, form, modal) =>{ 
+const saveRow = (api, action, form, modal) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
     para acceder a los campos desde la API*/
     fetch(api + action, {
@@ -76,13 +76,50 @@ const saveRow = (api, action, form, modal) =>{
 }
 
 /*
+*   Función para crear o actualizar un registro en los mantenimientos de tablas (operación create y update).
+*
+*   Parámetros: api (ruta del servidor para enviar los datos), form (identificador del formulario) ,modal (identificador de la caja de dialogo) 
+*   y url (direccion del reporte).
+*
+*   Retorno: ninguno.
+*/
+const paramReport = (api, action, form, modal, url) => { 
+    /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+    para acceder a los campos desde la API*/
+    fetch(api + action, {
+        method: 'post',
+        body: new FormData(document.getElementById(form))
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    // Se cierra la caja de dialogo (modal) del formulario.
+                    $(`#${modal}`).modal('hide');
+                    // Abrimos el reporte en una pestaña nueva
+                    window.open(url);
+                } else {
+                    sweetAlert(2, response.exception, null);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+
+/*
 *   Función para obtener los resultados de una búsqueda en los mantenimientos de tablas (operación search).
 *
 *   Parámetros: api (ruta del servidor para obtener los datos) y form (identificador del formulario de búsqueda).
 *
 *   Retorno: ninguno.
 */
-const searchRows = (api, form) =>{ 
+const searchRows = (api, form) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
     para acceder a los campos desde la API*/
     fetch(api + 'search', {
@@ -94,8 +131,10 @@ const searchRows = (api, form) =>{
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    // Resetamos los vectores que contienen los registros de la tabla
+                    // Se resetean los valores de los arreglos de la paginacion
                     resetPagination();
+                    // Borramos el contenido de la tabla
+                    deleteTable();
                     // Se envían los datos a la función del controlador para que llene la tabla en la vista.
                     fillTable(response.dataset);
                     // Mostramos alerta con mensaje de exito
@@ -119,7 +158,7 @@ const searchRows = (api, form) =>{
 *
 *   Retorno: ninguno.
 */
-const confirmDelete = (api, data) =>{ 
+const confirmDelete = (api, data) => { 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -164,13 +203,71 @@ const confirmDelete = (api, data) =>{
 }
 
 /*
+*   Función para eliminar todos los registros de una tabla (limpiar base de datos)
+*
+*   Parámetros: api (ruta del servidor para enviar los datos) y data (objeto con los datos del registro a eliminar).
+*
+*   Retorno: ninguno.
+*/
+const confirmClean = (api) => { 
+    // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
+    swal({
+        title: 'Advertencia',
+        text: '¿Desea eliminar todos los registros de la tabla?',
+        icon: 'warning',
+        buttons: ['No', 'Sí'],
+        closeOnClickOutside: false,
+        closeOnEsc: false
+    }).then(function (value) {
+        swal({
+            title: 'Advertencia',
+            text: '¿Confirma la acción a realizar?',
+            icon: 'info',
+            buttons: ['No', 'Sí'],
+            closeOnClickOutside: false,
+            closeOnEsc: false
+        }).then(function (value) {
+            if (value) {
+                /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+                para acceder a los campos desde la API*/
+                fetch(api + 'deleteAll', {
+                    method: 'post'
+                }).then(function (request) {
+                    // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+                    if (request.ok) {
+                        request.json().then(function (response) {
+                            // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                            if (response.status) {
+                                // Borramos el contenido de la tabla 
+                                deleteTable();
+                                // Se muestra una alerta con el mensaje de exito
+                                sweetAlert(1, response.message, null);
+                            } else {
+                                sweetAlert(2, response.exception, null);
+                            }
+                        });
+                    } else {
+                        console.log(request.status + ' ' + request.statusText);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        });
+    });
+}
+
+// Se verifica si fue cliqueado el botón Sí para hacer la petición de borrado, de lo contrario no se hace nada.
+
+
+/*
 *   Función para eliminar un registro seleccionado en los mantenimientos de tablas (operación delete). Requiere el archivo sweetalert.min.js para funcionar.
 *
 *   Parámetros: api (ruta del servidor para enviar los datos) y data (objeto con los datos del registro a eliminar).
 *
 *   Retorno: ninguno.
 */
-const confirmDesactivate = (api, data) =>{ 
+const confirmDesactivate = (api, data) => { 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -220,7 +317,7 @@ const confirmDesactivate = (api, data) =>{
 *
 *   Retorno: ninguno.
 */
-const confirmActivate = (api, data) =>{ 
+const confirmActivate = (api, data) => { 
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -271,7 +368,7 @@ const confirmActivate = (api, data) =>{
 *
 *   Retorno: ninguno.
 */
-const onlyConfirmDelete = (api, data) =>{  
+const onlyConfirmDelete = (api, data) => {  
     // Se manda a llamar la funcion de la libreria sweet alert y se envian los parametros para generar la caja de dialogo
     swal({
         title: 'Advertencia',
@@ -318,7 +415,7 @@ const onlyConfirmDelete = (api, data) =>{
 *
 *   Retorno: ninguno.
 */
-const sweetAlert = (type, text, url) =>{  
+const sweetAlert = (type, text, url) => {  
     // Se compara el tipo de mensaje a mostrar.
     switch (type) {
         case 1:
@@ -368,7 +465,7 @@ const sweetAlert = (type, text, url) =>{
 *
 *   Retorno: ninguno.
 */
-const fillSelect = (endpoint, select, selected) =>{   
+const fillSelect = (endpoint, select, selected) => {   
     fetch(endpoint, {
         method: 'get'
     }).then(function (request) {
@@ -400,8 +497,6 @@ const fillSelect = (endpoint, select, selected) =>{
                 }
                 // Se agregan las opciones a la etiqueta select mediante su id.
                 document.getElementById(select).innerHTML = content;
-                // Se inicializa el componente Select del formulario para que muestre las opciones.
-                // M.FormSelect.init(document.querySelectorAll('select'));
             });
         } else {
             console.log(request.status + ' ' + request.statusText);
@@ -411,3 +506,226 @@ const fillSelect = (endpoint, select, selected) =>{
     });
 }
 
+/*
+*   Función para generar una gráfica de barras verticales. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const barGraph = (canvas, xAxis, yAxis, legend, title) => { 
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = ["#000000", "#CE0E2D","#58595B","#E6E7E8","#FFFFFF"];
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
+        type: 'bar',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                // Agregamos el arreglo con los datos para llenar el grafico
+                data: yAxis,
+                // Asignamos el color del borde del grafico
+                borderColor: '#000000',
+                borderWidth: 1,
+                // Colocamos el arreglo con los codigos de colores
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false
+            },
+            // Colocamos el titulo al grafico
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }]
+            }
+        }
+    });
+}
+
+/*
+*   Función para generar una gráfica de pastel. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const pieGraph = (canvas, legends, values, title) => { 
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = ["#000000", "#CE0E2D","#58595B","#E6E7E8","#FFFFFF"]
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
+        type: 'pie',
+        data: {
+            labels: legends,
+            datasets: [{
+                // Agregamos el arreglo con los datos para llenar el grafico
+                data: values,
+                // Colocamos el arreglo con los codigos de colores
+                backgroundColor: colors,
+                // Asignamos el color del borde del grafico
+                borderColor: '#000000',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+    });
+}
+
+/*
+*   Función para generar una gráfica de doughnut. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const doughnutGraph = (canvas, legends, values, title) => { 
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = ["#000000", "#CE0E2D","#58595B","#E6E7E8","#FFFFFF"];
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
+        type: 'doughnut',
+        data: {
+            labels: legends,
+            datasets: [{
+                // Agregamos el arreglo con los datos para llenar el grafico
+                data: values,
+                // Colocamos el arreglo con los codigos de colores
+                backgroundColor: colors,
+                // Asignamos el color del borde del grafico
+                borderColor: '#000000',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+    });
+}
+
+
+/*
+*   Función para generar una gráfica de area polar. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), legends (valores para las etiquetas), values (valores de los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const polarGraph = (canvas, legends, values, title) => { 
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = ["#000000", "#CE0E2D","#58595B","#E6E7E8","#FFFFFF"];
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
+        type: 'polarArea',
+        data: {
+            labels: legends,
+            datasets: [{
+                // Agregamos el arreglo con los datos para llenar el grafico
+                data: values,
+                // Colocamos el arreglo con los codigos de colores
+                backgroundColor: colors,
+                // Asignamos el color del borde del grafico
+                borderColor: '#000000',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+    });
+}
+
+/*
+*   Función para eliminar el contenido del contenedor de las graficas 
+*
+*   Parámetros: Nombre del contenedor del grafico.
+*
+*   Retorno: ninguno.
+*/
+const resetChart = (container) => {
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById(container).innerHTML = '';
+}
+
+/*
+*   Función para generar una gráfica de lineas verticales. Requiere el archivo chart.js para funcionar.
+*
+*   Parámetros: canvas (identificador de la etiqueta canvas), xAxis (datos para el eje X), yAxis (datos para el eje Y), legend (etiqueta para los datos) y title (título de la gráfica).
+*
+*   Retorno: ninguno.
+*/
+const lineGraph = (canvas, xAxis, yAxis, legend, title) => { 
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        // Indicamos el tipo de reporte que generaremos
+        type: 'line',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                // Agregamos el arreglo con los datos para llenar el grafico
+                label: legend,
+                data: yAxis,
+                // Asignamos el color del borde del grafico
+                borderColor: '#000000',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }]
+            }
+        }
+    });
+}

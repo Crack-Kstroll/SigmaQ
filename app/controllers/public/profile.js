@@ -1,5 +1,5 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_USUARIOS = '../../app/api/dashboard/usuarios.php?action=';
+const API_USUARIOS = '../../app/api/dashboard/clientes.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
@@ -19,11 +19,9 @@ const readProfile = () => {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se agregan los datos obtenidos a los inputs del formulario
-                    document.getElementById('txtNombre').value = response.dataset.nombre;
-                    document.getElementById('txtApellido').value = response.dataset.apellido;
-                    document.getElementById('txtCorreo').value = response.dataset.correo;
-                    document.getElementById('txtDui').value = response.dataset.dui;
+                    document.getElementById('txtEmpresa').value = response.dataset.empresa;
                     document.getElementById('txtTelefono').value = response.dataset.telefono;
+                    document.getElementById('txtCorreo').value = response.dataset.correo;
                     document.getElementById('txtUsuario').value = response.dataset.usuario;
                 } else {
                     // Se muestra mensaje de error en caso de no ejecutarse la sentencia

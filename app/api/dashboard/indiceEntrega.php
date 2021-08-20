@@ -13,25 +13,18 @@ if (isset($_GET['action']))
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como usuario para realizar las acciones correspondientes.
-    if (isset($_SESSION['codigoadmin']))
-    { 
+    if (isset($_SESSION['codigoadmin'])) { 
         // Se evalua la acción a realizar
         switch($_GET['action']) 
         {
             //Caso para mostrar los el índice de entrega
             case 'readAll':
-                if($result['dataset'] = $indice->selectIndice()) 
-                {
+                if($result['dataset'] = $indice->selectIndice()) {
                     $result['status'] = 1;
-                }
-                else 
-                {
-                    if(Database::getException()) 
-                    {
+                } else {
+                    if(Database::getException()) {
                         $result['exception'] = Database::getException(); 
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'No hay índices registradas';
                     }
                 }
@@ -41,118 +34,71 @@ if (isset($_GET['action']))
                 //Validamos los datos del formulario
                 $_POST = $indice->validateForm($_POST);
                 //Pasamos la información al modelo, mediante los setters
-                if(isset($_POST['responsable']))
-                {
-                    if($indice->setResponsable($_POST['responsable'])) 
-                    {
-                        if(isset($_POST['cliente'])) 
-                        {
-                            if($indice->setCliente($_POST['cliente'])) 
-                            {
-                                if($indice->setOrganizacion($_POST['organizacion'])) 
-                                {
-                                    if($indice->setIndice($_POST['indice'])) 
-                                    {
-                                        if($indice->setTotalCompromiso($_POST['totalcompromiso'])) 
-                                        {
-                                            if($indice->setCumplidos($_POST['cumplidos'])) 
-                                            {
-                                                if($indice->setNoCumplidos($_POST['nocumplidos'])) 
-                                                {
-                                                    if($indice->setNoConsiderados($_POST['noconsiderados'])) 
-                                                    {
-                                                        if($indice->setIncumNoEntregados($_POST['incumnoentregados'])) 
-                                                        {
-                                                            if($indice->setIncumPorCalidad($_POST['incumporcalidad']))
-                                                             {
-                                                                if($indice->setIncumPorFecha($_POST['incumporfecha'])) 
-                                                                {
-                                                                    if($indice->setIncumPorCantidad($_POST['incumporcantidad'])) 
-                                                                    {
+                if(isset($_POST['responsable'])) {
+                    if($indice->setResponsable($_POST['responsable'])) {
+                        if(isset($_POST['cliente'])) {
+                            if($indice->setCliente($_POST['cliente'])) {
+                                if($indice->setOrganizacion($_POST['organizacion'])) {
+                                    if($indice->setIndice($_POST['indice'])) {
+                                        if($indice->setTotalCompromiso($_POST['totalcompromiso'])) {
+                                            if($indice->setCumplidos($_POST['cumplidos'])) {
+                                                if($indice->setNoCumplidos($_POST['nocumplidos'])) {
+                                                    if($indice->setNoConsiderados($_POST['noconsiderados'])) {
+                                                        if($indice->setIncumNoEntregados($_POST['incumnoentregados'])) {
+                                                            if($indice->setIncumPorCalidad($_POST['incumporcalidad'])) {
+                                                                if($indice->setIncumPorFecha($_POST['incumporfecha'])) {
+                                                                    if($indice->setIncumPorCantidad($_POST['incumporcantidad'])) {
                                                                         if($indice->insertIndice()) {
                                                                             $result['status'] = 1;
                                                                             // Se muestra un mensaje de exito en caso de registrarse correctamente
                                                                             $result['message'] = 'Índice registrado correctamente';
-                                                                        } 
-                                                                        else 
-                                                                        {
-                                                                            if(Database::getException())
-                                                                            {
+                                                                        } else {
+                                                                            if(Database::getException()) {
                                                                                 $result['exception'] = Database::getException();
-                                                                            } 
-                                                                            else 
-                                                                            {
+                                                                            } else {
                                                                                 $result['exception'] = 'Ocurrió un problema al insertar el registro';
                                                                             }
                                                                         }
-                                                                    } 
-                                                                    else 
-                                                                    {
+                                                                    } else {
                                                                         $result['exception'] = 'Incumpletos por cantidad erróneos';
                                                                     }
-                                                                } 
-                                                                else 
-                                                                {
+                                                                } else {
                                                                     $result['exception'] = 'Incompletos por fecha erróneos';
                                                                 }
-                                                            } 
-                                                            else 
-                                                            {
+                                                            } else {
                                                                 $result['exception'] = 'Incompletos por calidad erróneos';
                                                             }
-                                                        } 
-                                                        else 
-                                                        {
+                                                        } else {
                                                             $result['exception'] = 'Incompletos no entregados erróneos';
                                                         }
-                                                    } 
-                                                    else
-                                                    {
+                                                    } else{
                                                         $result['exception'] = 'No considerados incorrectos';
                                                     }
-                                                } 
-                                                else
-                                                {
+                                                } else{
                                                     $result['exception'] = 'No cumplidos incorrectos';
                                                 }
-                                            } 
-                                            else 
-                                            {
+                                            } else {
                                                 $result['exception'] = 'Cumplidos incorrectos';
                                             }
-                                        } 
-                                        else 
-                                        {
+                                        } else {
                                             $result['exception'] = 'Compromisos totales incorrectos';
                                         }
-                                    } 
-                                    else 
-                                    {
+                                    } else {
                                         $result['exception'] = 'Índice incorrecto';    
                                     }
-                                } 
-                                else 
-                                {
+                                } else {
                                     $result['exception'] = 'Organización incorrecta';
                                 }
-                            } 
-                            else 
-                            {
+                            } else {
                                 $result['exception'] = 'Cliente incorrecto';    
                             }
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'Escoja un cliente';
                         }
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'Responsable incorrecto';
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Escoja un responsable';
                 }
             break;
@@ -161,125 +107,75 @@ if (isset($_GET['action']))
                 //Validamos los datos del formulario
                 $_POST = $indice->validateForm($_POST);
                 //Pasamos la información al modelo, mediante los setters
-                if($indice->setIdIndice($_POST['idindice'])) 
-                {
-                    if(isset($_POST['responsable'])) 
-                    {
-                        if($indice->setResponsable($_POST['responsable'])) 
-                        {
-                            if(isset($_POST['cliente'])) 
-                            {
-                                if($indice->setCliente($_POST['cliente'])) 
-                                {
-                                    if($indice->setOrganizacion($_POST['organizacion'])) 
-                                    {
-                                        if($indice->setIndice($_POST['indice'])) 
-                                        {
-                                            if($indice->setTotalCompromiso($_POST['totalcompromiso'])) 
-                                            {
-                                                if($indice->setCumplidos($_POST['cumplidos'])) 
-                                                {
-                                                    if($indice->setNoCumplidos($_POST['nocumplidos'])) 
-                                                    {
-                                                        if($indice->setNoConsiderados($_POST['noconsiderados'])) 
-                                                        {
-                                                            if($indice->setIncumNoEntregados($_POST['incumnoentregados'])) 
-                                                            {
-                                                                if($indice->setIncumPorCalidad($_POST['incumporcalidad'])) 
-                                                                {
-                                                                    if($indice->setIncumPorFecha($_POST['incumporfecha'])) 
-                                                                    {
-                                                                        if($indice->setIncumPorCantidad($_POST['incumporcantidad'])) 
-                                                                        {
+                if($indice->setIdIndice($_POST['idindice'])) {
+                    if(isset($_POST['responsable'])) {
+                        if($indice->setResponsable($_POST['responsable'])) {
+                            if(isset($_POST['cliente'])) {
+                                if($indice->setCliente($_POST['cliente'])) {
+                                    if($indice->setOrganizacion($_POST['organizacion'])) {
+                                        if($indice->setIndice($_POST['indice'])) {
+                                            if($indice->setTotalCompromiso($_POST['totalcompromiso'])) {
+                                                if($indice->setCumplidos($_POST['cumplidos'])) {
+                                                    if($indice->setNoCumplidos($_POST['nocumplidos'])) {
+                                                        if($indice->setNoConsiderados($_POST['noconsiderados'])) {
+                                                            if($indice->setIncumNoEntregados($_POST['incumnoentregados'])) {
+                                                                if($indice->setIncumPorCalidad($_POST['incumporcalidad'])) {
+                                                                    if($indice->setIncumPorFecha($_POST['incumporfecha'])) {
+                                                                        if($indice->setIncumPorCantidad($_POST['incumporcantidad'])) {
                                                                             if($indice->updateIndice()) {
                                                                                 $result['status'] = 1;
                                                                                 // Se muestra un mensaje de exito en caso de registrarse correctamente
                                                                                 $result['message'] = 'Índice modificado correctamente';
-                                                                            } 
-                                                                            else 
-                                                                            {
-                                                                                if(Database::getException())
-                                                                                {
+                                                                            } else {
+                                                                                if(Database::getException()){
                                                                                     $result['exception'] = Database::getException();
-                                                                                } 
-                                                                                else 
-                                                                                {
+                                                                                } else {
                                                                                     $result['exception'] = 'Ocurrió un problema al modificar el registro';
                                                                                 }
                                                                             }
-                                                                        } 
-                                                                        else 
-                                                                        {
+                                                                        } else {
                                                                             $result['exception'] = 'Incumpletos por cantidad erróneos';
                                                                         }
-                                                                    } 
-                                                                    else 
-                                                                    {
+                                                                    } else {
                                                                         $result['exception'] = 'Incompletos por fecha erróneos';
                                                                     }
-                                                                } 
-                                                                else 
-                                                                {
+                                                                } else {
                                                                     $result['exception'] = 'Incompletos por calidad erróneos';
                                                                 }
-                                                            } 
-                                                            else 
-                                                            {
+                                                            } else {
                                                                 $result['exception'] = 'Incompletos no entregados erróneos';
                                                             }
-                                                        } 
-                                                        else 
-                                                        {
+                                                        } else {
                                                             $result['exception'] = 'No considerados incorrectos';
                                                         }
-                                                    } 
-                                                    else 
-                                                    {
+                                                    } else {
                                                         $result['exception'] = 'No cumplidos incorrectos';
                                                     }
-                                                } 
-                                                else 
-                                                {
+                                                } else {
                                                     $result['exception'] = 'Cumplidos incorrectos';
                                                 }
-                                            } 
-                                            else 
-                                            {
+                                            } else {
                                                 $result['exception'] = 'Compromisos totales incorrectos';
                                             }
-                                        } 
-                                        else 
-                                        {
+                                        } else {
                                             $result['exception'] = 'Índice incorrecto';    
                                         }
-                                    } 
-                                    else 
-                                    {
+                                    } else {
                                         $result['exception'] = 'Organización incorrecta';
                                     }
-                                } 
-                                else 
-                                {
+                                } else {
                                     $result['exception'] = 'Cliente incorrecto';    
                                 }
-                            } 
-                            else 
-                            {
+                            } else {
                                 $result['exception'] = 'Escoja un cliente';
                             }
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'Responsable incorrecto';
                         }
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'Escoja un responsable';
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'ID del índice incorrecto';
                 }
             break;
@@ -288,59 +184,55 @@ if (isset($_GET['action']))
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $indice->validateForm($_POST);      
                 // Obtenemos el valor de los input mediante los metodos set del modelo 
-                if ($indice->setIdIndice($_POST['id'])) 
-                {
+                if ($indice->setIdIndice($_POST['id'])) {
                     // Cargamos los datos del registro que se desea eliminar
-                    if ($data = $indice->readOneIndice()) 
-                    {
+                    if ($data = $indice->readOneIndice()) {
                         // Ejecutamos funcion para desactivar un usuario
-                        if ($indice->desableIndice()) 
-                        {
+                        if ($indice->desableIndice()) {
                             $result['status'] = 1;
                             // Mostramos mensaje de exito
                             $result['message'] = 'Índice desactivado correctamente'; 
                         // En caso de que alguna validacion falle se muestra el mensaje con el error 
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = Database::getException();
                         }
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'Índice inexistente';
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Codigo incorrecto';
                 }
+            break;
+            //Caso para eliminar todos los registros de la base de datos
+            case 'deleteAll':
+                // Ejecutamos funcion para desactivar un usuario
+                if ($indice->deleteAll()) {
+                    $result['status'] = 1;
+                    // Mostramos mensaje de exito
+                    $result['message'] = 'Datos eliminados correctamente'; 
+                    // En caso de que alguna validacion falle se muestra el mensaje con el error 
+                } else {
+                    $result['exception'] = Database::getException();
+                }        
             break;
             //Caso para activar un registro
             case 'activate':
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $indice->validateForm($_POST);      
                 // Obtenemos el valor de los input mediante los metodos set del modelo 
-                if ($indice->setIdIndice($_POST['id'])) 
-                {
+                if ($indice->setIdIndice($_POST['id'])) {
                     // Cargamos los datos del registro que se desea eliminar
-                    if ($data = $indice->readOneIndice()) 
-                    {
+                    if ($data = $indice->readOneIndice()) {
                         // Ejecutamos funcion para desactivar un usuario
-                        if ($indice->enableIndice()) 
-                        {
+                        if ($indice->enableIndice()) {
                             $result['status'] = 1;
                             // Mostramos mensaje de exito
                             $result['message'] = 'Índice activado correctamente'; 
                         // En caso de que alguna validacion falle se muestra el mensaje con el error 
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = Database::getException();
                         }
-                    } 
-                    else 
-                    {
+                    } else {
                         $result['exception'] = 'Índice inexistente';
                     }
                 } else {
@@ -352,66 +244,46 @@ if (isset($_GET['action']))
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $indice->validateForm($_POST);
                 // Validamos si el input no esta vacio
-                if ($_POST['search'] != '') 
-                {
+                if ($_POST['search'] != '') {
                     // Ejecutamos la funcion para la busqueda filtrada enviando el contenido del input como parametro
-                    if ($result['dataset'] = $indice->searchRows($_POST['search'])) 
-                    {
+                    if ($result['dataset'] = $indice->searchRows($_POST['search'])) {
                         $result['status'] = 1;
                         // Obtenemos la cantidad de resultados retornados por la consulta
                         $rows = count($result['dataset']);
                         // Verificamos si la cantidad de resultados es mayor a uno asi varia el mensaje a mostrar
-                        if ($rows > 1)
-                        {
+                        if ($rows > 1) {
                             // Mostramos un mensaje con la cantidad de coincidencias encontradas
                             $result['message'] = 'Se encontraron ' . $rows . ' coincidencias';
-                        } 
-                        else 
-                        {
+                        } else {
                             // Mostramos un mensaje donde solo hubo una sola coincidencia
                             $result['message'] = 'Solo existe una coincidencia';
                         }
-                    } 
-                    else 
-                    {
-                        if (Database::getException()) 
-                        {
+                    } else {
+                        if (Database::getException()) {
                             $result['exception'] = Database::getException();
-                        } 
-                        else 
-                        {
+                        } else {
                             // En caso de no encontrar registros se muestra el siguiente mensaje
                             $result['exception'] = 'No hay coincidencias'; 
                         }
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 }
             break;
             // Caso para leer los datos de un solo registro parametrizado mediante el identificador
             case 'readOne': 
-                if ($indice->setIdIndice($_POST['id'])) 
-                {
+                if ($indice->setIdIndice($_POST['id'])) {
                     // Se ejecuta la funcion para leer los datos de un registro
-                    if ($result['dataset'] = $indice->readOneIndice()) 
-                    {
+                    if ($result['dataset'] = $indice->readOneIndice()) {
                         $result['status'] = 1;
-                    } else 
-                    {
-                        if (Database::getException()) 
-                        {
+                    } else {
+                        if (Database::getException()) {
                             $result['exception'] = Database::getException();
-                        } 
-                        else 
-                        {
+                        } else {
                             $result['exception'] = 'Índice inexistente'; // Se muestra en caso de no encontrar registro con ese id
                         }
                     }
-                } 
-                else 
-                {
+                } else {
                     $result['exception'] = 'Índice incorrecto';
                 }
             break;

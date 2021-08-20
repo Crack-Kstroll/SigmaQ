@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) =>{   
+const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -16,6 +16,9 @@ const fillTable = (dataset) =>{
     // Variables para almacernar los nombres de los iconos del los botones y del estado del usuario en la tabla
     let iconToolTip = '';
     let iconMetod = '';
+    let iconType = '';
+    let iconTypeTooltip = '';
+    // Recorremos el contenido del arreglo
     dataset.map(function (row) {
         // Definimos el icono a mostrar en la tabla segun el estado del registro
         if (row.estado) {
@@ -28,7 +31,7 @@ const fillTable = (dataset) =>{
             // Se asigna el siguiente icono al boton
             iconMetod = 'block';
         }
-        else{
+        else {
             // Si el estado del usuario es activo se muestran los siguiente icono
             icon = 'lock';
             // Se asigna el nombre del metodo para activar el registro
@@ -36,7 +39,15 @@ const fillTable = (dataset) =>{
             // Tooltip para indicar la accion que realiza el boton
             iconToolTip = 'Habilitar'; 
             // Se asigna el siguiente icono al boton
-            iconMetod= 'check_circle_outline'
+            iconMetod= 'check_circle_outline';
+        }
+        // Verificamos el tipo de usuario
+        if (row.tipo == 1) {
+            iconType = 'folder_special';
+            iconTypeTooltip = 'Root';
+        } else {
+            iconType = 'folder_shared';
+            iconTypeTooltip = 'Admin';
         }
         // Definimos la estructura de las filas con los campos del dataset 
         data += `
@@ -49,10 +60,18 @@ const fillTable = (dataset) =>{
                 <td>${row.telefono}</td>
                 <td>${row.usuario}</td>
                 <td><i class="material-icons">${icon}</i></td>
+                <td><i class="material-icons" data-toggle="tooltip" title="${iconTypeTooltip}">${iconType}</i></a></td>
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.codigoadmin})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.codigoadmin})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
                 </td>
+                <td>
+                    <a href="#" onclick="parameterChart(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
+                    <a href="../../app/reports/dashboard/accionesUsuario.php?id=${row.codigoadmin}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte">assignment_ind</i></a>
+                </td>
+                <td>
+                    <a href="#" onclick="parameterReportModal(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte parametrizado">collections_bookmark</i></a>
+                </td> 
             </tr>
         `;           
         // Agregamos uno al contador por la fila agregada anteriormente al data
@@ -74,14 +93,17 @@ const fillTable = (dataset) =>{
         // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
         content.push(data); 
     } 
-    else{
+    else {
         // Se resta una posicion ya que no se agrego el contenido final por estar vacio
         posiciones = posiciones -1;
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
-    // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
-    generatePagination();
+    // Se verifica si el contenido que se imprimio en la tabla no estaba vacio
+    if (content[0] != null) {
+        // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
+        generatePagination();
+    }
 }
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
@@ -92,8 +114,163 @@ document.getElementById('search-form').addEventListener('submit', function (even
     searchRows(API_USUARIOS, 'search-form');
 });
 
+// Método manejador de eventos que se ejecuta cuando quiere cargar el grafico
+document.getElementById('chart-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Top 5 de usuarios con más acciones';
+    // Se llama la funcion que muestra el gráfico en el modal.
+    graficaAcciones();
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
+    myModal.show();
+});
+
+// Función para cargar el grafico parametrizado.
+const parameterChart = (id) => {
+    // Reseteamos el contenido del chart
+    resetChart('chart-container');
+    // Creamos un atributo para guardar el codigo HTML para generar el grafico
+    let content = '<canvas id="chart1"></canvas>';
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('chart-modal'));
+    myModal.show();
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Top 5 de acciones más realizadas por un usuario';
+    // Creamos un form data para enviar el id 
+    const data = new FormData();
+    data.append('id', id);
+    // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
+    fetch(API_USUARIOS + 'graficaParam', {
+        method: 'post',
+        body: data 
+    }).then( request => { 
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) { 
+           return request.json()
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    // En ocurrir un error se muestra en la consola 
+    }).then( response => {
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+        if (response.status) {
+            // Se declaran los arreglos para guardar los datos por gráficar.
+            let categorias = [];
+            let cantidad = [];
+            // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+            response.dataset.map(function (row) {
+                // Se asignan los datos a los arreglos.
+                categorias.push(row.accion);
+                cantidad.push(row.cantidad);        
+            });
+            // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+            pieGraph('chart1', categorias, cantidad, 'Cantidad de acciones realizadas');
+        } else {
+            document.getElementById('chart1').remove();
+            console.log(response.exception);
+        }
+    }
+    ).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Función para cargar el reporte parametrizado.
+const parameterReportModal = (id) => {
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('report-modal'));
+    // Hacemos visible el modal
+    myModal.show();
+    // Limpiamos el contenido del modal 
+    document.getElementById('parameter-form').reset();
+    // Guardamos el valor del id en un input
+    document.getElementById('idReport').value = id;
+}
+
+// Función para cargar el reporte parametrizado.
+const parameterReport = () => {
+    // Obtenemos el valor de los inputs tipo date del formulario
+    let fechaInicial = document.getElementById("fechaInicial").value;
+    let fechaFinal = document.getElementById("fechaFinal").value;
+    // Verificamos si el usuario ha seleccionado el rango de fechas
+    if (fechaInicial == '' || fechaFinal == '') {
+        // Mostramos alerta con mensaje de validacion
+        sweetAlert(3, 'Seleccione un rango de fechas', null);
+    } else {
+        // Validamos si la fecha inicial no es mayor a la fecha final
+        if (fechaInicial > fechaFinal) {
+            // Mostramos alerta con mensaje de validacion
+            sweetAlert(3, 'La fecha inicial es mayor a la fecha final', null);
+        } else {
+            // Obtenemos el valor del input que contiene el ID del registro seleccionado
+            let id = document.getElementById('idReport').value;
+            // Declaramos un atributo para guardar la url a cargar
+            let url = '';
+            // Definimos la url del reporte agregando el id al final de la direccion
+            url += `../../app/reports/dashboard/accionesUsuarioParam.php?id=${id}`;
+            // Ejecutamos la funcion parameterReport para guardar los parametros para el reporte
+            paramReport(API_USUARIOS, 'param-report', 'parameter-form', 'report-modal',url);
+        }  
+    }  
+}
+
+// Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
+function graficaAcciones() {
+    // Reseteamos el contenido del chart
+    resetChart('chart-container');
+    // Creamos un atributo para guardar el codigo HTML para generar el grafico
+    let content = '<canvas id="chart2"></canvas>';
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
+    // Realizamos peticion a la API enviando el nombre del caso y metodo get debido a que la funcion de la API retorna datos
+    fetch(API_USUARIOS + 'graficaUsuarios', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se declara variable para guardar el numero de registros que han sido ingresados en el arreglo
+                let contador = 0;
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.usuario);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                    barGraph('chart2', categorias, cantidad, 'Cantidad de acciones realizadas', '');
+                } else {
+                    document.getElementById('chart2').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('report-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Abrimos el reporte en una pestaña nueva
+    window.open('../../app/reports/dashboard/usuarios.php');
+});
+
 // Función para preparar el formulario al momento de modificar un registro.
-const openUpdateDialog = (id) =>{  
+const openUpdateDialog = (id) => {  
     //Mandamos a llamar la funcion para colocar el titulo al formulario
     modalTitle(id);
     // Asignamos el valor del parametro id al campo del id del modal
@@ -120,6 +297,7 @@ const openUpdateDialog = (id) =>{
                     document.getElementById('txtTelefono').value = response.dataset.telefono;
                     document.getElementById('txtDireccion').value = response.dataset.direccion;
                     document.getElementById('txtUsuario').value = response.dataset.usuario;
+                    document.getElementById("tipo").selectedIndex = response.dataset.tipo;
                 } else { 
                     // En caso de fallar se muestra el mensaje de error 
                     sweetAlert(2, response.exception, null);
@@ -135,21 +313,23 @@ const openUpdateDialog = (id) =>{
 }
 
 // Función para definir si el metodo a ejecutar es guardar o actualizar.
-const saveData = () =>{  
+const saveData = () => {  
     // Se define atributo que almacenara la accion a realizar
     let action = '';
     // Se comprara el valor del input id 
     if (document.getElementById('txtIdx').value) {
-        action = 'update'; // En caso que exista se actualiza 
+        // En caso que exista se actualiza 
+        action = 'update'; 
     } else {
-        action = 'create'; // En caso que no se crea 
+        // En caso que no se crea 
+        action = 'create'; 
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
     saveRow(API_USUARIOS, action, 'save-form', 'staticBackdrop');
 }
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
-const modalTitle = (id) =>{  
+const modalTitle = (id) => {  
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Ocultamos el input que contiene el ID del registro
@@ -161,7 +341,7 @@ const modalTitle = (id) =>{
     // Atributo para almacenar el input confirmar clave
     let confirmar = '';
     // Compramos si el contenido el input esta vacio
-    if(id == 0){
+    if(id == 0) {
         titulo = 'Registrar usuario'; // En caso que no exista valor se registra
         clave = `<label  id="lblClave">Contraseña*</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
@@ -174,7 +354,7 @@ const modalTitle = (id) =>{
             La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
         </div>`;     
     }
-    else{
+    else {
         titulo = 'Actualizar usuario';  // En caso que exista se actualiza 
         clave = `<label  id="lblClave">Contraseña</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
@@ -194,7 +374,7 @@ const modalTitle = (id) =>{
 }
 
 // Función para establecer el registro a eliminar y abrir una caja de dialogo de confirmación.
-const openDeleteDialog = (id) =>{  
+const openDeleteDialog = (id) => {  
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -203,7 +383,7 @@ const openDeleteDialog = (id) =>{
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-const openActivateDialog = () =>{ 
+const openActivateDialog = () => { 
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);

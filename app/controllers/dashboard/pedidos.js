@@ -4,9 +4,45 @@ const API_PEDIDOS = '../../app/api/dashboard/pedidos.php?action=';
 
 // Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
 document.addEventListener('DOMContentLoaded', () => {
+    // Se manda a llamar funcion para tener la opcion de eliminar todos los registros de la base de datos
+    opcionesUsuario();
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_PEDIDOS);
 })
+
+// Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
+const opcionesUsuario = () => {  
+    let tipo = document.getElementById("tipoUsuario").value;
+    let contenido = '';
+    if (tipo == 'Root') {
+        contenido+= `
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            <div class="col-sm-4">
+                <button class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
+                </button>
+            </div>
+            `;      
+    } else {
+        contenido+= `
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6">
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+            </div>
+            `; 
+    }
+    document.getElementById('seccionAgregar').innerHTML = contenido;
+}
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('delete-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+    confirmClean(API_PEDIDOS);
+});
 
 // Función para abrir el Form al momento de crear un registro
 const openCreateDialog = () => {
@@ -27,7 +63,7 @@ const openCreateDialog = () => {
 }
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) =>{  
+const fillTable = (dataset) => {  
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
@@ -70,7 +106,7 @@ const fillTable = (dataset) =>{
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
-        if (contador == 8) {
+        if (contador == 9) {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
@@ -92,8 +128,11 @@ const fillTable = (dataset) =>{
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
-    // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
-    generatePagination();
+    // Se verifica si el contenido que se imprimio en la tabla no estaba vacio
+    if (content[0] != null) {
+        // Se llama la funcion para generar la paginacion segun el numero de registros obtenidos
+        generatePagination();
+    }
 }
 
 //Función para obtener la fecha actual
@@ -112,7 +151,7 @@ document.getElementById('search-form').addEventListener('submit', function (even
 });
 
 //Función para abrir el mensaje de confirmación para deshabilitar un registro
-function openDeleteDialog(id) {
+const openDeleteDialog = (id) => {  
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -123,7 +162,7 @@ function openDeleteDialog(id) {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-function openActivateDialog(id) {
+const openActivateDialog = (id) => {  
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -150,7 +189,7 @@ const saveData = () => {
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-function openUpdateDialog(id) {
+const openUpdateDialog = (id) => {   
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     //Se abre el form

@@ -222,6 +222,13 @@ class Indice extends Validator
         return Database::executeRow($query, $params);
     }
 
+    //Función para eliminar un registro
+    public function deleteAll() 
+    {
+        $query="DELETE FROM indiceentregas";
+        return Database::executeRow($query, null);
+    }
+
     //Función para activar un registro
     public function enableIndice() 
     {

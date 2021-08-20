@@ -110,7 +110,7 @@ const fillTable = (dataset) =>{
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openView = (id) =>{  
+const openView = (id) => {  
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     //Se abre el form
