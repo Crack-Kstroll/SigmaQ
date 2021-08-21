@@ -286,7 +286,7 @@ const parameterChart = id => {
                 totalGeneral.push(row.total_mensual);
             })
             // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
-            lineGraph('totalGeneralMensual', meses, totalGeneral, 'Total general mensual','Sumatorial de total general mensual en dólares($)');
+            lineGraph('totalGeneralMensual', meses, totalGeneral, 'Total general mensual','Sumatorial de total general mensual en USD($)');
         } else {
             document.getElementById('totalGeneralMensual').remove();
             console.log(response.exception);
