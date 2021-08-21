@@ -268,7 +268,7 @@ const parameterChart = id => {
     }).then( request => {
         // Luego se compara si la respuesta de la API fue satisfactoria o no
         if (request.ok) { 
-            return request.json()
+            return request.json();
          } else {
              // En ocurrir un error se muestra en la consola 
              console.log(request.status + ' ' + request.statusText);
