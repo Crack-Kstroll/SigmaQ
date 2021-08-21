@@ -68,7 +68,7 @@ const fillTable = (dataset) => {
         if (row.estado) {
             // Cuando el registro esté habilitado
             iconToolTip = 'Deshabilitar'
-            toggleEnabledIcon = 'block'
+            toggleEnabledIcon = 'block';
             metodo = 'openDeleteDialog';
         } else {
             // Cuando el registro esté deshabilitado
