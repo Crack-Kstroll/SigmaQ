@@ -152,9 +152,9 @@ const parameterChart = (id) => {
         if (request.ok) { 
            return request.json()
         } else {
+            // En ocurrir un error se muestra en la consola 
             console.log(request.status + ' ' + request.statusText);
         }
-    // En ocurrir un error se muestra en la consola 
     }).then( response => {
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
         if (response.status) {

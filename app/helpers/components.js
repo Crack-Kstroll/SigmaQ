@@ -5,6 +5,10 @@
 *
 *   Retorno: ninguno.
 */
+
+//Arreglo para obtener los meses por su nombre, con el número del mes como posición del arreglo
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Séptiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
 const readRows = (api) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo get 
     para obtener el resultado de la API*/
@@ -675,26 +679,26 @@ const resetChart = (container) => {
 *   Retorno: ninguno.
 */
 const lineGraph = (canvas, xAxis, yAxis, legend, title) => { 
-    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    // Se define el canva donde se dibujará el gráfico
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
-        // Indicamos el tipo de reporte que generaremos
         type: 'line',
         data: {
             labels: xAxis,
             datasets: [{
-                // Agregamos el arreglo con los datos para llenar el grafico
                 label: legend,
                 data: yAxis,
-                // Asignamos el color del borde del grafico
-                borderColor: '#000000',
-                borderWidth: 1,
+                fill: false,
+                tension: 0.1,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgb(255, 99, 132)',
             }]
         },
         options: {
             responsive: true,
             legend: {
+                position: 'top',
                 display: false
             },
             title: {
@@ -709,6 +713,6 @@ const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
                     }
                 }]
             }
-        }
-    });
+        },
+    })
 }

@@ -252,7 +252,7 @@ class EstadoCuenta extends Validator
     // Función para llenar la tabla
     public function SelectEstadoCuenta()
     {
-        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
+        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.cliente, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
                 FROM estadocuentas ec
                 INNER JOIN administradores a
                 ON ec.responsable = a.codigoadmin
@@ -347,6 +347,17 @@ class EstadoCuenta extends Validator
         $query="UPDATE estadocuentas SET estado=true WHERE idestadocuenta = ?";
         $params=array($this->id);
         return Database::executeRow($query, $params);
+    }
+
+    //Función para obtener el total general mensual de un cliente
+    public function getTotalMensualCliente($cliente) 
+    {
+        $query="SELECT EXTRACT(MONTH FROM fechacontable) as mes, SUM(totalgeneral) total_mensual
+                FROM estadocuentas
+                WHERE cliente = ?
+                GROUP BY mes ORDER BY mes ASC LIMIT 12";
+        $params=array($cliente);
+        return Database::getRows($query, $params);
     }
 
 }

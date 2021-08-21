@@ -94,6 +94,9 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="openUpdateDialog(${row.idestadocuenta})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.idestadocuenta})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                 </td>
+                <td>
+                    <a href="#" onclick="parameterChart(${row.cliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
+                </td>
             </tr>
         `;           
         // Agregamos uno al contador por la fila agregada anteriormente al data
@@ -243,4 +246,53 @@ const openActivateDialog = (id) => {
     readRows(API_ESTADO);
 }
 
+//Función para cargar el gráfico de total general mensuales de los clientes
+const parameterChart = id => {
+    //Vaciamos el contenido del chart
+    resetChart('chart-container');
+    //Creamos una variable en la cuál crearemos nuestro canvas para el gráfico
+    const content = '<canvas id="totalGeneralMensual"></canvas>';
+    //Se agrega el canvas al contenedor de la gráfica
+    document.getElementById('chart-container').innerHTML = content;
+    //Abrimos el modal
+    $('#chart-modal').modal('show');
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Sumatoria de Total General Mensual';
+    // Creamos un form data para enviar el id 
+    const data = new FormData();
+    data.append('cliente', id);
+    //Hacemos la petición a la API usando el id del cliente como parámetro
+    fetch(API_ESTADO + 'totalGeneralMensual', {
+        method: 'post',
+        body: data
+    }).then( request => {
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) { 
+            return request.json()
+         } else {
+             // En ocurrir un error se muestra en la consola 
+             console.log(request.status + ' ' + request.statusText);
+         }
+    }).then( response => {
+        //Se evalua que la respuesta sea correcta
+        if( response.status ) {
+            //Se declaran los arreglos para almacenar la información
+            let meses = [];
+            let totalGeneral = [];
+            //Se recorren los datos que retorno la API
+            response.dataset.map( row => {
+                //Se almacenan los valores en los arreglos
+                meses.push(months[row.mes-1]);
+                totalGeneral.push(row.total_mensual);
+            })
+            // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+            lineGraph('totalGeneralMensual', meses, totalGeneral, 'Total general mensual','Sumatorial de total general mensual');
+        } else {
+            document.getElementById('totalGeneralMensual').remove();
+            console.log(response.exception);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
 

@@ -299,6 +299,22 @@ if (isset($_GET['action']))
                 } else {
                     $result['exception'] = 'Registro incorrecto';
                 }
+            break;
+            case 'totalGeneralMensual':
+                // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+                $_POST = $estadoCuenta->validateForm($_POST);    
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $estadoCuenta->getTotalMensualCliente($_POST['cliente'])) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            break;
             default:
                 $result['exception'] = 'Acción no reconocida';
         }

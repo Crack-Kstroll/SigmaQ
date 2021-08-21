@@ -60,6 +60,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
                     <th>Divisa</th>
                     <th>Total General</th>
                     <th>Acciones</th>
+					<th>Extras</th>
 				</tr>
 			</thead>
 			<!-- Contenido de la tabla -->
@@ -231,6 +232,26 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 			</div>
 		</div>
 	</div>
-	<?php
-	Dashboard_Page::footerTemplate('estadoCuenta');
-	?>
+
+	<!-- Modal chart-modal -->
+	<div class="modal fade" id="chart-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="title-chart">Sumatoria de Total General Mensual</h5>
+				</div>
+				<div class="modal-body">
+					<!-- Se muestra una gráfica de barra con la cantidad de productos por categoría -->
+					<div id="chart-container" class="containter-fluid">
+					</div>  
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>			
+
+<?php
+Dashboard_Page::footerTemplate('estadoCuenta');
+?>
