@@ -300,6 +300,7 @@ if (isset($_GET['action']))
                     $result['exception'] = 'Registro incorrecto';
                 }
             break;
+            //Caso para obtener la sumatoria de del total general mensual
             case 'totalGeneralMensual':
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $estadoCuenta->validateForm($_POST);    

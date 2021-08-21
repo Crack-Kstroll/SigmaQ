@@ -331,6 +331,34 @@ if (isset($_GET['action']))
                     $result['exception'] = 'Pedido incorrecto';
                 }
             break;
+            //Caso para obtener la cantidad de productos enviados por mes
+            case 'cantidadEnviadaMensual':
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $pedido->cantidadEnviadaMensual()) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            break;
+            //Caso para obtener los 5 usuarios que han realizado más pedidos
+            case 'clientesTop':
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $pedido->clientesTop()) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            break;
             default:
                 $result['exception'] = 'Acción no reconocida';
         }

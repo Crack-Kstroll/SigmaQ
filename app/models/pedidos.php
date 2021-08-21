@@ -276,4 +276,26 @@ class Pedidos extends Validator
         $params = array($this->cliente);
         return Database::getRows($query, $params);
     }
+
+    //Función para obtener la sumatoria de cantidad enviada en los últimos 12 meses
+    public function cantidadEnviadaMensual() 
+    {
+        $query="SELECT EXTRACT(MONTH FROM fechaconfirmadaenvio) as mes, sum(cantidadenviada) cantidadMensual
+                FROM pedido
+                GROUP BY mes ORDER BY mes ASC LIMIT 12";
+        $params= null;
+        return Database::getRows($query, $params);
+    }
+
+    //Función para obtener los 5 clientes que más pedidos han realizado
+    public function clientesTop() 
+    {
+        $query="SELECT c.usuario, count(p.cliente) pedidos
+                FROM pedido p
+                INNER JOIN clientes c
+                    ON c.codigocliente = p.cliente
+                GROUP BY usuario ORDER BY usuario DESC LIMIT 5";
+        $params=null;
+        return Database::getRows($query, $params);
+    }
 }

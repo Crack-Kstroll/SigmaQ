@@ -691,8 +691,8 @@ const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
                 data: yAxis,
                 fill: false,
                 tension: 0.1,
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(206,14,45)',
+                backgroundColor: 'rgb(206,14,45)',
             }]
         },
         options: {

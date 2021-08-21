@@ -19,9 +19,15 @@ const opcionesUsuario = () => {
             <div class="col-sm-6">
                 <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
             </div>
-            <div class="col-sm-4">
-                <button class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+            <div class="col-sm-4 d-flex flex-row">
+                <button id="limpiar-tabla"class="centrarBoton btn btn-outline-info my-2 my-sm-0 mx-2">
                     <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
+                </button>
+                <button id="mejoresClientes" class="centrarBoton btn btn-outline-info my-2 my-sm-0 mx-2">
+                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">workspace_premium</i></button>
+                </button>
+                <button id="enviosMensuales" class="centrarBoton btn btn-outline-info my-2 my-sm-0 mx-2">
+                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">assignment_turned_in</i></button>
                 </button>
             </div>
             `;      
@@ -34,15 +40,30 @@ const opcionesUsuario = () => {
             `; 
     }
     document.getElementById('seccionAgregar').innerHTML = contenido;
+
+    //Agregando los controladores de evento para los botones del mantenimiento
+    if ( tipo == 'Root') {
+        // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+        document.getElementById('limpiar-tabla').addEventListener('click', function (event) {
+            // Evitamos que la pagina se refresque 
+            event.preventDefault();
+            // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
+            confirmClean(API_PEDIDOS);
+        });
+        document.getElementById('mejoresClientes').addEventListener('click', event => {
+            // Evitamos que la pagina se refresque 
+            event.preventDefault();
+            drawChart(2)
+        })
+        document.getElementById('enviosMensuales').addEventListener('click', event => {
+            // Evitamos que la pagina se refresque 
+            event.preventDefault();
+            drawChart(1)
+        })
+    }
 }
 
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
-document.getElementById('delete-form').addEventListener('submit', function (event) {
-    // Evitamos que la pagina se refresque 
-    event.preventDefault();
-    // Ejecutamos la funcion confirm delete de components y enviamos como parametro la API y la data con id del registro a eliminar
-    confirmClean(API_PEDIDOS);
-});
+
 
 // Función para abrir el Form al momento de crear un registro
 const openCreateDialog = () => {
@@ -241,6 +262,64 @@ const openUpdateDialog = (id) => {
         }
     }
     ).catch(function (error) {
+        console.log(error);
+    });
+}
+
+//Función para cargar el gráfico de los productos enviados mensuales o los mejores clientes
+const drawChart = type => {
+    //Vaciamos el contenido del chart
+    resetChart('chart-container');
+    //Creamos una variable en la cuál crearemos nuestro canvas para el gráfico
+    const content = '<canvas id="orders-chart"></canvas>';
+    //Se agrega el canvas al contenedor de la gráfica
+    document.getElementById('chart-container').innerHTML = content;
+    //Abrimos el modal
+    $('#chart-modal').modal('show');
+    // Colocamos el titulo del modal 
+    const titulo = type === 1 ? 'Cantidad de productos enviados por mes' : 'Top 5 Usuarios que han realizado más pedidos';
+    document.getElementById('title-chart').textContent = titulo;
+    //Definimos que acción se realizará en la API
+    const action = type === 1 ? 'cantidadEnviadaMensual' : 'clientesTop'
+    //Realizamos la petición a la API
+    fetch(API_PEDIDOS + action )
+    .then( request => {
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) { 
+            return request.json()
+         } else {
+             // En ocurrir un error se muestra en la consola 
+             console.log(request.status + ' ' + request.statusText);
+         }
+    }).then( response => {
+        //Se evalua que la respuesta sea correcta
+        if( response.status ) {
+            //Se declaran los arreglos para almacenar la información
+            let cualitativas = [];
+            let cuantitativas = [];
+            //Se llama a la función que genera y muestra el gráfico dependiendo de la acción ejecutada
+            if( type === 1 ) {
+                //Se recorren los datos que retorno la API
+                response.dataset.map( row => {
+                    //Se almacenan los valores en los arreglos
+                    cualitativas.push(months[row.mes-1]);
+                    cuantitativas.push(row.cantidadmensual);
+                })
+                lineGraph('orders-chart', cualitativas, cuantitativas, 'Cantidad enviada en el mes','Total de productos enviados en los últimos 12 meses');
+            } else {
+                //Se recorren los datos que retorno la API
+                response.dataset.map( row => {
+                    //Se almacenan los valores en los arreglos
+                    cualitativas.push(row.usuario);
+                    cuantitativas.push(row.pedidos);
+                })
+                barGraph('orders-chart', cualitativas, cuantitativas, 'Cantidad de pedidos realizados','Top 5 clientes que han realizado más pedidos');
+            }
+        } else {
+            document.getElementById('totalGeneralMensual').remove();
+            console.log(response.exception);
+        }
+    }).catch(function (error) {
         console.log(error);
     });
 }
