@@ -80,6 +80,9 @@ const fillTable = (dataset) => {
                         <a href="#" onclick="openUpdateDialog(${row.idindice})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                         <a href="#" onclick="${metodo}(${row.idindice})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                     </td>
+                    <td>
+                        <a href="#" onclick="parameterChart(${row.idindice})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
+                    </td>
                 </tr>
             `;           
         // Agregamos uno al contador por la fila agregada anteriormente al data
@@ -230,6 +233,50 @@ const openUpdateDialog = (id) => {
         }
     }
     ).catch(function (error) {
+        console.log(error);
+    });
+}
+
+//Función para cargar el gráfico de total general mensuales de los clientes
+const parameterChart = id => {
+    //Vaciamos el contenido del chart
+    resetChart('chart-container');
+    //Creamos una variable en la cuál crearemos nuestro canvas para el gráfico
+    const content = '<canvas id="porcentajeCumplidos"></canvas>';
+    //Se agrega el canvas al contenedor de la gráfica
+    document.getElementById('chart-container').innerHTML = content;
+    //Abrimos el modal
+    $('#chart-modal').modal('show');
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Porcentaje de cumplimiento del índice';
+    // Creamos un form data para enviar el id 
+    const data = new FormData();
+    data.append('id_indice', id);
+    //Hacemos la petición a la API usando el id del cliente como parámetro
+    fetch(API_INDICES + 'porcentajeCumplimientoIndice', {
+        method: 'post',
+        body: data
+    }).then( request => {
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) { 
+            return request.json()
+         } else {
+             // En ocurrir un error se muestra en la consola 
+             console.log(request.status + ' ' + request.statusText);
+         }
+    }).then( response => {
+        //Se evalua que la respuesta sea correcta
+        if( response.status ) {
+            //Se declaran los arreglos para almacenar la información
+            let datos = ['No Cumplidos', 'Cumplidos', 'No Considerados'];
+            let porcentajes = [response.dataset.nocumplidos, response.dataset.cumplidos, response.dataset.noconsiderados];
+            // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+            pieGraph('porcentajeCumplidos', datos, porcentajes,'Porcentaje de cumplimiento de los compromisos del índice');
+        } else {
+            document.getElementById('totalGeneralMensual').remove();
+            console.log(response.exception);
+        }
+    }).catch(function (error) {
         console.log(error);
     });
 }

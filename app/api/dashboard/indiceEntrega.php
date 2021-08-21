@@ -287,6 +287,22 @@ if (isset($_GET['action']))
                     $result['exception'] = 'Índice incorrecto';
                 }
             break;
+            //Caso para obtener el porcentaje de cumplimiento de un indice
+            case 'porcentajeCumplimientoIndice':
+                // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+                $_POST = $indice->validateForm($_POST);    
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $indice->porcentajeCumplimientoIndice($_POST['id_indice'])) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            break;
             default:
                 $result['exception'] = 'Acción no reconocida';
 

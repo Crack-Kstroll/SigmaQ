@@ -251,7 +251,7 @@ const parameterChart = id => {
     //Vaciamos el contenido del chart
     resetChart('chart-container');
     //Creamos una variable en la cuál crearemos nuestro canvas para el gráfico
-    const content = '<canvas id="totalGeneralMensual"></canvas>';
+    let content = '<canvas id="totalGeneralMensual"></canvas>';
     //Se agrega el canvas al contenedor de la gráfica
     document.getElementById('chart-container').innerHTML = content;
     //Abrimos el modal

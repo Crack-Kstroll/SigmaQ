@@ -266,6 +266,18 @@ class Indice extends Validator
         $params = array($this->cliente);
         return Database::getRows($query, $params);
     }
+
+    //Función para obtener el porcentaje de cumplimiento de los compromisos de un índice
+    public function porcentajeCumplimientoIndice($id_indice)
+    {
+        $query="SELECT ROUND(cumplidos * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) cumplidos,
+                ROUND(nocumplidos * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) nocumplidos,
+                ROUND(noconsiderados * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) noconsiderados
+                FROM indiceentregas
+                WHERE idindice = ?";
+        $params=array($id_indice);
+        return Database::getRow($query, $params);
+    }
 }
 
 ?>

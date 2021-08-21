@@ -24,10 +24,10 @@ const opcionesUsuario = () => {
                     <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
                 </button>
                 <button id="mejoresClientes" class="centrarBoton btn btn-outline-info my-2 my-sm-0 mx-2">
-                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">workspace_premium</i></button>
+                    <i class="material-icons" data-toggle="tooltip" title="Gráfico de top 5 clientes">workspace_premium</i></button>
                 </button>
                 <button id="enviosMensuales" class="centrarBoton btn btn-outline-info my-2 my-sm-0 mx-2">
-                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">assignment_turned_in</i></button>
+                    <i class="material-icons" data-toggle="tooltip" title="Gráfico de productos enviados por mes">assignment_turned_in</i></button>
                 </button>
             </div>
             `;      
