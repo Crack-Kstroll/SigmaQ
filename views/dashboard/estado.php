@@ -12,63 +12,76 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-8">
-					<form method="post" id="search-form">
+		<div class="row">
+			<div class="col-sm-8">
+				<form method="post" id="search-form">
 					<div class="row">
 						<div class="col-sm-5">
-							<!-- Campo de busqueda filtrada --> 
+							<!-- Campo de busqueda filtrada -->
 							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
 						<div class="col-sm-2">
-							<!-- Boton para busqueda filtrada --> 
+							<!-- Boton para busqueda filtrada -->
 							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 								<i class="material-icons">search</i></button>
 							</button>
 						</div>
 					</div>
-					</form>
-				</div>
-				<div class="col-sm-4">
-				<form method="post" id="delete-form">
-
-					<!-- Boton para ingresar nuevos registros --> 
-					<div id="seccionAgregar" class="row">
-						
-					</div>	
 				</form>
-				</div>
 			</div>
-		
+			<div class="col-sm-4">
+				<div class="row">
+					<form method="post" id="delete-form">
+
+						<!-- Boton para ingresar nuevos registros -->
+						<div id="seccionAgregar" class="row">
+
+						</div>
+					</form>
+					<div class="col-sm-2">
+						<form method="post" id="report-form">
+							<!-- Boton para sacar reporte -->
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte">
+								<i class="material-icons">assignment_ind</i>
+							</button>
+							</button>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
 	</div>
 
-	<div class="container-fluid espacioSuperior"> 
+	<div class="container-fluid espacioSuperior">
 		<table class="table borde">
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
 				<tr>
 					<th>Responsable</th>
-                    <th>Sociedad</th>
-                    <th>Usuario</th>
-                    <th>Código</th>
-                    <th>Factura</th>
-                    <th>Asignación</th>
-                    <th>Fecha Contable</th>
-                    <th>Clase</th>
-                    <th>Fecha de Vencimiento</th>
-                    <th>Días Restantes</th>
-                    <th>Divisa</th>
-                    <th>Total General</th>
-                    <th>Acciones</th>
+					<th>Sociedad</th>
+					<th>Usuario</th>
+					<th>Código</th>
+					<th>Factura</th>
+					<th>Asignación</th>
+					<th>Fecha Contable</th>
+					<th>Clase</th>
+					<th>Fecha de Vencimiento</th>
+					<th>Días Restantes</th>
+					<th>Divisa</th>
+					<th>Total General</th>
+					<th>Acciones</th>
 				</tr>
 			</thead>
 			<!-- Contenido de la tabla -->
-			<tbody id="tbody-rows">	
+			<tbody id="tbody-rows">
 			</tbody>
-		</table>	 
-		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->				
-		</div> <!-- Cierra controladores de tabla --> 
-	<!-- Cierra seccion de tabla -->
+		</table>
+		<div id="seccionPaginacion" class="clearfix">
+			<!-- Seccion controladores tabla -->
+		</div> <!-- Cierra controladores de tabla -->
+		<!-- Cierra seccion de tabla -->
 	</div>
 
 	<!-- Modal  Estados-->

@@ -186,6 +186,21 @@ class Pedidos extends Validator
         return Database::getRows($query, $params);
     }
 
+    // Función para listar los pedidos y ordenarlos por responsable
+    public function readPedidosResponsable() 
+    {
+        $query="SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
+                FROM pedido p
+                INNER JOIN administradores a
+                    ON p.responsable = a.codigoadmin
+                INNER JOIN clientes cl
+                    ON p.cliente = cl.codigocliente
+                    WHERE p.responsable = a.codigoadmin AND p.responsable = ?
+                ORDER BY p.responsable";
+        $params=array($this->responsable);
+        return Database::getRows($query, $params);
+    }
+
     //Función para mostrar un registro
     public function readOnePedido() 
     {
@@ -274,6 +289,15 @@ class Pedidos extends Validator
                     ON ad.codigoadmin = pe.responsable
                 WHERE cliente = ? AND ad.estado = true";
         $params = array($this->cliente);
+        return Database::getRows($query, $params);
+    }
+
+    // Función para listar los reponsables
+    public function readResponsables() 
+    {
+        $query="SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
+                FROM administradores";
+        $params= null;
         return Database::getRows($query, $params);
     }
 }

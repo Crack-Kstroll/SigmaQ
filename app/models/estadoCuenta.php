@@ -268,6 +268,27 @@ class EstadoCuenta extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Función para los reportes
+
+    public function selectEstadoReporte()
+    {
+        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
+                FROM estadocuentas ec
+                INNER JOIN administradores a
+                ON ec.responsable = a.codigoadmin
+                INNER JOIN sociedades s
+                ON ec.sociedad = s.idsociedad
+                INNER JOIN clientes c
+                ON ec.cliente = c.codigocliente
+                INNER JOIN divisas d
+                ON ec.divisa = d.iddivisa
+                WHERE ec.responsable = ?
+                ORDER BY diasrestantes ASC";
+        $params = array($this->responsable);
+        // print($params);
+        return Database::getRows($sql, $params);
+    }
+
     //Función para eliminar un registro
     public function deleteAll() 
     {
@@ -347,6 +368,15 @@ class EstadoCuenta extends Validator
         $query="UPDATE estadocuentas SET estado=true WHERE idestadocuenta = ?";
         $params=array($this->id);
         return Database::executeRow($query, $params);
+    }
+
+    // Función para listar los reponsables
+    public function readResponsables() 
+    {
+        $query="SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
+                FROM administradores";
+        $params= null;
+        return Database::getRows($query, $params);
     }
 
 }
