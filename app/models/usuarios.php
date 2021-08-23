@@ -2,7 +2,7 @@
 //Es una clase hija de Validator
 class Usuario extends Validator
 {
-    //Declaracion de los atributos de la clase
+    // Declaracion de los atributos de la clase
     private $id = null;
     private $estado = null;
     private $nombre = null;
@@ -14,7 +14,39 @@ class Usuario extends Validator
     private $usuario = null;  
     private $clave = null;
     private $codigo = null;  
-    private $tipo = null;      
+    private $tipo = null;
+
+    // Declaracion de atributos para reporte parametrizado  
+    private $fechaInicial = null;
+    private $fechaFinal = null;    
+
+    /* Funcion para validar si la fecha ingresada es correcta
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function setFechaInicial($value)
+    {
+        if($this->validateString($value,1,100)) {
+            $this->fechaInicial = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /* Funcion para validar si el contenido del input esta vacio
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function setFechaFinal($value)
+    {
+        if($this->validateString($value,1,100)) {
+            $this->fechaFinal = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /* Funcion para validar si el contenido del input esta vacio
     *  Parámetro: valor del input  
@@ -489,6 +521,7 @@ class Usuario extends Validator
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = 'SELECT tipo,count(tipo) as cantidad 
         from administradores group by tipo order by tipo';
+        // Envio de parametros
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -500,34 +533,41 @@ class Usuario extends Validator
         $sql = 'SELECT codigoadmin,nombre,apellido,usuario,telefono,estado
         FROM administradores 
         WHERE tipo= ?';
+        // Envio de parametros
         $params = array($this->tipo);
         return Database::getRows($sql, $params);
     }
 
-    // Metodo para cargar todos los usuarios existentes
+    // Metodo para cargar el codigo y usuario de un usuario
     public function readUsuarios()
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = 'SELECT codigoadmin,usuario from administradores where codigoadmin = ?';
+        // Envio de parametros
         $params = array($this->id);
         return Database::getRows($sql, $params);
     }
 
-    // Metodo para cargar los datos de los usuarios registrados en el sistema
+    // Metodo para cargar las acciones realizadas por un usuario.
     public function readAcciones()
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = "SELECT accion,hora FROM historialusuario 
         WHERE usuario = ? 
         ORDER BY hora DESC";
+        // Envio de parametros
         $params = array($this->id);
         return Database::getRows($sql, $params);
     }
 
-    // Metodo para cargar los datos de los usuarios registrados en el sistema
+    // Metodo para cargar todas las acciones realizadas por un usuario con parametro de rango de fechas 
     public function readAccionesParam($fechaInicio,$fechaFin)
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = "SELECT accion,hora FROM historialusuario 
         WHERE usuario = ? and hora BETWEEN ? and ? 
         ORDER BY hora DESC";
+        // Envio de parametros
         $params = array($this->id,$fechaInicio,$fechaFin);
         return Database::getRows($sql, $params);
     }

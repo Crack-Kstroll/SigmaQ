@@ -1,21 +1,21 @@
 <?php
 require('../../helpers/report.php');
-require('../../models/usuarios.php');
+require('../../models/clientes.php');
 
 // Creamos un atributo para almacenar el numero de registros
 $numero = 0;
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Reporte de acciones realizadas por un usuario');
+$pdf->startReport('Reporte de acciones realizadas por un cliente');
 
-// Se instancia el módelo Usuario para obtener los datos.
-$categoria = new Usuario;
+// Se instancia el módelo Cliente para obtener los datos.
+$categoria = new Cliente;
 
 // Se verifica si el parámetro es un valor correcto, de lo contrario se direcciona a la página web de origen.
 if ($categoria->setId($_GET['id'])) {
-    // Se verifica si existen registros usuarios para mostrar, de lo contrario se imprime un mensaje.
-    if ($dataCategorias = $categoria->readUsuarios()) {
+    // Se verifica si existen registros de clientes para mostrar, de lo contrario se imprime un mensaje.
+    if ($dataCategorias = $categoria->readClientes()) {
         // Se recorren los registros fila por fila.
         foreach ($dataCategorias as $rowCategoria) {
             // Creamos un atributo para almacenar el numero de registros
@@ -25,7 +25,7 @@ if ($categoria->setId($_GET['id'])) {
             // Se establece la fuente para el encabezado de la tabla.
             $pdf->SetFont('Helvetica', 'B', 12);
             $pdf->SetTextColor(255);
-            // Se imprime una celda con el nombre de usuario.
+            // Se imprime una celda con los parametros seleccionados.
             $pdf->Cell(0, 10, utf8_decode('Rango de fechas seleccionado'), 1, 1, 'C', 1);
             // Se establece un color de relleno para los encabezados.
             $pdf->SetFillColor(230,231,232);
@@ -44,15 +44,15 @@ if ($categoria->setId($_GET['id'])) {
             $pdf->Cell(93, 10, utf8_decode($_SESSION['fechaFin']), 1, 1);
             // Se agrega un salto de línea para mostrar el contenido principal del documento.
             $pdf->Ln(5);
-            // Se establece un color de relleno para mostrar el nombre del usuario.
+            // Se establece un color de relleno para mostrar el nombre del usuario del cliente.
             $pdf->SetFillColor(0,0,0);
             // Se establece la fuente para el usuario.
             $pdf->SetFont('Helvetica', 'B', 12);
             $pdf->SetTextColor(255);
-            // Se imprime una celda con el nombre de usuario.
-            $pdf->Cell(0, 10, utf8_decode('Usuario: '.$rowCategoria['usuario']), 1, 1, 'C', 1);
-            // Se establece el codigo de usuario para obtener sus acciones, de lo contrario se imprime un mensaje de error.
-            if ($categoria->setId($rowCategoria['codigoadmin'])) {
+            // Se imprime una celda con el nombre del usuario del cliente.
+            $pdf->Cell(0, 10, utf8_decode('Usuario del cliente: '.$rowCategoria['usuario']), 1, 1, 'C', 1);
+            // Se establece el codigo de cliente para obtener sus acciones, de lo contrario se imprime un mensaje de error.
+            if ($categoria->setId($rowCategoria['codigocliente'])) {
                 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
                 if ($dataProductos = $categoria->readAccionesParam($_SESSION['fechaInicio'],$_SESSION['fechaFin'])) {
                     // Se establece un color de relleno para los encabezados.
@@ -85,22 +85,22 @@ if ($categoria->setId($_GET['id'])) {
                 } else {
                     // Colocamos el color del texto a mostrar
                     $pdf->SetTextColor(9,9,9);
-                    $pdf->Cell(0, 10, utf8_decode('El usuario no realizo ninguna acción en el rango de fechas seleccionado'), 1, 1);
+                    $pdf->Cell(0, 10, utf8_decode('El cliente no realizo ninguna acción en el rango de fechas seleccionado'), 1, 1);
                 }
             } else {
                 // Colocamos el color del texto a mostrar
                 $pdf->SetTextColor(9,9,9);
-                $pdf->Cell(0, 10, utf8_decode('Usuario incorrecto o inexistente'), 1, 1);
+                $pdf->Cell(0, 10, utf8_decode('Cliente incorrecto o inexistente'), 1, 1);
             }
         }
     } else {
         // Colocamos el color del texto a mostrar
         $pdf->SetTextColor(9,9,9);
-        $pdf->Cell(0, 10, utf8_decode('No hay categorías para mostrar'), 1, 1);
+        $pdf->Cell(0, 10, utf8_decode('No hay clientes para mostrar'), 1, 1);
     }
 } else {
     // Redirigimos al formulario principal
-    header('location: ../../../views/dashboard/usuarios.php');
+    header('location: ../../../views/dashboard/clientes.php');
 }
 
 // Se envía el documento al navegador y se llama al método Footer()

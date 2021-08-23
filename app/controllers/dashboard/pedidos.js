@@ -323,3 +323,10 @@ const drawChart = type => {
         console.log(error);
     });
 }
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('report-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Abrimos el reporte en una pestaña nueva
+    window.open('../../app/reports/dashboard/pedidos.php');
+});

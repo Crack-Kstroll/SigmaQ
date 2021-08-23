@@ -12,6 +12,38 @@ class Cliente extends Validator
     private $clave = null;  
     private $codigo = null;  
 
+    // Declaracion de atributos para reporte parametrizado  
+    private $fechaInicial = null;
+    private $fechaFinal = null;    
+
+    /* Funcion para validar si la fecha ingresada es correcta
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function setFechaInicial($value)
+    {
+        if($this->validateString($value,1,100)) {
+            $this->fechaInicial = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /* Funcion para validar si el contenido del input esta vacio
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function setFechaFinal($value)
+    {
+        if($this->validateString($value,1,100)) {
+            $this->fechaFinal = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /* Funcion para validar si el contenido del input esta vacio
     *  Parámetro: valor del input  
     *  Retorna un valor tipo booleano
@@ -360,7 +392,7 @@ class Cliente extends Validator
         return Database::executeRow($sql, $params);
     }
 
-    // Funcion para reporte de los clientes con mas productos adquiridos dentro del sistema
+    // Funcion para reporte de los 5 clientes con mas acciones realizadas.
     public function graficaClientes()
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
@@ -392,17 +424,18 @@ class Cliente extends Validator
         return Database::getRows($sql, $params);
     }
 
-    // Funcion para cargar todos tipos de usuarios de la base de datos
+    // Funcion para cargar los estados de la base de datos
     public function readEstado()
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = 'SELECT estado,count(estado) as cantidad 
         from clientes group by estado order by estado desc';
+        // Envio de parametros
         $params = null;
         return Database::getRows($sql, $params);
     }
 
-    // Funcion para cargar registros de un tipo de usuario en especifico
+    // Funcion para cargar registros de un estado en especifico
     public function readUsuariosEstado()
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
@@ -410,24 +443,41 @@ class Cliente extends Validator
         FROM clientes
         WHERE estado = ? 
         ORDER BY codigocliente';
+        // Envio de parametros
         $params = array($this->estado);
         return Database::getRows($sql, $params);
     }
 
-    // Metodo para cargar todos los usuarios existentes
+    // Metodo para cargar el codigo y usuario de un cliente
     public function readClientes()
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = 'SELECT codigocliente,usuario from clientes where codigocliente = ?';
+        // Envio de parametros
         $params = array($this->id);
         return Database::getRows($sql, $params);
     }
 
-    // Metodo para cargar los datos de los usuarios registrados en el sistema
+    // Metodo para cargar las acciones realizadas por un cliente en el sistema
     public function readAccionesCliente()
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = 'SELECT accion,hora FROM historialcliente
 		WHERE usuario = ? ORDER BY hora DESC';
+        // Envio de parametros
         $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
+    // Metodo para cargar los datos de las acciones realizadas por el cliente.
+    public function readAccionesParam($fechaInicio,$fechaFin)
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = "SELECT accion,hora FROM historialcliente
+        WHERE usuario = ? and hora BETWEEN ? and ? 
+        ORDER BY hora DESC";
+        // Envio de parametros
+        $params = array($this->id,$fechaInicio,$fechaFin);
         return Database::getRows($sql, $params);
     }
 

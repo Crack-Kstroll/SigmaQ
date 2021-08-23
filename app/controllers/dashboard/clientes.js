@@ -56,6 +56,9 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="parameterChart(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
                     <a href="../../app/reports/dashboard/accionesCliente.php?id=${row.codigocliente}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte">assignment_ind</i></a>
                 </td>
+                <td>
+                    <a href="#" onclick="parameterReportModal(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte parametrizado">collections_bookmark</i></a>
+                </td>
             </tr>
         `;
         // Agregamos uno al contador por la fila agregada anteriormente al data
@@ -214,6 +217,45 @@ document.getElementById('report-form').addEventListener('submit', function (even
     // Abrimos el reporte en una pestaña nueva
     window.open('../../app/reports/dashboard/clientes.php');
 });
+
+// Función para cargar el reporte parametrizado.
+const parameterReportModal = (id) => {
+    // Mandamos a llamar el modal desde JS
+    var myModal = new bootstrap.Modal(document.getElementById('report-modal'));
+    // Hacemos visible el modal
+    myModal.show();
+    // Limpiamos el contenido del modal 
+    document.getElementById('parameter-form').reset();
+    // Guardamos el valor del id en un input
+    document.getElementById('idReport').value = id;
+}
+
+// Función para cargar el reporte parametrizado.
+const parameterReport = () => {
+    // Obtenemos el valor de los inputs tipo date del formulario
+    let fechaInicial = document.getElementById("fechaInicial").value;
+    let fechaFinal = document.getElementById("fechaFinal").value;
+    // Verificamos si el usuario ha seleccionado el rango de fechas
+    if (fechaInicial == '' || fechaFinal == '') {
+        // Mostramos alerta con mensaje de validacion
+        sweetAlert(3, 'Seleccione un rango de fechas', null);
+    } else {
+        // Validamos si la fecha inicial no es mayor a la fecha final
+        if (fechaInicial > fechaFinal) {
+            // Mostramos alerta con mensaje de validacion
+            sweetAlert(3, 'La fecha inicial es mayor a la fecha final', null);
+        } else {
+            // Obtenemos el valor del input que contiene el ID del registro seleccionado
+            let id = document.getElementById('idReport').value;
+            // Declaramos un atributo para guardar la url a cargar
+            let url = '';
+            // Definimos la url del reporte agregando el id al final de la direccion
+            url += `../../app/reports/dashboard/accionesClienteParam.php?id=${id}`;
+            // Ejecutamos la funcion parameterReport para guardar los parametros para el reporte
+            paramReport(API_CLIENTES, 'param-report', 'parameter-form', 'report-modal',url);
+        }  
+    }  
+}
 
 // Función para preparar el formulario al momento de modificar un registro.
 const openUpdateDialog = (id) => {

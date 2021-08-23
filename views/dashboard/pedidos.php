@@ -1,69 +1,82 @@
 <?php
 include('../../app/helpers/dashboard.php');
-Dashboard_Page::headerTemplate('Mantenimiento de pedidos','dashboard');
+Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 ?>
 
 <!-- Seccion de contenido -->
-<div id="contenido" class="container-fluid fondo">    
+<div id="contenido" class="container-fluid fondo">
 	<!-- Seccion de titulo de pagina -->
-	<div class="container-fluid espacioSuperior"> 
-        <h5 class="tituloMto">Gestión de pedidos</h5>
-        <img src="../../resources/img/utilities/division.png" class="separador" alt="">
-    </div> 
+	<div class="container-fluid espacioSuperior">
+		<h5 class="tituloMto">Gestión de pedidos</h5>
+		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
+	</div>
 	<!-- Cierra seccion de titulo de pagina -->
-    
-	<!-- Seccion de busqueda filtrada --> 
-    <div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-7">
-					<form method="post" id="search-form">
+
+	<!-- Seccion de busqueda filtrada -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-7">
+				<form method="post" id="search-form">
 					<div class="row">
 						<div class="col-sm-5">
-							<!-- Campo de busqueda filtrada --> 
+							<!-- Campo de busqueda filtrada -->
 							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
 						<div class="col-sm-2">
-							<!-- Boton para busqueda filtrada --> 
+							<!-- Boton para busqueda filtrada -->
 							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 								<i class="material-icons">search</i></button>
 							</button>
 						</div>
 					</div>
+				</form>
+			</div>
+			<div class="col-sm-5">
+				<div class="row">
+					<form method="post" id="delete-form">
+						<!-- Boton para ingresar nuevos registros -->
+						<div id="seccionAgregar" class="row">
+						</div>
 					</form>
-				</div>
-				<div class="col-sm-5">
-					<!-- Boton para ingresar nuevos registros --> 
-					<div id="seccionAgregar" class="row">
-					</div>	
+					<div class="col-sm-2">
+						<form method="post" id="report-form">
+							<!-- Boton para sacar reporte -->
+								<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte">
+									<i class="material-icons">assignment_ind</i>
+								</button>
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
-		
+		</div>
 	</div>
-	<!-- Cierra seccion de busqueda filtrada -->		
-	<div class="container-fluid espacioSuperior"> 
+	<!-- Cierra seccion de busqueda filtrada -->
+	<div class="container-fluid espacioSuperior">
 		<table class="table borde">
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
-                <tr>
-                    <th>Cliente</th>
-                    <th>Pos</th>
-                    <th>OC</th>
-                    <th>Solicitada</th>
-                    <th>Código</th>
-                    <th>Enviada</th>
-                    <th>Fecha registrado</th>
-                    <th>Fecha de entrega</th>
-                    <th>Fecha de confirmación</th>
-                    <th>Opciones</th>
-                </tr>
-            </thead>
+				<tr>
+					<th>Cliente</th>
+					<th>Pos</th>
+					<th>OC</th>
+					<th>Solicitada</th>
+					<th>Código</th>
+					<th>Enviada</th>
+					<th>Fecha registrado</th>
+					<th>Fecha de entrega</th>
+					<th>Fecha de confirmación</th>
+					<th>Opciones</th>
+				</tr>
+			</thead>
 			<!-- Contenido de la tabla -->
-			<tbody id="tbody-rows">	
+			<tbody id="tbody-rows">
 			</tbody>
-		</table>	 
-		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->				
-		</div> <!-- Cierra controladores de tabla --> 
-	<!-- Cierra seccion de tabla -->
+		</table>
+		<div id="seccionPaginacion" class="clearfix">
+			<!-- Seccion controladores tabla -->
+		</div> <!-- Cierra controladores de tabla -->
+		<!-- Cierra seccion de tabla -->
 	</div>
 	<!-- Modal  -->
 	<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

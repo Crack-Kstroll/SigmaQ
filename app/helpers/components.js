@@ -55,6 +55,7 @@ const saveRow = (api, action, form, modal) => {
     }).then(function (request) {
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
         if (request.ok) {
+            // console.log(request.text());
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
@@ -81,23 +82,39 @@ const saveRow = (api, action, form, modal) => {
 /*
 *   Función para crear o actualizar un registro en los mantenimientos de tablas (operación create y update).
 *
-*   Parámetros: api (ruta del servidor para enviar los datos), form (identificador del formulario) y modal (identificador de la caja de dialogo).
+*   Parámetros: api (ruta del servidor para enviar los datos), form (identificador del formulario) ,modal (identificador de la caja de dialogo) 
+*   y url (direccion del reporte).
 *
 *   Retorno: ninguno.
 */
-const paramReport = (api, action, form,modal) => { 
+const paramReport = (api, action, form, modal, url) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
     para acceder a los campos desde la API*/
     fetch(api + action, {
         method: 'post',
         body: new FormData(document.getElementById(form))
     }).then(function (request) {
-        // Se cierra la caja de dialogo (modal) del formulario.
-        $(`#${modal}`).modal('hide');
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    // Se cierra la caja de dialogo (modal) del formulario.
+                    $(`#${modal}`).modal('hide');
+                    // Abrimos el reporte en una pestaña nueva
+                    window.open(url);
+                } else {
+                    sweetAlert(2, response.exception, null);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
     }).catch(function (error) {
         console.log(error);
     });
 }
+
 
 /*
 *   Función para obtener los resultados de una búsqueda en los mantenimientos de tablas (operación search).

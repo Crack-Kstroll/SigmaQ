@@ -219,6 +219,7 @@ const saveData = () => {
         action = 'create'; // En caso que no se crea 
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
+    // console.log(action);
     saveRow(API_ESTADO, action, 'save-form', 'staticBackdrop');
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);
@@ -296,3 +297,10 @@ const parameterChart = id => {
     });
 }
 
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('report-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Abrimos el reporte en una pestaña nueva
+    window.open('../../app/reports/dashboard/estadoCuenta.php');
+});

@@ -26,7 +26,7 @@ Login_Page::headerTemplateDashboard('Login | Administradores');
                             <input type="password" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="clave" name="clave" class="input">
                         </div>
                     </div>
-                    <div style="display: flex; justify-content-center">
+                    <div style="display: flex; justify-content:center">
                     <a onclick="iniciarSesion()" class="btnDashboard">
                         INGRESAR
                     </a>
