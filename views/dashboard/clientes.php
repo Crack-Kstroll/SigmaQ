@@ -39,7 +39,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 					<div class="col-sm-2">
 						<form method="post" id="chart-form">
 							<!-- Boton para busqueda filtrada --> 
-							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar gráfico">
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar gráfico de clientes con más acciones">
 								<i class="material-icons">insert_chart</i></button>
 							</button>
 						</form>
@@ -47,7 +47,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 					<div class="col-sm-2 ajustarboton">
 						<form method="post" id="report-form">
 							<!-- Boton para busqueda filtrada --> 
-							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte">
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte de clientes agrupado por estado">
 								<i class="material-icons">assignment_ind</i></button>
 							</button>
 						</form>
@@ -70,7 +70,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes','dashboard');
 					<th>Estado</th>
 					<th>Opciones</th>
 					<th>Extras</th>
-					<th></th>
+					<th>Reporte</th>
 				</tr>
 			</thead>
 			<!-- Contenido de la tabla -->

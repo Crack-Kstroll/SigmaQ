@@ -2,7 +2,6 @@
 include('../../app/helpers/dashboard.php');
 Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 ?>
-
 <!-- Seccion de contenido -->
 <div id="contenido" class="container-fluid fondo">
 	<!-- Seccion de titulo de pagina -->
@@ -11,18 +10,17 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	</div>
 	<!-- Cierra seccion de titulo de pagina -->
-
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-7">
+			<div class="col-sm-6">
 				<form method="post" id="search-form">
 					<div class="row">
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<!-- Campo de busqueda filtrada -->
 							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-6">
 							<!-- Boton para busqueda filtrada -->
 							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 								<i class="material-icons">search</i></button>
@@ -31,19 +29,22 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 					</div>
 				</form>
 			</div>
-			<div class="col-sm-5">
+			<div class="col-sm-6">
 				<div class="row">
 					<form method="post" id="delete-form">
 						<!-- Boton para ingresar nuevos registros -->
 						<div id="seccionAgregar" class="row">
 						</div>
 					</form>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<form method="post" id="report-form">
+							<!-- Boton generar grafico -->
+							<button id="enviosMensuales" class="centrarBoton btn btn-outline-info">
+                    			<i class="material-icons" data-toggle="tooltip" title="Gráfico de productos enviados por mes">assignment_turned_in</i></button>
+                			</button>
 							<!-- Boton para sacar reporte -->
-								<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte">
-									<i class="material-icons">assignment_ind</i>
-								</button>
+							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte de pedidos organizados por responsable">
+								<i class="material-icons">assignment_ind</i>
 							</button>
 						</form>
 					</div>

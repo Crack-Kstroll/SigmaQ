@@ -22,11 +22,11 @@ const opcionesUsuario = () => {
     if (tipo == 'Root') {
         // Cargamos el contenido correspondiente a los usuarios root
         contenido+= `
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
             </div>
             <div class="col-sm-4">
-                <button class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+                <button class="centrarBoton2  btn btn-outline-info my-2 my-sm-0">
                     <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
                 </button>
             </div>
@@ -95,7 +95,7 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="${metodo}(${row.idestadocuenta})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                 </td>
                 <td>
-                    <a href="#" onclick="parameterChart(${row.cliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
+                    <a href="#" onclick="parameterChart(${row.cliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico de % de cumplimiento de un índice">insert_chart</i></a>
                 </td>
             </tr>
         `;           
@@ -214,9 +214,11 @@ const saveData = () => {
     let action = '';
     // Se comprara el valor del input id 
     if (document.getElementById('idestado').value) {
-        action = 'update'; // En caso que exista se actualiza 
+        // En caso que exista se actualiza
+        action = 'update';  
     } else {
-        action = 'create'; // En caso que no se crea 
+        // En caso que no se crea 
+        action = 'create'; 
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
     // console.log(action);

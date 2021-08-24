@@ -17,17 +17,16 @@ const opcionesUsuario = () => {
     if (tipo == 'Root') {
         contenido+= `
             <div class="col-sm-6">
-                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
+                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar pedido</button></a>							
             </div>
-            <div class="col-sm-4 d-flex flex-row">
-                <button id="limpiar-tabla"class="centrarBoton btn btn-outline-info my-2 my-sm-0 mx-2">
+            <div class="col-sm-3">
+                <button id="limpiar-tabla"class="centrarBoton btn btn-outline-info">
                     <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
                 </button>
-                <button id="mejoresClientes" class="centrarBoton btn btn-outline-info my-2 my-sm-0 mx-2">
-                    <i class="material-icons" data-toggle="tooltip" title="Gráfico de top 5 clientes">workspace_premium</i></button>
-                </button>
-                <button id="enviosMensuales" class="centrarBoton btn btn-outline-info my-2 my-sm-0 mx-2">
-                    <i class="material-icons" data-toggle="tooltip" title="Gráfico de productos enviados por mes">assignment_turned_in</i></button>
+            </div>
+            <div class="col-sm-3">
+                <button id="mejoresClientes" class="centrarBoton btn btn-outline-info"> 
+                    <i class="material-icons" data-toggle="tooltip" title="Gráfico de top 5 clientes con más pedidos realizados">workspace_premium</i></button>
                 </button>
             </div>
             `;      
@@ -62,8 +61,6 @@ const opcionesUsuario = () => {
         })
     }
 }
-
-
 
 // Función para abrir el Form al momento de crear un registro
 const openCreateDialog = () => {

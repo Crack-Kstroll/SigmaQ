@@ -9,7 +9,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 		<h5 class="tituloMto">Gestión de estados de cuenta</h5>
 		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	</div> <!-- Cierra seccion titulo pagina -->
-
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
 		<div class="row">
@@ -32,28 +31,22 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 			<div class="col-sm-4">
 				<div class="row">
 					<form method="post" id="delete-form">
-
 						<!-- Boton para ingresar nuevos registros -->
 						<div id="seccionAgregar" class="row">
-
 						</div>
 					</form>
-					<div class="col-sm-2">
+					<div class="col-sm-5">
 						<form method="post" id="report-form">
 							<!-- Boton para sacar reporte -->
-							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte">
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte de estados de cuenta por cliente">
 								<i class="material-icons">assignment_ind</i>
-							</button>
 							</button>
 						</form>
 					</div>
 				</div>
-
 			</div>
 		</div>
-
 	</div>
-
 	<div class="container-fluid espacioSuperior">
 		<table class="table borde">
 			<!-- Cabecera de la tabla -->

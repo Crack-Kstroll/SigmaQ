@@ -53,11 +53,11 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="${metodo}(${row.codigocliente})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
                 </td>
                 <td>
-                    <a href="#" onclick="parameterChart(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
-                    <a href="../../app/reports/dashboard/accionesCliente.php?id=${row.codigocliente}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte">assignment_ind</i></a>
+                    <a href="#" onclick="parameterChart(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico de acciones más realizadas por un cliente">insert_chart</i></a>
+                    <a href="../../app/reports/dashboard/accionesCliente.php?id=${row.codigocliente}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de acciones realizadas por un cliente">assignment_ind</i></a>
                 </td>
                 <td>
-                    <a href="#" onclick="parameterReportModal(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte parametrizado">collections_bookmark</i></a>
+                    <a href="#" onclick="parameterReportModal(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte acciones por rango de fechas">collections_bookmark</i></a>
                 </td>
             </tr>
         `;

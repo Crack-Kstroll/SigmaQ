@@ -271,7 +271,7 @@ const parameterChart = id => {
             let datos = ['No Cumplidos', 'Cumplidos', 'No Considerados'];
             let porcentajes = [response.dataset.nocumplidos, response.dataset.cumplidos, response.dataset.noconsiderados];
             // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
-            pieGraph('porcentajeCumplidos', datos, porcentajes,'Porcentaje de cumplimiento de los compromisos del índice');
+            pieGraph('porcentajeCumplidos', datos, porcentajes,'Porcentaje de cumplimiento de los compromisos del índice (%)');
         } else {
             document.getElementById('totalGeneralMensual').remove();
             console.log(response.exception);

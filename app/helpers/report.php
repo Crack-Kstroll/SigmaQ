@@ -60,7 +60,7 @@ class Report extends FPDF
             // Se establecen los margenes del documento (izquierdo, superior y derecho).
             $this->setMargins(15, 15, 15);
             // Se añade una nueva página al documento (orientación vertical y formato carta) y se llama al método Header()
-            $this->AddPage('l', 'letter');
+            $this->AddPageL('l', 'letter');
             // Se define un alias para el número total de páginas que se muestra en el pie del documento.
             $this->AliasNbPages();
             // Se obtiene el numero de paginas para mostrar o no la cabecera
@@ -91,6 +91,32 @@ class Report extends FPDF
             $this->Cell(20);
             $this->SetFont('Arial', '', 12);
             $this->Cell(180, 10, ('Usuario que solicita el reporte: '. $_SESSION['usuario']), 0, 1, 'C');
+            // Se agrega un salto de línea para mostrar el contenido principal del documento.
+            $this->Ln(10);
+        }       
+    }
+
+    /*
+    *   Se sobrescribe el método de la librería para establecer la plantilla del encabezado de los reportes horizontales.
+    *   Se llama automáticamente en el método AddPageL()
+    */
+    public function HeaderL()
+    {
+        if ($this->pagina != 1) {
+            // Se establece el logo.
+            $this->Image('../../../resources/img/brand/logoRojo.png', 30, 22, 38);
+            // Se ubica el título.
+            $this->Cell(20);
+            $this->SetFont('Arial', 'B', 15);
+            $this->Cell(225, 12, utf8_decode($this->title), 0, 1, 'C');
+            // Se ubica la fecha y hora del servidor.
+            $this->Cell(20);
+            $this->SetFont('Arial', '', 12);
+            $this->Cell(225, 10, utf8_decode('Fecha y hora de generación: ') .date('d-m-Y H:i:s'), 0, 1, 'C');
+            // Se setea el usuario de la sesión en el reporte.
+            $this->Cell(20);
+            $this->SetFont('Arial', '', 12);
+            $this->Cell(225, 10, ('Usuario que solicita el reporte: '. $_SESSION['usuario']), 0, 1, 'C');
             // Se agrega un salto de línea para mostrar el contenido principal del documento.
             $this->Ln(10);
         }       

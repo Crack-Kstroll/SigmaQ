@@ -10,6 +10,7 @@ $pdf = new Report;
 $pdf->startReport('Reporte de acciones realizadas por un cliente');
 // Se instancia el módelo Cliente para obtener los datos.
 $categoria = new Cliente;
+
 // Se verifica si el parámetro es un valor correcto, de lo contrario se direcciona a la página web de origen.
 if ($categoria->setId($_GET['id'])) {
     // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.

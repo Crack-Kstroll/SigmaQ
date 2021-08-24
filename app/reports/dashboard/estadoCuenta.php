@@ -5,10 +5,10 @@ require('../../models/estadoCuenta.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReportL('Estados de cuenta por cliente');
-
-// Se instancia el módelo Categorías para obtener los datos.
+$pdf->startReportL('Reporte de estados de cuenta agrupado por cliente');
+// Se instancia el módelo EstadoCuenta para obtener los datos.
 $estado = new EstadoCuenta;
+
 // Se verifica si existen registros (categorías) para mostrar, de lo contrario se imprime un mensaje.
 if ($dataResponsables = $estado->readResponsables()) {
     // Se recorren los registros ($dataCategorias) fila por fila ($rowCategoria).

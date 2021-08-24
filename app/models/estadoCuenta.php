@@ -299,6 +299,7 @@ class EstadoCuenta extends Validator
     // Función para seleccionar solo un estado
     public function SelectOneEstadoCuenta()
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, a.codigoadmin, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.codigocliente, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes,d.iddivisa, d.divisa, ec.totalgeneral
                 FROM estadocuentas ec
                 INNER JOIN administradores a
@@ -318,6 +319,7 @@ class EstadoCuenta extends Validator
     // Función para mostrar la tabla en el sitio público
     public function SelectEstadoCuentaPublico()
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable,  ec.cliente, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
                 FROM estadocuentas ec
                 INNER JOIN administradores a
@@ -357,6 +359,7 @@ class EstadoCuenta extends Validator
     //Función para desactivar un registro
     public function desableEstado() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="UPDATE estadocuentas SET estado=false WHERE idestadocuenta = ?";
         $params=array($this->id);
         return Database::executeRow($query, $params);
@@ -365,6 +368,7 @@ class EstadoCuenta extends Validator
     //Función para activar un registro
     public function enableEstado() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="UPDATE estadocuentas SET estado=true WHERE idestadocuenta = ?";
         $params=array($this->id);
         return Database::executeRow($query, $params);
@@ -373,6 +377,7 @@ class EstadoCuenta extends Validator
     //Función para obtener el total general mensual de un cliente
     public function getTotalMensualCliente($cliente) 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT EXTRACT(MONTH FROM fechacontable) as mes, SUM(totalgeneral) total_mensual
                 FROM estadocuentas
                 WHERE cliente = ?
@@ -384,6 +389,7 @@ class EstadoCuenta extends Validator
     // Función para listar los reponsables
     public function readResponsables() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
                 FROM administradores";
         $params= null;

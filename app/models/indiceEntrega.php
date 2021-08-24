@@ -229,17 +229,19 @@ class Indice extends Validator
         return Database::executeRow($query, null);
     }
 
-    //Función para activar un registro
+    // Función para activar un registro
     public function enableIndice() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="UPDATE indiceentregas SET estado=true WHERE idindice = ?";
         $params=array($this->idindice);
         return Database::executeRow($query, $params);
     }
 
-    //Función para realizar una búsqueda en los registros
+    // Función para realizar una búsqueda en los registros
     public function searchRows($value) 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
                 FROM indiceentregas ie
                 INNER JOIN administradores a
@@ -252,9 +254,10 @@ class Indice extends Validator
         return Database::getRows($query, $params);
     }
 
-    //Función para mostrar todos los índices de un cliente
+    // Función para mostrar todos los índices de un cliente
     public function readClienteIndices() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
         FROM indiceentregas ie
         INNER JOIN administradores a
@@ -267,9 +270,10 @@ class Indice extends Validator
         return Database::getRows($query, $params);
     }
 
-    //Función para obtener el porcentaje de cumplimiento de los compromisos de un índice
+    // Función para obtener el porcentaje de cumplimiento de los compromisos de un índice
     public function porcentajeCumplimientoIndice($id_indice)
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT ROUND(cumplidos * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) cumplidos,
                 ROUND(nocumplidos * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) nocumplidos,
                 ROUND(noconsiderados * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) noconsiderados
@@ -279,5 +283,4 @@ class Indice extends Validator
         return Database::getRow($query, $params);
     }
 }
-
 ?>

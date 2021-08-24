@@ -8,6 +8,7 @@ $pdf = new Report;
 $pdf->startReport('Reporte de clientes agrupado por estado');
 // Se instancia el módelo Cliente para obtener los datos.
 $categoria = new Cliente;
+
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataCategorias = $categoria->readEstado()) {
     // Se recorren los registros fila por fila.

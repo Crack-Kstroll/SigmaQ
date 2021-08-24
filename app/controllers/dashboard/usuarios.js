@@ -66,11 +66,11 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="${metodo}(${row.codigoadmin})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
                 </td>
                 <td>
-                    <a href="#" onclick="parameterChart(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico">insert_chart</i></a>
-                    <a href="../../app/reports/dashboard/accionesUsuario.php?id=${row.codigoadmin}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte">assignment_ind</i></a>
+                    <a href="#" onclick="parameterChart(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico de acciones más realizadas por un usuario">insert_chart</i></a>
+                    <a href="../../app/reports/dashboard/accionesUsuario.php?id=${row.codigoadmin}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de acciones realizadas por usuario">assignment_ind</i></a>
                 </td>
                 <td>
-                    <a href="#" onclick="parameterReportModal(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte parametrizado">collections_bookmark</i></a>
+                    <a href="#" onclick="parameterReportModal(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de acciones por fecha">collections_bookmark</i></a>
                 </td> 
             </tr>
         `;           
@@ -341,7 +341,7 @@ const modalTitle = (id) => {
     // Atributo para almacenar el input confirmar clave
     let confirmar = '';
     // Compramos si el contenido el input esta vacio
-    if(id == 0) {
+    if (id == 0) {
         titulo = 'Registrar usuario'; // En caso que no exista valor se registra
         clave = `<label  id="lblClave">Contraseña*</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
