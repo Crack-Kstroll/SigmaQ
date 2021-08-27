@@ -12,7 +12,7 @@ const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
-    let contador = 0; 
+    let contador = 0;
     // Variables para almacernar los nombres de los iconos del los botones y del estado del usuario en la tabla
     let iconToolTip = '';
     let iconMetod = '';
@@ -30,16 +30,15 @@ const fillTable = (dataset) => {
             iconToolTip = 'Deshabilitar';
             // Se asigna el siguiente icono al boton
             iconMetod = 'block';
-        }
-        else {
+        } else {
             // Si el estado del usuario es activo se muestran los siguiente icono
             icon = 'lock';
             // Se asigna el nombre del metodo para activar el registro
             metodo = 'openActivateDialog';
             // Tooltip para indicar la accion que realiza el boton
-            iconToolTip = 'Habilitar'; 
+            iconToolTip = 'Habilitar';
             // Se asigna el siguiente icono al boton
-            iconMetod= 'check_circle_outline';
+            iconMetod = 'check_circle_outline';
         }
         // Verificamos el tipo de usuario
         if (row.tipo == 1) {
@@ -73,7 +72,7 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="parameterReportModal(${row.codigoadmin})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de acciones por fecha">collections_bookmark</i></a>
                 </td> 
             </tr>
-        `;           
+        `;
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
@@ -81,21 +80,21 @@ const fillTable = (dataset) => {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
-            content.push(data); 
+            content.push(data);
             // Vaciamos el contenido de data para volverlo a llenar
             data = '';
             // Agregamos una posicion dentro del arreglo debido a que se agrego un nuevo elemento
             posiciones = posiciones + 1;
-        }      
+        }
     });
     // Verificamos si el ultimo retorno de datos no esta vacio en caso de estarlo no se agrega a la paginacion
     if (data != '') {
         // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
-        content.push(data); 
-    } 
+        content.push(data);
+    }
     else {
         // Se resta una posicion ya que no se agrego el contenido final por estar vacio
-        posiciones = posiciones -1;
+        posiciones = posiciones - 1;
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
@@ -146,16 +145,16 @@ const parameterChart = (id) => {
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
     fetch(API_USUARIOS + 'graficaParam', {
         method: 'post',
-        body: data 
-    }).then( request => { 
+        body: data
+    }).then(request => {
         // Luego se compara si la respuesta de la API fue satisfactoria o no
-        if (request.ok) { 
-           return request.json()
+        if (request.ok) {
+            return request.json()
         } else {
             // En ocurrir un error se muestra en la consola 
             console.log(request.status + ' ' + request.statusText);
         }
-    }).then( response => {
+    }).then(response => {
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
         if (response.status) {
             // Se declaran los arreglos para guardar los datos por gráficar.
@@ -165,7 +164,7 @@ const parameterChart = (id) => {
             response.dataset.map(function (row) {
                 // Se asignan los datos a los arreglos.
                 categorias.push(row.accion);
-                cantidad.push(row.cantidad);        
+                cantidad.push(row.cantidad);
             });
             // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
             pieGraph('chart1', categorias, cantidad, 'Cantidad de acciones realizadas');
@@ -213,9 +212,9 @@ const parameterReport = () => {
             // Definimos la url del reporte agregando el id al final de la direccion
             url += `../../app/reports/dashboard/accionesUsuarioParam.php?id=${id}`;
             // Ejecutamos la funcion parameterReport para guardar los parametros para el reporte
-            paramReport(API_USUARIOS, 'param-report', 'parameter-form', 'report-modal',url);
-        }  
-    }  
+            paramReport(API_USUARIOS, 'param-report', 'parameter-form', 'report-modal', url);
+        }
+    }
 }
 
 // Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
@@ -270,7 +269,7 @@ document.getElementById('report-form').addEventListener('submit', function (even
 });
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openUpdateDialog = (id) => {  
+const openUpdateDialog = (id) => {
     //Mandamos a llamar la funcion para colocar el titulo al formulario
     modalTitle(id);
     // Asignamos el valor del parametro id al campo del id del modal
@@ -280,10 +279,10 @@ const openUpdateDialog = (id) => {
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
     fetch(API_USUARIOS + 'readOne', {
         method: 'post',
-        body: data 
-    }).then(function (request) { 
+        body: data
+    }).then(function (request) {
         // Luego se compara si la respuesta de la API fue satisfactoria o no
-        if (request.ok) { 
+        if (request.ok) {
             // En caso que la respuesta de la API sea satisfactoria se ejecuta el siguiente codigo
             request.json().then(function (response) {
                 // En caso de encontrarse registros se imprimen los resultados en los inputs del modal
@@ -298,7 +297,7 @@ const openUpdateDialog = (id) => {
                     document.getElementById('txtDireccion').value = response.dataset.direccion;
                     document.getElementById('txtUsuario').value = response.dataset.usuario;
                     document.getElementById("tipo").selectedIndex = response.dataset.tipo;
-                } else { 
+                } else {
                     // En caso de fallar se muestra el mensaje de error 
                     sweetAlert(2, response.exception, null);
                 }
@@ -306,30 +305,30 @@ const openUpdateDialog = (id) => {
         } else {
             console.log(request.status + ' ' + request.statusText);
         }
-    // En ocurrir un error se muestra en la consola 
+        // En ocurrir un error se muestra en la consola 
     }).catch(function (error) {
         console.log(error);
     });
 }
 
 // Función para definir si el metodo a ejecutar es guardar o actualizar.
-const saveData = () => {  
+const saveData = () => {
     // Se define atributo que almacenara la accion a realizar
     let action = '';
     // Se comprara el valor del input id 
     if (document.getElementById('txtIdx').value) {
         // En caso que exista se actualiza 
-        action = 'update'; 
+        action = 'update';
     } else {
         // En caso que no se crea 
-        action = 'create'; 
+        action = 'create';
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
     saveRow(API_USUARIOS, action, 'save-form', 'staticBackdrop');
 }
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
-const modalTitle = (id) => {  
+const modalTitle = (id) => {
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Ocultamos el input que contiene el ID del registro
@@ -352,7 +351,7 @@ const modalTitle = (id) => {
         <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
         <div id="passwordHelpBlock" class="form-text">
             La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;     
+        </div>`;
     }
     else {
         titulo = 'Actualizar usuario';  // En caso que exista se actualiza 
@@ -370,11 +369,11 @@ const modalTitle = (id) => {
     // Colocamos el titulo al elemento con el id modal-title
     document.getElementById('boxClave').innerHTML = clave;
     document.getElementById('boxConfirmar').innerHTML = confirmar;
-    document.getElementById('modal-title').textContent = titulo;    
+    document.getElementById('modal-title').textContent = titulo;
 }
 
 // Función para establecer el registro a eliminar y abrir una caja de dialogo de confirmación.
-const openDeleteDialog = (id) => {  
+const openDeleteDialog = (id) => {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -383,7 +382,7 @@ const openDeleteDialog = (id) => {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-const openActivateDialog = () => { 
+const openActivateDialog = () => {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);

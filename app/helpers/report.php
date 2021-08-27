@@ -78,7 +78,7 @@ class Report extends FPDF
     {
         if ($this->pagina != 1) {
             // Se establece el logo.
-            $this->Image('../../../resources/img/brand/logoRojo.png', 17, 22, 38);
+            $this->Image('../../../resources/img/brand/logoRojo.png', 15, 15, 38);
             // Se ubica el título.
             $this->Cell(20);
             $this->SetFont('Arial', 'B', 15);
