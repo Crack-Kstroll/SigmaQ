@@ -623,7 +623,7 @@ if (isset($_GET['action']))
                         } else {
                             // Creamos una variable de sesion para guardar los intentos del usuario
                             $_SESSION['intentos'] = $_SESSION['intentos']+1 ;
-                            if ($_SESSION['intentos'] == 5) {
+                            if ($_SESSION['intentos'] >= 5) {
                                 // Ejecutamos la funcion que verifica si la clave es correcta
                                 if ($cliente->desactivateAdmin($_POST['usuario'])){
                                     $result['status'] = 2;

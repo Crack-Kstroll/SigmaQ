@@ -53,7 +53,7 @@ if (isset($_GET['action']))
                         $result['message'] = 'Autenticación correcta, bienvenido';
                     // En caso exista un error de validacion se mostrara su respectivo mensaje
                     } else {
-                        if ($_SESSION['intentos'] > 5) {
+                        if ($_SESSION['intentos'] >= 5) {
                             // Ejecutamos la funcion que verifica si la clave es correcta
                             if ($cliente->desactivateClient($_POST['usuario'])) {
                                 $result['status'] = 1;
