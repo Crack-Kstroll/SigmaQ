@@ -3,20 +3,33 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Register</title>
+            <title>Registrar usuario</title>
             <link rel="stylesheet" href="../../resources/css/dashboard.css">
             <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
             <link rel="shortcut icon" href="../../resources/img/brand/qRoja.png" type="image/x-icon">
         </head>
     <body>
-        <div class="container"><br><br> 
+        <style >  
+            body {
+                /* Base64 encoded transparent gif */
+                background-image: url("../../resources/img/background/fondoDashboard.png");
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                margin: 0 auto;
+                height: 720px; 
+            }
+            .moverContenedor{ 
+                padding-left:230px; 
+            }
+        </style>
+        <div class="container moverContenedor"><br><br> 
             <div class="row">                  
                 <h3>Registrar usuario</h3>  
                 <form method="post" id="register-form">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Codigo</label>
+                                <label>Código</label>
                                 <input autocomplete="off" id="txtId" name="txtId" type="number" min="1" class="form-control" required>
                             </div>
                             <div class="form-group">
@@ -24,11 +37,11 @@
                                 <input autocomplete="off" id="txtNombre" name="txtNombre" type="text" class="form-control" required>
                             </div>	
                             <div class="form-group">
-                                <label>Apellido</label>
-                                <input autocomplete="off" id="txtApellido" name="txtApellido" type="text" class="form-control" required>
+                                <label>Contraseña</label>
+                                <input autocomplete="off" id="txtClave" name="txtClave" type="password" class="form-control" placeholder="" required>
                             </div>								
                             <div class="form-group">
-                                <label>Telefono</label>
+                                <label>Teléfono</label>
                                 <div class="form-group">
                                     <input autocomplete="off" id="txtTelefono" name="txtTelefono" type="text" class="form-control" placeholder="0000-0000" required>
                                 </div>			
@@ -40,8 +53,8 @@
                                 <input autocomplete="off" id="txtUsuario" name="txtUsuario" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label>Contraseña</label>
-                                <input autocomplete="off" id="txtClave" name="txtClave" type="password" class="form-control" placeholder="" required>
+                                <label>Apellido</label>
+                                <input autocomplete="off" id="txtApellido" name="txtApellido" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Confirmar contraseña</label>
@@ -55,15 +68,16 @@
                             </div>		
                         </div>
                         <div class="col-6">
-                            <label>Correo</label>
+                            <label>Correo electrónico</label>
                             <input autocomplete="off" id="txtCorreo" name="txtCorreo" type="email" class="form-control" placeholder="correo@example.com" required>				
                         </div>    
                         <div class="col-6">
-                            <label>Direccion</label>
+                            <label>Dirección</label>
                             <input autocomplete="off" id="txtDireccion" name="txtDireccion" type="text" class="form-control"  required>				
                         </div>		
                     </div>
-                    <button onclick="registrarUsuario()" type="button" class="btn btn-primary">Guardar</button></center>
+                    <br><br>
+                    <center><button onclick="registrarUsuario()" type="button" class="btn btn-primary">Guardar</button></center>
                 </form>
             </div>
         </div>

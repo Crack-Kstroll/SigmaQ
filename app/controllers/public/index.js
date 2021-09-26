@@ -32,14 +32,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Metodo para cargar todos los datos de la categoria seleccionada al presionar el boton
 const iniciarSesion = () => {   
-    if(document.getElementById("usuario").value == ''){
+    if(document.getElementById("usuario").value == '') {
         sweetAlert(3, 'Debe ingresar su usuario', null);
-    }
-    else{
-        if(document.getElementById("clave").value == ''){
+    } else {
+        if(document.getElementById("clave").value == '') {
             sweetAlert(3, 'Debe ingresar la contraseña', null);
-        }
-        else{
+        } else {
             fetch(API_CLIENT + 'logIn', {
                 method: 'post',
                 body: new FormData(document.getElementById('session-form'))

@@ -35,13 +35,11 @@ const iniciarSesion = () => {
     // Validamos que el campo de usuario no este vacio
     if(document.getElementById("usuario").value == ''){
         sweetAlert(3, 'Debe ingresar su usuario', null);
-    }
-    else{
+    } else {
         // Validamos que el campo de clave no este vacio
         if(document.getElementById("clave").value == ''){
             sweetAlert(3, 'Debe ingresar la contraseña', null);
-        }
-        else{
+        } else {
             // Realizamos peticion a la API de clientes con el caso login y method post para dar acceso al valor de los campos del form
             fetch(API_CLIENT + 'logIn', {
                 method: 'post',
