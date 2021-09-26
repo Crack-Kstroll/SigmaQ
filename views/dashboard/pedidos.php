@@ -105,7 +105,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 							<div class="col-6 form-group">
 								<label>Código*</label>
 								<div class="form-group">
-									<input id="codigo" name="codigo" type="number" min="1" class="form-control" required>
+									<input autocomplete="off" id="codigo" name="codigo" type="number" min="1" class="form-control" required>
 									<label class="font-italic text-danger">No podrá modificar el valor de este campo</label>
 								</div>
 							</div>

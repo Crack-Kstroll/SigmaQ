@@ -117,13 +117,13 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 							<div class="col-6 form-group">
 								<label>Fecha inicial*</label>
 								<div class="form-group">
-									<input id="fechaInicial" name="fechaInicial" type="date" class="form-control" >
+									<input autocomplete="off" id="fechaInicial" name="fechaInicial" type="date" class="form-control" >
 								</div>
 							</div>
 							<div class="col-6 form-group">
 								<label>Fecha final*</label>
 								<div class="form-group">
-									<input id="fechaFinal" name="fechaFinal" type="date" class="form-control" >
+									<input autocomplete="off" id="fechaFinal" name="fechaFinal" type="date" class="form-control" >
 								</div>
 							</div>
 						</div>
@@ -154,12 +154,12 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 							</div>
 							<div class="form-group">
 								<label>Nombre*</label>
-								<input id="txtNombre" name="txtNombre" maxlength="40" type="text" class="form-control" placeholder="Roberto" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<input autocomplete="off" id="txtNombre" name="txtNombre" maxlength="40" type="text" class="form-control" placeholder="Roberto" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>							
 							<div class="form-group">
 								<label>Teléfono*</label>
 								<div class="form-group">
-									<input id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<input autocomplete="off" id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 									<div id="phoneBlock" class="form-text">
 										Debe iniciar con 2, 6 o 7 y debe tener una longitud de 9 caracteres incluyendo un guion luego del cuarto dígito
         							</div>
@@ -168,7 +168,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 							<div class="form-group">
 								<label>Correo*</label>
 								<div class="form-group">
-									<input id="txtCorreo" name="txtCorreo" type="email"  maxlength="60" class="form-control" placeholder="correo@example.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>												
+									<input autocomplete="off" id="txtCorreo" name="txtCorreo" type="email"  maxlength="60" class="form-control" placeholder="correo@example.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>												
 								</div>			
 							</div>
 							<div id="boxClave" class="form-group">
@@ -177,16 +177,16 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 						<div class="col-6">
 							<div class="form-group">
 								<label>Usuario*</label>
-								<input id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<input autocomplete="off" id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 							
 							<div class="form-group">
 								<label>Apellido*</label>
-								<input id="txtApellido" name="txtApellido" maxlength="40" type="text" class="form-control" placeholder="Sanchez" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<input autocomplete="off" id="txtApellido" name="txtApellido" maxlength="40" type="text" class="form-control" placeholder="Sanchez" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>	
 							<div class="form-group">
 								<label>DUI*</label>
-								<input id="txtDui" name="txtDui" type="text" maxlength="10" class="form-control" placeholder="01234567-8" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<input autocomplete="off" id="txtDui" name="txtDui" type="text" maxlength="10" class="form-control" placeholder="01234567-8" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 								<div id="passwordHelpBlock" class="form-text">
             						El DUI debe tener una longitud de 10 caracteres incluyendo un guion luego del octavo carácter
         						</div>
@@ -205,7 +205,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios','dashboard');
 						<div class="col-12">
 							<div class="form-group">
 								<label>Dirección*</label>
-								<input id="txtDireccion" name="txtDireccion" type="text" maxlength="150"  class="form-control" placeholder="Avenida Aguilares 218 San Salvador CP, 1101" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+								<input autocomplete="off" id="txtDireccion" name="txtDireccion" type="text" maxlength="150"  class="form-control" placeholder="Avenida Aguilares 218 San Salvador CP, 1101" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
 							</div>
 						</div>	
 					</div>

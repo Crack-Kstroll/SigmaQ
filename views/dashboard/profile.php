@@ -21,31 +21,31 @@ Dashboard_Page::headerTemplate('Edición de perfil','dashboard');
             <div class="row">
                 <div class="col-6">
                     <label for="txtNombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" >
+                    <input autocomplete="off" type="text" class="form-control" id="txtNombre" name="txtNombre" >
                 </div>
                 <div class="col-6">
                     <label for="txtApellido" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" id="txtApellido" name="txtApellido" >
+                    <input autocomplete="off" type="text" class="form-control" id="txtApellido" name="txtApellido" >
                 </div>
             </div><br>
             <div class="row">
                 <div class="col-6">
                     <label for="txtDui" class="form-label">DUI</label>
-                    <input type="text" class="form-control" id="txtDui" name="txtDui">
+                    <input autocomplete="off" type="text" class="form-control" id="txtDui" name="txtDui">
                 </div>
                 <div class="col-6">
                     <label for="txtCorreo" class="form-label">Correo</label>
-                    <input type="email" class="form-control" id="txtCorreo" name="txtCorreo" >
+                    <input autocomplete="off" type="email" class="form-control" id="txtCorreo" name="txtCorreo" >
                 </div>
             </div><br>
             <div class="row">
                 <div class="col-6">
                     <label for="txtTelefono" class="form-label">Teléfono</label>
-                    <input type="phone" class="form-control" id="txtTelefono" name="txtTelefono">
+                    <input autocomplete="off" type="phone" class="form-control" id="txtTelefono" name="txtTelefono">
                 </div>
                 <div class="col-6">
                     <label for="txtUsuario" class="form-label">Usuario</label>
-                    <input type="text" class="form-control" id="txtUsuario" name="txtUsuario">
+                    <input autocomplete="off" type="text" class="form-control" id="txtUsuario" name="txtUsuario">
                 </div>
             </div>
         </form><br><br>

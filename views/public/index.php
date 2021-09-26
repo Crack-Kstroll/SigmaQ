@@ -17,13 +17,13 @@ Login_Page::headerTemplatePublic('Login | Clientes');
                 <div class="input-div one">
                     <div>
                         <h5>Usuario</h5>
-                        <input type="text" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="usuario" name="usuario" class="input">
+                        <input autocomplete="off" type="text" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="usuario" name="usuario" class="input">
                     </div>
                 </div>
                 <div class="input-div two">
                     <div>
                         <h5>Contraseña</h5>
-                        <input type="password" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="clave" name="clave" class="input">
+                        <input autocomplete="off" type="password" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="clave" name="clave" class="input">
                     </div>
                 </div>
                 <div style="display: flex; justify-content:center">

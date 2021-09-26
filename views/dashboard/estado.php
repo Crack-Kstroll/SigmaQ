@@ -111,15 +111,15 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 							<div class="col-6">
 								<div class="form-group">
 									<label>Código*</label>
-									<input id="codigo" name="codigo" type="number" class="form-control" required>
+									<input autocomplete="off" id="codigo" name="codigo" type="number" class="form-control" required>
 								</div>
 								<div class="form-group">
 									<label>Factura*</label>
-									<input id="factura" name="factura" type="number" class="form-control" placeholder="" required>
+									<input autocomplete="off" id="factura" name="factura" type="number" class="form-control" placeholder="" required>
 								</div>
 								<div class="form-group">
 									<label>Asignación*</label>
-									<input id="asignacion" name="asignacion" type="number" class="form-control" placeholder="" required>
+									<input autocomplete="off" id="asignacion" name="asignacion" type="number" class="form-control" placeholder="" required>
 								</div>
 							</div>
 							<div class="col-6">
@@ -145,7 +145,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Divisas*</label>
+									<label>Divisa*</label>
 									<select id="divisa" name="divisa" class="form-control">
 									</select>
 								</div>
