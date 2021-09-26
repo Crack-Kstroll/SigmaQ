@@ -100,21 +100,30 @@ if (isset($_GET['action']))
                     // Validamos que ninguno de los inputs esten vacios 
                     if ($_POST['txtClaveActual'] != '' || $_POST['txtClaveConfirmar'] != '' || $_POST['txtClaveNueva'] != '') {
                         // Validamos que la contraseña actual sea correcta
-                        if ($cliente->checkPassword($_POST['txtClaveActual'])) {
-                            // Validamos que la clave nueva y la confirmacion de clave coincida
-                            if ($_POST['txtClaveNueva'] == $_POST['txtClaveConfirmar']) {
-                                // Obtenemos el valor del input mediante la funcion del modelo 
-                                if ($cliente->setClave($_POST['txtClaveConfirmar'])) {
-                                    // Ejecutamos la funcion del modelo cambiar clave enviando la variable de sesion como parametro
-                                    if ($cliente->changePassword($_SESSION['codigoadmin'])) {
-                                        $result['status'] = 1; // Colocamos status 1 porque muestra el icono de exito en el mensaje de alerta
-                                        $result['message'] = 'Clave actualizada correctamente'; // En caso de exito mostramos el siguiente mensaje
+                        if ($cliente->checkPassword($_POST['txtClaveActual'])) {          
+                            if ($_POST['txtClaveNueva'] == $_SESSION['usuario']) {
+                                if ($_POST['txtClaveActual'] == $_POST['txtClaveConfirmar']) {
+                                    // Validamos que la clave nueva y la confirmacion de clave coincida
+                                    if ($_POST['txtClaveNueva'] == $_POST['txtClaveActual']) {
+                                        // Obtenemos el valor del input mediante la funcion del modelo 
+                                        if ($cliente->setClave($_POST['txtClaveConfirmar'])) {
+                                            // Ejecutamos la funcion del modelo cambiar clave enviando la variable de sesion como parametro
+                                            if ($cliente->changePassword($_SESSION['codigoadmin'])) {
+                                                $result['status'] = 1; // Colocamos status 1 porque muestra el icono de exito en el mensaje de alerta
+                                                $result['message'] = 'Clave actualizada correctamente'; // En caso de exito mostramos el siguiente mensaje
+                                            } else {
+                                                $result['exception'] = Database::getException();
+                                            }
+                                        } else {
+                                            $result['exception'] = $cliente->getPasswordError();
+                                        }
+                                    // Mostramos errores segun la validacion que no sea correcta 
                                     } else {
-                                        $result['exception'] = Database::getException();
+                                        $result['exception'] = 'La nueva clave no puede ser igual a la anterior';
                                     }
-                                } else {
-                                    $result['exception'] = $cliente->getPasswordError();
-                                }
+                            } else {
+                                $result['exception'] = 'La clave no puede ser igual a su usuario';
+                            }
                             // Mostramos errores segun la validacion que no sea correcta 
                             } else {
                                 $result['exception'] = 'Las nuevas claves no coinciden';
@@ -610,6 +619,7 @@ if (isset($_GET['action']))
                             $_SESSION['usuario'] = $cliente->getUsuario();
                             $_SESSION['nombre'] = $cliente->getNombre();
                             $_SESSION['apellido'] = $cliente->getApellido();
+                            $_SESSION['clave'] = $_POST['clave'];
                             $_SESSION['intentos'] = 0;
                             if ($cliente->getTipo() != 1) {
                                 $_SESSION['tipo'] = 'Admin';

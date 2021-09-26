@@ -53,9 +53,7 @@ if (isset($_GET['action']))
                         $result['exception'] = 'No hay coincidencias'; 
                     }
                 }
-            } 
-            else 
-            {
+            } else {
                 $result['exception'] = 'Ingrese un valor para buscar';
             }
         break;
@@ -197,23 +195,32 @@ if (isset($_GET['action']))
                 if ($_POST['txtClaveActual'] != '' && $_POST['txtClaveConfirmar'] != '' && $_POST['txtClaveNueva'] != '') {
                     // Validamos que la contraseña actual sea correcta
                     if ($cliente->checkPassword($_POST['txtClaveActual'])) {
-                        // Validamos que la clave nueva y la confirmacion de clave coincida
-                        if ($_POST['txtClaveNueva'] == $_POST['txtClaveConfirmar']) {
-                            // Obtenemos el valor del input mediante la funcion del modelo 
-                            if ($cliente->setClave($_POST['txtClaveConfirmar'])) {
-                                // Ejecutamos la funcion del modelo cambiar clave enviando la variable de sesion como parametro
-                                if ($cliente->changePassword($_SESSION['codigocliente'])) {
-                                    $result['status'] = 1; // Colocamos status 1 porque muestra el icono de exito en el mensaje de alerta
-                                    $result['message'] = 'Clave actualizada correctamente'; // En caso de exito mostramos el siguiente mensaje
+                        if ($_POST['txtClaveActual'] == $_POST['txtClaveConfirmar']) {
+                            // Validamos que la clave nueva y la confirmacion de clave coincida
+                            if ($_POST['txtClaveNueva'] == $_POST['txtClaveConfirmar']) {
+                                if ($_POST['txtClaveNueva'] == $_SESSION['usuario'] ) {
+                                    // Obtenemos el valor del input mediante la funcion del modelo 
+                                    if ($cliente->setClave($_POST['txtClaveConfirmar'])) {
+                                        // Ejecutamos la funcion del modelo cambiar clave enviando la variable de sesion como parametro
+                                        if ($cliente->changePassword($_SESSION['codigocliente'])) {
+                                            $result['status'] = 1; // Colocamos status 1 porque muestra el icono de exito en el mensaje de alerta
+                                            $result['message'] = 'Clave actualizada correctamente'; // En caso de exito mostramos el siguiente mensaje
+                                        } else {
+                                            $result['exception'] = Database::getException();
+                                        }
+                                    } else {
+                                        $result['exception'] = $cliente->getPasswordError();
+                                    }
                                 } else {
-                                    $result['exception'] = Database::getException();
+                                    $result['exception'] = 'La clave no puede ser igual a su usuario';
                                 }
+                            // Mostramos errores segun la validacion que no sea correcta 
                             } else {
-                                $result['exception'] = $cliente->getPasswordError();
+                                $result['exception'] = 'Las nuevas claves no coinciden';
                             }
                         // Mostramos errores segun la validacion que no sea correcta 
                         } else {
-                            $result['exception'] = 'Las nuevas claves no coinciden';
+                            $result['exception'] = 'La nueva clave no puede ser igual a la anterior';
                         }
                     } else {
                         $result['exception'] = 'Clave actual incorrecta';

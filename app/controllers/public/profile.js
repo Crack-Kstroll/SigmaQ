@@ -66,7 +66,7 @@ const modificarDatos = () => {
     });
 }
 
-// Función para obtener y mostrar las categorías existentes en la base.
+// Función para actualizar la contraseña del usuario que inicio sesion.
 const actualizarContraseña = () => {  
     fetch(API_USUARIOS + 'changePassword', {
         method: 'post',

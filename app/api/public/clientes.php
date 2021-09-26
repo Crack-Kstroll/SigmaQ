@@ -47,6 +47,7 @@ if (isset($_GET['action']))
                         $_SESSION['codigocliente'] = $cliente->getId();
                         $_SESSION['usuario'] = $cliente->getUsuario();
                         $_SESSION['empresa'] = $cliente->getEmpresa();
+                        $_SESSION['clave'] = $_POST['clave'];
                         $_SESSION['intentos'] = 0;
                         $result['status'] = 1;
                         // Mostramos mensaje de bienvenido al usuario
