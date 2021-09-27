@@ -15,6 +15,7 @@ class Usuario extends Validator
     private $clave = null;
     private $codigo = null;  
     private $tipo = null;
+    private $fecha = null;
 
     // Declaracion de atributos para reporte parametrizado  
     private $fechaInicial = null;
@@ -42,6 +43,20 @@ class Usuario extends Validator
     {
         if($this->validateString($value,1,100)) {
             $this->fechaFinal = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /* Funcion para validar si el contenido del input esta vacio
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function setFecha($value)
+    {
+        if($this->validateDate($value)) {
+            $this->fecha = $value;
             return true;
         } else {
             return false;
@@ -238,6 +253,11 @@ class Usuario extends Validator
     public function getEstado()
     {
         return $this->estado;
+    }
+
+    public function getFecha()
+    {
+        return $this->fecha;
     }
 
     public function getNombre()
