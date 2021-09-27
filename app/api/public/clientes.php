@@ -4,8 +4,7 @@ require_once('../../helpers/validator.php');
 require_once('../../models/clientes.php');
 
 // Se comprueba si el nombre de la acción a realizar coincide con alguno de los casos, de lo contrario mostrara un mensaje de error.
-if (isset($_GET['action'])) 
-{
+if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión que se llenaron en el login.
     session_start();
     // Se instancia la clase del modelo correspondiente.
@@ -22,9 +21,19 @@ if (isset($_GET['action']))
                 $_SESSION['codigoadmin'] = 'null';
                 $result['status'] = 1;
                 $result['message'] = 'Sesión eliminada correctamente';
-            } 
-            else 
-            {
+            } else {
+                // En caso de ocurrir fallar la funcion mostramos el mensaje
+                $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
+            }
+        break;
+        // Caso para cerrar sesion dentro del sistema
+        case 'logOut2': 
+            //Ejecutamos la funcion para cerrar sesion
+            if (session_destroy()) { 
+                $_SESSION['codigoadmin'] = 'null';
+                $result['status'] = 1;
+                $result['message'] = 'La sesión ha expirado por inactividad';
+            } else {
                 // En caso de ocurrir fallar la funcion mostramos el mensaje
                 $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
             }
@@ -54,7 +63,7 @@ if (isset($_GET['action']))
                         $result['message'] = 'Autenticación correcta, bienvenido';
                     // En caso exista un error de validacion se mostrara su respectivo mensaje
                     } else {
-                        if ($_SESSION['intentos'] >= 5) {
+                        if ($_SESSION['intentos'] >= 3) {
                             // Ejecutamos la funcion que verifica si la clave es correcta
                             if ($cliente->desactivateClient($_POST['usuario'])) {
                                 $result['status'] = 1;
@@ -124,6 +133,18 @@ if (isset($_GET['action']))
                 }
             }
         break; 
+        // Caso para cerrar sesion dentro del sistema
+        case 'logOut2': 
+            //Ejecutamos la funcion para cerrar sesion
+            if (session_destroy()) { 
+                $_SESSION['codigoadmin'] = 'null';
+                $result['status'] = 1;
+                $result['message'] = 'La sesión ha expirado por inactividad';
+            } else {
+                // En caso de ocurrir fallar la funcion mostramos el mensaje
+                $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
+            }
+        break;
         default:
             // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 
             $result['exception'] = 'Acción no disponible dentro de la sesión';
@@ -133,9 +154,7 @@ if (isset($_GET['action']))
     header('content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.
     print(json_encode($result));
-} 
-else 
-{
+} else {
     // En caso que no exista ninguna accion al hacer la peticion se muestra el siguiente mensaje
     print(json_encode('Recurso no disponible'));
 }

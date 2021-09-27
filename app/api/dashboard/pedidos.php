@@ -4,8 +4,7 @@ require_once('../../helpers/validator.php');
 require_once('../../models/pedidos.php');
 
 // Se compueba si existe una acción a realizar
-if (isset($_GET['action'])) 
-{
+if (isset($_GET['action'])) {
     //Se crea o se reanuda la sesión actual
     session_start();
     //Se instancia un objeto de la clase modelo
@@ -366,9 +365,7 @@ if (isset($_GET['action']))
         header('content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
         print(json_encode($result));
-    } 
-    else 
-    {
+    } else {
         print(json_encode('Acceso denegado'));
     }
 }

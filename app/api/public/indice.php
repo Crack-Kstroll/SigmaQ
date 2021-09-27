@@ -4,8 +4,7 @@ require_once('../../helpers/validator.php');
 require_once('../../models/indiceEntrega.php');
 
 // Se compueba si existe una acción a realizar
-if (isset($_GET['action'])) 
-{
+if (isset($_GET['action'])) {
     //Se crea o se reanuda la sesión actual
     session_start();
     //Se instancia un objeto de la clase modelo
@@ -13,8 +12,7 @@ if (isset($_GET['action']))
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como usuario para realizar las acciones correspondientes.
-    if (isset($_SESSION['codigocliente'])) 
-    { 
+    if (isset($_SESSION['codigocliente'])) { 
         // Se evalua la acción a realizar
         switch($_GET['action']) 
         {
@@ -41,9 +39,7 @@ if (isset($_GET['action']))
         header('content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
         print(json_encode($result));
-    } 
-    else 
-    {
+    } else {
         print(json_encode('Acceso denegado'));
     }
 }

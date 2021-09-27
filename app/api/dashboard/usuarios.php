@@ -4,8 +4,7 @@ require_once('../../helpers/validator.php');
 require_once('../../models/usuarios.php');
 
 // Se comprueba si el nombre de la acción a realizar coincide con alguno de los casos, de lo contrario mostrara un mensaje de error.
-if (isset($_GET['action'])) 
-{
+if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión que se llenaron en el login.
     session_start();
     // Se instancia la clase del modelo correspondiente.
@@ -23,6 +22,17 @@ if (isset($_GET['action']))
                 if (session_destroy()) { 
                     $result['status'] = 1;
                     $result['message'] = 'Sesión eliminada correctamente';
+                } else {
+                    // En caso de ocurrir fallar la funcion mostramos el mensaje
+                    $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
+                }
+            break;  
+            // Caso para cerrar sesion dentro del sistema
+            case 'logOut2': 
+                //Ejecutamos la funcion para cerrar sesion
+                if (session_destroy()) { 
+                    $result['status'] = 1;
+                    $result['message'] = 'La sesión ha expirado por inactividad';
                 } else {
                     // En caso de ocurrir fallar la funcion mostramos el mensaje
                     $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
@@ -70,15 +80,19 @@ if (isset($_GET['action']))
                                                 if ($_POST['txtClave'] == $_POST['txtClave2']) {
                                                     if ($cliente->setClave($_POST['txtClave'])) {
                                                         if ($cliente->setDireccion($_POST['txtDireccion'])) {
-                                                            // Se ejecuta la funcion para ingresar el registro
-                                                            if ($cliente->createRow()) {
-                                                                $result['status'] = 1;
-                                                                // Se muestra un mensaje de exito en caso de registrarse correctamente
-                                                                $result['message'] = 'Usuario registrado correctamente';
-                                                            // Se muestran los mensajes de error segun la validacion que falle 
+                                                            if ($_POST['txtClave'] != $_POST['txtUsuario']) {    
+                                                                // Se ejecuta la funcion para ingresar el registro
+                                                                if ($cliente->createRow()) {
+                                                                    $result['status'] = 1;
+                                                                    // Se muestra un mensaje de exito en caso de registrarse correctamente
+                                                                    $result['message'] = 'Usuario registrado correctamente';
+                                                                // Se muestran los mensajes de error segun la validacion que falle 
+                                                                } else {
+                                                                    $result['exception'] = Database::getException();;
+                                                                } 
                                                             } else {
-                                                                $result['exception'] = Database::getException();;
-                                                            }  
+                                                                $result['exception'] = 'La clave no puede ser igual a su usuario';
+                                                            } 
                                                         } else {
                                                             $result['exception'] = 'Direccion incorrecta';
                                                         }
@@ -612,7 +626,7 @@ if (isset($_GET['action']))
                         } else {
                             // Creamos una variable de sesion para guardar los intentos del usuario
                             $_SESSION['intentos'] = $_SESSION['intentos']+1 ;
-                            if ($_SESSION['intentos'] == 5) {
+                            if ($_SESSION['intentos'] >= 3) {
                                 // Ejecutamos la funcion que verifica si la clave es correcta
                                 if ($cliente->desactivateAdmin($_POST['usuario'])) {
                                     $result['status'] = 2;
@@ -658,13 +672,12 @@ if (isset($_GET['action']))
                 // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }
-    } 
-    else 
-    {
+    } else {
         // Se compara la acción a realizar cuando el cliente no ha iniciado sesión.
         switch ($_GET['action']) 
         {
-            case 'logIn': // Caso para el inicio de sesion del usuario
+            // Caso para el inicio de sesion del usuario
+            case 'logIn':
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $cliente->validateForm($_POST);
                 // Ejecutamos la funcion que verifica si existe el usuario en la base de datos
@@ -692,7 +705,7 @@ if (isset($_GET['action']))
                         } else {
                             // Creamos una variable de sesion para guardar los intentos del usuario
                             $_SESSION['intentos'] = $_SESSION['intentos']+1 ;
-                            if ($_SESSION['intentos'] >= 5) {
+                            if ($_SESSION['intentos'] >= 3) {
                                 // Ejecutamos la funcion que verifica si la clave es correcta
                                 if ($cliente->desactivateAdmin($_POST['usuario'])){
                                     $result['status'] = 2;
@@ -776,15 +789,19 @@ if (isset($_GET['action']))
                                                 if ($_POST['txtClave'] == $_POST['txtClave2']) {
                                                     if ($cliente->setClave($_POST['txtClave'])) {
                                                         if ($cliente->setDireccion($_POST['txtDireccion'])) {
-                                                            // Se ejecuta la funcion para ingresar el registro
-                                                            if ($cliente->createRow()) {
-                                                                $result['status'] = 1;
-                                                                // Se muestra un mensaje de exito en caso de registrarse correctamente
-                                                                $result['message'] = 'Usuario registrado correctamente';
-                                                            // Se muestran los mensajes de error segun la validacion que falle 
+                                                            if ($_POST['txtClave'] != $_POST['txtUsuario']) {
+                                                                // Se ejecuta la funcion para ingresar el registro
+                                                                if ($cliente->createRow()) {
+                                                                    $result['status'] = 1;
+                                                                    // Se muestra un mensaje de exito en caso de registrarse correctamente
+                                                                    $result['message'] = 'Usuario registrado correctamente';
+                                                                // Se muestran los mensajes de error segun la validacion que falle 
+                                                                } else {
+                                                                    $result['exception'] = Database::getException();
+                                                                }  
                                                             } else {
-                                                                $result['exception'] = Database::getException();;
-                                                            }  
+                                                                $result['exception'] = 'La clave no puede ser igual a su usuario';
+                                                            } 
                                                         } else {
                                                             $result['exception'] = 'Direccion incorrecta';
                                                         }
@@ -818,7 +835,18 @@ if (isset($_GET['action']))
                 } else {
                     $result['exception'] = 'Codigo incorrecto';
                 }
-            break;                      
+            break;      
+            // Caso para cerrar sesion dentro del sistema
+            case 'logOut2': 
+                //Ejecutamos la funcion para cerrar sesion
+                if (session_destroy()) { 
+                    $result['status'] = 1;
+                    $result['message'] = 'La sesión ha expirado por inactividad';
+                } else {
+                    // En caso de ocurrir fallar la funcion mostramos el mensaje
+                    $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
+                }
+            break;                
             default:
                 // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
@@ -829,9 +857,7 @@ if (isset($_GET['action']))
     header('content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.
     print(json_encode($result));
-} 
-else 
-{
+} else {
     // En caso que no exista ninguna accion al hacer la peticion se muestra el siguiente mensaje
     print(json_encode('Recurso no disponible'));
 }

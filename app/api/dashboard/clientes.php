@@ -4,8 +4,7 @@ require_once('../../helpers/validator.php');
 require_once('../../models/clientes.php');
 
 // Se comprueba si el nombre de la acción a realizar coincide con alguno de los casos, de lo contrario mostrara un mensaje de error.
-if (isset($_GET['action'])) 
-{
+if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión que se llenaron en el login.
     session_start();
     // Se instancia la clase del modelo correspondiente.
@@ -425,9 +424,7 @@ if (isset($_GET['action']))
     header('content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.
     print(json_encode($result));
-} 
-else 
-{
+} else {
     // En caso que no exista ninguna accion al hacer la peticion se muestra el siguiente mensaje
     print(json_encode('Recurso no disponible'));
 }
