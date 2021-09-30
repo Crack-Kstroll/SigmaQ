@@ -68,21 +68,21 @@ Public_Page::headerTemplate('SigmaQ - Configuración personal');
                 <h3 class="centrar">Cambiar contraseña</h3> 
                 <form method="post" id="password-form" enctype="multipart/form-data">   
                     <div class="row espacex2">
-                        <div class="d-grid gap-2 col-4 mx-auto">
+                        <div class="d-grid gap-2 col-md-4 col-sm-12 mx-auto">
                             <label for="txtClaveActual" class="form-label">Clave actual</label>
                             <input type="password" id="txtClaveActual" name="txtClaveActual" class="form-control" aria-describedby="claveActual">
                             <div id="claveActual" class="form-text">
                             Tu contraseña debe tener una longitud mínima de 6 caracteres y un máximo de 30, puede contener letras numeros y espacios
                             </div>
                         </div>
-                        <div class="d-grid gap-2 col-4 mx-auto">
+                        <div class="d-grid gap-2 col-md-4 col-sm-12 mx-auto">
                             <label for="txtClaveNueva" class="form-label">Nueva clave</label>
                             <input type="password" id="txtClaveNueva" name="txtClaveNueva" class="form-control" aria-describedby="claveNueva">
                             <div id="claveNueva" class="form-text">
                             Tu contraseña debe tener una longitud mínima de 6 caracteres y un máximo de 30, puede contener letras numeros y espacios
                             </div>
                         </div>
-                        <div class="d-grid gap-2 col-4 mx-auto">
+                        <div class="d-grid gap-2 col-md-4 col-sm-12 mx-auto">
                             <label for="txtClaveConfirmar" class="form-label">Confirmar clave</label>
                             <input type="password" id="txtClaveConfirmar" name="txtClaveConfirmar" class="form-control" aria-describedby="claveConfirmar">
                             <div id="claveConfirmar" class="form-text">
