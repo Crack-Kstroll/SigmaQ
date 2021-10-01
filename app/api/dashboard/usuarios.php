@@ -604,7 +604,7 @@ if (isset($_GET['action'])) {
                 // Ejecutamos la funcion que verifica si existe el usuario en la base de datos
                 if ($cliente->checkUser($_POST['usuario'])) {
                     // Ejecutamos la funcion que verifica el usuario se encuentra activo
-                    if ($cliente->checkState($_POST['usuario'])) {
+                    if ($cliente->checkState($_POST['usuario']) == 1) {
                         // Ejecutamos la funcion que verifica si la clave es correcta
                         if ($cliente->checkPassword($_POST['clave'])) {
                             // Asignamos los valores a las variables de sesion de los datos obtenidos de las consultas
@@ -683,7 +683,7 @@ if (isset($_GET['action'])) {
                 // Ejecutamos la funcion que verifica si existe el usuario en la base de datos
                 if ($cliente->checkUser($_POST['usuario'])) {
                     // Ejecutamos la funcion que verifica el usuario se encuentra activo
-                    if ($cliente->checkState($_POST['usuario'])) {
+                    if ($cliente->checkState($_POST['usuario']) == 1) {
                         // Ejecutamos la funcion que verifica si la clave es correcta
                         if ($cliente->checkPassword($_POST['clave'])) {
                             // Asignamos los valores a las variables de sesion de los datos obtenidos de las consultas

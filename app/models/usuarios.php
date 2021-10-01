@@ -110,7 +110,7 @@ class Usuario extends Validator
     */ 
     public function setEstado($value)
     {
-        if ($this->validateBoolean($value)) {
+        if ($this->validateNaturalNumber($value)) {
             $this->estado = $value;
             return true;
         } else {
@@ -314,7 +314,7 @@ class Usuario extends Validator
     public function checkState($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT estado FROM administradores where usuario = ? and estado = true';
+        $sql = 'SELECT estado FROM administradores where usuario = ? and estado = 1';
         $params = array($usuario);
         // Se compara si los datos ingresados coinciden con el resultado obtenido de la base de datos
         if ($data = Database::getRow($sql, $params)) {
@@ -329,7 +329,7 @@ class Usuario extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
-        SET estado = false
+        SET estado = 2
         WHERE usuario = ?;';
         // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
         $params = array($user);
@@ -407,7 +407,7 @@ class Usuario extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
-        SET estado = true
+        SET estado = 1
         WHERE codigoadmin = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
@@ -441,7 +441,7 @@ class Usuario extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,tipo
         from administradores
-        where estado = true';
+        where estado = 1';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -497,7 +497,7 @@ class Usuario extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
-        SET estado = false
+        SET estado = 2
         WHERE codigoadmin = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);

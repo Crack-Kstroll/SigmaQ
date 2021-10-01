@@ -47,7 +47,7 @@ if (isset($_GET['action'])) {
             // Ejecutamos la funcion que verifica si existe el usuario en la base de datos
             if ($cliente->checkUser($_POST['usuario'])) {
                 // Ejecutamos la funcion que verifica si la clave es correcta
-                if ($cliente->checkState($_POST['usuario'])) {
+                if ($cliente->checkState($_POST['usuario']) == 1) {
                     // Creamos una variable de sesion para guardar los intentos del usuario
                     $_SESSION['intentos'] = $_SESSION['intentos'] + 1 ;
                     // Ejecutamos la funcion que verifica si el usuario esta activo

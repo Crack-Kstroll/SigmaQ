@@ -91,7 +91,7 @@ class Cliente extends Validator
     */ 
     public function setEstado($value)
     {
-        if ($this->validateBoolean($value)) {
+        if ($this->validateNaturalNumber($value)) {
             $this->estado = $value;
             return true;
         } else {
@@ -214,7 +214,7 @@ class Cliente extends Validator
     public function checkState($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT estado FROM clientes where usuario = ? and estado = true';
+        $sql = 'SELECT estado FROM clientes where usuario = ? and estado = 1';
         $params = array($usuario);
         if ($data = Database::getRow($sql, $params)) {
             return true;
@@ -227,7 +227,7 @@ class Cliente extends Validator
     public function desactivateClient($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'UPDATE clientes SET estado = false WHERE usuario = ?;';
+        $sql = 'UPDATE clientes SET estado = 2 WHERE usuario = ?;';
         $params = array($usuario);
         return Database::executeRow($sql, $params);
     }
@@ -280,7 +280,7 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigocliente,estado,empresa,telefono,correo,usuario,clave,intentos 
         from clientes
-        where estado = true';
+        where estado = 1';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -300,7 +300,7 @@ class Cliente extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE clientes
-        SET estado = true
+        SET estado = 1
         WHERE codigocliente = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
@@ -386,7 +386,7 @@ class Cliente extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE clientes
-        SET estado = false
+        SET estado = 2
         WHERE codigocliente = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
