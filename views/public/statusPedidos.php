@@ -17,23 +17,26 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 
 
 <!-- Seccion de tabla de registros -->
-<div class="container-fluid espacioSuperior"> 
-	<table class="table borde">
-		<h4 id="warning-message" style="text-align:center"></h4>
-		<!-- Contenido de la tabla -->
-		<thead id="theaders" class="thead-dark">
+<div class="container-fluid espacioSuperior">
+	<div class="table-responsive">
+		<table class="table borde">
+			<h4 id="warning-message" style="text-align:center"></h4>
+			<!-- Contenido de la tabla -->
+			<thead id="theaders" class="thead-dark">
 
-		</thead>
-		<tbody id="tbody-rows">	
-		</tbody>
-	</table>	  
+			</thead>
+			<tbody id="tbody-rows">
+			</tbody>
+		</table>
+	</div>
 
-	<!-- Seccion controladores tabla -->				
-	<div id="seccionPaginacion" class="clearfix"> 
-	</div> 
-	<!-- Cierra controladores de tabla --> 
 
-</div>  
+	<!-- Seccion controladores tabla -->
+	<div id="seccionPaginacion" class="clearfix">
+	</div>
+	<!-- Cierra controladores de tabla -->
+
+</div>
 <!-- Cierra seccion de tabla -->
 
 <!-- Modal  -->
@@ -56,19 +59,19 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" id="oc" checked>
 								<label class="form-check-label" for="oc">Oc</label>
-							</div>		
+							</div>
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" id="solicitada" checked>
 								<label class="form-check-label" for="solicitada">Solicitada</label>
-							</div>	
+							</div>
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" id="codigo" checked>
 								<label class="form-check-label" for="codigo">Código</label>
-							</div>	
+							</div>
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
@@ -123,7 +126,7 @@ Public_Page::footerTemplate('status');
 							<label>Responsable</label>
 							<select id="responsable" name="responsable" class="form-control">
 							</select>
-						</div>	
+						</div>
 						<div class="col-6 form-group">
 							<label>Cliente</label>
 							<select id="cliente" name="cliente" class="form-control">
@@ -151,14 +154,14 @@ Public_Page::footerTemplate('status');
 							<label>Oc</label>
 							<div class="form-group">
 								<input id="oc" name="oc" type="number" class="form-control" min="1" required>
-							</div>			
+							</div>
 						</div>
 						<div class="col-6 form-group">
 							<label>Cantidad solicitada</label>
 							<div class="form-group">
 								<input id="cantidadsolicitada" name="cantidadsolicitada" type="number" class="form-control" required>
 							</div>
-						</div>						
+						</div>
 						<div class="col-6 form-group">
 							<label>Cantidad enviada</label>
 							<div class="form-group">

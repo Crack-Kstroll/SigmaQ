@@ -32,7 +32,7 @@ function inactivityTime () {
                     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                     if (response.status) {
                         // Mostramos mensaje de exito al usuario
-                        sweetAlert(4, response.message, 'index.php');
+                        sweetAlert(4, response.message, 'index.php','Se ha cerrado sesión');
                     } else {
                         // Mostramos mensaje de error al usuario
                         sweetAlert(2, response.exception, null);

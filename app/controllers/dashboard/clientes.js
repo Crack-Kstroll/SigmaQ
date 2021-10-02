@@ -19,7 +19,7 @@ const fillTable = (dataset) => {
     // Obtenemos los datos de la consulta realizada en la base (dataset)
     dataset.map(function (row) {
         // Definimos el icono a mostrar en la tabla segun el estado del registro
-        if (row.estado) {
+        if (row.estado == 1) {
             // Si el estado del usuario es activo se muestran los siguiente icono
             icon = 'lock_open'
             // Se asigna el nombre del metodo para deshabilitar el registro
@@ -133,16 +133,16 @@ const parameterChart = (id) => {
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
     fetch(API_CLIENTES + 'graficaParam', {
         method: 'post',
-        body: data 
-    }).then( request => { 
+        body: data
+    }).then(request => {
         // Luego se compara si la respuesta de la API fue satisfactoria o no
-        if (request.ok) { 
-           return request.json()
+        if (request.ok) {
+            return request.json()
         } else {
             console.log(request.status + ' ' + request.statusText);
         }
-    // En ocurrir un error se muestra en la consola 
-    }).then( response => {
+        // En ocurrir un error se muestra en la consola 
+    }).then(response => {
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
         if (response.status) {
             // Se declaran los arreglos para guardar los datos por gráficar.
@@ -152,7 +152,7 @@ const parameterChart = (id) => {
             response.dataset.map(function (row) {
                 // Se asignan los datos a los arreglos.
                 categorias.push(row.accion);
-                cantidad.push(row.cantidad);        
+                cantidad.push(row.cantidad);
             });
             // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
             doughnutGraph('chart1', categorias, cantidad, 'Cantidad de acciones realizadas');
@@ -252,9 +252,9 @@ const parameterReport = () => {
             // Definimos la url del reporte agregando el id al final de la direccion
             url += `../../app/reports/dashboard/accionesClienteParam.php?id=${id}`;
             // Ejecutamos la funcion parameterReport para guardar los parametros para el reporte
-            paramReport(API_CLIENTES, 'param-report', 'parameter-form', 'report-modal',url);
-        }  
-    }  
+            paramReport(API_CLIENTES, 'param-report', 'parameter-form', 'report-modal', url);
+        }
+    }
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
@@ -286,7 +286,7 @@ const openUpdateDialog = (id) => {
                     document.getElementById('txtUsuario').value = response.dataset.usuario;
                 } else {
                     // En caso de fallar se muestra el mensaje de error 
-                    sweetAlert(2, response.exception, null);
+                    sweetAlert(2, response.exception, null,'Ha ocurrido un error');
                 }
             });
         } else {
@@ -305,10 +305,10 @@ const saveData = () => {
     // Se comprara el valor del input id 
     if (document.getElementById('txtIdx').value) {
         // En caso que exista se actualiza 
-        action = 'update'; 
+        action = 'update';
     } else {
         // En caso que no se crea 
-        action = 'create'; 
+        action = 'create';
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
     saveRow(API_CLIENTES, action, 'save-form', 'staticBackdrop');

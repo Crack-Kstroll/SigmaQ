@@ -419,24 +419,42 @@ const onlyConfirmDelete = (api, data) => {
 *
 *   Retorno: ninguno.
 */
-const sweetAlert = (type, text, url) => {  
+const sweetAlert = (type, text, url , title) => {  
     // Se compara el tipo de mensaje a mostrar.
-    switch (type) {
-        case 1:
-            title = 'Éxito';
-            icon = 'success';
-            break;
-        case 2:
-            title = 'Error';
-            icon = 'error';
-            break;
-        case 3:
-            title = 'Advertencia';
-            icon = 'warning';
-            break;
-        case 4:
-            title = 'Aviso';
-            icon = 'info';
+    if (title != null) {
+        switch (type) {
+            case 1:
+                icon = 'success';
+                break;
+            case 2:
+                icon = 'error';
+                break;
+            case 3:
+                icon = 'warning';
+                break;
+            case 4:
+                icon = 'info';
+                break;
+        }    
+    } else {
+        switch (type) {
+            case 1:
+                title = 'Éxito';
+                icon = 'success';
+                break;
+            case 2:
+                title = 'Error';
+                icon = 'error';
+                break;
+            case 3:
+                title = 'Advertencia';
+                icon = 'warning';
+                break;
+            case 4:
+                title = 'Aviso';
+                icon = 'info';
+                break;
+        }
     }
     // Si existe una ruta definida, se muestra el mensaje y se direcciona a dicha ubicación, de lo contrario solo se muestra el mensaje.
     if (url) {

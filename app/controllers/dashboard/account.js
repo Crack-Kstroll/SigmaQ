@@ -23,9 +23,9 @@ const logOut = () => {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
                             // En caso de exito muestra mensaje de exito y redirige al login 
-                            sweetAlert(1, response.message, 'index.php');
+                            sweetAlert(1, response.message, 'index.php', 'Acción completada');
                         } else {
-                            sweetAlert(2, response.exception, null);
+                            sweetAlert(2, response.exception, null, 'Ha ocurrido un error');
                         }
                     });
                 } else {

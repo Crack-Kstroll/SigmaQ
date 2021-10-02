@@ -198,7 +198,7 @@ const parameterReport = () => {
     // Verificamos si el usuario ha seleccionado el rango de fechas
     if (fechaInicial == '' || fechaFinal == '') {
         // Mostramos alerta con mensaje de validacion
-        sweetAlert(3, 'Seleccione un rango de fechas', null);
+        sweetAlert(3, 'Seleccione el rango de fechas', null,'Complete los campos');
     } else {
         // Validamos si la fecha inicial no es mayor a la fecha final
         if (fechaInicial > fechaFinal) {

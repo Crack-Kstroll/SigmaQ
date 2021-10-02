@@ -10,35 +10,35 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) =>{ 
+const fillTable = (dataset) => {
     //Se oculta el modal de la personalización
     $('#modal-form').modal('hide');
     //Se crea la fila de los headers de la tabla
     let headers = `<tr>`;
     //Se agregan los headers si está seleccionado en la tabla
-    if(document.getElementById('pos').checked) {
+    if (document.getElementById('pos').checked) {
         headers += `<th>Pos</th>`
     }
-    if(document.getElementById('oc').checked) {
+    if (document.getElementById('oc').checked) {
         headers += `<th>OC</th>`
     }
-    if(document.getElementById('solicitada').checked) {
+    if (document.getElementById('solicitada').checked) {
         headers += `<th>Solicitada</th>`
     }
-    if(document.getElementById('codigo').checked) {
+    if (document.getElementById('codigo').checked) {
         headers += `<th>Código</th>`
     }
-    if(document.getElementById('enviada').checked) {
+    if (document.getElementById('enviada').checked) {
         headers += `<th>Enviada</th>`
     }
-    if(document.getElementById('fecharegistrado').checked) {
+    if (document.getElementById('fecharegistrado').checked) {
         headers += `<th>Fecha registrado</th>`
     }
-    if(document.getElementById('fechaentrega').checked) {
-        headers += `<th>Fecha de entrega</th>`
+    if (document.getElementById('fechaentrega').checked) {
+        headers += `<th>Fecha entrega</th>`
     }
-    if(document.getElementById('fechaconfirmacion').checked) {
-        headers += `<th>Fecha de confirmación</th>`
+    if (document.getElementById('fechaconfirmacion').checked) {
+        headers += `<th>Fecha confirmación</th>`
     }
     //Se agrega el cierre de la cabecera de la tabla
     headers += `</tr>`;
@@ -49,33 +49,33 @@ const fillTable = (dataset) =>{
     //Se abre la etiqueta del cuerpo de la tabla
     dataset.map(function (row) {
         // Definimos la estructura de las filas con los campos del dataset 
-        data+= `<tr>`;
-        if(document.getElementById('pos').checked) {
+        data += `<tr>`;
+        if (document.getElementById('pos').checked) {
             data += `<td>${row.pos}</td>`
         }
-        if(document.getElementById('oc').checked) {
+        if (document.getElementById('oc').checked) {
             data += `<td>${row.oc}</td>`
         }
-        if(document.getElementById('solicitada').checked) {
+        if (document.getElementById('solicitada').checked) {
             data += ` <td>${row.cantidadsolicitada}</td>`
         }
-        if(document.getElementById('codigo').checked) {
+        if (document.getElementById('codigo').checked) {
             data += `<td>${row.codigo}</td>`
         }
-        if(document.getElementById('enviada').checked) {
+        if (document.getElementById('enviada').checked) {
             data += `<td>${row.cantidadenviada}</td>`
         }
-        if(document.getElementById('fecharegistrado').checked) {
+        if (document.getElementById('fecharegistrado').checked) {
             data += `<td>${row.fecharegistro}</td>`
         }
-        if(document.getElementById('fechaentrega').checked) {
+        if (document.getElementById('fechaentrega').checked) {
             data += `<td>${row.fechaentregada}</td>`
         }
-        if(document.getElementById('fechaconfirmacion').checked) {
+        if (document.getElementById('fechaconfirmacion').checked) {
             data += `<td>${row.fechaconfirmadaenvio}</td>`
-        }    
+        }
         //Se cierra la etiqueta de la fila
-        data+=`</tr>`
+        data += `</tr>`
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
@@ -83,22 +83,22 @@ const fillTable = (dataset) =>{
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
-            content.push(data); 
+            content.push(data);
             // Vaciamos el contenido de data para volverlo a llenar
             data = '';
             // Agregamos una posicion dentro del arreglo debido a que se agrego un nuevo elemento
             posiciones = posiciones + 1;
-        }      
+        }
     });
     //Se cierra la etiqueta del cuerpo de la tabla
     // Verificamos si el ultimo retorno de datos no esta vacio en caso de estarlo no se agrega a la paginacion
     if (data != '') {
         // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
-        content.push(data); 
-    } 
-    else{
+        content.push(data);
+    }
+    else {
         // Se resta una posicion ya que no se agrego el contenido final por estar vacio
-        posiciones = posiciones -1;
+        posiciones = posiciones - 1;
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
@@ -110,7 +110,7 @@ const fillTable = (dataset) =>{
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openView = (id) => {  
+const openView = (id) => {
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     //Se abre el form
@@ -122,7 +122,7 @@ const openView = (id) => {
     //Se establece ReadOnly el campo del codigo
     document.getElementById("codigo").readOnly = true;
     //Se establece ReadOnly el campo del cliente
-    document.getElementById("cliente").setAttribute('disabled',false)
+    document.getElementById("cliente").setAttribute('disabled', false)
     const data = new FormData();
     data.append('id', id);
 }

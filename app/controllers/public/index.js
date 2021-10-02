@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }).then(function (response) {
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción
         if (response.status) {
-            sweetAlert(4, 'Debe autenticarse para ingresar');
+            sweetAlert(4, 'Debe autenticarse para acceder al sistema');
         } else {
             // Se verifica si ocurrió un problema en la base de datos, de lo contrario se continua normalmente.
             if (response.error) {
@@ -31,17 +31,19 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Metodo para cargar todos los datos de la categoria seleccionada al presionar el boton
-const iniciarSesion = () => {   
-    if(document.getElementById("usuario").value == '') {
-        sweetAlert(3, 'Debe ingresar su usuario', null);
+const iniciarSesion = () => {
+    if (document.getElementById("usuario").value == '') {
+        // Mostramos mensaje de validacion al usuario
+        sweetAlert(3, 'Debe ingresar su usuario para continuar', null, 'Complete todos los campos');
     } else {
-        if(document.getElementById("clave").value == '') {
-            sweetAlert(3, 'Debe ingresar la contraseña', null);
+        if (document.getElementById("clave").value == '') {
+            // Mostramos mensaje de validacion al usuario
+            sweetAlert(3, 'Debe ingresar la contraseña para continuar', null, 'Complete todos los campos');
         } else {
+            // Realizamos una peticion a la API enviando el formulario session para obtener los datos en caso Login
             fetch(API_CLIENT + 'logIn', {
                 method: 'post',
                 body: new FormData(document.getElementById('session-form'))
-                
             }).then(function (request) {
                 // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
                 if (request.ok) {
@@ -60,5 +62,5 @@ const iniciarSesion = () => {
                 console.log(error);
             });
         }
-    }   
+    }
 }

@@ -23,7 +23,7 @@ function enviarCorreo() {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
                             // Mostramos mensaje de exito
-                            sweetAlert(1, response.message, null);
+                            sweetAlert(1, response.message, null,'Revise su correo');
                             // Habilitamos el campo para ingresar el codigo
                             document.getElementById('codigo').disabled = false;
                             // Deshabilitamos el campo para ingresar el correo
@@ -33,7 +33,7 @@ function enviarCorreo() {
                             // Colocamos uno a la accion para identificar que accion se debe realizar
                             accion = 1;
                         } else {
-                            sweetAlert(4, response.exception, null);
+                            sweetAlert(4, response.exception, null,'Ha ocurrido un error');
                         }
                     });
                 } else {
@@ -60,12 +60,12 @@ function enviarCorreo() {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
                             // Mostramos mensaje de exito
-                            sweetAlert(1, response.message, 'password.php');
+                            sweetAlert(1, response.message, 'password.php','Acceso concedido');
                         } else {
                             // Validamos el numero de intentos al verificar el codigo
                             if (accion == 4) {
                                 // Si el usuario se equivoca mas de 3 veces en el codigo redirigira al index
-                                sweetAlert(4, 'Has fallado 3 veces el código, serás redirigido al login', 'index.php');
+                                sweetAlert(4, 'Has fallado 3 veces el código, serás redirigido al login', 'index.php','Límite de intentos');
                             } else {
                                 sweetAlert(4, response.exception, null);
                                 // Reutilizamos el atributo para llevar la cuenta de los intentos

@@ -724,7 +724,7 @@ if (isset($_GET['action'])) {
                                 if ($cliente->desactivateAdmin($_POST['usuario'])) {
                                     $result['status'] = 2;
                                     // Mostramos mensaje de alerta
-                                    $result['message'] = 'Limite de intentos alcanzado usuario desactivado';
+                                    $result['message'] = 'Limite de intentos alcanzado';
                                     // En caso exista un error de validacion se mostrara su respectivo mensaje
                                     $_SESSION['intentos'] = 0;
                                 } else {

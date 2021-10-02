@@ -11,7 +11,7 @@ Dashboard_Page::headerTemplate('Portal Clientes','dashboard');
     </div>	<!-- Cierra seccion de cabecera -->
 	<div id="estadisticas" class="container-fluid"><!-- Seccion de estadisticas -->	
 		<div class="container-fluid">
-			<h3 class="centrar">Acciones realizadas por los usuarios del sistema</h3>
+			<h3 class="centrar">Acciones realizadas por los clientes del sistema</h3>
 			<table class="table borde">
 				<thead class="thead-dark">
 					<tr>

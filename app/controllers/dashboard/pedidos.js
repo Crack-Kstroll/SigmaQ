@@ -1,3 +1,4 @@
+// Constantes para establecer las rutas y parámetros de comunicación con la API.
 const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
 const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
 const API_PEDIDOS = '../../app/api/dashboard/pedidos.php?action=';
@@ -11,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
-const opcionesUsuario = () => {  
+const opcionesUsuario = () => {
     let tipo = document.getElementById("tipoUsuario").value;
     let contenido = '';
     if (tipo == 'Root') {
-        contenido+= `
+        contenido += `
             <div class="col-sm-6">
                 <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar pedido</button></a>							
             </div>
@@ -29,19 +30,19 @@ const opcionesUsuario = () => {
                     <i class="material-icons" data-toggle="tooltip" title="Gráfico de top 5 clientes con más pedidos realizados">workspace_premium</i></button>
                 </button>
             </div>
-            `;      
+            `;
     } else {
-        contenido+= `
+        contenido += `
             <div class="col-sm-4"></div>
             <div class="col-sm-6">
                 <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
             </div>
-            `; 
+            `;
     }
     document.getElementById('seccionAgregar').innerHTML = contenido;
 
     //Agregando los controladores de evento para los botones del mantenimiento
-    if ( tipo == 'Root') {
+    if (tipo == 'Root') {
         // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
         document.getElementById('limpiar-tabla').addEventListener('click', function (event) {
             // Evitamos que la pagina se refresque 
@@ -73,19 +74,19 @@ const openCreateDialog = () => {
     //Asignamos la fecha actual al campo del formulario
     document.getElementById('fecharegistro').value = new Date().toDateInputValue();
     //Asignamos la fecha mínima para las fechas
-    document.getElementById('fechaentrega').setAttribute('min', new Date().toDateInputValue()) 
-    document.getElementById('fechaconfirmadaenvio').setAttribute('min', new Date().toDateInputValue()) 
+    document.getElementById('fechaentrega').setAttribute('min', new Date().toDateInputValue())
+    document.getElementById('fechaconfirmadaenvio').setAttribute('min', new Date().toDateInputValue())
     // Se llama a la function para llenar los Selects
     fillSelect(API_ADMINS, 'responsable', null);
     fillSelect(API_CLIENTES, 'cliente', null);
 }
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) => {  
+const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
-    let contador = 0; 
+    let contador = 0;
     // Obtenemos los valores del retorno de la consulta de la base de datos (dataset)
     dataset.map(function (row) {
         // Declaracion de variables para almacenar los nombres de iconos y metodo
@@ -93,7 +94,7 @@ const fillTable = (dataset) => {
         let iconToolTip = '';
         let metodo = '';
         // Se verifica si el estado es activo o inactivo
-        if(row.estado) {
+        if (row.estado) {
             //Cuando el registro esté habilitado
             iconToolTip = 'Deshabilitar'
             toggleEnabledIcon = 'block'
@@ -104,7 +105,7 @@ const fillTable = (dataset) => {
             toggleEnabledIcon = 'check_circle_outline'
             metodo = 'openActivateDialog';
         }
-        data+= `
+        data += `
             <tr>
                 <td>${row.usuario}</th>
                 <td>${row.pos}</th>
@@ -120,7 +121,7 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="${metodo}(${row.idpedido})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                 </td>
             </tr>
-        `;           
+        `;
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
@@ -128,21 +129,21 @@ const fillTable = (dataset) => {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
-            content.push(data); 
+            content.push(data);
             // Vaciamos el contenido de data para volverlo a llenar
             data = '';
             // Agregamos una posicion dentro del arreglo debido a que se agrego un nuevo elemento
             posiciones = posiciones + 1;
-        }      
+        }
     });
     // Verificamos si el ultimo retorno de datos no esta vacio en caso de estarlo no se agrega a la paginacion
     if (data != '') {
         // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
-        content.push(data); 
-    } 
-    else{
+        content.push(data);
+    }
+    else {
         // Se resta una posicion ya que no se agrego el contenido final por estar vacio
-        posiciones = posiciones -1;
+        posiciones = posiciones - 1;
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
@@ -154,10 +155,10 @@ const fillTable = (dataset) => {
 }
 
 //Función para obtener la fecha actual
-Date.prototype.toDateInputValue = (function() {
+Date.prototype.toDateInputValue = (function () {
     var local = new Date(this);
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0,10);
+    return local.toJSON().slice(0, 10);
 });
 
 // Función manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
@@ -169,7 +170,7 @@ document.getElementById('search-form').addEventListener('submit', function (even
 });
 
 //Función para abrir el mensaje de confirmación para deshabilitar un registro
-const openDeleteDialog = (id) => {  
+const openDeleteDialog = (id) => {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -180,7 +181,7 @@ const openDeleteDialog = (id) => {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-const openActivateDialog = (id) => {  
+const openActivateDialog = (id) => {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -207,7 +208,7 @@ const saveData = () => {
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
-const openUpdateDialog = (id) => {   
+const openUpdateDialog = (id) => {
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     //Se abre el form
@@ -219,24 +220,24 @@ const openUpdateDialog = (id) => {
     //Se establece ReadOnly el campo del codigo
     document.getElementById("codigo").readOnly = true;
     //Se establece ReadOnly el campo del cliente
-    document.getElementById("cliente").setAttribute('disabled',false)
+    document.getElementById("cliente").setAttribute('disabled', false)
 
     const data = new FormData();
     data.append('id', id);
     // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
     fetch(API_PEDIDOS + 'readOne', {
         method: 'post',
-        body: data 
-    }).then( request => { 
+        body: data
+    }).then(request => {
         // Luego se compara si la respuesta de la API fue satisfactoria o no
-        if (request.ok) { 
+        if (request.ok) {
             // console.log(request.text())
-           return request.json()
+            return request.json()
         } else {
             console.log(request.status + ' ' + request.statusText);
         }
-    // En ocurrir un error se muestra en la consola 
-    }).then( response => {
+        // En ocurrir un error se muestra en la consola 
+    }).then(response => {
         // En caso de encontrarse registros se imprimen los resultados en los inputs del modal
         if (response.status) {
             // Colocamos el nombre de los inpus y los igualamos al valor de los campos del dataset 
@@ -253,7 +254,7 @@ const openUpdateDialog = (id) => {
             document.getElementById('fechaconfirmadaenvio').value = response.dataset[0].fechaconfirmadaenvio;
             document.getElementById('comentarios').value = response.dataset[0].comentarios;
             document.getElementById('fecharegistro').value = response.dataset[0].fecharegistro;
-            } else { 
+        } else {
             // En caso de fallar se muestra el mensaje de error 
             sweetAlert(2, response.exception, null);
         }
@@ -279,46 +280,46 @@ const drawChart = type => {
     //Definimos que acción se realizará en la API
     const action = type === 1 ? 'cantidadEnviadaMensual' : 'clientesTop'
     //Realizamos la petición a la API
-    fetch(API_PEDIDOS + action )
-    .then( request => {
-        // Luego se compara si la respuesta de la API fue satisfactoria o no
-        if (request.ok) { 
-            return request.json();
-         } else {
-             // En ocurrir un error se muestra en la consola 
-             console.log(request.status + ' ' + request.statusText);
-         }
-    }).then( response => {
-        //Se evalua que la respuesta sea correcta
-        if( response.status ) {
-            //Se declaran los arreglos para almacenar la información
-            let cualitativas = [];
-            let cuantitativas = [];
-            //Se llama a la función que genera y muestra el gráfico dependiendo de la acción ejecutada
-            if( type === 1 ) {
-                //Se recorren los datos que retorno la API
-                response.dataset.map( row => {
-                    //Se almacenan los valores en los arreglos
-                    cualitativas.push(months[row.mes-1]);
-                    cuantitativas.push(row.cantidadmensual);
-                })
-                lineGraph('orders-chart', cualitativas, cuantitativas, 'Cantidad enviada en el mes','Total de productos enviados en los últimos 12 meses');
+    fetch(API_PEDIDOS + action)
+        .then(request => {
+            // Luego se compara si la respuesta de la API fue satisfactoria o no
+            if (request.ok) {
+                return request.json();
             } else {
-                //Se recorren los datos que retorno la API
-                response.dataset.map( row => {
-                    //Se almacenan los valores en los arreglos
-                    cualitativas.push(row.usuario);
-                    cuantitativas.push(row.pedidos);
-                })
-                barGraph('orders-chart', cualitativas, cuantitativas, 'Cantidad de pedidos realizados','Top 5 clientes que han realizado más pedidos');
+                // En ocurrir un error se muestra en la consola 
+                console.log(request.status + ' ' + request.statusText);
             }
-        } else {
-            document.getElementById('totalGeneralMensual').remove();
-            console.log(response.exception);
-        }
-    }).catch(function (error) {
-        console.log(error);
-    });
+        }).then(response => {
+            //Se evalua que la respuesta sea correcta
+            if (response.status) {
+                //Se declaran los arreglos para almacenar la información
+                let cualitativas = [];
+                let cuantitativas = [];
+                //Se llama a la función que genera y muestra el gráfico dependiendo de la acción ejecutada
+                if (type === 1) {
+                    //Se recorren los datos que retorno la API
+                    response.dataset.map(row => {
+                        //Se almacenan los valores en los arreglos
+                        cualitativas.push(months[row.mes - 1]);
+                        cuantitativas.push(row.cantidadmensual);
+                    })
+                    lineGraph('orders-chart', cualitativas, cuantitativas, 'Cantidad enviada en el mes', 'Total de productos enviados en los últimos 12 meses');
+                } else {
+                    //Se recorren los datos que retorno la API
+                    response.dataset.map(row => {
+                        //Se almacenan los valores en los arreglos
+                        cualitativas.push(row.usuario);
+                        cuantitativas.push(row.pedidos);
+                    })
+                    barGraph('orders-chart', cualitativas, cuantitativas, 'Cantidad de pedidos realizados', 'Top 5 clientes que han realizado más pedidos');
+                }
+            } else {
+                document.getElementById('totalGeneralMensual').remove();
+                console.log(response.exception);
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
 }
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
 document.getElementById('report-form').addEventListener('submit', function (event) {

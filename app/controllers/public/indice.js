@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-const fillTable = (dataset) => { 
+const fillTable = (dataset) => {
     //Se oculta el modal de la personalización
     $('#modal-form').modal('hide');
 
@@ -18,35 +18,35 @@ const fillTable = (dataset) => {
     let headers = `<tr>`;
 
     //Se agregan los headers si está seleccionado en la tabla
-    if( document.getElementById('organizacion').checked) {
+    if (document.getElementById('organizacion').checked) {
         headers += `<th>Organizacion</th>`
     }
-    if(document.getElementById('indice').checked) {
+    if (document.getElementById('indice').checked) {
         headers += `<th>Indice</th>`
     }
-    if(document.getElementById('compromisos').checked) {
+    if (document.getElementById('compromisos').checked) {
         headers += `<th>Compromisos</th>`
     }
-    if(document.getElementById('cumplidos').checked) {
+    if (document.getElementById('cumplidos').checked) {
         headers += `<th>Cumplidos</th>`
     }
-    if(document.getElementById('nocumplidos').checked) {
+    if (document.getElementById('nocumplidos').checked) {
         headers += `<th>No Cumplidos</th>`
     }
-    if(document.getElementById('noconsiderados').checked) {
+    if (document.getElementById('noconsiderados').checked) {
         headers += `<th>No Considerados</th>`
     }
-    if(document.getElementById('incumnoentregados').checked) {
+    if (document.getElementById('incumnoentregados').checked) {
         headers += `<th>% incum no entregados</th>`
     }
-    if(document.getElementById('incumporcalidad').checked) {
-        headers += `<th>% incum por calidad</th>`
+    if (document.getElementById('incumporcalidad').checked) {
+        headers += `<th>% incum calidad</th>`
     }
-    if(document.getElementById('incumporfecha').checked) {
-        headers += `<th>% incum por fecha</th>`
+    if (document.getElementById('incumporfecha').checked) {
+        headers += `<th>% incum fecha</th>`
     }
-    if(document.getElementById('incumporcantidad').checked) {
-        headers += `<th>% incum por cantidad</th>`
+    if (document.getElementById('incumporcantidad').checked) {
+        headers += `<th>% incum cantidad</th>`
     }
 
     //Se agrega el cierre de la cabecera de la tabla
@@ -55,44 +55,44 @@ const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
-    let contador = 0; 
+    let contador = 0;
     //Se abre la etiqueta del cuerpo de la tabla
     dataset.map(function (row) {
         // Definimos la estructura de las filas con los campos del dataset 
-        data+= `<tr>`;
+        data += `<tr>`;
 
-        if( document.getElementById('organizacion').checked) {
-            data+= `<td>${row.organizacion}</td>`;
+        if (document.getElementById('organizacion').checked) {
+            data += `<td>${row.organizacion}</td>`;
         }
-        if(document.getElementById('indice').checked) {
+        if (document.getElementById('indice').checked) {
             data += `<td>${row.indice}</td>`
         }
-        if(document.getElementById('compromisos').checked) {
+        if (document.getElementById('compromisos').checked) {
             data += `<td>${row.totalcompromiso}</td>`
         }
-        if(document.getElementById('cumplidos').checked) {
+        if (document.getElementById('cumplidos').checked) {
             data += `<td>${row.cumplidos}</td>`
         }
-        if(document.getElementById('nocumplidos').checked) {
+        if (document.getElementById('nocumplidos').checked) {
             data += `<td>${row.nocumplidos}</td>`
         }
-        if(document.getElementById('noconsiderados').checked) {
+        if (document.getElementById('noconsiderados').checked) {
             data += `<td>${row.noconsiderados}</td>`
         }
-        if(document.getElementById('incumnoentregados').checked) {
+        if (document.getElementById('incumnoentregados').checked) {
             data += `<td>${row.incumnoentregados}</td>`
         }
-        if(document.getElementById('incumporcalidad').checked) {
+        if (document.getElementById('incumporcalidad').checked) {
             data += `<td>${row.incumporcalidad}</td>`
         }
-        if(document.getElementById('incumporfecha').checked) {
+        if (document.getElementById('incumporfecha').checked) {
             data += `<td>${row.incumporfecha}</td>`
         }
-        if(document.getElementById('incumporcantidad').checked) {
+        if (document.getElementById('incumporcantidad').checked) {
             data += `<td>${row.incumporcantidad}</td>`
-        }         
-        
-        data+=`</tr>`
+        }
+
+        data += `</tr>`
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
@@ -100,22 +100,22 @@ const fillTable = (dataset) => {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
-            content.push(data); 
+            content.push(data);
             // Vaciamos el contenido de data para volverlo a llenar
             data = '';
             // Agregamos una posicion dentro del arreglo debido a que se agrego un nuevo elemento
             posiciones = posiciones + 1;
-        }      
+        }
     });
     //Se cierra la etiqueta del cuerpo de la tabla
     // Verificamos si el ultimo retorno de datos no esta vacio en caso de estarlo no se agrega a la paginacion
     if (data != '') {
         // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
-        content.push(data); 
-    } 
-    else{
+        content.push(data);
+    }
+    else {
         // Se resta una posicion ya que no se agrego el contenido final por estar vacio
-        posiciones = posiciones -1;
+        posiciones = posiciones - 1;
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);

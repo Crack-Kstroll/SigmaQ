@@ -77,7 +77,7 @@ class Public_Page {
     public static function footerTemplate($controller) 
     {
         $filename = basename($_SERVER['PHP_SELF']);
-        if ($filename != 'profile.php' ) {
+        if ($filename != 'statusPedidos.php' && $filename != 'estadoCuenta.php' && $filename != 'indiceEntrega.php') {
             print('
             <footer class="footer">
                 <div class="info">

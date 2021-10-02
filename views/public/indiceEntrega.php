@@ -16,23 +16,25 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 </div>
 
 <!-- Seccion de tabla de registros -->
-<div class="container-fluid espacioSuperior"> 
-	<table class="table borde">
-		<h4 id="warning-message" style="text-align:center"></h4>
-		<!-- Contenido de la tabla -->
-		<thead id="theaders" class="thead-dark">
+<div class="container-fluid espacioSuperior">
+	<div class="table-responsive">
+		<table class="table borde">
+			<h4 id="warning-message" style="text-align:center"></h4>
+			<!-- Contenido de la tabla -->
+			<thead id="theaders" class="thead-dark">
+			</thead>
+			<tbody id="tbody-rows">
+			</tbody>
+		</table>
+	</div>
 
-		</thead>
-		<tbody id="tbody-rows">	
-		</tbody>
-	</table>	 
 
-	<!-- Seccion controladores tabla -->				
-	<div id="seccionPaginacion" class="clearfix"> 
-	</div> 
-	<!-- Cierra controladores de tabla --> 
+	<!-- Seccion controladores tabla -->
+	<div id="seccionPaginacion" class="clearfix">
+	</div>
+	<!-- Cierra controladores de tabla -->
 
-</div>  
+</div>
 <!-- Cierra seccion de tabla -->
 
 <!-- Modal  -->
@@ -55,19 +57,19 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" name="indice" id="indice" checked>
 								<label class="form-check-label" for="indice">Índice</label>
-							</div>		
+							</div>
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" name="compromisos" id="compromisos" checked>
 								<label class="form-check-label" for="compromisos">Compromisos</label>
-							</div>	
+							</div>
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" name="cumplidos" id="cumplidos" checked>
 								<label class="form-check-label" for="cumplidos">Cumplidos</label>
-							</div>	
+							</div>
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
@@ -114,7 +116,7 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 		</div>
 	</div>
 </div>
-	
+
 <?php
 Public_Page::footerTemplate('indice');
 ?>

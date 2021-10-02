@@ -10,7 +10,7 @@ function enviarCorreo() {
         // Validamos si el campo de correo esta vacio
         if (document.getElementById("correo").value == '') {
             // Enviamos el mensaje de validacion
-            sweetAlert(4, 'Ingrese el correo electrónico', null);
+            sweetAlert(4, 'Ingrese el correo vinculado a su usuario', null,'Complete los campos solicitados');
         } else {
             // Realizamos peticion a la API enviando el nombre del caso el tipo de metodo y el formulario
             fetch(API_USUARIOS + 'sendEmail', {
@@ -23,7 +23,7 @@ function enviarCorreo() {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
                             // Mostramos mensaje de exito
-                            sweetAlert(1, response.message, null);
+                            sweetAlert(1, response.message, null,'Revise su correo');
                             // Habilitamos el campo para ingresar el codigo
                             document.getElementById('codigo').disabled = false;
                             // Deshabilitamos el campo para ingresar el correo
@@ -60,14 +60,14 @@ function enviarCorreo() {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
                             // Mostramos mensaje de exito
-                            sweetAlert(1, response.message, 'password.php');
+                            sweetAlert(1, response.message, 'password.php','Acceso concedido');
                         } else {
                             // Validamos el numero de intentos al verificar el codigo
                             if (accion == 4) {
                                 // Si el usuario se equivoca mas de 3 veces en el codigo redirigira al index
-                                sweetAlert(4, 'Has fallado 3 veces el código, serás redirigido al login', 'index.php');
+                                sweetAlert(4, 'Has fallado 3 veces el código, serás redirigido al login', 'index.php','Límite de intentos alcanzado');
                             } else {
-                                sweetAlert(4, response.exception, null);
+                                sweetAlert(4, response.exception, null,'Verifique su código');
                                 // Reutilizamos el atributo para llevar la cuenta de los intentos
                                 accion++;
                             }

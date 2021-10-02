@@ -1,3 +1,4 @@
+// Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
 const API_SOCIEDADES = '../../app/api/dashboard/sociedades.php?action=';
 
@@ -6,9 +7,9 @@ const fillTableSociedad = dataset => {
     $('#warning-message').empty();
     $('#tbody-rows').empty();
     let content = ''
-    if(dataset == [].length) {
+    if (dataset == [].length) {
         //console.log(dataset)
-        content+=`<h4>No hay índices registrados</h4>`
+        content += `<h4>No hay índices registrados</h4>`
         document.getElementById('warning-message').innerHTML = content
     } else {
         //Se agregan los titulos de las columnas
@@ -22,13 +23,13 @@ const fillTableSociedad = dataset => {
             </thead>
         `
         // Se obtienen los datos procedentes de la base (dataset)
-        dataset.map( row => {
+        dataset.map(row => {
             // Declaramos variables para almacenar los nombres de los iconos y el nombre del metodo
             let toggleEnabledIcon = '';
             let iconToolTip = '';
             let metodo = '';
             // Se verifica el estado de la sociedad
-            if(row.estado) {
+            if (row.estado) {
                 //Cuando el registro esté habilitado
                 iconToolTip = 'Deshabilitar'
                 toggleEnabledIcon = 'block'
@@ -39,7 +40,7 @@ const fillTableSociedad = dataset => {
                 toggleEnabledIcon = 'check_circle_outline'
                 metodo = 'openActivateDialog';
             }
-            content+= `
+            content += `
                 <tr>
                     <td>${row.cliente}</th>
                     <td>${row.sociedad}</th>

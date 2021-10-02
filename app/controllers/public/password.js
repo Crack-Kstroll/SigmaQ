@@ -5,11 +5,11 @@ const API_USUARIOS = '../../app/api/public/clientes.php?action=';
 function cambiarClave() {  
     // Validamos que el campo de usuario no este vacio
     if(document.getElementById("clave1").value == '') {
-        sweetAlert(3, 'Ingrese su nueva contraseña', null);
+        sweetAlert(3, 'Ingrese su nueva contraseña para continuar', null,'Complete todos los campos');
     } else {
         // Validamos que el campo de clave no este vacio
         if(document.getElementById("clave2").value == '') {
-            sweetAlert(3, 'Ingrese la confirmación de la contraseña', null);
+            sweetAlert(3, 'Ingrese la confirmación de la contraseña', null,'Complete todos los campos');
         } else {
             if (document.getElementById("clave1").value != document.getElementById("clave2").value) {
                 sweetAlert(3, 'Las claves ingresadas deben ser iguales', null);
@@ -26,7 +26,7 @@ function cambiarClave() {
                                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                                 if (response.status) {
                                     // En caso de iniciar sesion correctamente mostrar mensaje y redirigir al menu
-                                    sweetAlert(1, response.message, 'index.php');
+                                    sweetAlert(1, response.message, 'index.php','Puedes iniciar sesión');
                                 } else {
                                     sweetAlert(3, response.exception, null);
                                 }
@@ -38,7 +38,7 @@ function cambiarClave() {
                         console.log(error);
                     });
                 } else {
-                    sweetAlert(4, 'Ingrese la nueva contraseña', null);
+                    sweetAlert(4, 'Ingrese la nueva contraseña para continuar', null,'Complete todos los campos');
                 }
             } 
         }

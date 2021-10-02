@@ -34,17 +34,16 @@ document.addEventListener('DOMContentLoaded', function () {
 const iniciarSesion = () => {  
     // Validamos que el campo de usuario no este vacio
     if(document.getElementById("usuario").value == ''){
-        sweetAlert(3, 'Debe ingresar su usuario', null);
+        sweetAlert(3, 'Debe ingresar su usuario para continuar', null,'Complete todos los campos');
     } else {
         // Validamos que el campo de clave no este vacio
         if(document.getElementById("clave").value == ''){
-            sweetAlert(3, 'Debe ingresar la contraseña', null);
+            sweetAlert(3, 'Debe ingresar su contraseña para continuar', null,'Complete todos los campos');
         } else {
             // Realizamos peticion a la API de clientes con el caso login y method post para dar acceso al valor de los campos del form
             fetch(API_CLIENT + 'logIn', {
                 method: 'post',
                 body: new FormData(document.getElementById('session-form'))
-                
             }).then(function (request) {
                 // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
                 if (request.ok) {
@@ -54,7 +53,11 @@ const iniciarSesion = () => {
                             // En caso de iniciar sesion correctamente mostrar mensaje y redirigir al menu
                             sweetAlert(1, response.message, 'main.php');
                         } else {
-                            sweetAlert(3, response.exception, null);
+                            if (response.message != 'Limite de intentos alcanzado') {
+                                sweetAlert(3, response.exception, null);
+                            } else {
+                                sweetAlert(4, response.exception, null,'Usuario desactivado');
+                            }
                         }
                     });
                 } else {
