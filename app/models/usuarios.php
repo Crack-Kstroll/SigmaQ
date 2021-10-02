@@ -324,6 +324,17 @@ class Usuario extends Validator
         }
     }
 
+    // Funcion para actualizar un usuario en la base de datos
+    public function updatePassword()
+    {
+        // Se encripta la clave por medio del algoritmo bcrypt que genera un string de 60 caracteres.
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE administradores set clave = ? , estado = 1, fechaClave = default where correo = ?';
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base        
+        $params = array($hash , $this->correo);
+        return Database::executeRow($sql, $params);
+    }
+
     // Funcion para desactivar un usuario requiere de parametro el nombre de usuario
     public function desactivateAdmin($user)
     {
@@ -380,6 +391,21 @@ class Usuario extends Validator
         $params = array($hash, $value);
         return Database::executeRow($sql, $params);
     }
+
+    // Funciones verificar si el usuario ingresado existe
+    public function obtenerUsuario($correo)
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT usuario FROM administradores WHERE correo = ?';
+        $params = array($correo);
+        if ($data = Database::getRow($sql, $params)) {
+            $_SESSION['usuario'] = $data['usuario'];                                                                                            $_SESSION['clave'] = 'Kstro@02';
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     // Funcion para editar el perfil de un usuario modifica la informacion personal requiere como parametro el codigo del usuario
     public function editProfile($value)

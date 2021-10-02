@@ -31,7 +31,7 @@ Login_Page::headerTemplatePublic('Login | Clientes');
                         INGRESAR
                     </a>
                 </div> 
-                <a href="#">¿Olvido su usuario o contraseña?</a>
+                <a href="email.php">¿Olvido su usuario o contraseña?</a>
             </form>
         </div>
     </div>

@@ -10,31 +10,31 @@ Login_Page::headerTemplateDashboard('Login | Administradores');
         </div>
         <!-- AQUÍ VA EL LOGIN -->
         <div class="login-container">
-            <form method="post" id="session-form">
-                <img class="Avatar" src="../../resources/img/svgs/undraw_user_black-theme.svg" alt="dashboard03">
-                <h2>Bienvenido</h2>
+            <form method="post" id="email-form">
+                <img class="Avatar" src="../../resources/img/utilities/mail.jpg" alt="dashboard03">
+                <h2>Recuperacíon</h2>
                 <!-- INPUTS -->
                 <div class="input-div one">
                     <div>
-                        <h5>Usuario</h5>
-                        <input autocomplete="off" type="text" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="usuario" name="usuario" class="input">
+                        <h5>Correo</h5>
+                        <input autocomplete="off" type="text" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="correo" name="correo" class="input">
                     </div>
                     </div>
                     <div class="input-div two">
                         <div>
-                            <h5>Contraseña</h5>
-                            <input autocomplete="off" type="password" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="clave" name="clave" class="input">
+                            <h5>Código</h5>
+                            <input autocomplete="off" type="password" maxlength="35" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" id="codigo" name="codigo" class="input" disabled>
                         </div>
                     </div>
                     <div style="display: flex; justify-content:center">
-                    <a onclick="iniciarSesion()" class="btnDashboard">
-                        INGRESAR
+                    <a onclick="enviarCorreo()" class="btnDashboard">
+                        <label id="texto">ENVIAR CÓDIGO</label>
                     </a>
                 </div>  
-                <a href="email.php">¿Olvido su usuario o contraseña?</a>
+                <a href="index.php">¿Desea regresar al login?</a>
             </form>
         </div>
     </div>
 <?php
-    Login_Page::footerTemplate('dashboard/index.js');
+    Login_Page::footerTemplate('public/email.js');
 ?>

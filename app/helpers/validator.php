@@ -227,6 +227,23 @@ class Validator
     }
 
     /*
+    *   Método para validar una cadena de texto sin restriccion.
+    *
+    *   Parámetros: $value (dato a validar).
+    *   
+    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+    */
+    public function validateText($value)
+    {
+        // Se verifica el contenido y la longitud de acuerdo con la base de datos.
+        if ($value) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
     *   Método para validar el formato del DUI (Documento Único de Identidad).
     *
     *   Parámetros: $value (dato a validar).

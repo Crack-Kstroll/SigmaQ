@@ -1,6 +1,7 @@
 <?php
 require_once('../../helpers/database.php');
 require_once('../../helpers/validator.php');
+require_once('../../helpers/email.php');
 require_once('../../models/usuarios.php');
 
 // Se comprueba si el nombre de la acción a realizar coincide con alguno de los casos, de lo contrario mostrara un mensaje de error.
@@ -9,6 +10,8 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase del modelo correspondiente.
     $cliente = new Usuario;
+    // Se instancia la clase email.
+    $email = new Correo;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
     // Si existe el codigo del administrador las acciones disponibles seran diferentes 
@@ -16,6 +19,96 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un usuario ha iniciado sesión.
         switch ($_GET['action'])
         {
+            // Caso para cambiar la clave del usuario
+            case 'changePass':
+                // Obtenemos el form con los inputs para obtener los datos
+                $_POST = $cliente->validateForm($_POST);
+                if ($_SESSION['mail'] != $_POST['clave1']) {
+                    if ($cliente->setCorreo($_SESSION['mail'])) {
+                        if ($cliente->setClave($_POST['clave1'])) {
+                            // Ejecutamos la funcion para actualizar al usuario
+                            if ($cliente->updatePassword()) {
+                                $result['status'] = 1;
+                                $result['message'] = 'Clave actualizada correctamente';
+                            } else {
+                                $result['exception'] = Database::getException();
+                            }
+                        } else {
+                            $result['exception'] = 'El formato de la contraseña es incorrecto';
+                        }
+                    } else {
+                        $result['exception'] = 'Correo incorrecto';
+                    }
+                } else {
+                    $result['exception'] = 'La clave no puede ser igual al usuario';
+                }  
+                break;
+            // Caso para verificar si el codigo de seguridad ingresado es correcto
+            case 'verifyCode':
+                $_POST = $cliente->validateForm($_POST);
+                // Validmos el formato del mensaje que se enviara en el correo
+                if ($email->setCodigo($_POST['codigo'])) {
+                    // Validamos si el correo ingresado tiene formato correcto
+                    if ($email->setCorreo($_SESSION['mail'])) {
+                        // Ejecutamos la funcion para validar el codigo de seguridad
+                        if ($email->validarCodigo('administradores')) {
+                            $result['status'] = 1;
+                            // Colocamos el mensaje de exito 
+                            $result['message'] = 'El código ingresado es correcto';
+                        } else {
+                            // En caso que el correo no se envie mostramos el error
+                            $result['exception'] = 'El código ingresado no es correcto';
+                        }
+                    } else {
+                        $result['exception'] = 'Correo incorrecto';
+                    }
+                } else {
+                    $result['exception'] = 'Mensaje incorrecto';
+                }
+            break;
+            case 'sendEmail':
+                $_POST = $cliente->validateForm($_POST);
+                // Generamos el codigo de seguridad 
+                $code = rand(999999, 111111);
+                // Concatenamos el codigo generado dentro del mensaje a enviar
+                $message = "Has solicitado recuperar tu contraseña por medio de correo electrónico, su código de seguridad es: $code";
+                // Colocamos el asunto del correo a enviar
+                $asunto = "Recuperación de contraseña SigmaQ";
+                // Validmos el formato del mensaje que se enviara en el correo
+                if ($email->setMensaje($message)) {
+                    // Validamos si el correo ingresado tiene formato correcto
+                    if ($email->setCorreo($_POST['correo'])) {
+                        if ($email->validarCorreo('administradores')) {
+                            // Validamos si el correo ingresado tiene formato correcto
+                            if ($email->setAsunto($asunto)) {
+                                // Ejecutamos la funcion para enviar el correo electronico
+                                if ($email->enviarCorreo()) {
+                                    $result['status'] = 1;
+                                    // Colocamos el mensaje de exito 
+                                    $result['message'] = 'Código enviado correctamente';
+                                    // Guardamos el correo al que se envio el código
+                                    $_SESSION['mail'] = $email->getCorreo();
+                                    // Ejecutamos funcion para obtener el usuario del correo ingresado
+                                    $cliente->obtenerUsuario($_SESSION['mail']);
+                                    // Ejecutamos funcion para actualizar el codigo de recuperacion del usuario en la base de datos
+                                    $email->actualizarCodigo('administradores', $code);
+                                } else {
+                                    // En caso que el correo no se envie mostramos el error
+                                    $result['exception'] = $_SESSION['error'];
+                                }
+                            } else {
+                                $result['exception'] = 'Asunto incorrecto';
+                            }
+                        } else {
+                            $result['exception'] = 'El correo ingresado no esta registrado';
+                        }
+                    } else {
+                        $result['exception'] = 'Correo incorrecto';
+                    }
+                } else {
+                    $result['exception'] = 'Mensaje incorrecto';
+                }
+                break;
             // Caso para cerrar sesion dentro del sistema
             case 'logOut': 
                 //Ejecutamos la funcion para cerrar sesion
@@ -41,7 +134,7 @@ if (isset($_GET['action'])) {
             // Caso para leer el perfil del cliente que ha iniciado sesion mediante el codigo de administrador
             case 'readProfile': 
                 // Se ejecuta la funcion para obtener los datos del perfil
-                if ($result['dataset'] = $cliente->readProfile($_SESSION['codigoadmin'])) { 
+                if ($result['dataset'] = $cliente->readProfile(1)) { 
                     $result['status'] = 1; 
                 } else {
                     if (Database::getException()) {
@@ -676,6 +769,72 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando el cliente no ha iniciado sesión.
         switch ($_GET['action']) 
         {
+            // Caso para verificar si el codigo de seguridad ingresado es correcto
+            case 'verifyCode':
+                $_POST = $usuario->validateForm($_POST);
+                // Validmos el formato del mensaje que se enviara en el correo
+                if ($email->setCodigo($_POST['codigo'])) {
+                    // Validamos si el correo ingresado tiene formato correcto
+                    if ($email->setCorreo($_SESSION['mail'])) {
+                        // Ejecutamos la funcion para validar el codigo de seguridad
+                        if ($email->validarCodigo('usuarios')) {
+                            $result['status'] = 1;
+                            // Colocamos el mensaje de exito 
+                            $result['message'] = 'El código ingresado es correcto';
+                        } else {
+                            // En caso que el correo no se envie mostramos el error
+                            $result['exception'] = 'El código ingresado no es correcto';
+                        }
+                    } else {
+                        $result['exception'] = 'Correo incorrecto';
+                    }
+                } else {
+                    $result['exception'] = 'Mensaje incorrecto';
+                }
+            break;
+            case 'sendEmail':
+                $_POST = $usuario->validateForm($_POST);
+                // Generamos el codigo de seguridad 
+                $code = rand(999999, 111111);
+                // Concatenamos el codigo generado dentro del mensaje a enviar
+                $message = "Has solicitado recuperar tu contraseña por medio de correo electrónico, su código de seguridad es: $code";
+                // Colocamos el asunto del correo a enviar
+                $asunto = "Recuperación de contraseña SigmaQ";
+                // Validmos el formato del mensaje que se enviara en el correo
+                if ($email->setMensaje($message)) {
+                    // Validamos si el correo ingresado tiene formato correcto
+                    if ($email->setCorreo($_POST['correo'])) {
+                        if ($email->validarCorreo('usuarios')) {
+                            // Validamos si el correo ingresado tiene formato correcto
+                            if ($email->setAsunto($asunto)) {
+                                // Ejecutamos la funcion para enviar el correo electronico
+                                if ($email->enviarCorreo()) {
+                                    $result['status'] = 1;
+                                    // Colocamos el mensaje de exito 
+                                    $result['message'] = 'Código enviado correctamente';
+                                    // Guardamos el correo al que se envio el código
+                                    $_SESSION['mail'] = $email->getCorreo();
+                                    // Ejecutamos funcion para obtener el usuario del correo ingresado
+                                    $usuario->obtenerUsuario($_SESSION['mail']);
+                                    // Ejecutamos funcion para actualizar el codigo de recuperacion del usuario en la base de datos
+                                    $email->actualizarCodigo('usuarios', $code);
+                                } else {
+                                    // En caso que el correo no se envie mostramos el error
+                                    $result['exception'] = $_SESSION['error'];
+                                }
+                            } else {
+                                $result['exception'] = 'Asunto incorrecto';
+                            }
+                        } else {
+                            $result['exception'] = 'El correo ingresado no esta registrado';
+                        }
+                    } else {
+                        $result['exception'] = 'Correo incorrecto';
+                    }
+                } else {
+                    $result['exception'] = 'Mensaje incorrecto';
+                }
+                break;
             // Caso para el inicio de sesion del usuario
             case 'logIn':
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores

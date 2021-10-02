@@ -318,6 +318,17 @@ class Cliente extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    // Funcion para actualizar un usuario en la base de datos
+    public function updatePassword()
+    {
+        // Se encripta la clave por medio del algoritmo bcrypt que genera un string de 60 caracteres.
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE clientes set clave = ? , estado = 1, fechaClave = default where correo = ?';
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base        
+        $params = array($hash , $this->correo);
+        return Database::executeRow($sql, $params);
+    }
+
     // Funcion para actualizar los datos de un cliente de la base de datos
     public function updateRow()
     {
