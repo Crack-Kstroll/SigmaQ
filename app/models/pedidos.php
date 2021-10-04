@@ -257,6 +257,21 @@ class Pedidos extends Validator
         return Database::getRows($query, $params);
     }
 
+    // Función para buscar un registro en el sitio público
+    public function searchPedidosPublico($value)
+    {
+        $sql = "SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
+        FROM pedido p
+        INNER JOIN administradores a
+            ON p.responsable = a.codigoadmin
+        INNER JOIN clientes cl
+            ON p.cliente = cl.codigocliente
+        WHERE CONCAT(a.nombre, ' ', a.apellido) LIKE ? AND cliente = ?
+        ORDER BY p.estado DESC";
+        $params = array("%$value%", $_SESSION['codigocliente']);
+        return Database::getRows($sql, $params);
+    }
+
     //Función para realizar validar el codigo del pedido
     public function checkCode() 
     {

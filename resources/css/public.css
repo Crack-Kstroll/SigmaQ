@@ -156,8 +156,12 @@ main {
 }
 
 .centrarBoton {
-  padding-bottom: 0px;
-  padding-top: 7px;
+  padding-bottom: 1px;
+  padding-top: 8px;
+}
+
+.bajar {
+  padding-top: 5px;
 }
 
 .welcome--info {

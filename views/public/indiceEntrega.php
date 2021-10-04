@@ -7,14 +7,14 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 <!-- Botón para el modal de personalización de la tabla -->
 <div class="container-fluid">
 	<div class='row'>
-		<div class="col-sm-8">
+		<div class="col-sm-12 col-md-8">
 			<form method="post" id="search-form">
 				<div class="row">
-					<div class="col-sm-5">
+					<div class="col-9 bajar">
 						<!-- Campo de busqueda filtrada -->
-						<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, sociedad u código" aria-label="search">
+						<input id="search" name="search" class="searchButtons form-control mr-sm-2 " type="search" placeholder="Buscar por responsable, sociedad u código" aria-label="search">
 					</div>
-					<div class="col-sm-2">
+					<div class="col-3">
 						<!-- Boton para busqueda filtrada -->
 						<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 							<i class="material-icons">search</i></button>
@@ -23,7 +23,7 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 				</div>
 			</form>
 		</div>
-		<div class='col-sm-4'>
+		<div class='col-sm-12 col-md-4'>
 			<a onclick=openCustomDialog() type='button' class='btn btn-primary' id='conf_tabla_estado'>
 				Configurar tabla
 			</a>

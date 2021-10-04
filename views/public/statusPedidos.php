@@ -6,37 +6,50 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 
 <!-- Botón para el modal de personalización de la tabla -->
 <div class="container-fluid">
-	<div class="row">
-		<div class="col">
-			<a onclick=openCustomDialog() type="button" class="btn btn-primary" id="conf_tabla_estado">
+	<div class='row'>
+		<div class="col-sm-12 col-md-8">
+			<form method="post" id="search-form">
+				<div class="row">
+					<div class="col-9 bajar">
+						<!-- Campo de busqueda filtrada -->
+						<input id="search" name="search" class="searchButtons form-control mr-sm-2 " type="search" placeholder="Buscar por responsable, sociedad u código" aria-label="search">
+					</div>
+					<div class="col-3">
+						<!-- Boton para busqueda filtrada -->
+						<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
+							<i class="material-icons">search</i></button>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class='col-sm-12 col-md-4'>
+			<a onclick=openCustomDialog() type='button' class='btn btn-primary' id='conf_tabla_estado'>
 				Configurar tabla
 			</a>
 		</div>
-	</div>
+	</div><br>
 </div>
 
 
 <!-- Seccion de tabla de registros -->
-<div class="container-fluid espacioSuperior">
-	<div class="table-responsive">
-		<table class="table borde">
-			<h4 id="warning-message" style="text-align:center"></h4>
-			<!-- Contenido de la tabla -->
-			<thead id="theaders" class="thead-dark">
+<div class="container-fluid espacioSuperior"> 
+	<table class="table borde">
+		<h4 id="warning-message" style="text-align:center"></h4>
+		<!-- Contenido de la tabla -->
+		<thead id="theaders" class="thead-dark">
 
-			</thead>
-			<tbody id="tbody-rows">
-			</tbody>
-		</table>
-	</div>
+		</thead>
+		<tbody id="tbody-rows">	
+		</tbody>
+	</table>	  
 
+	<!-- Seccion controladores tabla -->				
+	<div id="seccionPaginacion" class="clearfix"> 
+	</div> 
+	<!-- Cierra controladores de tabla --> 
 
-	<!-- Seccion controladores tabla -->
-	<div id="seccionPaginacion" class="clearfix">
-	</div>
-	<!-- Cierra controladores de tabla -->
-
-</div>
+</div>  
 <!-- Cierra seccion de tabla -->
 
 <!-- Modal  -->
@@ -51,6 +64,12 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 					<div class="row">
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="checkbox" id="responsable" checked>
+								<label class="form-check-label" for="responsable">Responsable</label>
+							</div>
+						</div>
+						<div class="col-6 form-group">
+							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" id="pos" checked>
 								<label class="form-check-label" for="pos">Pos</label>
 							</div>
@@ -59,19 +78,19 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" id="oc" checked>
 								<label class="form-check-label" for="oc">Oc</label>
-							</div>
+							</div>		
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" id="solicitada" checked>
 								<label class="form-check-label" for="solicitada">Solicitada</label>
-							</div>
+							</div>	
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="checkbox" id="codigo" checked>
 								<label class="form-check-label" for="codigo">Código</label>
-							</div>
+							</div>	
 						</div>
 						<div class="col-6 form-group">
 							<div class="form-check form-check-inline">
@@ -101,7 +120,7 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button onclick="readRows('../../app/api/public/pedidos.php?action=')" type="button" class="btn btn-primary">Guardar</button>
+				<button onclick="readRows('../../app/api/public/statusPedidos.php?action=')" type="button" class="btn btn-primary">Guardar</button>
 			</div>
 		</div>
 	</div>
@@ -126,7 +145,7 @@ Public_Page::footerTemplate('status');
 							<label>Responsable</label>
 							<select id="responsable" name="responsable" class="form-control">
 							</select>
-						</div>
+						</div>	
 						<div class="col-6 form-group">
 							<label>Cliente</label>
 							<select id="cliente" name="cliente" class="form-control">
@@ -154,14 +173,14 @@ Public_Page::footerTemplate('status');
 							<label>Oc</label>
 							<div class="form-group">
 								<input id="oc" name="oc" type="number" class="form-control" min="1" required>
-							</div>
+							</div>			
 						</div>
 						<div class="col-6 form-group">
 							<label>Cantidad solicitada</label>
 							<div class="form-group">
 								<input id="cantidadsolicitada" name="cantidadsolicitada" type="number" class="form-control" required>
 							</div>
-						</div>
+						</div>						
 						<div class="col-6 form-group">
 							<label>Cantidad enviada</label>
 							<div class="form-group">

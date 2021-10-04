@@ -27,10 +27,10 @@ const fillTable = (dataset) => {
 
     //Se agregan los headers si está seleccionado en la tabla
     if (document.getElementById('organizacion').checked) {
-        headers += `<th>Organizacion</th>`
+        headers += `<th>Organización</th>`
     }
     if (document.getElementById('indice').checked) {
-        headers += `<th>Indice</th>`
+        headers += `<th>Índice</th>`
     }
     if (document.getElementById('compromisos').checked) {
         headers += `<th>Compromisos</th>`
