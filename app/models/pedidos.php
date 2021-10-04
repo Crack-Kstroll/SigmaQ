@@ -266,9 +266,9 @@ class Pedidos extends Validator
             ON p.responsable = a.codigoadmin
         INNER JOIN clientes cl
             ON p.cliente = cl.codigocliente
-        WHERE CONCAT(a.nombre, ' ', a.apellido) LIKE ? AND cliente = ?
+        WHERE CONCAT(a.nombre, ' ', a.apellido) LIKE ? OR CAST(p.codigo AS CHAR) LIKE ? AND cliente = ?
         ORDER BY p.estado DESC";
-        $params = array("%$value%", $_SESSION['codigocliente']);
+        $params = array("%$value%","%$value%", $_SESSION['codigocliente']);
         return Database::getRows($sql, $params);
     }
 

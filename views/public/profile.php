@@ -3,37 +3,6 @@ include('../../app/helpers/public.php');
 Public_Page::headerTemplate('SigmaQ - Configuración personal');
 ?>
 
-<style>
-    .fondoProfile {
-        background: #D3D3D3;
-    }
-
-    .botonesProfile {
-        width: 100%;
-    }
-
-    .centrar {
-        text-align: center;
-
-    }
-
-    .espace {
-        padding-top: 8px;
-    }
-
-    .espacex2 {
-        padding-top: 45px;
-    }
-
-    .espacex3 {
-        padding-top: 180px;
-    }
-
-    .inferior {
-        padding-bottom: 100px;
-    }
-</style>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-xl-6 espacex2">
@@ -43,21 +12,30 @@ Public_Page::headerTemplate('SigmaQ - Configuración personal');
                     <div class="row espacex2">
                         <div class="col-sm-12 col-md-6">
                             <label for="txtEmpresa" class="form-label">Empresa</label>
-                            <input type="text" class="form-control" id="txtEmpresa" name="txtEmpresa"><br>
+                            <input type="text" class="form-control" id="txtEmpresa" name="txtEmpresa" disabled>
+                                <b><font COLOR="red">El campo no puede ser modificado.</font></b>
+                            <br>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <label for="txtTelefono" class="form-label">Télefono</label>
-                            <input type="text" class="form-control" id="txtTelefono" name="txtTelefono">
+                            <input autocomplete="off" onkeydown="validateTextPhone('txtTelefono','legTelefono')" type="text" class="form-control" id="txtTelefono" name="txtTelefono">
+                            <div id="legTelefono" class="form-text">
+                                <b><font COLOR="blue">Puedes actualizar tu número de teléfono.</font></b>
+                            </div>
                         </div>
                     </div><br><br>
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <label for="txtCorreo" class="form-label">Correo</label>
-                            <input type="email" class="form-control" id="txtCorreo" name="txtCorreo"><br>
+                            <input autocomplete="off" onkeydown="validateTextMail('txtCorreo','legCorreo')" type="email" class="form-control" id="txtCorreo" name="txtCorreo">
+                            <div id="legCorreo" class="form-text">
+                                <b><font COLOR="blue">Puedes actualizar tu dirección de correo.</font></b>
+                            </div><br>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <label for="txtUsuario" class="form-label">Usuario</label>
-                            <input type="text" class="form-control" id="txtUsuario" name="txtUsuario">
+                            <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" disabled>
+                            <b><font COLOR="red">El campo no puede ser modificado.</font></b>
                         </div>
                     </div><br>
                 </form>
@@ -75,22 +53,22 @@ Public_Page::headerTemplate('SigmaQ - Configuración personal');
                     <div class="row espacex2">
                         <div class="d-grid gap-2 col-sm-12 col-md-4 mx-auto">
                             <label for="txtClaveActual" class="form-label">Clave actual</label>
-                            <input type="password" id="txtClaveActual" name="txtClaveActual" class="form-control" aria-describedby="claveActual">
-                            <div id="claveActual" class="form-text">
+                            <input onkeydown="validateTextPassword('txtClaveActual','legClaveActual')" type="password" id="txtClaveActual" name="txtClaveActual" class="form-control" aria-describedby="claveActual">
+                            <div id="legClaveActual" class="form-text">
                                 Ingrese la contraseña actual de su usuario.
                             </div>
                         </div>
                         <div class="d-grid gap-2 col-sm-12 col-md-4 mx-auto">
                             <label for="txtClaveNueva" class="form-label">Nueva clave</label>
-                            <input type="password" id="txtClaveNueva" name="txtClaveNueva" class="form-control" aria-describedby="claveNueva">
-                            <div id="claveNueva" class="form-text">
-                                Tu contraseña debe tener una longitud mínima de 6 caracteres y un máximo de 30, puede contener letras numeros y espacios
+                            <input onkeydown="validateTextNewPassword('txtClaveNueva','legClaveNueva')" type="password" id="txtClaveNueva" name="txtClaveNueva" class="form-control" aria-describedby="claveNueva">
+                            <div id="legClaveNueva" class="form-text">
+                                Si deseas cambiar tu clave ingresa la nueva clave.
                             </div>
                         </div>
                         <div class="d-grid gap-2 col-sm-12 col-md-4 mx-auto">
                             <label for="txtClaveConfirmar" class="form-label">Confirmar clave</label>
-                            <input type="password" id="txtClaveConfirmar" name="txtClaveConfirmar" class="form-control" aria-describedby="claveConfirmar">
-                            <div id="claveConfirmar" class="form-text">
+                            <input onkeydown="validateTextNewPassword('txtClaveConfirmar','legClaveConfirmar')" type="password" id="txtClaveConfirmar" name="txtClaveConfirmar" class="form-control" aria-describedby="claveConfirmar">
+                            <div id="legClaveConfirmar" class="form-text">
                                 Ingrese nuevamente su nueva contraseña para confirmar.
                             </div>
                         </div>
@@ -105,7 +83,7 @@ Public_Page::headerTemplate('SigmaQ - Configuración personal');
         </div>
     </div>
 </div>
-
+<script src="../../app/controllers/legends.js"></script>
 <?php
 Public_Page::footerTemplate('profile');
 ?>

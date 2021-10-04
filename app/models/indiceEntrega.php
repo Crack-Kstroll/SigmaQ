@@ -263,9 +263,9 @@ class Indice extends Validator
             ON ie.responsable = a.codigoadmin
         INNER JOIN clientes cl
             ON ie.cliente = cl.codigocliente
-        WHERE ie.organizacion ILIKE ? OR cl.usuario ILIKE ? OR CONCAT(a.nombre,' ',a.apellido) LIKE ? AND (ie.estado = true AND cl.codigocliente = ?)				
+        WHERE ie.organizacion ILIKE ?  OR CONCAT(a.nombre,' ',a.apellido) LIKE ? AND (ie.estado = true AND cl.codigocliente = ?)				
         ORDER BY ie.estado DESC";
-        $params = array("%$value%","%$value%","%$value%", $_SESSION['codigocliente']);
+        $params = array("%$value%","%$value%", $_SESSION['codigocliente']);
         return Database::getRows($sql, $params);
     }
 

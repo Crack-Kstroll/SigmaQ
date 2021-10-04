@@ -50,6 +50,6 @@ function inactivityTime () {
     // Creamos funcion para resetar el contador del timer 300000 (5 minutos)
     function resetTimer() {
         clearTimeout(time);
-        time = setTimeout(logout, 300000);
+        time = setTimeout(logout, 3000000000000);
     }
 };

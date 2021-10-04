@@ -364,10 +364,10 @@ class Cliente extends Validator
     public function editProfile($codigo)
     {
         $sql = 'UPDATE public.clientes
-        SET empresa=?, telefono=?, correo=?, usuario=?
+        SET telefono = ?, correo = ?
         WHERE codigocliente=?;';
         // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
-        $params = array($this->empresa ,$this->telefono, $this->correo, $this->usuario,$codigo);
+        $params = array( $this->telefono, $this->correo,$codigo);
         return Database::executeRow($sql, $params);
     }
 

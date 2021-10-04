@@ -144,6 +144,35 @@ main {
   margin: 10px 0px;
 }
 
+.fondoProfile {
+  background: #D3D3D3;
+}
+
+.botonesProfile {
+  width: 100%;
+}
+
+.centrar {
+  text-align: center;
+
+}
+
+.espace {
+  padding-top: 8px;
+}
+
+.espacex2 {
+  padding-top: 45px;
+}
+
+.espacex3 {
+  padding-top: 180px;
+}
+
+.inferior {
+  padding-bottom: 100px;
+}
+
 /***********SECTION****************************************************/
 
 .welcome--container {

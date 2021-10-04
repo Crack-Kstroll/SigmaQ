@@ -12,7 +12,7 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 				<div class="row">
 					<div class="col-9 bajar">
 						<!-- Campo de busqueda filtrada -->
-						<input id="search" name="search" class="searchButtons form-control mr-sm-2 " type="search" placeholder="Buscar por responsable, sociedad u código" aria-label="search">
+						<input autocomplete="off" id="search" name="search" class="searchButtons form-control mr-sm-2 " type="search" placeholder="Buscar por responsable o código" aria-label="search">
 					</div>
 					<div class="col-3">
 						<!-- Boton para busqueda filtrada -->
@@ -34,16 +34,17 @@ Public_Page::headerTemplate('SigmaQ - Status de pedidos');
 
 <!-- Seccion de tabla de registros -->
 <div class="container-fluid espacioSuperior"> 
-	<table class="table borde">
-		<h4 id="warning-message" style="text-align:center"></h4>
-		<!-- Contenido de la tabla -->
-		<thead id="theaders" class="thead-dark">
+	<div class="table-responsive">
+		<table class="table borde">
+			<h4 id="warning-message" style="text-align:center"></h4>
+			<!-- Contenido de la tabla -->
+			<thead id="theaders" class="thead-dark">
 
-		</thead>
-		<tbody id="tbody-rows">	
-		</tbody>
-	</table>	  
-
+			</thead>
+			<tbody id="tbody-rows">	
+			</tbody>
+		</table>	  
+	</div> 
 	<!-- Seccion controladores tabla -->				
 	<div id="seccionPaginacion" class="clearfix"> 
 	</div> 

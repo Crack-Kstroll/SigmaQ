@@ -12,7 +12,7 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 				<div class="row">
 					<div class="col-9 bajar">
 						<!-- Campo de busqueda filtrada -->
-						<input id="search" name="search" class="searchButtons form-control mr-sm-2 " type="search" placeholder="Buscar por responsable, sociedad u código" aria-label="search">
+						<input autocomplete="off" id="search" name="search" class="searchButtons form-control mr-sm-2 " type="search" placeholder="Buscar por organización o responsable" aria-label="search">
 					</div>
 					<div class="col-3">
 						<!-- Boton para busqueda filtrada -->

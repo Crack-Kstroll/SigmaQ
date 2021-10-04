@@ -1,7 +1,7 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
 const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
 const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
-const API_PEDIDOS = '../../app/api/public/pedidos.php?action=';
+const API_PEDIDOS = '../../app/api/public/statusPedidos.php?action=';
 
 // Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
 document.addEventListener('DOMContentLoaded', () => {
