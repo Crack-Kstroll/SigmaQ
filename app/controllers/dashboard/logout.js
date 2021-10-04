@@ -4,7 +4,7 @@ const API_LOGOUT = '../../app/api/dashboard/usuarios.php?action=';
 // Manejador de evento para detectar cuando la pagina cargue.
 document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    inactivityTime();
+    //inactivityTime();
 });
 
 // Funcion para controlar la inactividad del usuario dentro del sistema

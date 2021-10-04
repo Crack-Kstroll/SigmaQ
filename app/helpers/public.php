@@ -26,45 +26,49 @@ class Public_Page {
         $filename = basename($_SERVER['PHP_SELF']);
         if (isset($_SESSION['empresa'])) {
             if ($filename != 'index.php') {
-                print('
-                <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
-                    <a class="navbar-brand" href="main.php">
-                        <img class="nav--logo" src="../../resources/img/brand/logoBlanco.png" alt="">
-                    </a>
-                    <div class="usuario--contenedor">
-                        <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
-                        <div class="usuario--opciones">
-                            <a href="index.php" class="usuario--contenedor__enlace">Cerrar Sesión</a>
+                if (isset($_SESSION['validador'])) { 
+                    print('
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
+                        <a class="navbar-brand" href="main.php">
+                            <img class="nav--logo" src="../../resources/img/brand/logoBlanco.png" alt="">
+                        </a>
+                        <div class="usuario--contenedor">
+                            <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
+                            <div class="usuario--opciones">
+                                <a onclick="logOut()" class="usuario--contenedor__enlace">Cerrar Sesión</a>
+                            </div>
                         </div>
-                    </div>
-                </nav>  
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navbar--options">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                        MENÚS
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarColor02">
-                        <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="main.php">Inicio
-                            <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profile.php">Configuración personal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="estadoCuenta.php">Estados de cuenta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="statusPedidos.php">Status de pedidos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="indiceEntrega.php">Índice de entrega</a>
-                        </li>
-                    </div>
-                </nav>
-                ');
+                    </nav>  
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navbar--options">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            MENÚS
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarColor02">
+                            <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="main.php">Inicio
+                                <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profile.php">Configuración personal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="estadoCuenta.php">Estados de cuenta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="statusPedidos.php">Status de pedidos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="indiceEntrega.php">Índice de entrega</a>
+                            </li>
+                        </div>
+                    </nav>
+                    ');
+                } else {
+                    header('location: index.php');
+                }  
             } else {
                 header('location: main.php');
             }
@@ -97,6 +101,7 @@ class Public_Page {
                     <script type="text/javascript" src="../../app/helpers/components.js"></script>
                     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
                     <script type="text/javascript" src="../../app/controllers/paginacion.js"></script>
+                    <script type="text/javascript" src="../../app/controllers/public/account.js"></script>
                     <script type="text/javascript" src="../../app/controllers/public/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
                     <!-- LINKS PARA LA LIBRERÍA DE LA TABLA -->
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -121,6 +126,7 @@ class Public_Page {
                     <script type="text/javascript" src="../../app/helpers/components.js"></script>
                     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
                     <script type="text/javascript" src="../../app/controllers/paginacion.js"></script>
+                    <script type="text/javascript" src="../../app/controllers/public/account.js"></script>
                     <script type="text/javascript" src="../../app/controllers/public/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
                     <!-- LINKS PARA LA LIBRERÍA DE LA TABLA -->
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -152,4 +158,3 @@ class Public_Page {
         ');
     }
 }
-?>

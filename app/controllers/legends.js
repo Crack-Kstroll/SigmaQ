@@ -1,13 +1,14 @@
 // Colores de las leyendas
-var error = 'red';
-var info = 'blue';
-var success = 'green';
+const error = 'red';
+const info = 'blue';
+const success = 'green';
 
 // Funcion para cargar el texto dentro de un div con todas sus propiedades  
 function cargarTexto(legendElement,tipo,mensaje) {
     document.getElementById(legendElement).innerHTML = `<b><font color="${tipo}">${mensaje}</font></b>`;
 }
 
+// Funcion para validar si no se ha ingresado texto y si cumple con la longitud correcta
 function validateCambiarClave(elemento,legendElement){
     if (textEmpty(elemento)) {
         if (textLenght(elemento)) {
@@ -30,11 +31,11 @@ function textLenght(elemento){
 }
 
 // Funcion para validar si no se ha ingresado texto
-function textEmpty(elemento){
+function validatetextEmpty(elemento,legendElement){
     if (document.getElementById(elemento).value != '') {
-        return true;    
+        cargarTexto(legendElement,info,'Corrobore que el dato ingresado sea correcto.');   
     } else {
-        return false;
+        cargarTexto(legendElement,error,'Complete el campo, es obligatorio.');
     }
 }
 

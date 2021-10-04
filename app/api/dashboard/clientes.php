@@ -183,16 +183,17 @@ if (isset($_GET['action'])) {
                 if ($_POST['txtClaveActual'] != '' && $_POST['txtClaveConfirmar'] != '' && $_POST['txtClaveNueva'] != '') {
                     // Validamos que la contraseña actual sea correcta
                     if ($cliente->checkPassword($_POST['txtClaveActual'])) {
-                        if ($_POST['txtClaveActual'] == $_POST['txtClaveConfirmar']) {
+                        if ($_POST['txtClaveActual'] != $_POST['txtClaveConfirmar']) {
                             // Validamos que la clave nueva y la confirmacion de clave coincida
                             if ($_POST['txtClaveNueva'] == $_POST['txtClaveConfirmar']) {
-                                if ($_POST['txtClaveNueva'] == $_SESSION['usuario']) {
+                                if ($_POST['txtClaveNueva'] != $_SESSION['usuario']) {
                                     // Obtenemos el valor del input mediante la funcion del modelo 
                                     if ($cliente->setClave($_POST['txtClaveConfirmar'])) {
                                         // Ejecutamos la funcion del modelo cambiar clave enviando la variable de sesion como parametro
                                         if ($cliente->changePassword($_SESSION['codigocliente'])) {
-                                            $result['status'] = 1; // Colocamos status 1 porque muestra el icono de exito en el mensaje de alerta
-                                            $result['message'] = 'Clave actualizada correctamente'; // En caso de exito mostramos el siguiente mensaje
+                                            $result['status'] = 1; 
+                                            // En caso de exito mostramos el siguiente mensaje
+                                            $result['message'] = 'Clave actualizada correctamente'; 
                                         } else {
                                             $result['exception'] = Database::getException();
                                         }
@@ -211,7 +212,7 @@ if (isset($_GET['action'])) {
                             $result['exception'] = 'La nueva clave no puede ser igual a la anterior';
                         }
                     } else {
-                        $result['exception'] = 'Clave actual incorrecta';
+                        $result['exception'] = 'La clave actual es incorrecta';
                     }
                 } else {
                     $result['exception'] = 'Complete todos los campos solicitados';

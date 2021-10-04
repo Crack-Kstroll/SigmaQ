@@ -30,15 +30,19 @@ if (isset($_GET['action'])) {
                                 $result['status'] = 1;
                                 $result['message'] = 'Clave actualizada correctamente';
                             } else {
+                                // En caso fallar la obtencion del error se muestra el error
                                 $result['exception'] = Database::getException();
                             }
                         } else {
+                            // En caso fallar la obtencion del error se muestra el error
                             $result['exception'] = 'El formato de la contraseña es incorrecto';
                         }
                     } else {
+                        // En caso fallar la obtencion del error se muestra el error
                         $result['exception'] = 'Correo incorrecto';
                     }
                 } else {
+                    // En caso fallar la obtencion del error se muestra el error
                     $result['exception'] = 'La clave no puede ser igual al usuario';
                 }
                 break;
@@ -96,15 +100,19 @@ if (isset($_GET['action'])) {
                                     $result['exception'] = $_SESSION['error'];
                                 }
                             } else {
+                                // En caso fallar la obtencion del error se muestra el error
                                 $result['exception'] = 'Asunto incorrecto';
                             }
                         } else {
+                            // En caso fallar la obtencion del error se muestra el error
                             $result['exception'] = 'El correo ingresado no esta registrado';
                         }
                     } else {
+                        // En caso fallar la obtencion del error se muestra el error
                         $result['exception'] = 'Correo incorrecto';
                     }
                 } else {
+                    // En caso fallar la obtencion del error se muestra el error
                     $result['exception'] = 'Mensaje incorrecto';
                 }
                 break;
@@ -133,13 +141,14 @@ if (isset($_GET['action'])) {
                 // Caso para leer el perfil del cliente que ha iniciado sesion mediante el codigo de administrador
             case 'readProfile':
                 // Se ejecuta la funcion para obtener los datos del perfil
-                if ($result['dataset'] = $cliente->readProfile(1)) {
+                if ($result['dataset'] = $cliente->readProfile($_SESSION['codigoadmin'])) {
                     $result['status'] = 1;
                 } else {
                     if (Database::getException()) {
                         $result['exception'] = Database::getException();
                     } else {
-                        $result['exception'] = 'Usuario inexistente'; // En caso fallar la obtencion del error se muestra el error
+                        // En caso fallar la obtencion del error se muestra el error
+                        $result['exception'] = 'Usuario inexistente';
                     }
                 }
                 break;
@@ -152,6 +161,7 @@ if (isset($_GET['action'])) {
                     if (Database::getException()) {
                         $result['exception'] = Database::getException();
                     } else {
+                        // En caso fallar la obtencion del error se muestra el error
                         $result['exception'] = 'No hay usuarios registrados';
                     }
                 }
@@ -228,21 +238,17 @@ if (isset($_GET['action'])) {
                     if ($cliente->setApellido($_POST['txtApellido'])) {
                         if ($cliente->setCorreo($_POST['txtCorreo'])) {
                             if ($cliente->setTelefono($_POST['txtTelefono'])) {
-                                if ($cliente->setDui($_POST['txtDui'])) {
-                                    if ($cliente->setUsuario($_POST['txtUsuario'])) {
-                                        // Ejecutamos el metodo para editar perfil enviando el codigo como parametro    
-                                        if ($cliente->editProfile($_SESSION['codigoadmin'])) {
-                                            $result['status'] = 1;
-                                            $result['message'] = 'Perfil actualizado correctamente'; // En caso de exito mostramos el mensaje
-                                        } else {
-                                            $result['exception'] = Database::getException();
-                                        }
-                                        // En caso de ocurrir algun error con la obtencion de datos se mostraran los siguentes mensajes 
+                                if ($cliente->setUsuario($_POST['txtUsuario'])) {
+                                    // Ejecutamos el metodo para editar perfil enviando el codigo como parametro    
+                                    if ($cliente->editProfile($_SESSION['codigoadmin'])) {
+                                        $result['status'] = 1;
+                                        $result['message'] = 'Perfil actualizado correctamente'; // En caso de exito mostramos el mensaje
                                     } else {
-                                        $result['exception'] = 'Usuario incorrecto';
+                                        $result['exception'] = Database::getException();
                                     }
+                                    // En caso de ocurrir algun error con la obtencion de datos se mostraran los siguentes mensajes 
                                 } else {
-                                    $result['exception'] = 'Dui incorrecto';
+                                    $result['exception'] = 'Usuario incorrecto';
                                 }
                             } else {
                                 $result['exception'] = 'Teléfono incorrecto';
@@ -266,10 +272,10 @@ if (isset($_GET['action'])) {
                     if ($_POST['txtClaveActual'] != '' || $_POST['txtClaveConfirmar'] != '' || $_POST['txtClaveNueva'] != '') {
                         // Validamos que la contraseña actual sea correcta
                         if ($cliente->checkPassword($_POST['txtClaveActual'])) {
-                            if ($_POST['txtClaveNueva'] == $_SESSION['usuario']) {
-                                if ($_POST['txtClaveActual'] == $_POST['txtClaveConfirmar']) {
+                            if ($_POST['txtClaveNueva'] != $_SESSION['usuario']) {
+                                if ($_POST['txtClaveActual'] != $_POST['txtClaveConfirmar']) {
                                     // Validamos que la clave nueva y la confirmacion de clave coincida
-                                    if ($_POST['txtClaveNueva'] == $_POST['txtClaveActual']) {
+                                    if ($_POST['txtClaveNueva'] == $_POST['txtClaveConfirmar']) {
                                         // Obtenemos el valor del input mediante la funcion del modelo 
                                         if ($cliente->setClave($_POST['txtClaveConfirmar'])) {
                                             // Ejecutamos la funcion del modelo cambiar clave enviando la variable de sesion como parametro
@@ -284,17 +290,17 @@ if (isset($_GET['action'])) {
                                         }
                                         // Mostramos errores segun la validacion que no sea correcta 
                                     } else {
-                                        $result['exception'] = 'La nueva clave no puede ser igual a la anterior';
+                                        $result['exception'] = 'Las nuevas claves no coinciden';
                                     }
                                 } else {
-                                    $result['exception'] = 'La clave no puede ser igual a su usuario';
+                                    $result['exception'] = 'La nueva clave no puede ser igual a la anterior';
                                 }
                                 // Mostramos errores segun la validacion que no sea correcta 
                             } else {
-                                $result['exception'] = 'Las nuevas claves no coinciden';
+                                $result['exception'] = 'La clave no puede ser igual a su usuario';
                             }
                         } else {
-                            $result['exception'] = 'Clave actual incorrecta';
+                            $result['exception'] = 'La clave actual es incorrecta';
                         }
                     } else {
                         $result['exception'] = 'Complete los campos solicitados';
@@ -770,6 +776,9 @@ if (isset($_GET['action'])) {
                     if ($email->setCorreo($_SESSION['correo'])) {
                         // Ejecutamos la funcion para validar el codigo de seguridad
                         if ($email->validarCodigo('administradores')) {
+                            // Creamos variable de sesion para corroborar que el usuario autentico su usuario
+                            $_SESSION['validador2'] = 'Success';
+                            // Retornamos el valor de 1 (exito)
                             $result['status'] = 1;
                             // Colocamos el mensaje de exito 
                             $result['message'] = 'El código ingresado es correcto';

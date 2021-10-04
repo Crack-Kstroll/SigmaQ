@@ -412,10 +412,10 @@ class Usuario extends Validator
     public function editProfile($value)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'UPDATE administradores set nombre = ?, apellido = ?,dui = ?,correo = ?,telefono = ?,usuario = ?
+        $sql = 'UPDATE administradores set nombre = ?, apellido = ?,correo = ?,telefono = ?,usuario = ?
         WHERE codigoadmin = ? ';
         // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
-        $params = array($this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->usuario,$value);
+        $params = array($this->nombre, $this->apellido,$this->correo,$this->telefono,$this->usuario,$value);
         return Database::executeRow($sql, $params);
     }
 
@@ -423,7 +423,7 @@ class Usuario extends Validator
     public function readProfile($value)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin, estado, nombre, apellido, dui, correo, telefono, direccion, usuario, clave, intentos,tipo
+        $sql = 'SELECT codigoadmin, estado, nombre, apellido, dui, correo, telefono, direccion, usuario, clave,tipo
         FROM administradores WHERE codigoadmin = ?';
         $params = array($value);
         return Database::getRow($sql, $params);

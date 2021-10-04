@@ -207,6 +207,9 @@ if (isset($_GET['action'])) {
                 if ($email->setCorreo($_SESSION['correo'])) {
                     // Ejecutamos la funcion para validar el codigo de seguridad
                     if ($email->validarCodigo('clientes')) {
+                        // Creamos variable de sesion para corroborar que el usuario autentico su usuario
+                        $_SESSION['validador'] = 'Success';
+                        // Retornamos el valor de 1 (exito)
                         $result['status'] = 1;
                         // Colocamos el mensaje de exito 
                         $result['message'] = 'El código ingresado es correcto';
@@ -247,7 +250,7 @@ if (isset($_GET['action'])) {
                         } else {
                             // En caso que el correo no se envie mostramos el error
                             $result['exception'] = $_SESSION['error'];
-                        }    
+                        }
                     } else {
                         $result['exception'] = 'Asunto incorrecto';
                     }

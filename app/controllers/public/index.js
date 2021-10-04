@@ -50,7 +50,7 @@ const iniciarSesion = () => {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
-                            sweetAlert(1, response.message, 'autentication.php','Contraseña correcta');
+                            sweetAlert(4, response.message, 'autentication.php','Contraseña correcta');
                         } else {
                             sweetAlert(3, response.exception, null);
                         }

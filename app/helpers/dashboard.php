@@ -1,9 +1,9 @@
 <?php
 //Clase para definir las plantillas de las páginas web del sitio privado
-class Dashboard_Page 
+class Dashboard_Page
 {
     //Método para imprimir el encabezado y establecer el titulo del documento
-    public static function headerTemplate($title,$css)
+    public static function headerTemplate($title, $css)
     {
         // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en las páginas web.
         session_start();
@@ -15,125 +15,88 @@ class Dashboard_Page
                 <meta charset="UTF-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>'.$title.'</title>
+                <title>' . $title . '</title>
                 <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
-                <link rel="stylesheet" href="../../resources/css/'.$css.'.css">
+                <link rel="stylesheet" href="../../resources/css/' . $css . '.css">
+                <link rel="stylesheet" href="../../resources/css/public.css">
                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
                 <link rel="shortcut icon" href="../../resources/img/brand/qRoja.png" type="image/x-icon">
             </head>
         <body>
         ');
+        // Obtenemos el nombre de la pagina en la cual nos encontramos
         $filename = basename($_SERVER['PHP_SELF']);
+        // Validamos si existe la variable de sesion usuario (Inicio sesion en el login)
         if (isset($_SESSION['nombre'])) {
+            // Verificamos si el usuario no se encuentra en las siguientes urls
             if ($filename != 'index.php' && $filename != 'register.php') {
-                print('
-                <div class="d-flex" id="contenedorDashboard"> <!-- Contenedor principal del dashboard -->
-                <div class="fondoNegro border-right" id="sidebar-wrapper">  <!-- Contenedor del sidebar del dashboard-->
-                    <div id="logoSidebar" class="container-fluid fondoNegro"> <!-- Seccion del logo de SigmaQ -->
-                        <a href="main.php">
-                            <img src="../../resources/img/brand/dashboardLogo.png" alt="">
+                // Verificamos si el usuario autentico su usuario mediante la variable de sesion validador 
+                if (isset($_SESSION['validador2'])) {
+                    // Imprimimos el codigo dentro del formulario
+                    print('
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
+                        <a class="navbar-brand" href="main.php">
+                            <img class="nav--logo" src="../../resources/img/brand/logoBlanco.png" alt="">
                         </a>
-                        <hr style="border-color: white;">
-                    </div>   <!-- Cierra seccion logo --> 
-                    <div class="container-fluid"> <!-- Seccion de infomacion de usuario -->
-                        <div class="container espacioInfo">
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="letraBlanca espacioInformacion">Bienvenido</h6>
-                                </div>
-                                <div class="col-sm-7">
-                                    <a href="profile.php"><img class="config" src="../../resources/img/icons/config.png" alt=""> </a>
-                                </div>
+                        <div class="usuario--contenedor">
+                            <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
+                            <div class="usuario--opciones">
+                                <a onclick="logOut();" class="usuario--contenedor__enlace">Cerrar Sesión</a>
                             </div>
                         </div>
-                        <div class="container espacioInfo">
-                            <h6 id="datosAdmin" class="letraBlanca">' . $_SESSION['nombre'] . ' ' . $_SESSION['apellido'] . '</h6>
+                    </nav>  
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navbar--options">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            MENÚ
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarColor02">
+                            <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="main.php">Inicio
+                                <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="profile.php">Configuración personal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="usuarios.php">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="clientes.php">Clientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="indiceEntrega.php">Índice de entrega</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="estadoCuenta.php">Estados de cuenta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="statusPedidos.php">Status de pedidos</a>
+                            </li>
+                            
                         </div>
-                        <div class="container espacioTipo">
-                            <h6 id="datosAdmin" class="letraBlanca">' . 'Tipo: ' . $_SESSION['tipo'] . '</h6>
-                        </div>
-                        <input class="d-none" type="text" id="tipoUsuario" name="tipoUsuario" value="'. $_SESSION['tipo'] .'">
-                    </div>   <!-- Cierra seccion informacion de usuario -->
-                ');
-                if ($_SESSION['tipo'] == 'Root') {
-                    print('
-                    <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
-                        <div class="card-header fondoAcordeon" id="headingOne"> 
-                            <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
-                                Mantenimientos
-                            </button>            
-                        </div>      
-                        <a href="usuarios.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                            <img class="tamañoIconos" src="../../resources/img/icons/iconUsuario.png" alt=""> 
-                                Usuarios
-                        </a>
-                        <a href="clientes.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                            <img class="tamañoIconos" src="../../resources/img/icons/clientes.png" alt=""> 
-                            Clientes
-                        </a>
-                        <a href="indice.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                            <img class="tamañoIconos" src="../../resources/img/icons/seguimiento.png" alt=""> 
-                            Índice de entrega
-                        </a>
-                        <a href="estado.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                            <img class="tamañoIconos" src="../../resources/img/icons/estadoCuenta.png" alt=""> 
-                            Estados de cuenta
-                        </a>
-                        <a href="pedidos.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                            <img class="tamañoIconos" src="../../resources/img/icons/pedidos.png" alt=""> 
-                            Estatus de pedidos
-                        </a>                              
-                    </div>  <!-- Cierra seccion de opciones del sidebar -->  
-                    <div class=" position-relative ">
-                        <a onclick="logOut()" class="list-group-item fondoAcordeon textoBlanco sinBorde position-absolute w-100 logOut-bottom">
-                            <img class="tamañoIconos" src="../../resources/img/icons/cerrarSesion.png" alt=""> 
-                            Cerrar Sesión
-                        </a>
-                    </div>
-                </div> <!-- Cierra el contenedor sidebar -->
-                ');
+                    </nav>
+                    ');
                 } else {
-                    print('
-                    <div class="list-group list-group-flush fondoNegro espacioOpciones"> <!-- Seccion de opciones del sidebar acceso a mantenimientos -->
-                        <div class="card-header fondoAcordeon" id="headingOne"> 
-                            <button class="btn text-left textoBlanco sinBorde" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
-                                Mantenimientos
-                            </button>            
-                        </div>      
-                        <a href="indice.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                            <img class="tamañoIconos" src="../../resources/img/icons/seguimiento.png" alt=""> 
-                            Índice de entrega
-                        </a>
-                        <a href="estado.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                            <img class="tamañoIconos" src="../../resources/img/icons/estadoCuenta.png" alt=""> 
-                            Estados de cuenta
-                        </a>
-                        <a href="pedidos.php" class="list-group-item list-group-item-action fondoOpciones textoBlanco">
-                            <img class="tamañoIconos" src="../../resources/img/icons/pedidos.png" alt=""> 
-                            Estatus de pedidos
-                        </a>                              
-                    </div>  <!-- Cierra seccion de opciones del sidebar -->  
-                    <div class=" position-relative ">
-                        <a onclick="logOut()" class="list-group-item fondoAcordeon textoBlanco sinBorde position-absolute w-100 logOut-bottom">
-                            <img class="tamañoIconos" src="../../resources/img/icons/cerrarSesion.png" alt=""> 
-                            Cerrar Sesión
-                        </a>
-                    </div>
-                </div> <!-- Cierra el contenedor sidebar -->
-                ');
+                    // Redirigimos al usuario
+                    header('location: index.php');
                 }
-                
             } else {
+                // Redirigimos al usuario
                 header('location: main.php');
             }
         } else {
+            // Redirigimos al usuario
             header('location: index.php');
         }
     }
 
     //Método para imprimir el pie y establecer el controlador del documento
-    public static function footerTemplate($controller) 
+    public static function footerTemplate($controller)
     {
+        // Imprimimos el codigo dentro del formulario
         print('
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
@@ -144,11 +107,14 @@ class Dashboard_Page
             <script type="text/javascript" src="../../app/helpers/components.js"></script>
             <script type="text/javascript" src="../../app/controllers/dashboard/account.js"></script>
             <script type="text/javascript" src="../../app/controllers/dashboard/logout.js"></script>
-            <script type="text/javascript" src="../../app/controllers/dashboard/'.$controller.'.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
+            <script type="text/javascript" src="../../app/controllers/dashboard/' . $controller . '.js"></script> <!-- Direccion del archivo Javascript de la pagina correspondiente -->
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <!-- LINKS PARA LA LIBRERÍA DE LA TABLA -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+            <!-- LINK PARA EL LIVE SEARCH -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
         </body>
         </html>
         ');
     }
 }
-?>
