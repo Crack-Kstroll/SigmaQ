@@ -236,11 +236,12 @@ class Cliente extends Validator
     public function checkUser($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigocliente,estado,empresa FROM clientes WHERE usuario = ?';
+        $sql = 'SELECT codigocliente,estado,empresa,correo FROM clientes WHERE usuario = ?';
         $params = array($usuario);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['codigocliente'];
             $this->empresa = $data['empresa'];
+            $this->correo = $data['correo'];
             $this->usuario = $usuario;
             return true;
         } else {

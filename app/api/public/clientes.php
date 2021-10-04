@@ -17,9 +17,8 @@ if (isset($_GET['action'])) {
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
     // Se compara la acción a realizar cuando un usuario ha iniciado sesión.
-    switch ($_GET['action']) 
-    {
-        // Caso para cambiar la clave del usuario
+    switch ($_GET['action']) {
+            // Caso para cambiar la clave del usuario
         case 'changePass':
             // Obtenemos el form con los inputs para obtener los datos
             $_POST = $cliente->validateForm($_POST);
@@ -41,33 +40,33 @@ if (isset($_GET['action'])) {
                 }
             } else {
                 $result['exception'] = 'La clave no puede ser igual al usuario';
-            }  
+            }
             break;
-        // Caso para cerrar sesion dentro del sistema
-        case 'logOut': 
+            // Caso para cerrar sesion dentro del sistema
+        case 'logOut':
             //Ejecutamos la funcion para cerrar sesion
-            if (session_destroy()) { 
+            if (session_destroy()) {
                 $_SESSION['codigoadmin'] = 'null';
                 $result['status'] = 1;
                 $result['message'] = 'Sesión eliminada correctamente';
             } else {
                 // En caso de ocurrir fallar la funcion mostramos el mensaje
-                $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
+                $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
             }
-        break;
-        // Caso para cerrar sesion dentro del sistema
-        case 'logOut2': 
+            break;
+            // Caso para cerrar sesion dentro del sistema
+        case 'logOut2':
             //Ejecutamos la funcion para cerrar sesion
-            if (session_destroy()) { 
+            if (session_destroy()) {
                 $_SESSION['codigoadmin'] = 'null';
                 $result['status'] = 1;
                 $result['message'] = 'La sesión ha expirado por inactividad';
             } else {
                 // En caso de ocurrir fallar la funcion mostramos el mensaje
-                $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
+                $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
             }
-        break;
-        // Caso para verificar si el codigo de seguridad ingresado es correcto
+            break;
+            // Caso para verificar si el codigo de seguridad ingresado es correcto
         case 'verifyCode':
             $_POST = $cliente->validateForm($_POST);
             // Validmos el formato del mensaje que se enviara en el correo
@@ -89,7 +88,7 @@ if (isset($_GET['action'])) {
             } else {
                 $result['exception'] = 'Mensaje incorrecto';
             }
-        break;
+            break;
         case 'sendEmail':
             $_POST = $cliente->validateForm($_POST);
             // Generamos el codigo de seguridad 
@@ -131,8 +130,8 @@ if (isset($_GET['action'])) {
                 $result['exception'] = 'Mensaje incorrecto';
             }
             break;
-        // Caso para el inicio de sesion del usuario
-        case 'logIn': 
+            // Caso para el inicio de sesion del usuario
+        case 'logIn':
             // Reseteamos el codigo del cliente para evitar errores del sistema
             $_SESSION['codigocliente'] = 'null';
             // Validamos el form donde se encuentran los inputs para poder obtener sus valores
@@ -142,19 +141,20 @@ if (isset($_GET['action'])) {
                 // Ejecutamos la funcion que verifica si la clave es correcta
                 if ($cliente->checkState($_POST['usuario']) == 1) {
                     // Creamos una variable de sesion para guardar los intentos del usuario
-                    $_SESSION['intentos'] = $_SESSION['intentos'] + 1 ;
+                    $_SESSION['intentos'] = $_SESSION['intentos'] + 1;
                     // Ejecutamos la funcion que verifica si el usuario esta activo
                     if ($cliente->checkPassword($_POST['clave'])) {
                         // Asignamos los valores a las variables de sesion de los datos obtenidos de las consultas
                         $_SESSION['codigocliente'] = $cliente->getId();
                         $_SESSION['usuario'] = $cliente->getUsuario();
                         $_SESSION['empresa'] = $cliente->getEmpresa();
+                        $_SESSION['correo'] = $cliente->getCorreo();
                         $_SESSION['clave'] = $_POST['clave'];
                         $_SESSION['intentos'] = 0;
                         $result['status'] = 1;
                         // Mostramos mensaje de bienvenido al usuario
-                        $result['message'] = 'Autenticación correcta, bienvenido';
-                    // En caso exista un error de validacion se mostrara su respectivo mensaje
+                        $result['message'] = 'Debes autenticar tu identidad para continuar';
+                        // En caso exista un error de validacion se mostrara su respectivo mensaje
                     } else {
                         if ($_SESSION['intentos'] >= 3) {
                             // Ejecutamos la funcion que verifica si la clave es correcta
@@ -171,7 +171,7 @@ if (isset($_GET['action'])) {
                                     // Mensaje de usuario inactivo
                                     $result['exception'] = 'Error al desactivar usuario';
                                 }
-                            }         
+                            }
                         } else {
                             if (Database::getException()) {
                                 $result['exception'] = Database::getException();
@@ -179,16 +179,16 @@ if (isset($_GET['action'])) {
                                 // Mensaje de clave incorrecta
                                 $result['exception'] = 'Clave ingresada es incorrecta';
                             }
-                        }       
-                    }             
+                        }
+                    }
                 } else {
                     if (Database::getException()) {
-                            $result['exception'] = Database::getException();
+                        $result['exception'] = Database::getException();
                     } else {
                         // Mensaje de estado inactivo
                         $result['exception'] = 'El usuario se encuentra inactivo';
                     }
-                }        
+                }
             } else {
                 if (Database::getException()) {
                     $result['exception'] = Database::getException();
@@ -197,51 +197,111 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
             }
-        break;
-        // Caso para cargar los datos todos los datos en la tabla
-        case 'readAll':  
+            break;
+            // Caso para verificar si el codigo de seguridad ingresado es correcto
+        case 'verifyVerification':
+            $_POST = $cliente->validateForm($_POST);
+            // Validmos el formato del mensaje que se enviara en el correo
+            if ($email->setCodigo($_POST['codigo'])) {
+                // Validamos si el correo ingresado tiene formato correcto
+                if ($email->setCorreo($_SESSION['correo'])) {
+                    // Ejecutamos la funcion para validar el codigo de seguridad
+                    if ($email->validarCodigo('clientes')) {
+                        $result['status'] = 1;
+                        // Colocamos el mensaje de exito 
+                        $result['message'] = 'El código ingresado es correcto';
+                    } else {
+                        // En caso que el correo no se envie mostramos el error
+                        $result['exception'] = 'El código ingresado no es correcto';
+                    }
+                } else {
+                    $result['exception'] = 'Correo incorrecto';
+                }
+            } else {
+                $result['exception'] = 'Mensaje incorrecto';
+            }
+            break;
+            // Caso para enviar el codigo de verificacion al correo del usuario
+        case 'sendVerification':
+            $_POST = $cliente->validateForm($_POST);
+            // Generamos el codigo de seguridad 
+            $code = rand(999999, 111111);
+            // Concatenamos el codigo generado dentro del mensaje a enviar
+            $message = "Ingrese el siguiente codigo dentro del formulario para iniciar sesión: $code";
+            // Colocamos el asunto del correo a enviar
+            $asunto = "Sistema de autenticacion de usuarios de SigmaQ";
+            // Validmos el formato del mensaje que se enviara en el correo
+            if ($email->setMensaje($message)) {
+                // Validamos si el correo ingresado tiene formato correcto
+                if ($email->setAsunto($asunto)) {
+                    if ($email->setCorreo($_SESSION['correo'])) {
+                        // Ejecutamos la funcion para enviar el correo electronico
+                        if ($email->enviarCorreo()) {
+                            $result['status'] = 1;
+                            // Colocamos el mensaje de exito 
+                            $result['message'] = 'Ingrese su código de seguridad para continuar';
+                            // Ejecutamos funcion para actualizar el codigo de recuperacion del usuario en la base de datos
+                            $email->actualizarCodigo('clientes', $code);
+                            // Creamos variable de sesion para validar la plantilla
+                            $_SESSION['validacion'] = '';
+                        } else {
+                            // En caso que el correo no se envie mostramos el error
+                            $result['exception'] = $_SESSION['error'];
+                        }    
+                    } else {
+                        $result['exception'] = 'Asunto incorrecto';
+                    }
+                } else {
+                    $result['exception'] = 'Asunto incorrecto';
+                }
+            } else {
+                $result['exception'] = 'Mensaje incorrecto';
+            }
+            break;
+            // Caso para cargar los datos todos los datos en la tabla
+        case 'readAll':
             // Ejecutamos metodo del modelo y asignamos el valor de su retorno a la variable dataset 
-            if ($result['dataset'] = $cliente->readAll()) { 
-               $result['status'] = 1;
+            if ($result['dataset'] = $cliente->readAll()) {
+                $result['status'] = 1;
             } else {
                 if (Database::getException()) {
-                   $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 } else {
-                   $result['exception'] = 'No hay usuarios registrados';  
+                    $result['exception'] = 'No hay usuarios registrados';
                 }
             }
-        break; 
-        // Caso verificar si existen usuarios activos en la base de datos
-        case 'readIndex':  
+            break;
+            // Caso verificar si existen usuarios activos en la base de datos
+        case 'readIndex':
             // Reseteamos el codigo del administrador para evitar errores del sistema
             $_SESSION['codigocliente'] = 'null';
             // Ejecutamos metodo del modelo y asignamos el valor de su retorno a la variable dataset 
-            if ($result['dataset'] = $cliente->readIndex()) { 
-               $result['status'] = 1;
+            if ($result['dataset'] = $cliente->readIndex()) {
+                $result['status'] = 1;
             } else {
                 if (Database::getException()) {
-                   $result['exception'] = Database::getException();
+                    $result['exception'] = Database::getException();
                 } else {
-                   $result['exception'] = 'No hay usuarios registrados';  
+                    $result['exception'] = 'No hay usuarios registrados';
                 }
             }
-        break; 
-        // Caso para cerrar sesion dentro del sistema
-        case 'logOut2': 
+            break;
+            // Caso para cerrar sesion dentro del sistema
+        case 'logOut2':
             //Ejecutamos la funcion para cerrar sesion
-            if (session_destroy()) { 
+            if (session_destroy()) {
                 $_SESSION['codigoadmin'] = 'null';
                 $result['status'] = 1;
                 $result['message'] = 'La sesión ha expirado por inactividad';
             } else {
                 // En caso de ocurrir fallar la funcion mostramos el mensaje
-                $result['exception'] = 'Ocurrió un problema al cerrar la sesión'; 
+                $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
             }
-        break;
+            break;
         default:
             // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 
             $result['exception'] = 'Acción no disponible dentro de la sesión';
-        break; 
+            break;
     }
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('content-type: application/json; charset=utf-8');

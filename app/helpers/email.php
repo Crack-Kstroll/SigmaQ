@@ -114,7 +114,7 @@ class Correo extends Validator
         // Declaramos la sentencia que enviaremos a la base con el parametro del nombre de la tabla (dinamico)
         $sql = "SELECT correo from $table where codigo = ? and correo = ?";
         // Enviamos los parametros
-        $params = array($this->codigo,$_SESSION['mail']);
+        $params = array($this->codigo,$_SESSION['correo']);
         return Database::getRow($sql, $params);
     }
 
@@ -124,7 +124,7 @@ class Correo extends Validator
         // Declaramos la sentencia que enviaremos a la base con el parametro del nombre de la tabla (dinamico)
         $sql = "UPDATE $table set codigo = ? where correo = ?";
         // Enviamos los parametros
-        $params = array($codigo, $this->correo);
+        $params = array($codigo, $_SESSION['correo']);
         return Database::executeRow($sql, $params);
     }
 
