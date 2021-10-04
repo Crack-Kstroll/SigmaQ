@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
     readRows(API_HISTORIAL);
 });
 
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('search-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Se ejecuta la funcion search rows de components y se envia como parametro la api y el form que contiene el input buscar
+    searchRows(API_HISTORIAL, 'search-form');
+});
+
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
@@ -27,7 +35,7 @@ const fillTable = (dataset) => {
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
-        if (contador == 6) {
+        if (contador == 10) {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]

@@ -219,6 +219,8 @@ const parameterReport = () => {
 
 // Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
 function graficaAcciones() {
+    // Cerramos el formulario de opciones
+    $('#modal-form').modal('hide');
     // Reseteamos el contenido del chart
     resetChart('chart-container');
     // Creamos un atributo para guardar el codigo HTML para generar el grafico
@@ -267,6 +269,11 @@ document.getElementById('report-form').addEventListener('submit', function (even
     // Abrimos el reporte en una pestaña nueva
     window.open('../../app/reports/dashboard/usuarios.php');
 });
+
+// Funcion para abrir el modal
+const openCustomDialog = () => {
+    $('#modal-form').modal('show');
+}
 
 // Función para preparar el formulario al momento de modificar un registro.
 const openUpdateDialog = (id) => {
@@ -329,6 +336,8 @@ const saveData = () => {
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
 const modalTitle = (id) => {
+    // Cerramos el modal de acciones
+    $('#modal-form').modal('hide');
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Ocultamos el input que contiene el ID del registro
@@ -341,30 +350,20 @@ const modalTitle = (id) => {
     let confirmar = '';
     // Compramos si el contenido el input esta vacio
     if (id == 0) {
-        titulo = 'Registrar usuario'; // En caso que no exista valor se registra
+        // En caso que no exista valor se registra
+        titulo = 'Registrar usuario'; 
         clave = `<label  id="lblClave">Contraseña*</label>
-        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-        <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;
+        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="Clave$123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>`;
         confirmar = `<label id="lblConfirmarClave">Confirmar clave*</label>
-        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-        <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;
+        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="Clave$123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>`;
     }
     else {
-        titulo = 'Actualizar usuario';  // En caso que exista se actualiza 
+        // En caso que exista se actualiza 
+        titulo = 'Actualizar usuario';  
         clave = `<label  id="lblClave">Contraseña</label>
-        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
-        <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;
+        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">`;
         confirmar = `<label id="lblConfirmarClave">Confirmar clave</label>
-        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
-        <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;
+        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">`;
     }
     // Colocamos el titulo al elemento con el id modal-title
     document.getElementById('boxClave').innerHTML = clave;
