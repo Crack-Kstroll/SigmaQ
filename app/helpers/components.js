@@ -66,7 +66,7 @@ const saveRow = (api, action, form, modal) => {
                     // Se cargan nuevamente las filas en la tabla de la vista después de agregar o modificar un registro.
                     readRows(api);
                     // Mostramos alerta con mensaje de exito
-                    sweetAlert(1, response.message, null);
+                    sweetAlert(1, response.message, null,'Acción completada');
                 } else {
                     sweetAlert(2, response.exception, null);
                 }
@@ -142,9 +142,9 @@ const searchRows = (api, form) => {
                     // Se envían los datos a la función del controlador para que llene la tabla en la vista.
                     fillTable(response.dataset);
                     // Mostramos alerta con mensaje de exito
-                    sweetAlert(1, response.message, null);
+                    sweetAlert(1, response.message, null,'Busqueda exitosa');
                 } else {
-                    sweetAlert(2, response.exception, null);
+                    sweetAlert(4, response.exception, null);
                 }
             });
         } else {

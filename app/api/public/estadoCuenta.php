@@ -16,28 +16,30 @@ if (isset($_GET['action'])) {
         // if (true){
         // Se evalua la acción a realizar
         // print($_GET['action']);
-        switch ($_GET['action']) 
-        {
-            //Caso para mostrar los registros
+        switch ($_GET['action']) {
+                // Caso para cargar todos los datos de la tabla
             case 'readAll':
+                // Funcion para obtener el id del cliente mediante la variable de sesion
                 if ($result['dataset'] = $estadoCuenta->SelectEstadoCuentaPublico()) {
                     $result['status'] = 1;
                 } else {
+                    // Cargamos el error de la base de datos (Error del servidor)
                     if (Database::getException()) {
                         $result['exception'] = Database::getException();
                     } else {
-                        $result['exception'] = 'No hay registros ingresados';
+                        // Retornamos el error del sistema
+                        $result['exception'] = 'No hay estados de cuenta registrados';
                     }
                 }
-            break;
-            //Caso para realizar una busqueda de registros
+                break;
+                //Caso para realizar una busqueda de registros
             case 'search':
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
                 $_POST = $estadoCuenta->validateForm($_POST);
                 // Validamos si el input no esta vacio
                 if ($_POST['search'] != '') {
                     // Ejecutamos la funcion para la busqueda filtrada enviando el contenido del input como parametro
-                    if ($result['dataset'] = $estadoCuenta->searchEstado($_POST['search'])) {
+                    if ($result['dataset'] = $estadoCuenta->searchEstadoPublico($_POST['search'])) {
                         $result['status'] = 1;
                         // Obtenemos la cantidad de resultados retornados por la consulta
                         $rows = count($result['dataset']);
@@ -60,7 +62,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Ingrese un valor para buscar';
                 }
-            break;
+                break;
             default:
                 $result['exception'] = 'Acción no reconocida';
         }

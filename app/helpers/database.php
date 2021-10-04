@@ -158,6 +158,9 @@ class Database
             case '23503':
                 self::$error = 'Registro ocupado, no se puede eliminar';
                 break;
+            case '42883':
+                self::$error = 'Existe un error de sintaxis';
+                break;
             default:
                 //self::$error = 'Ocurrió un problema en la base de datos';
                 self::$error = $message;

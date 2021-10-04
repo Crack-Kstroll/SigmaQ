@@ -254,6 +254,21 @@ class Indice extends Validator
         return Database::getRows($query, $params);
     }
 
+    // Función para buscar un registro en el sitio público
+    public function searchIndicePublico($value)
+    {
+        $sql = "SELECT ie.idindice, CONCAT(a.nombre, ' ', a.apellido) as Responsable, cl.usuario, ie.organizacion, ie.indice, ie.totalcompromiso, ie.cumplidos, ie.nocumplidos, ie.noconsiderados, ie.incumnoentregados, ie.incumporcalidad, ie.incumporfecha, ie.incumporcantidad, ie.estado
+        FROM indiceentregas ie
+        INNER JOIN administradores a
+            ON ie.responsable = a.codigoadmin
+        INNER JOIN clientes cl
+            ON ie.cliente = cl.codigocliente
+        WHERE ie.organizacion ILIKE ? OR cl.usuario ILIKE ? OR CONCAT(a.nombre,' ',a.apellido) LIKE ? AND (ie.estado = true AND cl.codigocliente = ?)				
+        ORDER BY ie.estado DESC";
+        $params = array("%$value%","%$value%","%$value%", $_SESSION['codigocliente']);
+        return Database::getRows($sql, $params);
+    }
+
     // Función para mostrar todos los índices de un cliente
     public function readClienteIndices() 
     {

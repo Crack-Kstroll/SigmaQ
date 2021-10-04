@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
     readRows(API_INDICES);
 })
 
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('search-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Se ejecuta la funcion search rows de components y se envia como parametro la api y el form que contiene el input buscar
+    searchRows(API_INDICES, 'search-form');
+});
+
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 const fillTable = (dataset) => {
     //Se oculta el modal de la personalización

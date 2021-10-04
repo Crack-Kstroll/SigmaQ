@@ -233,19 +233,20 @@ class EstadoCuenta extends Validator
     // Función para buscar un registro en el sitio público
     public function searchEstadoPublico($value)
     {
-        $sql = "SELECT s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral
-                FROM estadocuentas ec
-                INNER JOIN administradores a
-                ON ec.responsable = a.codigoadmin
-                INNER JOIN sociedades s
-                ON ec.sociedad = s.idsociedad
-                INNER JOIN clientes c
-                ON ec.cliente = c.codigocliente
-                INNER JOIN divisas d
-                ON ec.divisa = d.iddivisa
-                WHERE (ec.codigo LIKE ? OR  ec.asignacion LIKE ?) AND (ec.estado = true AND c.codigocliente = ?)
-                ORDER BY responsable";
-        $params = array("%$value%","%$value%", $_SESSION['codigocliente']);
+        $sql = "SELECT s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.codigo, ec.factura, 
+        ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral
+        FROM estadocuentas ec
+        INNER JOIN administradores a
+        ON ec.responsable = a.codigoadmin
+        INNER JOIN sociedades s
+        ON ec.sociedad = s.idsociedad
+        INNER JOIN clientes c
+        ON ec.cliente = c.codigocliente
+        INNER JOIN divisas d
+        ON ec.divisa = d.iddivisa
+        WHERE s.sociedad LIKE ? OR CAST(ec.codigo AS CHAR) LIKE ? OR CONCAT(a.nombre,' ',a.apellido) LIKE ? AND (ec.estado = true AND c.codigocliente = ?)
+        ORDER BY responsable";
+        $params = array("%$value%","%$value%","%$value%", $_SESSION['codigocliente']);
         return Database::getRows($sql, $params);
     }
 
