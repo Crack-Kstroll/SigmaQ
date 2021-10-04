@@ -8,9 +8,6 @@ class Login_Page
         // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en las páginas web.
         session_start();
         // Se imprime el código HTML de la cabecera del documento.
-        if (isset($_SESSION['nombre'])) {
-            header('location: main.php');
-        } else {
             print('
             <!DOCTYPE html>
             <html lang="es">
@@ -24,7 +21,6 @@ class Login_Page
                 </head>
             <body>
             ');
-        }
     }
 
     //Método para imprimir el encabezado y establecer el titulo del login del dashboard
@@ -58,4 +54,3 @@ class Login_Page
         ');
     }
 }
-?>

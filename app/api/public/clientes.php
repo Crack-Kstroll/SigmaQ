@@ -58,7 +58,7 @@ if (isset($_GET['action'])) {
         case 'logOut2':
             //Ejecutamos la funcion para cerrar sesion
             if (session_destroy()) {
-                $_SESSION['codigoadmin'] = 'null';
+                $_SESSION['codigocliente'] = 'null';
                 $result['status'] = 1;
                 $result['message'] = 'La sesión ha expirado por inactividad';
             } else {

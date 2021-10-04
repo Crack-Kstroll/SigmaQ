@@ -51,7 +51,7 @@ const iniciarSesion = () => {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
                             // En caso de iniciar sesion correctamente mostrar mensaje y redirigir al menu
-                            sweetAlert(1, response.message, 'main.php');
+                            sweetAlert(4, response.message, 'autentication.php','Contraseña correcta');
                         } else {
                             if (response.message != 'Limite de intentos alcanzado') {
                                 sweetAlert(3, response.exception, null);

@@ -1,6 +1,6 @@
 <?php
 include('../../app/helpers/login.php');
-Login_Page::headerTemplateDashboard('Autenticación | Clientes');
+Login_Page::headerTemplateDashboard('Autenticación | Administradores');
 ?>
 <img class="fondo" src="../../resources/img/background/fondoDashboard.png" alt="dashboard01">
 <div class="container">
@@ -30,5 +30,5 @@ Login_Page::headerTemplateDashboard('Autenticación | Clientes');
     </div>
 </div>
 <?php
-Login_Page::footerTemplate('public/autentication.js');
+Login_Page::footerTemplate('dashboard/autentication.js');
 ?>

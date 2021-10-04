@@ -351,7 +351,7 @@ class Usuario extends Validator
     public function checkUser($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin,estado,nombre,apellido,tipo FROM administradores WHERE usuario = ?';
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,tipo,correo FROM administradores WHERE usuario = ?';
         $params = array($usuario);
         // Se comprueba si el usuario existe en la base de datos
         if ($data = Database::getRow($sql, $params)) {
@@ -360,6 +360,7 @@ class Usuario extends Validator
             $this->nombre = $data['nombre'];
             $this->apellido = $data['apellido'];
             $this->tipo = $data['tipo'];
+            $this->correo = $data['correo'];
             $this->usuario = $usuario;
             return true;
         } else {
