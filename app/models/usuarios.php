@@ -537,7 +537,7 @@ class Usuario extends Validator
         $sql = "SELECT c.usuario,COUNT(codigoadmin) as cantidad
         FROM historialusuario h
         INNER JOIN administradores c ON c.codigoadmin = h.usuario
-        WHERE c.estado = true
+        WHERE c.estado = 1
         GROUP BY c.usuario
         ORDER BY cantidad DESC
         LIMIT 5";

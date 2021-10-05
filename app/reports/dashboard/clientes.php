@@ -19,18 +19,21 @@ if ($dataCategorias = $categoria->readEstado()) {
         $pdf->SetTextColor(255);
         // Creamos una variable para almacenar el encabezado de la celda
         $tipo = '';
+        $state = '';
         // Compramamos el valor del estado de cliente
-        if ($rowCategoria['estado'] == 'true') {
+        if ($rowCategoria['estado'] == 'Activo') {
             // Si el estado es true es un cliente activo
             $tipo = 'Usuarios activos';
+            $state = 1;
         } else {
             // Si no esta inactivo
-            $tipo = 'Usuarios inactivos';                                                                                                               $rowCategoria['estado'] = 'false';
+            $tipo = 'Usuarios inactivos';   
+            $state = 2;                                                                                                            
         }
         // Se imprime una celda con el nombre del estado.
         $pdf->Cell(0, 10, utf8_decode($tipo), 1, 1, 'C', 1);
         // Se establece el estado para obtener sus clientes, de lo contrario se imprime un mensaje de error.
-        if ($categoria->setEstado($rowCategoria['estado'])) {
+        if ($categoria->setEstado($state)) {
             // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
             if ($dataProductos = $categoria->readUsuariosEstado()) {
                 // Se establece un color de relleno para los encabezados.
@@ -57,7 +60,7 @@ if ($dataCategorias = $categoria->readEstado()) {
                     $pdf->Cell(50, 10, utf8_decode($rowProducto['correo']), 1, 1);
                 }
                 // Comparamos el valor del tipo de usuario
-                if ($rowCategoria['estado'] == 'true') {
+                if ($rowCategoria['estado'] == 'Activo') {
                     // Comparamos si existe uno o mas registros dentro del estado
                     if ($rowCategoria['cantidad'] == 1) {
                         // En caso de existir un solo registro se coloca el nombre del estado en singular

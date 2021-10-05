@@ -411,7 +411,7 @@ class Cliente extends Validator
         $sql = "SELECT c.usuario,COUNT(codigocliente) as cantidad
         FROM historialcliente h
         INNER JOIN clientes c ON c.codigocliente = h.usuario
-        WHERE c.estado = true
+        WHERE c.estado = 1
         GROUP BY c.usuario
         ORDER BY cantidad DESC
         LIMIT 5";
@@ -440,8 +440,10 @@ class Cliente extends Validator
     public function readEstado()
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
-        $sql = 'SELECT estado,count(estado) as cantidad 
-        from clientes group by estado order by estado desc';
+        $sql = 'SELECT ec.estado,count(ec.estado) as cantidad 
+        from clientes c 
+		INNER JOIN estadoCliente ec ON ec.idestado = c.estado 
+		group by ec.estado order by estado asc';
         // Envio de parametros
         $params = null;
         return Database::getRows($sql, $params);

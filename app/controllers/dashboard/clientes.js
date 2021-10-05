@@ -114,6 +114,11 @@ document.getElementById('chart-form').addEventListener('submit', function (event
     myModal.show();
 });
 
+// Funcion para abrir el modal
+const openCustomDialog = () => {
+    $('#modal-form').modal('show');
+}
+
 // Función para cargar el grafico parametrizado.
 const parameterChart = (id) => {
     // Reseteamos el contenido del chart
@@ -169,6 +174,8 @@ const parameterChart = (id) => {
 
 // Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
 function graficaAcciones() {
+    // Cerramos el formulario de opciones
+    $('#modal-form').modal('hide');
     // Reseteamos el contenido del chart
     resetChart('chart-container');
     // Creamos un atributo para guardar el codigo HTML para generar el grafico
@@ -316,6 +323,8 @@ const saveData = () => {
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
 const modalTitle = (id) => {
+    // Cerramos el modal de acciones
+    $('#modal-form').modal('hide');
     // Reseteamos el valor de los campos del modal
     document.getElementById('save-form').reset();
     // Ocultamos el input que contiene el ID del registro

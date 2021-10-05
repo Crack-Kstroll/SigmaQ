@@ -34,6 +34,7 @@ class Dashboard_Page
                 if (isset($_SESSION['validador2'])) {
                     // Imprimimos el codigo dentro del formulario
                     print('
+                    <input id="tipoUsuario" name="tipoUsuario" type="hidden" value="' . $_SESSION['tipo'] . '">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
                         <a class="navbar-brand" href="main.php">
                             <img class="nav--logo" src="../../resources/img/brand/logoBlanco.png" alt="">
@@ -67,13 +68,13 @@ class Dashboard_Page
                                 <a class="nav-link" href="clientes.php">Clientes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="indiceEntrega.php">Índice de entrega</a>
+                                <a class="nav-link" href="indice.php">Índice de entrega</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="estadoCuenta.php">Estados de cuenta</a>
+                                <a class="nav-link" href="estado.php">Estados de cuenta</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="statusPedidos.php">Status de pedidos</a>
+                                <a class="nav-link" href="pedidos.php">Status de pedidos</a>
                             </li>
                             
                         </div>
