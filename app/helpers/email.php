@@ -119,6 +119,16 @@ class Correo extends Validator
     }
 
     // Metodo para actualizar el codigo de confirmacion de un usuario
+    public function validarCodigo02($table)
+    {
+        // Declaramos la sentencia que enviaremos a la base con el parametro del nombre de la tabla (dinamico)
+        $sql = "SELECT correo from $table where codigo = ? and correo = ?";
+        // Enviamos los parametros
+        $params = array($this->codigo,$_SESSION['correo2']);
+        return Database::getRow($sql, $params);
+    }
+
+    // Metodo para actualizar el codigo de confirmacion de un usuario
     public function actualizarCodigo($table,$codigo)
     {
         // Declaramos la sentencia que enviaremos a la base con el parametro del nombre de la tabla (dinamico)
@@ -128,6 +138,15 @@ class Correo extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    // Metodo para actualizar el codigo de confirmacion de un usuario
+    public function actualizarCodigo2($table,$codigo)
+    {
+        // Declaramos la sentencia que enviaremos a la base con el parametro del nombre de la tabla (dinamico)
+        $sql = "UPDATE $table set codigo = ? where correo = ?";
+        // Enviamos los parametros
+        $params = array($codigo, $_SESSION['correo2']);
+        return Database::executeRow($sql, $params);
+    }
 
     public function validarCodigo2($table)
     {

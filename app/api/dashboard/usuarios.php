@@ -22,8 +22,8 @@ if (isset($_GET['action'])) {
             case 'changePass':
                 // Obtenemos el form con los inputs para obtener los datos
                 $_POST = $cliente->validateForm($_POST);
-                if ($_SESSION['mail'] != $_POST['clave1']) {
-                    if ($cliente->setCorreo($_SESSION['mail'])) {
+                if ($_SESSION['correo2'] != $_POST['clave1']) {
+                    if ($cliente->setCorreo($_SESSION['correo2'])) {
                         if ($cliente->setClave($_POST['clave1'])) {
                             // Ejecutamos la funcion para actualizar al usuario
                             if ($cliente->updatePassword()) {
@@ -52,9 +52,9 @@ if (isset($_GET['action'])) {
                 // Validmos el formato del mensaje que se enviara en el correo
                 if ($email->setCodigo($_POST['codigo'])) {
                     // Validamos si el correo ingresado tiene formato correcto
-                    if ($email->setCorreo($_SESSION['mail'])) {
+                    if ($email->setCorreo($_SESSION['correo2'])) {
                         // Ejecutamos la funcion para validar el codigo de seguridad
-                        if ($email->validarCodigo('administradores')) {
+                        if ($email->validarCodigo02('administradores')) {
                             $result['status'] = 1;
                             // Colocamos el mensaje de exito 
                             $result['message'] = 'El código ingresado es correcto';
@@ -89,12 +89,11 @@ if (isset($_GET['action'])) {
                                     $result['status'] = 1;
                                     // Colocamos el mensaje de exito 
                                     $result['message'] = 'Código enviado correctamente';
-                                    // Guardamos el correo al que se envio el código
-                                    $_SESSION['mail'] = $email->getCorreo();
                                     // Ejecutamos funcion para obtener el usuario del correo ingresado
-                                    $cliente->obtenerUsuario($_SESSION['mail']);
+                                    $cliente->obtenerUsuario($_POST['correo']);
+                                    $_SESSION['correo2'] = $_POST['correo'];
                                     // Ejecutamos funcion para actualizar el codigo de recuperacion del usuario en la base de datos
-                                    $email->actualizarCodigo('administradores', $code);
+                                    $email->actualizarCodigo2('administradores', $code);
                                 } else {
                                     // En caso que el correo no se envie mostramos el error
                                     $result['exception'] = $_SESSION['error'];
@@ -579,7 +578,6 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Escoja un tipo de usuario';
                 }
-
                 break;
             case 'delete': // Caso para eliminar un registro 
                 // Validamos el form donde se encuentran los inputs para poder obtener sus valores
@@ -710,7 +708,7 @@ if (isset($_GET['action'])) {
                             $_SESSION['usuario'] = $cliente->getUsuario();
                             $_SESSION['nombre'] = $cliente->getNombre();
                             $_SESSION['apellido'] = $cliente->getApellido();
-                            $_SESSION['correo'] = $cliente->getCorreo();
+                            $_SESSION['correo2'] = $cliente->getCorreo();
                             // Verificamos si el tipo de usuario no es root (= 1)
                             if ($cliente->getTipo() != 1) {
                                 $_SESSION['tipo'] = 'Admin';
@@ -773,9 +771,9 @@ if (isset($_GET['action'])) {
                 // Validmos el formato del mensaje que se enviara en el correo
                 if ($email->setCodigo($_POST['codigo'])) {
                     // Validamos si el correo ingresado tiene formato correcto
-                    if ($email->setCorreo($_SESSION['correo'])) {
+                    if ($email->setCorreo($_SESSION['correo2'])) {
                         // Ejecutamos la funcion para validar el codigo de seguridad
-                        if ($email->validarCodigo('administradores')) {
+                        if ($email->validarCodigo02('administradores')) {
                             // Creamos variable de sesion para corroborar que el usuario autentico su usuario
                             $_SESSION['validador2'] = 'Success';
                             // Retornamos el valor de 1 (exito)
@@ -806,14 +804,14 @@ if (isset($_GET['action'])) {
                 if ($email->setMensaje($message)) {
                     // Validamos si el correo ingresado tiene formato correcto
                     if ($email->setAsunto($asunto)) {
-                        if ($email->setCorreo($_SESSION['correo'])) {
+                        if ($email->setCorreo($_SESSION['correo2'])) {
                             // Ejecutamos la funcion para enviar el correo electronico
                             if ($email->enviarCorreo()) {
                                 $result['status'] = 1;
                                 // Colocamos el mensaje de exito 
                                 $result['message'] = 'Ingrese su código de seguridad para continuar';
                                 // Ejecutamos funcion para actualizar el codigo de recuperacion del usuario en la base de datos
-                                $email->actualizarCodigo('administradores', $code);
+                                $email->actualizarCodigo2('administradores', $code);
                                 // Creamos variable de sesion para validar la plantilla
                                 $_SESSION['validacion'] = '';
                             } else {
@@ -843,7 +841,7 @@ if (isset($_GET['action'])) {
                 // Validmos el formato del mensaje que se enviara en el correo
                 if ($email->setCodigo($_POST['codigo'])) {
                     // Validamos si el correo ingresado tiene formato correcto
-                    if ($email->setCorreo($_SESSION['correo'])) {
+                    if ($email->setCorreo($_SESSION['correo2'])) {
                         // Ejecutamos la funcion para validar el codigo de seguridad
                         if ($email->validarCodigo('usuarios')) {
                             $result['status'] = 1;
@@ -881,9 +879,9 @@ if (isset($_GET['action'])) {
                                     // Colocamos el mensaje de exito 
                                     $result['message'] = 'Código enviado correctamente';
                                     // Guardamos el correo al que se envio el código
-                                    $_SESSION['mail'] = $email->getCorreo();
+                                    $_SESSION['correo2'] = $email->getCorreo();
                                     // Ejecutamos funcion para obtener el usuario del correo ingresado
-                                    $usuario->obtenerUsuario($_SESSION['mail']);
+                                    $usuario->obtenerUsuario($_SESSION['correo2']);
                                     // Ejecutamos funcion para actualizar el codigo de recuperacion del usuario en la base de datos
                                     $email->actualizarCodigo('administradores', $code);
                                 } else {
@@ -918,7 +916,7 @@ if (isset($_GET['action'])) {
                             $_SESSION['usuario'] = $cliente->getUsuario();
                             $_SESSION['nombre'] = $cliente->getNombre();
                             $_SESSION['apellido'] = $cliente->getApellido();
-                            $_SESSION['correo'] = $cliente->getCorreo();
+                            $_SESSION['correo2'] = $cliente->getCorreo();
                             $_SESSION['clave'] = $_POST['clave'];
                             $_SESSION['intentos'] = 0;
                             if ($cliente->getTipo() != 1) {
