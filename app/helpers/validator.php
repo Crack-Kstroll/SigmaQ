@@ -218,11 +218,27 @@ class Validator
     */
     public function validatePassword($value)
     {
-        // Se verifica que la longitud de la contraseña sea de al menos 6 caracteres.
-        if (strlen($value) >= 6) {
+        
+        if (preg_match('/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/', $value)) {
             return true;
         } else {
-            $this->passwordError = 'Clave menor a 6 caracteres';
+            $this->passwordError = 'La clave debe tener al menos 8 caracteres entre especiales y alfanuméricos, al menos uno de cada uno';
+        }
+    }
+
+    /*
+    *   Método para validar una cadena de texto sin restriccion.
+    *
+    *   Parámetros: $value (dato a validar).
+    *   
+    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
+    */
+    public function validateText($value)
+    {
+        // Se verifica el contenido y la longitud de acuerdo con la base de datos.
+        if ($value) {
+            return true;
+        } else {
             return false;
         }
     }

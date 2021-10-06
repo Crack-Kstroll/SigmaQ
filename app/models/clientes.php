@@ -91,7 +91,7 @@ class Cliente extends Validator
     */ 
     public function setEstado($value)
     {
-        if ($this->validateBoolean($value)) {
+        if ($this->validateNaturalNumber($value)) {
             $this->estado = $value;
             return true;
         } else {
@@ -214,7 +214,7 @@ class Cliente extends Validator
     public function checkState($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT estado FROM clientes where usuario = ? and estado = true';
+        $sql = 'SELECT estado FROM clientes where usuario = ? and estado = 1';
         $params = array($usuario);
         if ($data = Database::getRow($sql, $params)) {
             return true;
@@ -227,7 +227,7 @@ class Cliente extends Validator
     public function desactivateClient($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'UPDATE clientes SET estado = false WHERE usuario = ?;';
+        $sql = 'UPDATE clientes SET estado = 2 WHERE usuario = ?;';
         $params = array($usuario);
         return Database::executeRow($sql, $params);
     }
@@ -236,11 +236,12 @@ class Cliente extends Validator
     public function checkUser($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigocliente,estado,empresa FROM clientes WHERE usuario = ?';
+        $sql = 'SELECT codigocliente,estado,empresa,correo FROM clientes WHERE usuario = ?';
         $params = array($usuario);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['codigocliente'];
             $this->empresa = $data['empresa'];
+            $this->correo = $data['correo'];
             $this->usuario = $usuario;
             return true;
         } else {
@@ -280,7 +281,7 @@ class Cliente extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigocliente,estado,empresa,telefono,correo,usuario,clave,intentos 
         from clientes
-        where estado = true';
+        where estado = 1';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -300,7 +301,7 @@ class Cliente extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE clientes
-        SET estado = true
+        SET estado = 1
         WHERE codigocliente = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
@@ -315,6 +316,17 @@ class Cliente extends Validator
         $sql = 'INSERT INTO clientes(codigocliente, estado, empresa, telefono, correo, usuario, clave, intentos)
             VALUES (?, default, ?, ?, ?, ?, ?, default)';
         $params = array($this->id,$this->empresa, $this->telefono,$this->correo,$this->usuario, $hash);
+        return Database::executeRow($sql, $params);
+    }
+
+    // Funcion para actualizar un usuario en la base de datos
+    public function updatePassword()
+    {
+        // Se encripta la clave por medio del algoritmo bcrypt que genera un string de 60 caracteres.
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE clientes set clave = ? , estado = 1, fechaClave = default where correo = ?';
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base        
+        $params = array($hash , $this->correo);
         return Database::executeRow($sql, $params);
     }
 
@@ -353,10 +365,10 @@ class Cliente extends Validator
     public function editProfile($codigo)
     {
         $sql = 'UPDATE public.clientes
-        SET empresa=?, telefono=?, correo=?, usuario=?
+        SET telefono = ?, correo = ?
         WHERE codigocliente=?;';
         // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
-        $params = array($this->empresa ,$this->telefono, $this->correo, $this->usuario,$codigo);
+        $params = array( $this->telefono, $this->correo,$codigo);
         return Database::executeRow($sql, $params);
     }
 
@@ -386,7 +398,7 @@ class Cliente extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE clientes
-        SET estado = false
+        SET estado = 2
         WHERE codigocliente = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
@@ -399,7 +411,7 @@ class Cliente extends Validator
         $sql = "SELECT c.usuario,COUNT(codigocliente) as cantidad
         FROM historialcliente h
         INNER JOIN clientes c ON c.codigocliente = h.usuario
-        WHERE c.estado = true
+        WHERE c.estado = 1
         GROUP BY c.usuario
         ORDER BY cantidad DESC
         LIMIT 5";
@@ -428,8 +440,10 @@ class Cliente extends Validator
     public function readEstado()
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
-        $sql = 'SELECT estado,count(estado) as cantidad 
-        from clientes group by estado order by estado desc';
+        $sql = 'SELECT ec.estado,count(ec.estado) as cantidad 
+        from clientes c 
+		INNER JOIN estadoCliente ec ON ec.idestado = c.estado 
+		group by ec.estado order by estado asc';
         // Envio de parametros
         $params = null;
         return Database::getRows($sql, $params);

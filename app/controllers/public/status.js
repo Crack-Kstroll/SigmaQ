@@ -1,13 +1,20 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
-const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
-const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
-const API_PEDIDOS = '../../app/api/public/pedidos.php?action=';
+const API_PEDIDOS = '../../app/api/public/statusPedidos.php?action=';
 
 // Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
 document.addEventListener('DOMContentLoaded', () => {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_PEDIDOS);
 })
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('search-form').addEventListener('submit', function (event) {
+    // Evitamos que la pagina se refresque 
+    event.preventDefault();
+    // Se ejecuta la funcion search rows de components y se envia como parametro la api y el form que contiene el input buscar
+    searchRows(API_PEDIDOS, 'search-form');
+});
+
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 const fillTable = (dataset) =>{ 
@@ -16,6 +23,9 @@ const fillTable = (dataset) =>{
     //Se crea la fila de los headers de la tabla
     let headers = `<tr>`;
     //Se agregan los headers si está seleccionado en la tabla
+    if(document.getElementById('responsable').checked) {
+        headers += `<th>Responsable</th>`
+    }
     if(document.getElementById('pos').checked) {
         headers += `<th>Pos</th>`
     }
@@ -50,6 +60,9 @@ const fillTable = (dataset) =>{
     dataset.map(function (row) {
         // Definimos la estructura de las filas con los campos del dataset 
         data+= `<tr>`;
+        if(document.getElementById('responsable').checked) {
+            data += `<td>${row.nombre_responsable}</td>`
+        }
         if(document.getElementById('pos').checked) {
             data += `<td>${row.pos}</td>`
         }

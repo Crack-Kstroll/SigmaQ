@@ -2,7 +2,6 @@
 include('../../app/helpers/dashboard.php');
 Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 ?>
-
 <!-- Seccion de contenido -->
 <div id="contenido" class="container-fluid fondo">
 	<!-- Seccion de titulo de pagina -->
@@ -11,18 +10,17 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	</div>
 	<!-- Cierra seccion de titulo de pagina -->
-
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-7">
+			<div class="col-sm-6">
 				<form method="post" id="search-form">
 					<div class="row">
-						<div class="col-sm-5">
+						<div class="col-sm-6">
 							<!-- Campo de busqueda filtrada -->
 							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-6">
 							<!-- Boton para busqueda filtrada -->
 							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 								<i class="material-icons">search</i></button>
@@ -31,19 +29,22 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 					</div>
 				</form>
 			</div>
-			<div class="col-sm-5">
+			<div class="col-sm-6">
 				<div class="row">
 					<form method="post" id="delete-form">
 						<!-- Boton para ingresar nuevos registros -->
 						<div id="seccionAgregar" class="row">
 						</div>
 					</form>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<form method="post" id="report-form">
+							<!-- Boton generar grafico -->
+							<button id="enviosMensuales" class="centrarBoton btn btn-outline-info">
+                    			<i class="material-icons" data-toggle="tooltip" title="Gráfico de productos enviados por mes">assignment_turned_in</i></button>
+                			</button>
 							<!-- Boton para sacar reporte -->
-								<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte">
-									<i class="material-icons">assignment_ind</i>
-								</button>
+							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte de pedidos organizados por responsable">
+								<i class="material-icons">assignment_ind</i>
 							</button>
 						</form>
 					</div>
@@ -95,7 +96,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 								<label>Responsable*</label>
 								<select id="responsable" name="responsable" class="form-control">
 								</select>
-							</div>
+							</div>	
 							<div class="col-6 form-group">
 								<label>Cliente*</label>
 								<select id="cliente" name="cliente" class="form-control">
@@ -105,7 +106,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 							<div class="col-6 form-group">
 								<label>Código*</label>
 								<div class="form-group">
-									<input id="codigo" name="codigo" type="number" min="1" class="form-control" required>
+									<input autocomplete="off" id="codigo" name="codigo" type="number" min="1" class="form-control" required>
 									<label class="font-italic text-danger">No podrá modificar el valor de este campo</label>
 								</div>
 							</div>
@@ -123,14 +124,14 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 								<label>Oc*</label>
 								<div class="form-group">
 									<input id="oc" name="oc" type="number" class="form-control" min="1" required>
-								</div>
+								</div>			
 							</div>
 							<div class="col-6 form-group">
 								<label>Cantidad solicitada*</label>
 								<div class="form-group">
 									<input id="cantidadsolicitada" name="cantidadsolicitada" type="number" class="form-control" required>
 								</div>
-							</div>
+							</div>						
 							<div class="col-6 form-group">
 								<label>Cantidad enviada*</label>
 								<div class="form-group">
@@ -167,7 +168,116 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 			</div>
 		</div>
 	</div>
-</div>
+	<!-- Modal  -->
+    <div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modal-title" name="modal-title" class="modal-title">Personalización de la tabla</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="save-form" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="responsable" id="responsable" checked>
+                                    <label class="form-check-label" for="organizacion">Responsable</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="sociedad" id="sociedad" checked>
+                                    <label class="form-check-label" for="indice">Sociedad</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="usuario" id="usuario" checked>
+                                    <label class="form-check-label" for="compromisos">Usuario</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="codigo" id="codigo" checked>
+                                    <label class="form-check-label" for="cumplidos">Código</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="factura" id="factura" checked>
+                                    <label class="form-check-label" for="nocumplidos">Factura</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="asignacion" id="asignacion" checked>
+                                    <label class="form-check-label" for="noconsiderados">Asignación</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="fechacontable" id="fechacontable" checked>
+                                    <label class="form-check-label" for="incumnoentregados">Fecha contable</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="clase" id="clase" checked>
+                                    <label class="form-check-label" for="incumporcalidad">Clase</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="vencimiento" id="vencimiento" checked>
+                                    <label class="form-check-label" for="incumporfecha">Vencimiento</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="diasrestantes" id="diasrestantes" checked>
+                                    <label class="form-check-label" for="incumporcantidad">Días restantes</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="divisa" id="divisa" checked>
+                                    <label class="form-check-label" for="incumporcantidad">Divisa</label>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="totalgeneral" id="totalgeneral" checked>
+                                    <label class="form-check-label" for="incumporcantidad">Total general</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="readRows('../../app/api/public/estadoCuenta.php?action=')" type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- Modal chart-modal -->
+	<div class="modal fade" id="chart-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="title-chart"></h5>
+				</div>
+				<div class="modal-body">
+					<!-- Se muestra una gráfica de barra con la cantidad de productos por categoría -->
+					<div id="chart-container" class="containter-fluid">
+					</div>  
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div> 
 <!-- Cierra seccion de contenido -->
 <?php
 Dashboard_Page::footerTemplate('pedidos');

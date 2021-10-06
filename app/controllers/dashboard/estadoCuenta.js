@@ -14,31 +14,31 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para cargar la seccion de botones en base al tipo de usuario que inicio sesion
-const opcionesUsuario = () => {  
+const opcionesUsuario = () => {
     // Obtenemos el valor del tipo de usuario del panel lateral
     let tipo = document.getElementById("tipoUsuario").value;
     let contenido = '';
     // Comparamos si el usuario es root 
     if (tipo == 'Root') {
         // Cargamos el contenido correspondiente a los usuarios root
-        contenido+= `
-            <div class="col-sm-6">
+        contenido += `
+            <div class="col-sm-8">
                 <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
             </div>
             <div class="col-sm-4">
-                <button class="centrarBoton btn btn-outline-info my-2 my-sm-0">
+                <button class="centrarBoton2  btn btn-outline-info my-2 my-sm-0">
                     <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
                 </button>
             </div>
-            `;      
+            `;
     } else {
         // Cargamos el contenido para los usuarios admins
-        contenido+= `
+        contenido += `
             <div class="col-sm-4"></div>
             <div class="col-sm-6">
                 <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
             </div>
-            `; 
+            `;
     }
     // Agregamos el codigo al contenedor HTML
     document.getElementById('seccionAgregar').innerHTML = contenido;
@@ -57,7 +57,7 @@ const fillTable = (dataset) => {
     // Variable para almacenar registros de 5 en 5 del dataset 
     let data = '';
     // Variable para llevar un control de la cantidad de registros agregados
-    let contador = 0; 
+    let contador = 0;
     // Obtenemos los datos de la consulta realizada en la base (dataset)
     dataset.map(function (row) {
         // Variables para almacernar los nombres de los iconos del los botones y del estado del usuario en la tabla
@@ -68,7 +68,7 @@ const fillTable = (dataset) => {
         if (row.estado) {
             // Cuando el registro esté habilitado
             iconToolTip = 'Deshabilitar'
-            toggleEnabledIcon = 'block'
+            toggleEnabledIcon = 'block';
             metodo = 'openDeleteDialog';
         } else {
             // Cuando el registro esté deshabilitado
@@ -94,8 +94,11 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="openUpdateDialog(${row.idestadocuenta})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.idestadocuenta})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                 </td>
+                <td>
+                    <a href="#" onclick="parameterChart(${row.cliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico de % de cumplimiento de un índice">insert_chart</i></a>
+                </td>
             </tr>
-        `;           
+        `;
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
@@ -103,21 +106,21 @@ const fillTable = (dataset) => {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
-            content.push(data); 
+            content.push(data);
             // Vaciamos el contenido de data para volverlo a llenar
             data = '';
             // Agregamos una posicion dentro del arreglo debido a que se agrego un nuevo elemento
             posiciones = posiciones + 1;
-        }      
+        }
     });
     // Verificamos si el ultimo retorno de datos no esta vacio en caso de estarlo no se agrega a la paginacion
     if (data != '') {
         // Agregamos el contenido el contenido al arreglo en caso de no estar vacio
-        content.push(data); 
-    } 
-    else{
+        content.push(data);
+    }
+    else {
         // Se resta una posicion ya que no se agrego el contenido final por estar vacio
-        posiciones = posiciones -1;
+        posiciones = posiciones - 1;
     }
     // Se llama la funcion fillPagination que carga los datos del arreglo en la tabla 
     fillPagination(content[0]);
@@ -211,9 +214,11 @@ const saveData = () => {
     let action = '';
     // Se comprara el valor del input id 
     if (document.getElementById('idestado').value) {
-        action = 'update'; // En caso que exista se actualiza 
+        // En caso que exista se actualiza
+        action = 'update';
     } else {
-        action = 'create'; // En caso que no se crea 
+        // En caso que no se crea 
+        action = 'create';
     }
     // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
     // console.log(action);
@@ -234,7 +239,7 @@ const openDeleteDialog = (id) => {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-const openActivateDialog = (id) => { 
+const openActivateDialog = (id) => {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);
@@ -242,6 +247,56 @@ const openActivateDialog = (id) => {
     confirmActivate(API_ESTADO, data);
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);
+}
+
+//Función para cargar el gráfico de total general mensuales de los clientes
+const parameterChart = id => {
+    //Vaciamos el contenido del chart
+    resetChart('chart-container');
+    //Creamos una variable en la cuál crearemos nuestro canvas para el gráfico
+    let content = '<canvas id="totalGeneralMensual"></canvas>';
+    //Se agrega el canvas al contenedor de la gráfica
+    document.getElementById('chart-container').innerHTML = content;
+    //Abrimos el modal
+    $('#chart-modal').modal('show');
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Sumatoria de Total General Mensual';
+    // Creamos un form data para enviar el id 
+    const data = new FormData();
+    data.append('cliente', id);
+    //Hacemos la petición a la API usando el id del cliente como parámetro
+    fetch(API_ESTADO + 'totalGeneralMensual', {
+        method: 'post',
+        body: data
+    }).then(request => {
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) {
+            return request.json();
+        } else {
+            // En ocurrir un error se muestra en la consola 
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).then(response => {
+        //Se evalua que la respuesta sea correcta
+        if (response.status) {
+            //Se declaran los arreglos para almacenar la información
+            let meses = [];
+            let totalGeneral = [];
+            //Se recorren los datos que retorno la API
+            response.dataset.map(row => {
+                //Se almacenan los valores en los arreglos
+                meses.push(months[row.mes - 1]);
+                totalGeneral.push(row.total_mensual);
+            })
+            // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+            lineGraph('totalGeneralMensual', meses, totalGeneral, 'Total general mensual', 'Sumatorial de total general mensual en USD($)');
+        } else {
+            document.getElementById('totalGeneralMensual').remove();
+            console.log(response.exception);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
 }
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.

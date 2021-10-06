@@ -18,10 +18,10 @@ Public_Page::headerTemplate('SigmaQ - Bienvenido');
                 </p>
             </div>
             <div class="welcome--info__button">
-               <a href="#section--title" class="welcome--info__link">
+                <a href="#section--title" class="welcome--info__link">
                     <img class="info--button__icon" src="../../resources/img/icons/continuar.png" alt="">
                     Ver más
-               </a>
+                </a>
             </div>
         </div>
         <div class="welcome--img">
@@ -30,7 +30,7 @@ Public_Page::headerTemplate('SigmaQ - Bienvenido');
     </div>
 
     <?php
-        Public_Page::sectionTitleTemplate('MI INFORMACIÓN EMPRESARIAL', 'section--title');
+    Public_Page::sectionTitleTemplate('MI INFORMACIÓN EMPRESARIAL', 'section--title');
     ?>
 
     <div class="card--options__container">
@@ -70,11 +70,11 @@ Public_Page::headerTemplate('SigmaQ - Bienvenido');
     </div>
 
     <?php
-        Public_Page::sectionTitleTemplate('TU ÉXITO ES NUESTRO ÉXITO', 'section--announcement');
+    Public_Page::sectionTitleTemplate('TU ÉXITO ES NUESTRO ÉXITO', 'section--announcement');
     ?>
-    
+
     <div class="announcement--container">
-        <h1 class="announcement--container__title" >¡Celebramos más de 20 años de relación comercial contigo!</h1>
+        <h1 class="announcement--container__title">¡Celebramos más de 20 años de relación comercial contigo!</h1>
         <img class="announcement--container__img  img-fluid" src="../../resources/img/svgs/undraw_happy_announcement_ac67.svg" alt="">
     </div>
 

@@ -5,6 +5,10 @@
 *
 *   Retorno: ninguno.
 */
+
+//Arreglo para obtener los meses por su nombre, con el número del mes como posición del arreglo
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Séptiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
 const readRows = (api) => { 
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo get 
     para obtener el resultado de la API*/
@@ -62,7 +66,7 @@ const saveRow = (api, action, form, modal) => {
                     // Se cargan nuevamente las filas en la tabla de la vista después de agregar o modificar un registro.
                     readRows(api);
                     // Mostramos alerta con mensaje de exito
-                    sweetAlert(1, response.message, null);
+                    sweetAlert(1, response.message, null,'Acción completada');
                 } else {
                     sweetAlert(2, response.exception, null);
                 }
@@ -138,9 +142,9 @@ const searchRows = (api, form) => {
                     // Se envían los datos a la función del controlador para que llene la tabla en la vista.
                     fillTable(response.dataset);
                     // Mostramos alerta con mensaje de exito
-                    sweetAlert(1, response.message, null);
+                    sweetAlert(1, response.message, null,'Busqueda exitosa');
                 } else {
-                    sweetAlert(2, response.exception, null);
+                    sweetAlert(4, response.exception, null);
                 }
             });
         } else {
@@ -415,24 +419,42 @@ const onlyConfirmDelete = (api, data) => {
 *
 *   Retorno: ninguno.
 */
-const sweetAlert = (type, text, url) => {  
+const sweetAlert = (type, text, url , title) => {  
     // Se compara el tipo de mensaje a mostrar.
-    switch (type) {
-        case 1:
-            title = 'Éxito';
-            icon = 'success';
-            break;
-        case 2:
-            title = 'Error';
-            icon = 'error';
-            break;
-        case 3:
-            title = 'Advertencia';
-            icon = 'warning';
-            break;
-        case 4:
-            title = 'Aviso';
-            icon = 'info';
+    if (title != null) {
+        switch (type) {
+            case 1:
+                icon = 'success';
+                break;
+            case 2:
+                icon = 'error';
+                break;
+            case 3:
+                icon = 'warning';
+                break;
+            case 4:
+                icon = 'info';
+                break;
+        }    
+    } else {
+        switch (type) {
+            case 1:
+                title = 'Éxito';
+                icon = 'success';
+                break;
+            case 2:
+                title = 'Error';
+                icon = 'error';
+                break;
+            case 3:
+                title = 'Advertencia';
+                icon = 'warning';
+                break;
+            case 4:
+                title = 'Aviso';
+                icon = 'info';
+                break;
+        }
     }
     // Si existe una ruta definida, se muestra el mensaje y se direcciona a dicha ubicación, de lo contrario solo se muestra el mensaje.
     if (url) {
@@ -692,26 +714,26 @@ const resetChart = (container) => {
 *   Retorno: ninguno.
 */
 const lineGraph = (canvas, xAxis, yAxis, legend, title) => { 
-    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    // Se define el canva donde se dibujará el gráfico
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
-        // Indicamos el tipo de reporte que generaremos
         type: 'line',
         data: {
             labels: xAxis,
             datasets: [{
-                // Agregamos el arreglo con los datos para llenar el grafico
                 label: legend,
                 data: yAxis,
-                // Asignamos el color del borde del grafico
-                borderColor: '#000000',
-                borderWidth: 1,
+                fill: false,
+                tension: 0.1,
+                borderColor: 'rgb(206,14,45)',
+                backgroundColor: 'rgb(206,14,45)',
             }]
         },
         options: {
             responsive: true,
             legend: {
+                position: 'top',
                 display: false
             },
             title: {
@@ -726,6 +748,6 @@ const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
                     }
                 }]
             }
-        }
-    });
+        },
+    })
 }

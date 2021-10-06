@@ -9,7 +9,6 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 		<h5 class="tituloMto">Gestión de estados de cuenta</h5>
 		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
 	</div> <!-- Cierra seccion titulo pagina -->
-
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
 		<div class="row">
@@ -32,46 +31,41 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 			<div class="col-sm-4">
 				<div class="row">
 					<form method="post" id="delete-form">
-
 						<!-- Boton para ingresar nuevos registros -->
 						<div id="seccionAgregar" class="row">
-
 						</div>
 					</form>
-					<div class="col-sm-2">
+					<div class="col-sm-5">
 						<form method="post" id="report-form">
 							<!-- Boton para sacar reporte -->
-							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte">
+							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte de estados de cuenta por cliente">
 								<i class="material-icons">assignment_ind</i>
-							</button>
 							</button>
 						</form>
 					</div>
 				</div>
-
 			</div>
 		</div>
-
 	</div>
-
 	<div class="container-fluid espacioSuperior">
 		<table class="table borde">
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
 				<tr>
 					<th>Responsable</th>
-					<th>Sociedad</th>
-					<th>Usuario</th>
-					<th>Código</th>
-					<th>Factura</th>
-					<th>Asignación</th>
-					<th>Fecha Contable</th>
-					<th>Clase</th>
-					<th>Fecha de Vencimiento</th>
-					<th>Días Restantes</th>
-					<th>Divisa</th>
-					<th>Total General</th>
-					<th>Acciones</th>
+                    <th>Sociedad</th>
+                    <th>Usuario</th>
+                    <th>Código</th>
+                    <th>Factura</th>
+                    <th>Asignación</th>
+                    <th>Fecha Contable</th>
+                    <th>Clase</th>
+                    <th>Fecha de Vencimiento</th>
+                    <th>Días Restantes</th>
+                    <th>Divisa</th>
+                    <th>Total General</th>
+                    <th>Acciones</th>
+					<th>Extras</th>
 				</tr>
 			</thead>
 			<!-- Contenido de la tabla -->
@@ -117,15 +111,15 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 							<div class="col-6">
 								<div class="form-group">
 									<label>Código*</label>
-									<input id="codigo" name="codigo" type="number" class="form-control" required>
+									<input autocomplete="off" id="codigo" name="codigo" type="number" class="form-control" required>
 								</div>
 								<div class="form-group">
 									<label>Factura*</label>
-									<input id="factura" name="factura" type="number" class="form-control" placeholder="" required>
+									<input autocomplete="off" id="factura" name="factura" type="number" class="form-control" placeholder="" required>
 								</div>
 								<div class="form-group">
 									<label>Asignación*</label>
-									<input id="asignacion" name="asignacion" type="number" class="form-control" placeholder="" required>
+									<input autocomplete="off" id="asignacion" name="asignacion" type="number" class="form-control" placeholder="" required>
 								</div>
 							</div>
 							<div class="col-6">
@@ -151,7 +145,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label>Divisas*</label>
+									<label>Divisa*</label>
 									<select id="divisa" name="divisa" class="form-control">
 									</select>
 								</div>
@@ -244,6 +238,26 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 			</div>
 		</div>
 	</div>
-	<?php
-	Dashboard_Page::footerTemplate('estadoCuenta');
-	?>
+
+	<!-- Modal chart-modal -->
+	<div class="modal fade" id="chart-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="title-chart">Sumatoria de Total General Mensual</h5>
+				</div>
+				<div class="modal-body">
+					<!-- Se muestra una gráfica de barra con la cantidad de productos por categoría -->
+					<div id="chart-container" class="containter-fluid">
+					</div>  
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>			
+
+<?php
+Dashboard_Page::footerTemplate('estadoCuenta');
+?>

@@ -8,7 +8,6 @@ $numero = 0;
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
 $pdf->startReport('Reporte de acciones realizadas por un usuario');
-
 // Se instancia el módelo Usuario para obtener los datos.
 $categoria = new Usuario;
 

@@ -6,9 +6,9 @@ require('../../models/usuarios.php');
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
 $pdf->startReport('Reporte de usuarios agrupado por tipo');
-
 // Se instancia el módelo Usuario para obtener los datos.
 $categoria = new Usuario;
+
 // Se verifica si existen registros para mostrar, de lo contrario se imprime un mensaje.
 if ($dataCategorias = $categoria->readTipo()) {
     // Se recorren los registros fila por fila.

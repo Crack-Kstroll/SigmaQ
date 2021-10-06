@@ -4,15 +4,15 @@
 const inputs = document.querySelectorAll('.input');
 
 // Al deseleccionar un input el placeholder cambiara de lugar
-const focusFunc = () =>{ 
+const focusFunc = () => {
     let parent = this.parentNode.parentNode;
     parent.classList.add('focus');
 }
 
 // Al deseleccionar un input el placeholder cambiara de lugar
-const blurFunc = () =>{ 
+const blurFunc = () => {
     let parent = this.parentNode.parentNode;
-    if(this.value== "") {
+    if (this.value == "") {
         parent.classList.remove('focus');
     }
 

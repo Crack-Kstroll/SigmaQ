@@ -257,9 +257,25 @@ class Pedidos extends Validator
         return Database::getRows($query, $params);
     }
 
+    // Función para buscar un registro en el sitio público
+    public function searchPedidosPublico($value)
+    {
+        $sql = "SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
+        FROM pedido p
+        INNER JOIN administradores a
+            ON p.responsable = a.codigoadmin
+        INNER JOIN clientes cl
+            ON p.cliente = cl.codigocliente
+        WHERE CONCAT(a.nombre, ' ', a.apellido) LIKE ? OR CAST(p.codigo AS CHAR) LIKE ? AND cliente = ?
+        ORDER BY p.estado DESC";
+        $params = array("%$value%","%$value%", $_SESSION['codigocliente']);
+        return Database::getRows($sql, $params);
+    }
+
     //Función para realizar validar el codigo del pedido
     public function checkCode() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT * FROM pedido WHERE codigo = ?";
         $params=array($this->codigo);
         return Database::getRow($query, $params);
@@ -268,6 +284,7 @@ class Pedidos extends Validator
     //Función para cargar los pedidos pertenecientes a un cliente
     public function readClientePedidos() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
                 FROM pedido p
                 INNER JOIN administradores a
@@ -283,6 +300,7 @@ class Pedidos extends Validator
     //Función para leer los datos del responsable de cierto cliente
     public function readResponsableInfo() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT ad.nombre, ad.apellido, telefono, correo
                 FROM pedido pe
                 INNER JOIN administradores ad
@@ -292,9 +310,34 @@ class Pedidos extends Validator
         return Database::getRows($query, $params);
     }
 
-    // Función para listar los reponsables
+    //Función para obtener la sumatoria de cantidad enviada en los últimos 12 meses
+    public function cantidadEnviadaMensual() 
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $query="SELECT EXTRACT(MONTH FROM fechaconfirmadaenvio) as mes, sum(cantidadenviada) cantidadMensual
+                FROM pedido
+                GROUP BY mes ORDER BY mes ASC LIMIT 12";
+        $params= null;
+        return Database::getRows($query, $params);
+    }
+
+    //Función para obtener los 5 clientes que más pedidos han realizado
+    public function clientesTop() 
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $query="SELECT c.usuario, count(p.cliente) pedidos
+            FROM pedido p
+            INNER JOIN clientes c
+            ON c.codigocliente = p.cliente
+        GROUP BY usuario ORDER BY pedidos DESC LIMIT 5";
+        $params=null;
+        return Database::getRows($query, $params);
+    }
+
+    //Función para listar los reponsables
     public function readResponsables() 
     {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
         $query="SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
                 FROM administradores";
         $params= null;

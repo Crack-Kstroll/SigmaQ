@@ -1,7 +1,7 @@
 // Atributo para almacenar en un arreglo el contenido de la tabla 
-const content = [];
+let content = [];
 // Atributo para guardar el numero de pagina seleccionado en la paginacion
-const seleccion = 0;                                                                                                                                           var posiciones = 0;
+let seleccion = 0;                                                                                                                                           var posiciones = 0;
 
 // Funcion para generar la estructura de la paginacion en el formulario
 const generatePagination = () =>{ 

@@ -1,7 +1,7 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
 const API_ADMINS = '../../app/api/dashboard/usuarios.php?action=readAll';
 const API_CLIENTES = '../../app/api/dashboard/clientes.php?action=readAll';
-const API_PEDIDOS = '../../app/api/public/pedidos.php?action=';
+const API_PEDIDOS = '../../app/api/public/statusPedidos.php?action=';
 
 // Función manejadora de eventos, para ejecutar justo cuando termine de cardar.
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     getResponsableInfo(API_PEDIDOS);
 })
 
+// Funcion para obtener los datos del responsable de cada empresa.
 const getResponsableInfo = api => {
     /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo get 
     para obtener el resultado de la API*/
@@ -39,7 +40,7 @@ const getResponsableInfo = api => {
 }
 
 const setResponsableInfo = dataset => {
-    if(dataset == [].length) {
+    if (dataset == [].length) {
         sweetAlert(4, 'No se encontró la información del responsable');
     } else {
         console.log(dataset[0])

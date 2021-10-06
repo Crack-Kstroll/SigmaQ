@@ -4,8 +4,7 @@ require_once('../../helpers/validator.php');
 require_once('../../models/pedidos.php');
 
 // Se compueba si existe una acción a realizar
-if (isset($_GET['action'])) 
-{
+if (isset($_GET['action'])) {
     //Se crea o se reanuda la sesión actual
     session_start();
     //Se instancia un objeto de la clase modelo
@@ -331,6 +330,34 @@ if (isset($_GET['action']))
                     $result['exception'] = 'Pedido incorrecto';
                 }
             break;
+            //Caso para obtener la cantidad de productos enviados por mes
+            case 'cantidadEnviadaMensual':
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $pedido->cantidadEnviadaMensual()) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            break;
+            //Caso para obtener los 5 usuarios que han realizado más pedidos
+            case 'clientesTop':
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $pedido->clientesTop()) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            break;
             default:
                 $result['exception'] = 'Acción no reconocida';
         }
@@ -338,9 +365,7 @@ if (isset($_GET['action']))
         header('content-type: application/json; charset=utf-8');
         // Se imprime el resultado en formato JSON y se retorna al controlador.
         print(json_encode($result));
-    } 
-    else 
-    {
+    } else {
         print(json_encode('Acceso denegado'));
     }
 }

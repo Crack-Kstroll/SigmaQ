@@ -5,10 +5,10 @@ require('../../models/pedidos.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReportL('Pedidos organizados por responsable');
-
-// Se instancia el módelo Categorías para obtener los datos.
+$pdf->startReportL('Reporte de pedidos organizados por responsable');
+// Se instancia el módelo Pedidos para obtener los datos.
 $pedidos = new Pedidos;
+
 // Se verifica si existen registros (categorías) para mostrar, de lo contrario se imprime un mensaje.
 if ($dataResponsables = $pedidos->readResponsables()) {
     // Se recorren los registros ($dataCategorias) fila por fila ($rowCategoria).

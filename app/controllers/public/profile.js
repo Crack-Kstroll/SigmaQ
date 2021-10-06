@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Función para obtener y mostrar las categorías existentes en la base.
-const readProfile = () => {  
+const readProfile = () => {
     // Se realiza solicitud a la API de usuarios enviando como parametro el metodo readProfile para obtener los datos del usuario activo
     fetch(API_USUARIOS + 'readProfile', {
         method: 'get'
@@ -37,7 +37,7 @@ const readProfile = () => {
 }
 
 // Función para obtener y mostrar las categorías existentes en la base.
-const modificarDatos = () => {  
+const modificarDatos = () => {
     fetch(API_USUARIOS + 'editProfile', {
         method: 'post',
         body: new FormData(document.getElementById('save-form'))
@@ -47,14 +47,14 @@ const modificarDatos = () => {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    sweetAlert(1, response.message, 'main.php');
+                    sweetAlert(1, response.message, 'main.php','Información actualizada');
                 } else {
                     // Se verifica si el token falló (ya sea por tiempo o por uso).
                     if (response.recaptcha) {
                         // Si se completa la accion redirigimos al menu principal
                         sweetAlert(2, response.exception, 'main.php');
                     } else {
-                        sweetAlert(2, response.exception, null);
+                        sweetAlert(4, response.exception, null);
                     }
                 }
             });
@@ -66,8 +66,8 @@ const modificarDatos = () => {
     });
 }
 
-// Función para obtener y mostrar las categorías existentes en la base.
-const actualizarContraseña = () => {  
+// Función para actualizar la contraseña del usuario que inicio sesion.
+const actualizarContraseña = () => {
     fetch(API_USUARIOS + 'changePassword', {
         method: 'post',
         body: new FormData(document.getElementById('password-form'))
@@ -77,14 +77,14 @@ const actualizarContraseña = () => {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    sweetAlert(1, response.message, 'main.php');
+                    sweetAlert(1, response.message, 'main.php','Información actualizada');
                 } else {
                     // Se verifica si el token falló (ya sea por tiempo o por uso).
                     if (response.recaptcha) {
                         // Si se completa la accion redirigimos al menu principal
                         sweetAlert(2, response.exception, 'main.php');
                     } else {
-                        sweetAlert(2, response.exception, null);
+                        sweetAlert(4, response.exception, null);
                     }
                 }
             });

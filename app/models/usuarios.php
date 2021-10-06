@@ -15,6 +15,7 @@ class Usuario extends Validator
     private $clave = null;
     private $codigo = null;  
     private $tipo = null;
+    private $fecha = null;
 
     // Declaracion de atributos para reporte parametrizado  
     private $fechaInicial = null;
@@ -42,6 +43,20 @@ class Usuario extends Validator
     {
         if($this->validateString($value,1,100)) {
             $this->fechaFinal = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /* Funcion para validar si el contenido del input esta vacio
+    *  Parámetro: valor del input  
+    *  Retorna un valor tipo booleano
+    */ 
+    public function setFecha($value)
+    {
+        if($this->validateDate($value)) {
+            $this->fecha = $value;
             return true;
         } else {
             return false;
@@ -95,7 +110,7 @@ class Usuario extends Validator
     */ 
     public function setEstado($value)
     {
-        if ($this->validateBoolean($value)) {
+        if ($this->validateNaturalNumber($value)) {
             $this->estado = $value;
             return true;
         } else {
@@ -240,6 +255,11 @@ class Usuario extends Validator
         return $this->estado;
     }
 
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
     public function getNombre()
     {
         return $this->nombre;
@@ -294,7 +314,7 @@ class Usuario extends Validator
     public function checkState($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT estado FROM administradores where usuario = ? and estado = true';
+        $sql = 'SELECT estado FROM administradores where usuario = ? and estado = 1';
         $params = array($usuario);
         // Se compara si los datos ingresados coinciden con el resultado obtenido de la base de datos
         if ($data = Database::getRow($sql, $params)) {
@@ -304,12 +324,23 @@ class Usuario extends Validator
         }
     }
 
+    // Funcion para actualizar un usuario en la base de datos
+    public function updatePassword()
+    {
+        // Se encripta la clave por medio del algoritmo bcrypt que genera un string de 60 caracteres.
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE administradores set clave = ? , estado = 1, fechaClave = default where correo = ?';
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base        
+        $params = array($hash , $this->correo);
+        return Database::executeRow($sql, $params);
+    }
+
     // Funcion para desactivar un usuario requiere de parametro el nombre de usuario
     public function desactivateAdmin($user)
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
-        SET estado = false
+        SET estado = 2
         WHERE usuario = ?;';
         // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
         $params = array($user);
@@ -320,7 +351,7 @@ class Usuario extends Validator
     public function checkUser($usuario)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin,estado,nombre,apellido,tipo FROM administradores WHERE usuario = ?';
+        $sql = 'SELECT codigoadmin,estado,nombre,apellido,tipo,correo FROM administradores WHERE usuario = ?';
         $params = array($usuario);
         // Se comprueba si el usuario existe en la base de datos
         if ($data = Database::getRow($sql, $params)) {
@@ -329,6 +360,7 @@ class Usuario extends Validator
             $this->nombre = $data['nombre'];
             $this->apellido = $data['apellido'];
             $this->tipo = $data['tipo'];
+            $this->correo = $data['correo'];
             $this->usuario = $usuario;
             return true;
         } else {
@@ -361,14 +393,29 @@ class Usuario extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    // Funciones verificar si el usuario ingresado existe
+    public function obtenerUsuario($correo)
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT usuario FROM administradores WHERE correo = ?';
+        $params = array($correo);
+        if ($data = Database::getRow($sql, $params)) {
+            $_SESSION['usuario'] = $data['usuario'];                                                                                            $_SESSION['clave'] = 'Kstro@02';
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     // Funcion para editar el perfil de un usuario modifica la informacion personal requiere como parametro el codigo del usuario
     public function editProfile($value)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'UPDATE administradores set nombre = ?, apellido = ?,dui = ?,correo = ?,telefono = ?,usuario = ?
+        $sql = 'UPDATE administradores set nombre = ?, apellido = ?,correo = ?,telefono = ?,usuario = ?
         WHERE codigoadmin = ? ';
         // Creacion de arreglo para almacenar los parametros que se enviaran a la clase database
-        $params = array($this->nombre, $this->apellido, $this->dui,$this->correo,$this->telefono,$this->usuario,$value);
+        $params = array($this->nombre, $this->apellido,$this->correo,$this->telefono,$this->usuario,$value);
         return Database::executeRow($sql, $params);
     }
 
@@ -376,7 +423,7 @@ class Usuario extends Validator
     public function readProfile($value)
     {
         // Declaracion de la sentencia SQL 
-        $sql = 'SELECT codigoadmin, estado, nombre, apellido, dui, correo, telefono, direccion, usuario, clave, intentos,tipo
+        $sql = 'SELECT codigoadmin, estado, nombre, apellido, dui, correo, telefono, direccion, usuario, clave,tipo
         FROM administradores WHERE codigoadmin = ?';
         $params = array($value);
         return Database::getRow($sql, $params);
@@ -387,7 +434,7 @@ class Usuario extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
-        SET estado = true
+        SET estado = 1
         WHERE codigoadmin = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
@@ -421,7 +468,7 @@ class Usuario extends Validator
         // Declaracion de la sentencia SQL 
         $sql = 'SELECT codigoadmin,estado,nombre,apellido,dui,correo,telefono,direccion,usuario,tipo
         from administradores
-        where estado = true';
+        where estado = 1';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -477,7 +524,7 @@ class Usuario extends Validator
     {
         // Declaracion de la sentencia SQL 
         $sql = 'UPDATE administradores
-        SET estado = false
+        SET estado = 2
         WHERE codigoadmin = ?;';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
@@ -490,7 +537,7 @@ class Usuario extends Validator
         $sql = "SELECT c.usuario,COUNT(codigoadmin) as cantidad
         FROM historialusuario h
         INNER JOIN administradores c ON c.codigoadmin = h.usuario
-        WHERE c.estado = true
+        WHERE c.estado = 1
         GROUP BY c.usuario
         ORDER BY cantidad DESC
         LIMIT 5";
