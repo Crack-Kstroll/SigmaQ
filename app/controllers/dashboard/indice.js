@@ -89,7 +89,7 @@ const fillTable = (dataset) => {
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 8 eso significa que la data contiene 8 filas
-        if (contador == 7) {
+        if (contador == 6) {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]

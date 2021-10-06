@@ -289,13 +289,13 @@ class Indice extends Validator
     public function porcentajeCumplimientoIndice($id_indice)
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
-        $query="SELECT ROUND(cumplidos * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) cumplidos,
-                ROUND(nocumplidos * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) nocumplidos,
-                ROUND(noconsiderados * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 29),2) noconsiderados
-                FROM indiceentregas
-                WHERE idindice = ?";
+        $query="SELECT ROUND(cumplidos * 100 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 191),2) cumplidos,
+        ROUND(nocumplidos * 250 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 191),2) nocumplidos,
+        ROUND(noconsiderados * 250 / (SELECT totalcompromiso FROM indiceentregas WHERE idindice = 191),2) noconsiderados
+        FROM indiceentregas
+        WHERE idindice = 191";
         $params=array($id_indice);
-        return Database::getRow($query, $params);
+        return Database::getRow($query, null);
     }
 }
 ?>

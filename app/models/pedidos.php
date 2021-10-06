@@ -358,8 +358,8 @@ class Pedidos extends Validator
     public function readResponsables() 
     {
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
-        $query="SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
-                FROM administradores";
+        $query="SELECT a.codigoadmin,CONCAT(nombre,' ',apellido) AS responsable
+        FROM administradores a INNER JOIN pedido p ON a.codigoadmin = p.responsable GROUP BY a.codigoadmin,responsable";
         $params= null;
         return Database::getRows($query, $params);
     }

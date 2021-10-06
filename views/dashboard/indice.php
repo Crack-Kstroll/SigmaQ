@@ -40,7 +40,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de indice','dashboard');
 	</div>
 	<!-- Cierra seccion de busqueda filtrada -->		
 	<!-- Seccion de tabla de usuarios -->
-	<div class="container-fluid espacioSuperior"> 
+	<div class="table-responsive"> 
 		<table class="table borde">
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">

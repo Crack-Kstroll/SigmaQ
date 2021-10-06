@@ -7,7 +7,7 @@ $numero = 0;
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReportL('Reporte de los pedidos de cada cliente');
+$pdf->startReportL('Reporte de los pedidos realizados por cada cliente');
 // Se instancia el módelo Cliente para obtener los datos.
 $categoria = new Pedidos;
 
@@ -58,11 +58,11 @@ if ($categoria->setCliente($_GET['id'])) {
                         $pdf->Cell(42, 10, $rowProducto['fechaconfirmadaenvio'], 1, 1, 'C');
                     }
                     // Se agrega un salto de línea para mostrar el contenido principal del documento.
-                    $pdf->Ln(2);
+                    $pdf->Ln(3);
                     $pdf->Cell(20);
                     $pdf->SetFont('Arial', 'B', 10);
                     // Imprimos el numero total de acciones realizado
-                    $pdf->Cell(280, 10, utf8_decode('Número total de acciones: ') .$numero, 0, 1, 'C');
+                    $pdf->Cell(400, 10, utf8_decode('Número total de pedidos: ') .$numero, 0, 1, 'C');
                 } else {
                     // Colocamos el color del texto a mostrar
                     $pdf->SetTextColor(9,9,9);

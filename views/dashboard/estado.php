@@ -47,7 +47,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid espacioSuperior">
+	<div class="table-responsive">
 		<table class="table borde">
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">

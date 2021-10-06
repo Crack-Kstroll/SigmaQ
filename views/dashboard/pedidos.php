@@ -53,7 +53,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 		</div>
 	</div>
 	<!-- Cierra seccion de busqueda filtrada -->
-	<div class="container-fluid espacioSuperior">
+	<div class="table-responsive">
 		<table class="table borde">
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
@@ -76,9 +76,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 			</tbody>
 		</table>
 		<div id="seccionPaginacion" class="clearfix">
-			<!-- Seccion controladores tabla -->
 		</div> <!-- Cierra controladores de tabla -->
-		<!-- Cierra seccion de tabla -->
 	</div>
 	<!-- Modal  -->
 	<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
