@@ -186,6 +186,26 @@ class Pedidos extends Validator
         return Database::getRows($query, $params);
     }
 
+    //Función para mostrar los clientes
+    public function readClientes() 
+    {
+        $query="SELECT codigocliente,usuario,estado,empresa,telefono,correo,clave,intentos 
+                from clientes 
+                order by codigocliente";
+        $params=null;
+        return Database::getRows($query, $params);
+    }
+
+    // Metodo para cargar el codigo y usuario de un cliente
+    public function readOneClientes()
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $sql = 'SELECT codigocliente,usuario from clientes where codigocliente = ?';
+        // Envio de parametros
+        $params = array($this->cliente);
+        return Database::getRows($sql, $params);
+    }
+
     // Función para listar los pedidos y ordenarlos por responsable
     public function readPedidosResponsable() 
     {

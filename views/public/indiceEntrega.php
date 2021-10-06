@@ -32,6 +32,13 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 </div>
 
 <!-- Seccion de tabla de registros -->
+<<<<<<< HEAD
+<div class="container-fluid table-responsive espacioSuperior"> 
+	<table class="table borde">
+		<h4 id="warning-message" style="text-align:center"></h4>
+		<!-- Contenido de la tabla -->
+		<thead id="theaders" class="thead-dark">
+=======
 <div class="container-fluid espacioSuperior">
 	<div class="table-responsive">
 		<table class="table borde">
@@ -43,6 +50,7 @@ Public_Page::headerTemplate('SigmaQ - Índice de entrega');
 			</tbody>
 		</table>
 	</div>
+>>>>>>> 56773cad4f32b18c6636598807b43c1cd7bc5b74
 
 
 	<!-- Seccion controladores tabla -->

@@ -97,10 +97,10 @@ main {
 
 /***********TITLE SECTION**********************************************************/
 .section--title__container {
-  background: #720600;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+    background: #D0112B;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .section--title__text {

@@ -30,6 +30,36 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
 		</div>
 	</div><br>
 </div>
+<<<<<<< HEAD
+<!-- Tabla -->
+	<!-- Seccion de tabla de registros -->
+	<div class="container-fluid table-responsive espacioSuperior"> 
+		<table class="table borde">
+			<!-- Cabecera de la tabla -->
+			<thead class="thead-dark">
+				<tr>
+          <th>Responsable</th>
+          <th>Sociedad</th>
+          <th>Usuario</th>
+          <th>Código</th>
+          <th>Factura</th>
+          <th>Asignación</th>
+          <th>Fecha Contable</th>
+          <th>Clase</th>
+          <th>Fecha de Vencimiento</th>
+          <th>Días Restantes</th>
+          <th>Divisa</th>
+          <th>Total General</th>
+				</tr>
+			</thead>
+			<!-- Contenido de la tabla -->
+			<tbody id="tbody-rows">	
+			</tbody>
+		</table>	 
+		<div id="seccionPaginacion" class="clearfix"> <!-- Seccion controladores tabla -->				
+		</div> <!-- Cierra controladores de tabla --> 
+	<!-- Cierra seccion de tabla -->
+=======
 <!-- Modal  -->
 <div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -119,6 +149,7 @@ Public_Page::headerTemplate('SigmaQ - Estado de cuenta');
 				<button onclick="readRows('../../app/api/public/estadoCuenta.php?action=')" type="button" class="btn btn-primary">Guardar</button>
 			</div>
 		</div>
+>>>>>>> 56773cad4f32b18c6636598807b43c1cd7bc5b74
 	</div>
 </div>
 <!-- Seccion de tabla de registros -->

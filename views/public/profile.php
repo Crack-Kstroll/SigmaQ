@@ -49,6 +49,14 @@ Public_Page::headerTemplate('SigmaQ - Configuración personal');
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+        <div class="col-sm-12 col-md-12 col-xl-6 espacex2">
+            <div class="container">
+                <h3 class="centrar">Cambiar contraseña</h3> 
+                <form method="post" id="password-form" enctype="multipart/form-data">   
+                    <div class="row espacex2">
+                        <div class="d-grid gap-2 col-md-4 col-sm-12 mx-auto">
+=======
         <div class="col-sm-12 col-md-12 col-xl-12">
             <div class="container"><br><br>
                 <h3 class="centrar">Cambiar contraseña</h3>
@@ -56,22 +64,31 @@ Public_Page::headerTemplate('SigmaQ - Configuración personal');
                     <div class="row espace">
                         <div class="d-grid gap-2 col-sm-12 col-md-4 mx-auto">
                             <br>
+>>>>>>> 56773cad4f32b18c6636598807b43c1cd7bc5b74
                             <label for="txtClaveActual" class="form-label">Clave actual</label>
                             <input onkeydown="validateTextPassword('txtClaveActual','legClaveActual')" type="password" id="txtClaveActual" name="txtClaveActual" class="form-control" aria-describedby="claveActual">
                             <div id="legClaveActual" class="form-text">
                                 Si desea cambiar su clave complete el campo.
                             </div>
                         </div>
+<<<<<<< HEAD
+                        <div class="d-grid gap-2 col-md-4 col-sm-12 mx-auto">
+=======
                         <div class="d-grid gap-2 col-sm-12 col-md-4 mx-auto">
                             <br>
+>>>>>>> 56773cad4f32b18c6636598807b43c1cd7bc5b74
                             <label for="txtClaveNueva" class="form-label">Nueva clave</label>
                             <input onkeydown="validateTextNewPassword('txtClaveNueva','legClaveNueva')" type="password" id="txtClaveNueva" name="txtClaveNueva" class="form-control" aria-describedby="claveNueva">
                             <div id="legClaveNueva" class="form-text">
                                 Si deseas cambiar tu clave ingresa la nueva clave.
                             </div>
                         </div>
+<<<<<<< HEAD
+                        <div class="d-grid gap-2 col-md-4 col-sm-12 mx-auto">
+=======
                         <div class="d-grid gap-2 col-sm-12 col-md-4 mx-auto">
                             <br>
+>>>>>>> 56773cad4f32b18c6636598807b43c1cd7bc5b74
                             <label for="txtClaveConfirmar" class="form-label">Confirmar clave</label>
                             <input onkeydown="validateTextNewPassword('txtClaveConfirmar','legClaveConfirmar')" type="password" id="txtClaveConfirmar" name="txtClaveConfirmar" class="form-control" aria-describedby="claveConfirmar">
                             <div id="legClaveConfirmar" class="form-text">

@@ -253,7 +253,7 @@ class EstadoCuenta extends Validator
     // Función para llenar la tabla
     public function SelectEstadoCuenta()
     {
-        $sql = "SELECT ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.cliente, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
+        $sql = "SELECT a.codigoadmin, ec.idestadocuenta, s.idsociedad, s.sociedad, CONCAT(a.nombre,' ',a.apellido) AS responsable, c.usuario, ec.cliente, ec.codigo, ec.factura, ec.asignacion, ec.fechacontable, ec.clase, ec.vencimiento, (vencimiento - CURRENT_DATE) AS diasrestantes, d.divisa, ec.totalgeneral, ec.estado
                 FROM estadocuentas ec
                 INNER JOIN administradores a
                 ON ec.responsable = a.codigoadmin
@@ -396,5 +396,16 @@ class EstadoCuenta extends Validator
         $params= null;
         return Database::getRows($query, $params);
     }
+
+        // Función para capturar el id del responsable
+        public function readOneResponsables() 
+        {
+            // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+            $query="SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
+                    FROM administradores
+                    WHERE codigoadmin = ?";
+            $params= array($this->responsable);
+            return Database::getRows($query, $params);
+        }
 
 }
