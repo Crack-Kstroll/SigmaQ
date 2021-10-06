@@ -35,6 +35,7 @@ Login_Page::headerTemplateDashboard('Login | Administradores');
         </form>
     </div>
 </div>
+<script type="text/javascript" src="../../app/controllers/initialization.js"></script>
 <?php
 Login_Page::footerTemplate('public/email.js');
 ?>
