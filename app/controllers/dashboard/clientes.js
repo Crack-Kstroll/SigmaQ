@@ -210,11 +210,11 @@ const pedidosCliente = id => {
             // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
             response.dataset.map(function (row) {
                 // Se asignan los datos a los arreglos.
-                semana.push(row.accion);
-                numero_pedidos.push(row.cantidad);
+                semana.push(row.semana);
+                numero_pedidos.push(row.numero_pedidos);
             });
             // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
-            barGraph('chart1', semana, numero_pedidos, 'Cantidad de pedidos realizados');
+            lineGraph('chart1', semana, numero_pedidos, 'Cantidad de pedidos realizados', '');
         } else {
             // Eliminamos el contenido del chart 
             document.getElementById('chart1').remove();
