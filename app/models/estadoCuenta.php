@@ -397,15 +397,15 @@ class EstadoCuenta extends Validator
         return Database::getRows($query, $params);
     }
 
-        // Función para capturar el id del responsable
-        public function readOneResponsables() 
-        {
-            // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
-            $query="SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
-                    FROM administradores
-                    WHERE codigoadmin = ?";
-            $params= array($this->responsable);
-            return Database::getRows($query, $params);
-        }
+    // Función para capturar el id del responsable
+    public function readOneResponsables() 
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $query="SELECT codigoadmin,CONCAT(nombre,' ',apellido) AS responsable,estado,dui,correo,telefono,direccion,usuario,clave,nombre,apellido,tipo
+                FROM administradores
+                WHERE codigoadmin = ?";
+        $params= array($this->responsable);
+        return Database::getRows($query, $params);
+    }
 
 }

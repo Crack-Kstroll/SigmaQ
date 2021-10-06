@@ -405,6 +405,27 @@ if (isset($_GET['action'])) {
                 }
             }
             break;
+        //Función para obtener los pedidos semanales de un cliente
+        case 'pedidosSemanales':
+            // Validamos el form donde se encuentran los inputs para poder obtener sus valores
+            $_POST = $cliente->validateForm($_POST);
+            //Validamos el ID del cliente
+            if($cliente->setId($_POST['id'])) {
+                // Ejecutamos la funcion para cargar los datos de la base
+                if ($result['dataset'] = $cliente->pedidosSemanales()) {
+                    $result['status'] = 1;
+                } else {
+                    // Se ejecuta si existe algun error en la base de datos 
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+            } else {
+                $result['exception'] = 'El ID del cliente es incorrecto';
+            }
+            break;
         default:
             // En caso de que el caso ingresado no sea ninguno de los anteriores se muestra el siguiente mensaje 
             $result['exception'] = 'Acción no disponible dentro de la sesión';

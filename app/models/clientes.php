@@ -511,4 +511,16 @@ class Cliente extends Validator
         return Database::getRows($query, $params);
     }
 
+    //Función para obtener los pedidos semanales de un usuario
+    public function pedidosSemanales() {
+        //Creamos la sentencia SQL
+        $query="SELECT to_date( CONCAT(EXTRACT(YEAR FROM fechaentregada), '-', EXTRACT (WEEK FROM fechaentregada)) , 'iyyy-iw' ) as semana, COUNT(idpedido) numero_pedidos
+                FROM pedido
+                WHERE cliente = ?
+                GROUP BY semana ORDER BY semana DESC LIMIT 12";
+        //Le pasamos los parámetros
+        $params = array($this->id);
+        return Database::getRows($query, $params);
+    }
+
 }

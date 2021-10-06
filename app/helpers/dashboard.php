@@ -31,7 +31,7 @@ class Dashboard_Page
             // Verificamos si el usuario no se encuentra en las siguientes urls
             if ($filename != 'index.php' && $filename != 'register.php') {
                 // Verificamos si el usuario autentico su usuario mediante la variable de sesion validador 
-                if (isset($_SESSION['validador2'])) {
+                if (isset($_SESSION['nombre'])) {
                     if ($_SESSION['tipo'] == 'Root') {
                         // Imprimimos el codigo dentro del formulario
                         print('
