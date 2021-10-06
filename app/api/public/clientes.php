@@ -10,6 +10,8 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase del modelo correspondiente.
     $cliente = new Cliente;
+    // Artributo para almacenar el numero de intentos
+    $_SESSION['intentos3'];
     // Se instancia la clase email.
     $email = new Correo;
     // Se instancia atributo para guardar el numero de intentos

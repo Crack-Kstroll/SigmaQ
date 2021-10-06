@@ -45,7 +45,6 @@ class Login_Page
     public static function footerTemplate($controller) 
     {
         print('
-                <script type="text/javascript" src="../../app/controllers/initialization.js"></script>
                 <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
                 <script type="text/javascript" src="../../app/helpers/components.js"></script>
                 <script type="text/javascript" src="../../app/controllers/'.$controller.'"></script>

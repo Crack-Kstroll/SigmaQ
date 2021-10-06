@@ -29,6 +29,7 @@ Login_Page::headerTemplateDashboard('Autenticación | Clientes');
         </form>
     </div>
 </div>
+<script type="text/javascript" src="../../app/controllers/initialization.js"></script>
 <?php
 Login_Page::footerTemplate('public/autentication.js');
 ?>
