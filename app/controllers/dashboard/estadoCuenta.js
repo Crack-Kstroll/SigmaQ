@@ -95,6 +95,7 @@ const fillTable = (dataset) => {
                     <a href="#" onclick="${metodo}(${row.idestadocuenta})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                 </td>
                 <td>
+                    <a href="../../app/reports/dashboard/estadoCuentaPorCliente.php?id=${row.codigoadmin}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de estado de cuenta por este cliente">assignment_ind</i></a>
                     <a href="#" onclick="parameterChart(${row.cliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico de % de cumplimiento de un índice">insert_chart</i></a>
                 </td>
             </tr>

@@ -495,4 +495,20 @@ class Cliente extends Validator
         return Database::getRows($sql, $params);
     }
 
+    //Función para cargar los pedidos pertenecientes a un cliente
+    public function readClientePedidos() 
+    {
+        // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base
+        $query="SELECT p.idpedido, p.responsable, CONCAT(a.nombre, ' ', a.apellido) as nombre_responsable, p.cliente, cl.usuario, p.pos, p.oc, p.cantidadsolicitada, p.descripcion, p.codigo, p.cantidadenviada, p.fechaentregada, p.fechaconfirmadaenvio, p.comentarios, p.fecharegistro, p.estado
+                FROM pedido p
+                INNER JOIN administradores a
+                    ON p.responsable = a.codigoadmin
+                INNER JOIN clientes cl
+                    ON p.cliente = cl.codigocliente
+                WHERE cliente = ? AND p.estado = true
+                ORDER BY p.estado DESC";
+        $params = array($this->cliente);
+        return Database::getRows($query, $params);
+    }
+
 }

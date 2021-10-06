@@ -116,7 +116,9 @@ const fillTable = (dataset) => {
                 <td>${row.fecharegistro}</th>
                 <td>${row.fechaentregada}</th>
                 <td>${row.fechaconfirmadaenvio}</th>
-                
+                <td>
+                    <a href="../../app/reports/dashboard/PedidosPorCliente.php?id=${row.cliente}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de estatus de pedido por este cliente">assignment_ind</i></a>
+                </td>
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.idpedido})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.idpedido})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>

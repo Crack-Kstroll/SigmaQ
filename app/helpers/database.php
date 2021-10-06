@@ -152,9 +152,9 @@ class Database
             case '23505':
                 self::$error = 'Dato duplicado, no se puede guardar';
                 break;
-            case '42P01':
-                self::$error = 'Nombre de tabla desconocido';
-                break;
+            // case '42P01':
+            //     self::$error = 'Nombre de tabla desconocido';
+            //     break;
             case '23503':
                 self::$error = 'Registro ocupado, no se puede eliminar';
                 break;
