@@ -66,6 +66,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de pedidos', 'dashboard');
 					<th>Fecha registrado</th>
 					<th>Fecha de entrega</th>
 					<th>Fecha de confirmación</th>
+					<th>Extras</th>
 					<th>Opciones</th>
 				</tr>
 			</thead>

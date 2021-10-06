@@ -97,6 +97,7 @@ const fillTable = (dataset) => {
                 <td>${row.fecharegistro}</th>
                 <td>${row.fechaentregada}</th>
                 <td>${row.fechaconfirmadaenvio}</th>
+                
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.idpedido})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.idpedido})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
