@@ -50,14 +50,15 @@ const fillTable = (dataset) => {
                 <td><i class="material-icons">${icon}</i></td>
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.codigocliente})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                    <a href="#" onclick="${metodo}(${row.codigocliente})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>
+                    <a href="#" onclick="${metodo}(${row.codigocliente})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${iconMetod}</i></a>                    
                 </td>
                 <td>
-                    <a href="#" onclick="parameterChart(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico de acciones más realizadas por un cliente">insert_chart</i></a>
-                    <a href="../../app/reports/dashboard/accionesCliente.php?id=${row.codigocliente}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de acciones realizadas por un cliente">assignment_ind</i></a>
+                <a href="#" onclick="parameterChart(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico de acciones más realizadas por un cliente">insert_chart</i></a>
+                <a href="#" onclick="pedidosCliente(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar gráfico de pedidos realizados semanalmente por un cliente">shopping_bag</i></a>
                 </td>
                 <td>
                     <a href="#" onclick="parameterReportModal(${row.codigocliente})"><i class="material-icons" data-toggle="tooltip" title="Generar reporte acciones por rango de fechas">collections_bookmark</i></a>
+                    <a href="../../app/reports/dashboard/accionesCliente.php?id=${row.codigocliente}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de acciones realizadas por un cliente">assignment_ind</i></a>
                 </td>
             </tr>
         `;
@@ -165,6 +166,61 @@ const parameterChart = (id) => {
             // Eliminamos el contenido del chart 
             document.getElementById('chart1').remove();
             console.log(response.exception);
+        }
+    }
+    ).catch(function (error) {
+        console.log(error);
+    });
+}
+
+//Función para hacer la request a la API para el gráfico de pedidos semanales por cliente
+const pedidosCliente = id => {
+    // Reseteamos el contenido del chart
+    resetChart('chart-container');
+    // Creamos un atributo para guardar el codigo HTML para generar el grafico
+    let content = '<canvas id="chart1"></canvas>';
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
+    //Abrimos el modal
+    $('#chart-modal').modal('show');
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Pedidos realizados semanalmente por un cliente';
+    // Creamos un form data para enviar el id 
+    const data = new FormData();
+    data.append('id', id);
+    // Hacemos una solicitud enviando como parametro la API y el nombre del case readOne para cargar los datos de un registro
+    fetch(API_CLIENTES + 'pedidosSemanales', {
+        method: 'post',
+        body: data
+    }).then(request => {
+        // Luego se compara si la respuesta de la API fue satisfactoria o no
+        if (request.ok) {
+            // console.log(request.text())
+            return request.json()
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+        // En ocurrir un error se muestra en la consola 
+    }).then(response => {
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+        if (response.status) {
+            // Se declaran los arreglos para guardar los datos por gráficar.
+            let semana = [];
+            let numero_pedidos = [];
+            // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+            response.dataset.map(function (row) {
+                // Se asignan los datos a los arreglos.
+                semana.push(row.accion);
+                numero_pedidos.push(row.cantidad);
+            });
+            // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+            barGraph('chart1', semana, numero_pedidos, 'Cantidad de pedidos realizados');
+        } else {
+            // Eliminamos el contenido del chart 
+            document.getElementById('chart1').remove();
+            //Cerramos el modal
+            $('#chart-modal').modal('hide');
+            sweetAlert(3, response.exception);
         }
     }
     ).catch(function (error) {
