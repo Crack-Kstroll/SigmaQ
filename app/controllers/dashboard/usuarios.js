@@ -126,6 +126,60 @@ document.getElementById('chart-form').addEventListener('submit', function (event
     myModal.show();
 });
 
+//Método manejador de eventos que se ejecuta cuando quiere cargar el gráfico
+document.getElementById('pedidosCompletadosForm').addEventListener('submit', event => {
+    //Evitamos que la página se recargue
+    event.preventDefault();
+    // Colocamos el titulo del modal 
+    document.getElementById('title-chart').textContent = 'Top 5 de usuarios con más pedidos completados';
+    //Se llama a la función que muestra el gráfico en el modal
+    graficarPedidosCompletados();
+    //Mostramos el modal
+    $('#chart-modal').modal('show');
+})
+
+// Función para mostrar los 5 usuarios que han realizado mas acciones en el sistema.
+const graficarPedidosCompletados = () => {
+    // Cerramos el formulario de opciones
+    $('#modal-form').modal('hide');
+    // Reseteamos el contenido del chart
+    resetChart('chart-container');
+    // Creamos un atributo para guardar el codigo HTML para generar el grafico
+    let content = '<canvas id="chart2"></canvas>';
+    // Se agrega el codigo HTML en el contenedor de la grafica.
+    document.getElementById('chart-container').innerHTML = content;
+    // Realizamos peticion a la API enviando el nombre del caso y metodo get debido a que la funcion de la API retorna datos
+    fetch(API_USUARIOS + 'topPedidosCompletados')
+    .then(request => {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            return request.json()
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).then(response => {
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+        if (response.status) {
+            // Se declaran los arreglos para guardar los datos por gráficar.
+            let usuarios = [];
+            let cantidad = [];
+            // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+            response.dataset.map(function (row) {
+                // Se asignan los datos a los arreglos.
+                usuarios.push(row.usuario);
+                cantidad.push(row.pedidos);
+            });
+            // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+            barGraph('chart2', usuarios, cantidad, 'Cantidad de acciones realizadas');
+        } else {
+            document.getElementById('chart2').remove();
+            console.log(response.exception);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
 // Función para cargar el grafico parametrizado.
 const parameterChart = (id) => {
     // Reseteamos el contenido del chart
