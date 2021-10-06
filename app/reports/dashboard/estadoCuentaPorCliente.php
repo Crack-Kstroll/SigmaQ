@@ -64,7 +64,7 @@ if ($categoria->setResponsable($_GET['id'])) {
                     $pdf->Cell(20);
                     $pdf->SetFont('Arial', 'B', 10);
                     // Imprimos el numero total de acciones realizado
-                    $pdf->Cell(280, 10, utf8_decode('Número total de acciones: ') .$numero, 0, 1, 'C');
+                    $pdf->Cell(385, 10, utf8_decode('Número total de estados de cuenta: ') .$numero, 0, 1, 'C');
                 } else {
                     // Colocamos el color del texto a mostrar
                     $pdf->SetTextColor(9,9,9);

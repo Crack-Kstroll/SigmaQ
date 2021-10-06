@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }).then(function (response) {
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción
         if (response.status) {
+            // Mostramos mensaje de autenticacion
             sweetAlert(4, 'Debe autenticarse para acceder al sistema');
         } else {
             // Se verifica si ocurrió un problema en la base de datos, de lo contrario se continua normalmente.
@@ -36,6 +37,7 @@ const iniciarSesion = () => {
         // Mostramos mensaje de validacion al usuario
         sweetAlert(3, 'Debe ingresar su usuario para continuar', null, 'Complete todos los campos');
     } else {
+        // Validamos si el usuario ingreso su contraseña
         if (document.getElementById("clave").value == '') {
             // Mostramos mensaje de validacion al usuario
             sweetAlert(3, 'Debe ingresar la contraseña para continuar', null, 'Complete todos los campos');
@@ -50,7 +52,13 @@ const iniciarSesion = () => {
                     request.json().then(function (response) {
                         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                         if (response.status) {
-                            sweetAlert(4, response.message, 'autentication.php','Contraseña correcta');
+                            if (response.message == 'Limite de intentos alcanzado usuario desactivado') {
+                                // Mostramos mensaje de exito
+                                sweetAlert(4, response.message, null,'Usuario desactivado');   
+                            } else {
+                                // Mostramos mensaje de exito
+                                sweetAlert(4, response.message, 'autentication.php','Contraseña correcta');
+                            }
                         } else {
                             sweetAlert(3, response.exception, null);
                         }

@@ -38,6 +38,7 @@ const readProfile = () => {
 
 // Función para obtener y mostrar las categorías existentes en la base.
 const modificarDatos = () => {
+    // Realizamos una peticion a la API enviando los elementos del form como parametro
     fetch(API_USUARIOS + 'editProfile', {
         method: 'post',
         body: new FormData(document.getElementById('save-form'))
@@ -54,7 +55,14 @@ const modificarDatos = () => {
                         // Si se completa la accion redirigimos al menu principal
                         sweetAlert(2, response.exception, 'main.php');
                     } else {
-                        sweetAlert(4, response.exception, null);
+                        // Validamos que el mensaje retornado sea el de datos duplicados
+                        if (response.exception == 'El registro ingresado esta en uso, no se puede guardar') {
+                            // Mostramos su respectiva alerta 
+                            sweetAlert(4, response.exception, null,'Usuario no disponible');    
+                        } else {
+                            // Mostramos mensaje de error del lado del servidor
+                            sweetAlert(2, response.exception, null);
+                        }
                     }
                 }
             });
@@ -68,6 +76,7 @@ const modificarDatos = () => {
 
 // Función para actualizar la contraseña del usuario que inicio sesion.
 const actualizarContraseña = () => {
+    // Realizamos una peticion a la API enviando los elementos del form como parametro
     fetch(API_USUARIOS + 'changePassword', {
         method: 'post',
         body: new FormData(document.getElementById('password-form'))

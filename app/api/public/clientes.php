@@ -141,7 +141,7 @@ if (isset($_GET['action'])) {
                 // Ejecutamos la funcion que verifica si la clave es correcta
                 if ($cliente->checkState($_POST['usuario']) == 1) {
                     // Creamos una variable de sesion para guardar los intentos del usuario
-                    $_SESSION['intentos'] = $_SESSION['intentos'] + 1;
+                    $_SESSION['intentos3'] = $_SESSION['intentos3'] + 1;
                     // Ejecutamos la funcion que verifica si el usuario esta activo
                     if ($cliente->checkPassword($_POST['clave'])) {
                         // Asignamos los valores a las variables de sesion de los datos obtenidos de las consultas
@@ -156,14 +156,14 @@ if (isset($_GET['action'])) {
                         $result['message'] = 'Debes autenticar tu identidad para continuar';
                         // En caso exista un error de validacion se mostrara su respectivo mensaje
                     } else {
-                        if ($_SESSION['intentos'] >= 3) {
+                        if ($_SESSION['intentos3'] >= 3) {
                             // Ejecutamos la funcion que verifica si la clave es correcta
                             if ($cliente->desactivateClient($_POST['usuario'])) {
                                 $result['status'] = 1;
                                 // Mostramos mensaje de alerta
                                 $result['message'] = 'Limite de intentos alcanzado usuario desactivado';
                                 // En caso exista un error de validacion se mostrara su respectivo mensaje
-                                $_SESSION['intentos'] = 0;
+                                $_SESSION['intentos3'] = 0;
                             } else {
                                 if (Database::getException()) {
                                     $result['exception'] = Database::getException();

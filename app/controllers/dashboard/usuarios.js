@@ -170,7 +170,7 @@ const graficarPedidosCompletados = () => {
                 cantidad.push(row.pedidos);
             });
             // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
-            barGraph('chart2', usuarios, cantidad, 'Cantidad de acciones realizadas');
+            barGraph('chart2', usuarios, cantidad, 'Cantidad de acciones realizadas','');
         } else {
             document.getElementById('chart2').remove();
             console.log(response.exception);

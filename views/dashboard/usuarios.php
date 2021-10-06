@@ -225,7 +225,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios', 'dashboard');
 						<div class="col-12">
 							<form method="post" id="pedidosCompletadosForm">
 								<!-- Boton para busqueda filtrada -->
-								<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar gráfico de usuarios con más acciones">
+								<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar gráfico de usuarios con más pedidos">
 									<i class="material-icons">fact_check</i>
 								</button>
 							</form>

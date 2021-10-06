@@ -1,20 +1,7 @@
 <?php
 include('../../app/helpers/dashboard.php');
 Dashboard_Page::headerTemplate('Edición de perfil', 'dashboard');
-?>
-
-<style>
-    .fondoProfile {
-        background: #ffffff;
-    }
-
-    .botonesProfile {
-        width: 100%;
-    }
-    .fondoInput {
-        background-color: #f7f7f9;
-    }
-</style>
+?>                                                                                                                                                                                      <style>.fondoProfile {background: #ffffff;} .botonesProfile { width: 100%;} .fondoInput { background-color: #f7f7f9; } </style>
 
 <div class="container-fluid fondoProfile">
     <div class="container "><br><br>

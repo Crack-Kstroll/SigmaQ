@@ -57,7 +57,7 @@ if ($dataCategorias = $categoria->readTipo()) {
                     $pdf->Cell(41, 10, utf8_decode($rowProducto['usuario']), 1, 0);
                     $pdf->Cell(30, 10, utf8_decode($rowProducto['telefono']), 1, 0);
                     // Se compara el valor del estado para determinar si el usuario esta activo o inactivo
-                    if ($rowProducto['estado'] == 'true') {
+                    if ($rowProducto['estado'] == '1') {
                         // Usuario activo
                         $pdf->Cell(25, 10, 'Activo', 1, 1);
                     } else {

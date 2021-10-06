@@ -169,10 +169,10 @@ if (isset($_GET['action'])) {
                         $result['exception'] = Database::getException();
                     }
                 } else {
-                    $result['exception'] = 'Correo incorrecto';
+                    $result['exception'] = 'El correo ingresado no es valido';
                 }
             } else {
-                $result['exception'] = 'Apellidos incorrectos';
+                $result['exception'] = 'El teléfono ingresado no es valido';
             }
             break;
         case 'changePassword': // Caso para cambiar la contraseña del usuario que ha iniciado sesion
