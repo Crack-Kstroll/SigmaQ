@@ -21,7 +21,7 @@ const fillTable = (dataset) => {
     // Recorremos el contenido del arreglo
     dataset.map(function (row) {
         // Definimos el icono a mostrar en la tabla segun el estado del registro
-        if (row.estado) {
+        if (row.estado == 1) {
             // Si el estado del usuario es activo se muestran los siguiente icono
             icon = 'lock_open'
             // Se asigna el nombre del metodo para deshabilitar el registro
@@ -76,7 +76,7 @@ const fillTable = (dataset) => {
         // Agregamos uno al contador por la fila agregada anteriormente al data
         contador = contador + 1;
         //Verificamos si el contador es igual a 5 eso significa que la data contiene 5 filas
-        if (contador == 9) {
+        if (contador == 6) {
             // Reseteamos el contador a 0
             contador = 0;
             // Agregamos el contenido de data al arreglo que contiene los datos content[]
@@ -381,7 +381,7 @@ const openDeleteDialog = (id) => {
 }
 
 // Función para establecer el registro a reactivar y abrir una caja de dialogo de confirmación.
-const openActivateDialog = () => {
+const openActivateDialog = (id) => {
     const data = new FormData();
     // Asignamos el valor de la data que se enviara a la API
     data.append('id', id);

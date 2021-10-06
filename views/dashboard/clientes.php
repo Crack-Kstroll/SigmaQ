@@ -16,7 +16,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes', 'dashboard');
 			<div class="row">
 				<div class="col-sm-7 col-md-4">
 					<!-- Campo de busqueda filtrada -->
-					<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por código de administrador" aria-label="search">
+					<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por código de cliente" aria-label="search">
 				</div>
 				<div class="col-sm-5 col-md-5">
 					<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
@@ -32,7 +32,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes', 'dashboard');
 		</form>
 	</div>
 	<!-- Seccion de tabla -->
-	<div class="container-fluid espacioSuperior">
+	<div class="container-fluid ">
 		<div class="table-responsive">
 			<table class="table borde">
 				<!-- Cabecera de la tabla -->
@@ -53,10 +53,11 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes', 'dashboard');
 				<tbody id="tbody-rows">
 				</tbody>
 			</table>
-		</div>
-		<div id="seccionPaginacion" class="clearfix">
+			<div id="seccionPaginacion" class="clearfix">
 			<!-- Seccion controladores tabla -->
-		</div> <!-- Cierra controladores de tabla -->
+		</div> 
+		</div>
+		<!-- Cierra controladores de tabla -->
 		<!-- Cierra seccion de tabla -->
 	</div>
 	<!-- Modal chart-modal -->

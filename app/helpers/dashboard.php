@@ -32,54 +32,104 @@ class Dashboard_Page
             if ($filename != 'index.php' && $filename != 'register.php') {
                 // Verificamos si el usuario autentico su usuario mediante la variable de sesion validador 
                 if (isset($_SESSION['validador2'])) {
-                    // Imprimimos el codigo dentro del formulario
-                    print('
-                    <input id="tipoUsuario" name="tipoUsuario" type="hidden" value="' . $_SESSION['tipo'] . '">
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
-                        <a class="navbar-brand" href="main.php">
-                            <img class="nav--logo" src="../../resources/img/brand/logoBlanco.png" alt="">
-                        </a>
-                        <div class="usuario--contenedor">
-                            <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
-                            <div class="usuario--opciones">
-                                <a onclick="logOut();" class="usuario--contenedor__enlace">Cerrar Sesión</a>
+                    if ($_SESSION['tipo'] == 'Root') {
+                        // Imprimimos el codigo dentro del formulario
+                        print('
+                        <input id="tipoUsuario" name="tipoUsuario" type="hidden" value="' . $_SESSION['tipo'] . '">
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
+                            <a class="navbar-brand" href="main.php">
+                                <img class="nav--logo" src="../../resources/img/brand/logoBlanco.png" alt="">
+                            </a>
+                            <div class="usuario--contenedor">
+                                <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
+                                <div class="usuario--opciones">
+                                    <a onclick="logOut();" class="usuario--contenedor__enlace">Cerrar Sesión</a>
+                                </div>
                             </div>
-                        </div>
-                    </nav>  
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navbar--options">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                            MENÚ
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarColor02">
-                            <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="main.php">Inicio
-                                <span class="sr-only">(current)</span>
+                        </nav>  
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navbar--options">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                                MENÚ
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarColor02">
+                                <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="main.php">Inicio
+                                    <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="profile.php">Configuración personal</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="usuarios.php">Usuarios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="clientes.php">Clientes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="indice.php">Índice de entrega</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="estado.php">Estados de cuenta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="pedidos.php">Status de pedidos</a>
+                                </li>
+                                
+                            </div>
+                        </nav>
+                        ');
+                    } else {
+                        if ($filename != 'usuarios.php' && $filename != 'clientes.php') {
+                            // Imprimimos el codigo dentro del formulario
+                            print('
+                            <input id="tipoUsuario" name="tipoUsuario" type="hidden" value="' . $_SESSION['tipo'] . '">
+                            <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar--header">
+                                <a class="navbar-brand" href="main.php">
+                                    <img class="nav--logo" src="../../resources/img/brand/logoBlanco.png" alt="">
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="profile.php">Configuración personal</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="usuarios.php">Usuarios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="clientes.php">Clientes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="indice.php">Índice de entrega</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="estado.php">Estados de cuenta</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="pedidos.php">Status de pedidos</a>
-                            </li>
-                            
-                        </div>
-                    </nav>
-                    ');
+                                <div class="usuario--contenedor">
+                                    <img src="../../resources/img/icons/usuario.png" alt="" class="nav--user__icon">
+                                    <div class="usuario--opciones">
+                                        <a onclick="logOut();" class="usuario--contenedor__enlace">Cerrar Sesión</a>
+                                    </div>
+                                </div>
+                            </nav>  
+                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navbar--options">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                    MENÚ
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarColor02">
+                                    <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="main.php">Inicio
+                                        <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="profile.php">Configuración personal</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="indice.php">Índice de entrega</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="estado.php">Estados de cuenta</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="pedidos.php">Status de pedidos</a>
+                                    </li>
+                                    
+                                </div>
+                            </nav>
+                            ');
+                        } else {
+                            // Redirigimos al usuario
+                            header('location: main.php');
+                        } 
+                    }
                 } else {
                     // Redirigimos al usuario
                     header('location: index.php');
