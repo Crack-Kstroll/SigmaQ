@@ -220,6 +220,19 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios', 'dashboard');
 					</div>
 					<div class="row centrarContenido">
 						<div class="col-12 opcionesEspacio">
+							<font SIZE=3 COLOR="black">Generar un gráfico del top 5 de los usuarios que han completado más pedidos.</font>
+						</div>
+						<div class="col-12">
+							<form method="post" id="pedidosCompletadosForm">
+								<!-- Boton para busqueda filtrada -->
+								<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar gráfico de usuarios con más acciones">
+									<i class="material-icons">fact_check</i>
+								</button>
+							</form>
+						</div>
+					</div>
+					<div class="row centrarContenido">
+						<div class="col-12 opcionesEspacio">
 							<font SIZE=3 COLOR="black">Generar un reporte de todos los usuarios registrados agrupados por tipo.</font>
 						</div>
 						<div class="col-12">

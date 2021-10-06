@@ -619,4 +619,15 @@ class Usuario extends Validator
         return Database::getRows($sql, $params);
     }
 
+    public function topPedidosCompletados() {
+        $query="SELECT a.usuario, count(p.idpedido) pedidos
+                FROM pedido p
+                INNER JOIN administradores a
+                    ON p.responsable = a.codigoadmin
+                WHERE p.fechaentregada <= CURRENT_DATE
+                GROUP BY a.usuario ORDER BY pedidos DESC LIMIT 5";
+        $params = null;
+        return Database::getRows($query, $params);
+    }
+
 }
