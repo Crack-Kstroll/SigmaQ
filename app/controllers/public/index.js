@@ -1,5 +1,6 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_CLIENT = '../../app/api/public/clientes.php?action=';
+const API_HISTORIAL = '../../app/api/dashboard/historial.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
@@ -56,6 +57,8 @@ const iniciarSesion = () => {
                                 // Mostramos mensaje de exito
                                 sweetAlert(4, response.message, null,'Usuario desactivado');   
                             } else {
+                                // Registramos la accion realizada por el cliente dentro del historial de acciones
+                                updateHistorial (API_HISTORIAL, 'Ingreso sus credenciales');
                                 // Mostramos mensaje de exito
                                 sweetAlert(4, response.message, 'autentication.php','Contraseña correcta');
                             }

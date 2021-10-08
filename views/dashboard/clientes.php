@@ -122,7 +122,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes', 'dashboard');
 				<div class="modal-body">
 					<div class="row centrarContenido">
 						<div class="col-12 opcionesEspacio">
-							<font SIZE=3 COLOR="black">Opcion de ingresar nuevos clientes a la base de datos del sistema.</font>
+							<font SIZE=3 COLOR="black">Opción de ingresar nuevos clientes a la base de datos del sistema.</font>
 						</div>
 						<div class="col-12">
 							<!-- Boton para ingresar nuevos registros -->

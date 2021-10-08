@@ -1,5 +1,6 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API = '../../app/api/public/clientes.php?action=';
+const API_HISTORIAL = '../../app/api/dashboard/historial.php?action=';
 
 // Función para mostrar un mensaje de confirmación al momento de cerrar sesión.
 const logOut = () => {
@@ -24,6 +25,8 @@ const logOut = () => {
                         if (response.status) {
                             // En caso de exito muestra mensaje de exito y redirige al login 
                             sweetAlert(1, response.message, 'index.php', 'Acción completada');
+                            // Registramos la accion realizada por el cliente dentro del historial de acciones
+                            updateHistorial (API_HISTORIAL, 'Cerro sesión');
                         } else {
                             sweetAlert(2, response.exception, null, 'Ha ocurrido un error');
                         }

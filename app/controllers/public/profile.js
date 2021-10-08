@@ -54,6 +54,8 @@ const modificarDatos = () => {
                     if (response.recaptcha) {
                         // Si se completa la accion redirigimos al menu principal
                         sweetAlert(2, response.exception, 'main.php');
+                        // Registramos la accion realizada por el cliente dentro del historial de acciones
+                        updateHistorial (API_HISTORIAL, 'Modifico su perfil');
                     } else {
                         // Validamos que el mensaje retornado sea el de datos duplicados
                         if (response.exception == 'El registro ingresado esta en uso, no se puede guardar') {

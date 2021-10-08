@@ -1,5 +1,7 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_USUARIOS = '../../app/api/public/clientes.php?action=';
+const API_HISTORIAL = '../../app/api/dashboard/historial.php?action=';
+
 // Atributo para almacenar la acción a realizar
 var accion = 0;
 
@@ -32,6 +34,8 @@ function enviarCorreo() {
                             document.getElementById('texto').innerHTML = 'VERIFICAR CÓDIGO';
                             // Colocamos uno a la accion para identificar que accion se debe realizar
                             accion = 1;
+                            // Registramos la accion realizada por el cliente dentro del historial de acciones
+                            updateHistorial (API_HISTORIAL, 'Autentico su usuario');
                         } else {
                             sweetAlert(4, response.exception, null);
                         }

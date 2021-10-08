@@ -5,6 +5,8 @@ const API_ESTADO = '../../app/api/public/estadoCuenta.php?action=';
 document.addEventListener('DOMContentLoaded', () => {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_ESTADO);
+    // Registramos la accion realizada por el cliente dentro del historial de acciones
+    updateHistorial (API_HISTORIAL, 'Consulto su estado de cuentas');
 })
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.

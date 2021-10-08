@@ -1,6 +1,6 @@
 <?php
 include('../../app/helpers/dashboard.php');
-Dashboard_Page::headerTemplate('Portal Clientes', 'dashboard');
+Dashboard_Page::headerTemplate('Sitio administradores', 'dashboard');
 ?>
 <div id="fondo" class="container-fluid">
 	<!-- Seccion de cabecera con imagen de fondo-->
@@ -21,7 +21,7 @@ Dashboard_Page::headerTemplate('Portal Clientes', 'dashboard');
 				<div class="row">
 					<div class="col-9 bajar">
 						<!-- Campo de busqueda filtrada -->
-						<input autocomplete="off" id="search" name="search" class="searchButtons form-control mr-sm-2 fondoInput" type="search" placeholder="Buscar por usuario, hora, empresa o acción" aria-label="search">
+						<input autocomplete="off" id="search" name="search" class="searchButtons form-control mr-sm-2 fondoInput" type="search" placeholder="Buscar por usuario, dispositivo, empresa o acción" aria-label="search">
 					</div>
 					<div class="col-3">
 						<!-- Boton para busqueda filtrada -->
@@ -30,23 +30,26 @@ Dashboard_Page::headerTemplate('Portal Clientes', 'dashboard');
 						</button>
 					</div>
 				</div>
-			</form><br>
-			<table class="table borde">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Usuario</th>
-						<th scope="col">Hora</th>
-						<th scope="col">Acción</th>
-						<th scope="col">Empresa</th>
-					</tr>
-				</thead>
-				<tbody id="tbody-rows">
-				</tbody>
-			</table>
-			<div id="seccionPaginacion" class="clearfix">
+			</form>
+			<div class="table-responsive">
+				<table class="table borde">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Usuario</th>
+							<th scope="col">Empresa</th>
+							<th scope="col">Acción realizada</th>
+							<th scope="col">Fecha y hora</th>
+							<th scope="col">Sistema operativo</th>
+							<th scope="col">Dispositivo</th>
+						</tr>
+					</thead>
+					<tbody id="tbody-rows">
+					</tbody>
+				</table>
+				<div id="seccionPaginacion" class="clearfix">
 				<!-- Seccion controladores tabla -->
-			</div><br> <!-- Cierra controladores de tabla -->
+				</div> <!-- Cierra controladores de tabla -->
+			</div>
 		</div>
 	</div> <!-- Cierra secion estadisticas -->
 </div> <!-- Cierra la seccion de contenido -->

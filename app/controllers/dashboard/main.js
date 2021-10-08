@@ -25,11 +25,12 @@ const fillTable = (dataset) => {
         // Definimos la estructura de las filas con los campos del dataset 
         data += `
         <tr>
-            <th scope="row">${row.idregistro}</th>
-            <td>${row.usuario}</td>	
-            <td>${row.hora}</td>
+            <td>${row.usuario}</td>
+            <td>${row.empresa}</td>		
             <td>${row.accion}</td>
-            <td>${row.empresa}</td>
+            <td>${row.hora}</td>
+            <td>${row.sistema}</td>
+            <td> ${row.dispositivo}</td>
         </tr>
         `;
         // Agregamos uno al contador por la fila agregada anteriormente al data

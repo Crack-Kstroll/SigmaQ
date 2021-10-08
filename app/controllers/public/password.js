@@ -1,5 +1,6 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_USUARIOS = '../../app/api/public/clientes.php?action=';
+const API_HISTORIAL = '../../app/api/dashboard/historial.php?action=';
 
 // Metodo para cargar todos los datos de la categoria seleccionada al presionar el boton
 function cambiarClave() {  
@@ -27,6 +28,8 @@ function cambiarClave() {
                                 if (response.status) {
                                     // En caso de iniciar sesion correctamente mostrar mensaje y redirigir al menu
                                     sweetAlert(1, response.message, 'index.php','Puedes iniciar sesión');
+                                    // Registramos la accion realizada por el cliente dentro del historial de acciones
+                                    updateHistorial (API_HISTORIAL, 'Recupero su contraseña');
                                 } else {
                                     sweetAlert(3, response.exception, null);
                                 }

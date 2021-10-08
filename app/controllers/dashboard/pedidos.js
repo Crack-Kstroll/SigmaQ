@@ -17,28 +17,18 @@ const opcionesUsuario = () => {
     let contenido = '';
     if (tipo == 'Root') {
         contenido += `
-            <div class="col-sm-6">
-                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Ingresar pedido</button></a>							
+        <form method="post" id="delete-form"><br>
+        <a class="dropdown-item" href="#">Borrar registros</a>
+            <div class="container">
+                <div class="col-sm-3">
+                    <button id="limpiar-tabla" class="centrarBoton btn btn-outline-info">
+                        <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
+                    </button>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <button id="limpiar-tabla"class="centrarBoton btn btn-outline-info">
-                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
-                </button>
-            </div>
-            <div class="col-sm-3">
-                <button id="mejoresClientes" class="centrarBoton btn btn-outline-info"> 
-                    <i class="material-icons" data-toggle="tooltip" title="Gráfico de top 5 clientes con más pedidos realizados">workspace_premium</i></button>
-                </button>
-            </div>
+        </form>
             `;
-    } else {
-        contenido += `
-            <div class="col-sm-4"></div>
-            <div class="col-sm-6">
-                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
-            </div>
-            `;
-    }
+    } 
     document.getElementById('seccionAgregar').innerHTML = contenido;
 
     //Agregando los controladores de evento para los botones del mantenimiento
@@ -93,17 +83,20 @@ const fillTable = (dataset) => {
         let toggleEnabledIcon = '';
         let iconToolTip = '';
         let metodo = '';
+        let estado = '';
         // Se verifica si el estado es activo o inactivo
         if (row.estado) {
             //Cuando el registro esté habilitado
             iconToolTip = 'Deshabilitar'
             toggleEnabledIcon = 'block'
             metodo = 'openDeleteDialog';
+            estado = 'visibility';
         } else {
             // Cuando este deshabilitado
             iconToolTip = 'Habilitar'
             toggleEnabledIcon = 'check_circle_outline'
             metodo = 'openActivateDialog';
+            estado = 'visibility_off';
         }
         data += `
             <tr>
@@ -116,11 +109,12 @@ const fillTable = (dataset) => {
                 <td>${row.fecharegistro}</th>
                 <td>${row.fechaentregada}</th>
                 <td>${row.fechaconfirmadaenvio}</th>
+                <td><a href="#"><i class="material-icons" data-toggle="tooltip"">${estado}</i></a></th>
                 <td>
                     <a href="../../app/reports/dashboard/PedidosPorCliente.php?id=${row.cliente}" target="_blank"><i class="material-icons" data-toggle="tooltip" title="Generar reporte de estatus de pedido por este cliente">assignment_ind</i></a>
                 </td>
                 <td>
-                    <a href="#" onclick="openUpdateDialog(${row.idpedido})" class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                    <a href="#" onclick="openUpdateDialog(${row.idpedido})" <i class="edit"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.idpedido})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>
                 </td>
             </tr>

@@ -8,7 +8,7 @@ if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión que se llenaron en el login.
     session_start();
     // Se instancia la clase del modelo correspondiente.
-    $cliente = new Historial;
+    $historial = new Historial;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'recaptcha' => 0, 'message' => null, 'exception' => null);
     // Se compara la acción a realizar cuando un usuario ha iniciado sesión.
@@ -16,7 +16,7 @@ if (isset($_GET['action'])) {
     {
         case 'readAll':  // Caso para cargar los datos todos los datos en la tabla
             // Ejecutamos metodo del modelo y asignamos el valor de su retorno a la variable dataset 
-            if ($result['dataset'] = $cliente->readAll()) { 
+            if ($result['dataset'] = $historial->readAll()) { 
                 $result['status'] = 1;
             } 
             else {
@@ -27,13 +27,28 @@ if (isset($_GET['action'])) {
                 }
             }
         break;
+        // Caso para insertar un registro
+        case 'create':
+            // Pasamos la información al modelo, mediante los setters
+            if ($historial->insertHistorial($_POST['accion'])) {
+                $result['status'] = 1;
+                // Se muestra un mensaje de exito en caso de registrarse correctamente
+                $result['message'] = 'Sisisisisi';
+            } else {
+                if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                } else {
+                        $result['exception'] = 'Ocurrió un problema al insertar el registro';
+                }
+            } 
+        break;
         case 'search':  // Caso para realizar la busqueda filtrada 
             // Validamos el form donde se encuentran los inputs para poder obtener sus valores
-            $_POST = $cliente->validateForm($_POST);
+            $_POST = $historial->validateForm($_POST);
             // Validamos si el input no esta vacio
             if ($_POST['search'] != '') {
                 // Ejecutamos la funcion para la busqueda filtrada enviando el contenido del input como parametro
-                if ($result['dataset'] = $cliente->searchHistorial($_POST['search'])) {
+                if ($result['dataset'] = $historial->searchHistorial($_POST['search'])) {
                     $result['status'] = 1;
                     // Obtenemos la cantidad de resultados retornados por la consulta
                     $rows = count($result['dataset']);

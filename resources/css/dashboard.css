@@ -265,7 +265,7 @@ p {
 }
 
 .letraBlancaEspacio {
-  padding-top: 105px;
+  padding-top: 120px;
   -webkit-text-stroke: 1px black;
   color: white;
 }
@@ -278,10 +278,10 @@ p {
 
 /****  SECCION DE INDEX DASHBOARD  ****/
 #fondo {
-  background-image: url(../../resources/img/background/fondoIndex.png);
+  background-image: url(../../resources/img/background/fondoMain.png);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 310px;
+  height: 400px;
   color: white;
   text-align: center;
   opacity: 0.75;

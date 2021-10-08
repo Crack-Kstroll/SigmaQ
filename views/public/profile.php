@@ -99,7 +99,6 @@ Public_Page::headerTemplate('SigmaQ - Configuración personal');
         </div>
     </div>
 </div>
-<script src="js/legends.js"></script>
 <script src="../../app/controllers/legends.js"></script>
 <?php
 Public_Page::footerTemplate('profile');

@@ -5,6 +5,8 @@ const API_PEDIDOS = '../../app/api/public/statusPedidos.php?action=';
 document.addEventListener('DOMContentLoaded', () => {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_PEDIDOS);
+    // Registramos la accion realizada por el cliente dentro del historial de acciones
+    updateHistorial (API_HISTORIAL, 'Consulto su estatus de pedidos');
 })
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.

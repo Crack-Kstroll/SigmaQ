@@ -223,41 +223,43 @@ const confirmClean = (api) => {
         closeOnClickOutside: false,
         closeOnEsc: false
     }).then(function (value) {
-        swal({
-            title: 'Advertencia',
-            text: '¿Confirma la acción a realizar?',
-            icon: 'info',
-            buttons: ['No', 'Sí'],
-            closeOnClickOutside: false,
-            closeOnEsc: false
-        }).then(function (value) {
-            if (value) {
-                /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
-                para acceder a los campos desde la API*/
-                fetch(api + 'deleteAll', {
-                    method: 'post'
-                }).then(function (request) {
-                    // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
-                    if (request.ok) {
-                        request.json().then(function (response) {
-                            // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-                            if (response.status) {
-                                // Borramos el contenido de la tabla 
-                                deleteTable();
-                                // Se muestra una alerta con el mensaje de exito
-                                sweetAlert(1, response.message, null);
-                            } else {
-                                sweetAlert(2, response.exception, null);
-                            }
-                        });
-                    } else {
-                        console.log(request.status + ' ' + request.statusText);
-                    }
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            }
-        });
+        if (value == true) {
+            swal({
+                title: 'Advertencia',
+                text: '¿Confirma la acción a realizar?',
+                icon: 'info',
+                buttons: ['No', 'Sí'],
+                closeOnClickOutside: false,
+                closeOnEsc: false
+            }).then(function (value) {
+                if (value) {
+                    /* Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el metodo post 
+                    para acceder a los campos desde la API*/
+                    fetch(api + 'deleteAll', {
+                        method: 'post'
+                    }).then(function (request) {
+                        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+                        if (request.ok) {
+                            request.json().then(function (response) {
+                                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                                if (response.status) {
+                                    // Borramos el contenido de la tabla 
+                                    deleteTable();
+                                    // Se muestra una alerta con el mensaje de exito
+                                    sweetAlert(1, response.message, null);
+                                } else {
+                                    sweetAlert(2, response.exception, null);
+                                }
+                            });
+                        } else {
+                            console.log(request.status + ' ' + request.statusText);
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            });  
+        } 
     });
 }
 
@@ -750,4 +752,32 @@ const lineGraph = (canvas, xAxis, yAxis, legend, title) => {
             }
         },
     })
+}
+
+// Funcion para guardar las accciones realizadas por los usuarios del sistema automaticamente en la base de datos
+const updateHistorial = (api, accion) => { 
+    // Creamos un form data para enviar el id 
+    const data = new FormData();
+    data.append('accion', accion);
+    // Se realiza una peticion a la API enviando como parametro el form que contiene los datos, el nombre del caso y el body con la accion realizada
+    fetch(api + 'create', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    console.log(response.message);
+                } else {
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
 }

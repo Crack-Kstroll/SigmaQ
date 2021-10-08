@@ -7,6 +7,8 @@ const API_INDICES = '../../app/api/public/indice.php?action=';
 document.addEventListener('DOMContentLoaded', () => {
     // Se manda a llamar la funcion para llenar la tabla con la API de parametro
     readRows(API_INDICES);
+    // Registramos la accion realizada por el cliente dentro del historial de acciones
+    updateHistorial (API_HISTORIAL, 'Consulto sus indices de entrega');
 })
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.

@@ -4,67 +4,80 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 ?>
 <div id="contenido" class="container-fluid fondo">
 	<!-- Seccion de contenido (contiene todo el contenido de la pagina) -->
-	<div class="container-fluid espacioSuperior">
+	<div class="container-fluid"><br><br>
 		<!-- Seccion titulo de pagina -->
 		<h5 class="tituloMto">Gestión de estados de cuenta</h5>
 		<img src="../../resources/img/utilities/division.png" class="separador" alt="">
-	</div> <!-- Cierra seccion titulo pagina -->
+	</div><br> <!-- Cierra seccion titulo pagina -->
+
 	<!-- Seccion de busqueda filtrada -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-8">
+			<div class="col-sm-12 col-lg-6 col-xl-8">
 				<form method="post" id="search-form">
 					<div class="row">
-						<div class="col-sm-5">
+						<div class="col-sm-8 col-lg-8">
 							<!-- Campo de busqueda filtrada -->
 							<input id="search" name="search" class="searchButtons form-control mr-sm-2" type="search" placeholder="Buscar por responsable, cliente u organización" aria-label="search">
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-4 col-lg-4">
 							<!-- Boton para busqueda filtrada -->
 							<button class="centrarBoton btn btn-outline-info my-2 my-sm-0" type="submit">
 								<i class="material-icons">search</i></button>
 							</button>
 						</div>
-					</div>
+					</div><br>
 				</form>
 			</div>
-			<div class="col-sm-4">
-				<div class="row">
-					<form method="post" id="delete-form">
+			<div class="col-sm-6 col-lg-3 col-xl-2">
+				<a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>
+			</div>
+			<div class="col-sm-6 col-lg-3 col-xl-2">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Opciones adicionales
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="#">Reportes</a>
+						<div class="container">
+							<form method="post" id="report-form">
+								<!-- Boton para sacar reporte -->
+								<button class="centrarBoton2 btn btn-outline-info" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte de estados de cuenta por cliente">
+									<i class="material-icons">assignment_ind</i>
+								</button>
+							</form>
+						</div><br>
 						<!-- Boton para ingresar nuevos registros -->
-						<div id="seccionAgregar" class="row">
-						</div>
-					</form>
-					<div class="col-sm-5">
-						<form method="post" id="report-form">
-							<!-- Boton para sacar reporte -->
-							<button class="centrarBoton2 btn btn-outline-info my-2 my-sm-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Generar reporte de estados de cuenta por cliente">
-								<i class="material-icons">assignment_ind</i>
-							</button>
+						<form method="post" id="delete-form">
+							<!-- Boton para ingresar nuevos registros -->
+							<div id="seccionAgregar">
+							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="table-responsive">
+
+	<div class="container-fluid"><br>
 		<table class="table borde">
 			<!-- Cabecera de la tabla -->
 			<thead class="thead-dark">
 				<tr>
 					<th>Responsable</th>
-                    <th>Sociedad</th>
-                    <th>Usuario</th>
-                    <th>Código</th>
-                    <th>Factura</th>
-                    <th>Asignación</th>
-                    <th>Fecha Contable</th>
-                    <th>Clase</th>
-                    <th>Fecha de Vencimiento</th>
-                    <th>Días Restantes</th>
-                    <th>Divisa</th>
-                    <th>Total General</th>
-                    <th>Acciones</th>
+					<th>Sociedad</th>
+					<th>Usuario</th>
+					<th>Código</th>
+					<th>Factura</th>
+					<th>Asignación</th>
+					<th>Fecha Contable</th>
+					<th>Clase</th>
+					<th>Fecha de Vencimiento</th>
+					<th>Días Restantes</th>
+					<th>Divisa</th>
+					<th>Total General</th>
+					<th>Estado</th>
+					<th>Acciones</th>
 					<th>Extras</th>
 				</tr>
 			</thead>
@@ -249,15 +262,15 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 				<div class="modal-body">
 					<!-- Se muestra una gráfica de barra con la cantidad de productos por categoría -->
 					<div id="chart-container" class="containter-fluid">
-					</div>  
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
 		</div>
-	</div>			
+	</div>
 
-<?php
-Dashboard_Page::footerTemplate('estadoCuenta');
-?>
+	<?php
+	Dashboard_Page::footerTemplate('estadoCuenta');
+	?>

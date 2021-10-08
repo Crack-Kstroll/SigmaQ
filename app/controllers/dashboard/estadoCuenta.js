@@ -22,24 +22,13 @@ const opcionesUsuario = () => {
     if (tipo == 'Root') {
         // Cargamos el contenido correspondiente a los usuarios root
         contenido += `
-            <div class="col-sm-8">
-                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
-            </div>
-            <div class="col-sm-4">
-                <button class="centrarBoton2  btn btn-outline-info my-2 my-sm-0">
-                    <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
-                </button>
-            </div>
-            `;
-    } else {
-        // Cargamos el contenido para los usuarios admins
-        contenido += `
-            <div class="col-sm-4"></div>
-            <div class="col-sm-6">
-                <a class="btn btn-info btn-md espaciolateral" onclick="openCreateDialog()" role="button" aria-disabled="true">Registrar Índice</button></a>							
-            </div>
-            `;
-    }
+            <a class="dropdown-item" href="#">Borrar registros</a>
+            <div class="container">
+            <button class="centrarBoton2  btn btn-outline-info">
+                <i class="material-icons" data-toggle="tooltip" title="Limpiar base">report</i></button>
+            </button>
+            </div>`;
+    } 
     // Agregamos el codigo al contenedor HTML
     document.getElementById('seccionAgregar').innerHTML = contenido;
 }
@@ -64,17 +53,20 @@ const fillTable = (dataset) => {
         let toggleEnabledIcon = '';
         let iconToolTip = '';
         let metodo = '';
+        let estado = '';
         // Se verifica el estado del estado de cuenta
         if (row.estado) {
             // Cuando el registro esté habilitado
             iconToolTip = 'Deshabilitar'
             toggleEnabledIcon = 'block';
             metodo = 'openDeleteDialog';
+            estado = 'visibility';
         } else {
             // Cuando el registro esté deshabilitado
             iconToolTip = 'Habilitar'
             toggleEnabledIcon = 'check_circle_outline'
             metodo = 'openActivateDialog';
+            estado = 'visibility_off';
         }
         data += `
             <tr>
@@ -89,7 +81,8 @@ const fillTable = (dataset) => {
                 <td>${row.vencimiento}</td>
                 <td>${row.diasrestantes}</td>
                 <td>${row.divisa}</td>
-                <td>${row.totalgeneral}</td>      
+                <td>${row.totalgeneral}</td>     
+                <td><a href="#"><i class="material-icons" data-toggle="tooltip"">${estado}</i></a></th> 
                 <td>
                     <a href="#" onclick="openUpdateDialog(${row.idestadocuenta})" class="edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="#" onclick="${metodo}(${row.idestadocuenta})" class="delete"><i class="material-icons" data-toggle="tooltip" title="${iconToolTip}">${toggleEnabledIcon}</i></a>

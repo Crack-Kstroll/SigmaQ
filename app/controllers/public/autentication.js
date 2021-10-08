@@ -1,5 +1,7 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_USUARIOS = '../../app/api/public/clientes.php?action=';
+const API_HISTORIAL = '../../app/api/dashboard/historial.php?action=';
+
 // Atributo para almacenar la acción a realizar
 var accion = 0;
 
@@ -54,11 +56,15 @@ function verificarCodigo() {
                     if (response.status) {
                         // Mostramos mensaje de exito
                         sweetAlert(1, response.message,'main.php','Acceso concedido');
+                         // Registramos la accion realizada por el cliente dentro del historial de acciones
+                         updateHistorial (API_HISTORIAL, 'Autentico su usuario');
                     } else {
                         // Validamos el numero de intentos al verificar el codigo
-                        if (accion == 3) {
+                        if (accion == 2) {
                             // Si el usuario se equivoca mas de 3 veces en el codigo redirigira al index
-                            sweetAlert(4, 'Has fallado 3 veces el código seras redirigido al login', 'index.php','Límite de intentos');          
+                            sweetAlert(4, 'Has fallado 3 veces el código seras redirigido al login', 'index.php','Límite de intentos');
+                             // Registramos la accion realizada por el cliente dentro del historial de acciones
+                             updateHistorial (API_HISTORIAL, 'Fallo la autenticación');          
                         } else {
                             sweetAlert(4, response.exception, null);
                             // Reutilizamos el atributo para llevar la cuenta de los intentos
