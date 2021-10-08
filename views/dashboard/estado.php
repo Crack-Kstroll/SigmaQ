@@ -108,12 +108,14 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 									<label>Responsable*</label>
 									<select id="responsable" name="responsable" class="form-control">
 									</select>
+									<div id="emailHelp" class="form-text">Responsable del estado de cuenta.</div>
 								</div>
 								<div class="form-group">
 									<label>Cliente*</label>
 									<div class="form-group">
 										<select id="cliente" name="cliente" class="form-control">
 										</select>
+										<div id="emailHelp" class="form-text">Cliente al que pertenece el estado de cuenta.</div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -125,10 +127,12 @@ Dashboard_Page::headerTemplate('Mantenimiento de estado', 'dashboard');
 								<div class="form-group">
 									<label>Código*</label>
 									<input autocomplete="off" id="codigo" name="codigo" type="number" class="form-control" required>
+									<div id="emailHelp" class="form-text">Identificador del estado de cuenta, campo unico.</div>
 								</div>
 								<div class="form-group">
 									<label>Factura*</label>
 									<input autocomplete="off" id="factura" name="factura" type="number" class="form-control" placeholder="" required>
+									<div id="emailHelp" class="form-text">Número de factura, campo unico.</div>
 								</div>
 								<div class="form-group">
 									<label>Asignación*</label>

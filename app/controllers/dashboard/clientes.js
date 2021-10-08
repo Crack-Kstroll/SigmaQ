@@ -396,26 +396,18 @@ const modalTitle = (id) => {
         titulo = 'Registrar cliente'; // En caso que no exista valor se registra
         clave = `<label  id="lblClave">Contraseña*</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-        <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;
+        <div id="emailHelp" class="form-text">Debes confirmar que tu contraseña sea correcta.</div>`;
         confirmar = `<label id="lblConfirmarClave">Confirmar clave*</label>
         <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="clave123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-        <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;
+        <div id="emailHelp" class="form-text">Debes confirmar que tu contraseña sea correcta.</div>`;
     } else {
         titulo = 'Actualizar cliente';  // En caso que exista se actualiza 
         clave = `<label  id="lblClave">Contraseña</label>
         <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
-        <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;
+        <div id="emailHelp" class="form-text">Debes confirmar que tu contraseña sea correcta.</div>`;
         confirmar = `<label id="lblConfirmarClave">Confirmar clave</label>
         <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
-        <div id="passwordHelpBlock" class="form-text">
-            La contraseña del usuario debe tener una longitud mínima de 6 caracteres y un máximo de 35
-        </div>`;
+        <div id="emailHelp" class="form-text">Debes confirmar que tu contraseña sea correcta.</div>`;
     }
     // Colocamos el titulo al elemento con el id modal-title
     document.getElementById('boxClave').innerHTML = clave;

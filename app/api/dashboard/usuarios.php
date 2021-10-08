@@ -256,10 +256,10 @@ if (isset($_GET['action'])) {
                             $result['exception'] = 'Correo incorrecto';
                         }
                     } else {
-                        $result['exception'] = 'Apellidos incorrectos';
+                        $result['exception'] = 'Apellido incorrecto';
                     }
                 } else {
-                    $result['exception'] = 'Nombres incorrectos';
+                    $result['exception'] = 'Nombre incorrecto';
                 }
                 break;
                 // Caso para cambiar la contraseña del usuario que ha iniciado sesion
@@ -302,7 +302,7 @@ if (isset($_GET['action'])) {
                             $result['exception'] = 'La clave actual es incorrecta';
                         }
                     } else {
-                        $result['exception'] = 'Complete los campos solicitados';
+                        $result['exception'] = 'Ingresa todas las contraseñas';
                     }
                 } else {
                     $result['exception'] = 'Error al asignar codigo admin';

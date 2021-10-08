@@ -150,34 +150,34 @@ const graficarPedidosCompletados = () => {
     document.getElementById('chart-container').innerHTML = content;
     // Realizamos peticion a la API enviando el nombre del caso y metodo get debido a que la funcion de la API retorna datos
     fetch(API_USUARIOS + 'topPedidosCompletados')
-    .then(request => {
-        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
-        if (request.ok) {
-            return request.json()
-        } else {
-            console.log(request.status + ' ' + request.statusText);
-        }
-    }).then(response => {
-        // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
-        if (response.status) {
-            // Se declaran los arreglos para guardar los datos por gráficar.
-            let usuarios = [];
-            let cantidad = [];
-            // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
-            response.dataset.map(function (row) {
-                // Se asignan los datos a los arreglos.
-                usuarios.push(row.usuario);
-                cantidad.push(row.pedidos);
-            });
-            // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
-            barGraph('chart2', usuarios, cantidad, 'Cantidad de acciones realizadas','');
-        } else {
-            document.getElementById('chart2').remove();
-            console.log(response.exception);
-        }
-    }).catch(function (error) {
-        console.log(error);
-    });
+        .then(request => {
+            // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+            if (request.ok) {
+                return request.json()
+            } else {
+                console.log(request.status + ' ' + request.statusText);
+            }
+        }).then(response => {
+            // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+            if (response.status) {
+                // Se declaran los arreglos para guardar los datos por gráficar.
+                let usuarios = [];
+                let cantidad = [];
+                // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                response.dataset.map(function (row) {
+                    // Se asignan los datos a los arreglos.
+                    usuarios.push(row.usuario);
+                    cantidad.push(row.pedidos);
+                });
+                // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                barGraph('chart2', usuarios, cantidad, 'Cantidad de acciones realizadas', '');
+            } else {
+                document.getElementById('chart2').remove();
+                console.log(response.exception);
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
 }
 
 // Función para cargar el grafico parametrizado.
@@ -252,7 +252,7 @@ const parameterReport = () => {
     // Verificamos si el usuario ha seleccionado el rango de fechas
     if (fechaInicial == '' || fechaFinal == '') {
         // Mostramos alerta con mensaje de validacion
-        sweetAlert(3, 'Seleccione el rango de fechas', null,'Complete los campos');
+        sweetAlert(3, 'Seleccione el rango de fechas', null, 'Complete los campos');
     } else {
         // Validamos si la fecha inicial no es mayor a la fecha final
         if (fechaInicial > fechaFinal) {
@@ -374,18 +374,49 @@ const openUpdateDialog = (id) => {
 
 // Función para definir si el metodo a ejecutar es guardar o actualizar.
 const saveData = () => {
-    // Se define atributo que almacenara la accion a realizar
-    let action = '';
-    // Se comprara el valor del input id 
-    if (document.getElementById('txtIdx').value) {
-        // En caso que exista se actualiza 
-        action = 'update';
+    // Validmos que los campos no esten vacios del lado del cliente
+    if (document.getElementById("txtId").value != '') {
+        if (document.getElementById("txtNombre").value != '') {
+            if (document.getElementById("txtTelefono").value != '') {
+                if (document.getElementById("txtCorreo").value != '') {
+                    if (document.getElementById("txtUsuario").value != '') {
+                        if (document.getElementById("txtApellido").value != '') {
+                            if (document.getElementById("txtDui").value != '') {
+                                // Se define atributo que almacenara la accion a realizar
+                                let action = '';
+                                // Se comprara el valor del input id 
+                                if (document.getElementById('txtIdx').value) {
+                                    // En caso que exista se actualiza 
+                                    action = 'update';
+                                } else {
+                                    // En caso que no se crea 
+                                    action = 'create';
+                                }
+                                // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
+                                saveRow(API_USUARIOS, action, 'save-form', 'staticBackdrop');
+                            } else {
+                                sweetAlert(2, 'No puedes dejar el campo de dui vacio', null),'Complete el campo solicitado';
+                            }
+                        } else {
+                            sweetAlert(2, 'No puedes dejar el campo de apellido vacio', null),'Complete el campo solicitado';
+                        }
+                    } else {
+                        sweetAlert(2, 'No puedes dejar el campo de usuario vacio', null),'Complete el campo solicitado';
+                    }
+                } else {
+                    sweetAlert(2, 'No puedes dejar el campo de correo vacio', null),'Complete el campo solicitado';
+                }
+            } else {
+                sweetAlert(2, 'No puedes dejar el campo de teléfono vacio', null),'Complete el campo solicitado';
+            }
+        } else {
+            sweetAlert(2, 'No puedes dejar el campo de nombre vacio', null),'Complete el campo solicitado';
+        }
     } else {
-        // En caso que no se crea 
-        action = 'create';
+        sweetAlert(2, 'No puedes dejar el campo de código vacio', null),'Complete el campo solicitado';
     }
-    // Ejecutamos la funcion saveRow de components y enviamos como parametro la API la accion a realizar el form para obtener los datos y el modal
-    saveRow(API_USUARIOS, action, 'save-form', 'staticBackdrop');
+
+    
 }
 
 // Funcion para ocultar el input del id del registro y para cambiar el titulo del modal depende de la accion a realizar.
@@ -405,19 +436,23 @@ const modalTitle = (id) => {
     // Compramos si el contenido el input esta vacio
     if (id == 0) {
         // En caso que no exista valor se registra
-        titulo = 'Registrar usuario'; 
+        titulo = 'Registrar usuario';
         clave = `<label  id="lblClave">Contraseña*</label>
-        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="Clave$123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>`;
+        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="Clave$123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+        <div id="emailHelp" class="form-text">Tu contraseña debe tener al menos 8 caracteres.</div>`;
         confirmar = `<label id="lblConfirmarClave">Confirmar clave*</label>
-        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="Clave$123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>`;
+        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="Clave$123" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+        <div id="emailHelp" class="form-text">Debes confirmar que tu contraseña sea correcta.</div>`;
     }
     else {
         // En caso que exista se actualiza 
-        titulo = 'Actualizar usuario';  
+        titulo = 'Actualizar usuario';
         clave = `<label  id="lblClave">Contraseña</label>
-        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">`;
+        <input id="txtClave" name="txtClave" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
+        <div id="emailHelp" class="form-text">Tu contraseña debe tener al menos 8 caracteres.</div>`;
         confirmar = `<label id="lblConfirmarClave">Confirmar clave</label>
-        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">`;
+        <input id="txtClave2" name="txtClave2" type="password" maxlength="35" aria-describedby="passwordHelpBlock" class="form-control" placeholder="" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo opcional">
+        <div id="emailHelp" class="form-text">Debes confirmar que tu contraseña sea correcta.</div>`;
     }
     // Colocamos el titulo al elemento con el id modal-title
     document.getElementById('boxClave').innerHTML = clave;

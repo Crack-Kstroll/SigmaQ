@@ -127,6 +127,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios', 'dashboard');
 								<div class="form-group">
 									<label>Código*</label>
 									<input id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="1" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="emailHelp" class="form-text">Identificador del usuario, campo unico.</div>
 								</div>
 								<div class="form-group">
 									<label>Nombre*</label>
@@ -134,15 +135,13 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios', 'dashboard');
 								</div>
 								<div class="form-group">
 									<label>Teléfono*</label>
-									<div class="form-group">
-										<input autocomplete="off" id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-									</div>
+									<input autocomplete="off" id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="emailHelp" class="form-text">Debes separar con un guión luego del cuarto dígito.</div>
 								</div>
 								<div class="form-group">
 									<label>Correo*</label>
-									<div class="form-group">
-										<input autocomplete="off" id="txtCorreo" name="txtCorreo" type="email" maxlength="60" class="form-control" placeholder="correo@example.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-									</div>
+									<input autocomplete="off" id="txtCorreo" name="txtCorreo" type="email" maxlength="60" class="form-control" placeholder="correo@example.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="emailHelp" class="form-text">Debes ingresar un correo valido.</div>
 								</div>
 								<div id="boxClave" class="form-group">
 								</div>
@@ -151,8 +150,8 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios', 'dashboard');
 								<div class="form-group">
 									<label>Usuario*</label>
 									<input autocomplete="off" id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="emailHelp" class="form-text">Su nombre de usuario debe ser unico.</div>
 								</div>
-
 								<div class="form-group">
 									<label>Apellido*</label>
 									<input autocomplete="off" id="txtApellido" name="txtApellido" maxlength="40" type="text" class="form-control" placeholder="Sanchez" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
@@ -160,6 +159,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios', 'dashboard');
 								<div class="form-group">
 									<label>DUI*</label>
 									<input autocomplete="off" id="txtDui" name="txtDui" type="text" maxlength="10" class="form-control" placeholder="01234567-8" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="emailHelp" class="form-text">Debes ingresar un guión luego del octavo carácter.</div>
 								</div>
 								<div class="form-group">
 									<label>Tipo usuario*</label>
@@ -168,6 +168,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de usuarios', 'dashboard');
 										<option value="1">Root</option>
 										<option value="2">Admin</option>
 									</select>
+									<div id="emailHelp" class="form-text">Según su tipo el usuario tendra diferentes privilegios.</div>
 								</div>
 								<div id="boxConfirmar" class="form-group">
 								</div>

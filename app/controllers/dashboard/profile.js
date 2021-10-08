@@ -63,7 +63,7 @@ const modificarDatos = () => {
                             sweetAlert(4, response.exception, null,'Usuario no disponible');    
                         } else {
                             // Mostramos mensaje de error del lado del servidor
-                            sweetAlert(2, response.exception, null);
+                            sweetAlert(3, response.exception, null,'Complete el campo solicitado');
                         }
                     }
                 }
@@ -96,7 +96,7 @@ const actualizarContraseña = () => {
                         sweetAlert(2, response.exception, 'main.php');
                     } else {
                         // Mostramos mensaje de error del lado del servidor
-                        sweetAlert(2, response.exception, null);
+                        sweetAlert(3, response.exception, null);
                     }
                 }
             });

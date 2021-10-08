@@ -91,35 +91,41 @@ Dashboard_Page::headerTemplate('Mantenimiento de índice', 'dashboard');
 							<div class="col-6 form-group">
 								<label>Organización*</label>
 								<input id="organizacion" name="organizacion" type="text" class="form-control" required>
+								<div id="emailHelp" class="form-text">Organización encargada de la entrega.</div>
 							</div>
 							<div class="col-6 form-group">
 								<label>Índice*</label>
 								<div class="form-group">
 									<input id="indice" name="indice" type="number" class="form-control" min="1" required>
+									<div id="emailHelp" class="form-text">Identificador del índice de entrega, campo unico.</div>
 								</div>
 							</div>
 							<div class="col-6 form-group">
 								<label>Compromiso total*</label>
 								<div class="form-group">
-									<input id="totalcompromiso" name="totalcompromiso" type="number" min="0" class="form-control" required>
+									<input id="totalcompromiso" name="totalcompromiso" type="number" min="0" max="10000" class="form-control" required>
+									<div id="emailHelp" class="form-text">Número de unidades totales de la entrega.</div>
 								</div>
 							</div>
 							<div class="col-6 form-group">
 								<label>Cumplidos*</label>
 								<div class="form-group">
-									<input id="cumplidos" name="cumplidos" type="number" min="0" class="form-control" required>
+									<input id="cumplidos" name="cumplidos" type="number" min="0" max="10000" class="form-control" required>
+									<div id="emailHelp" class="form-text">Número de unidades entragadas.</div>
 								</div>
 							</div>
 							<div class="col-6 form-group">
 								<label>No cumplidos*</label>
 								<div class="form-group">
-									<input id="nocumplidos" name="nocumplidos" type="number" min="0" class="form-control" required>
+									<input id="nocumplidos" name="nocumplidos" type="number" min="0" max="10000" class="form-control" required>
+									<div id="emailHelp" class="form-text">Número de unidades no entregadas.</div>
 								</div>
 							</div>
 							<div class="col-6 form-group">
 								<label>No considerados*</label>
 								<div class="form-group">
-									<input id="noconsiderados" name="noconsiderados" type="number" min="0" max="100" class="form-control" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" required />
+									<input id="noconsiderados" name="noconsiderados" type="number" min="0" max="10000" class="form-control" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" required />
+									<div id="emailHelp" class="form-text">Número de unidades no consideradas en la entrega.</div>
 								</div>
 							</div>
 							<div class="col-6 form-group">

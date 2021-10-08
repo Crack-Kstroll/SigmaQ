@@ -177,26 +177,24 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes', 'dashboard');
 								<div class="form-group">
 									<label>Código*</label>
 									<input autocomplete="off" id="txtId" name="txtId" type="number" min="1" max="999999" class="form-control" placeholder="000001" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="emailHelp" class="form-text">Identificador del cliente, campo unico.</div>
 								</div>
 								<div class="form-group">
 									<label>Usuario*</label>
 									<input autocomplete="off" id="txtUsuario" name="txtUsuario" maxlength="35" type="text" class="form-control" placeholder="User01" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-									<div id="phoneBlock" class="form-text">
-										El usuario puede contener numeros y letras su longitud máxima es 35 caracteres
-									</div>
+									<div id="emailHelp" class="form-text">Su nombre de usuario debe ser unico.</div>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
 									<label>Empresa*</label>
 									<input autocomplete="off" id="txtEmpresa" name="txtEmpresa" maxlength="40" type="text" class="form-control" placeholder="SigmaQ" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="emailHelp" class="form-text">Ingrese el nombre de la empresa del cliente.</div>
 								</div>
 								<div class="form-group">
 									<label>Teléfono*</label>
 									<input autocomplete="off" id="txtTelefono" name="txtTelefono" maxlength="9" type="text" class="form-control" placeholder="0000-0000" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
-									<div id="phoneBlock" class="form-text">
-										Debe iniciar con 2, 6 o 7 y debe tener una longitud de 9 caracteres incluyendo un guion luego del cuarto dígito
-									</div>
+									<div id="emailHelp" class="form-text">Debes separar con un guión luego del cuarto dígito.</div>
 								</div>
 							</div>
 						</div>
@@ -205,6 +203,7 @@ Dashboard_Page::headerTemplate('Mantenimiento de clientes', 'dashboard');
 								<div class="form-group">
 									<label>Correo*</label>
 									<input autocomplete="off" id="txtCorreo" name="txtCorreo" type="email" maxlength="60" class="form-control" placeholder="correo@example.com" data-bs-toggle="tooltip" data-bs-placement="top" title="Campo obligatorio" required>
+									<div id="emailHelp" class="form-text">Debes ingresar un correo valido.</div>
 								</div>
 							</div>
 						</div>
